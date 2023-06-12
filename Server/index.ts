@@ -1,0 +1,1 @@
+const grupo: number = 16
