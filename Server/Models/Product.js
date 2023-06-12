@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
 
 module.exports = (sequelize) => {
-  sequelize.define('dogs', {
+  sequelize.define('product', {
     id: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -54,13 +54,7 @@ module.exports = (sequelize) => {
         },
         value_name: {
           type: DataTypes.STRING
-        },
-        source: {
-          type: DataTypes.INTEGER
-        },
-        value_type: {
-          type: DataTypes.STRING
-        },
+        }
       }
     ],
     installments: {
@@ -88,10 +82,14 @@ module.exports = (sequelize) => {
       type: DataTypes.BOOLEAN
     },
     promotions: {
-      type: DataTypes.ARRAY
+      type: DataTypes.ARRAY(DataTypes.STRING),
+      allowNull: true,
+      validate : {
+        len:[4,8]
+      }
     }
   },
   {
-    timestamps: false
+    timestamps: true
   });
 };
