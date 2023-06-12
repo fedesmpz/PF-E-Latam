@@ -16,13 +16,21 @@ module.exports = (sequelize) => {
                 len: [1, 25],
             },
         },
+        surname: {
+            type: DataTypes.STRING(25),
+            unique: true,
+            allowNull: false,
+            validate: {
+              len: [1, 25],
+            },
+        },
         email: {
             type: DataTypes.STRING,
             unique: true,
             allowNull: false
         },
         password: {
-            type: DataTypes.STRING,
+            type: DataTypes.STRING, //Bcryptjs. Se encripta en la ruta
             allowNull: false
         },
         birth_date: {
@@ -31,11 +39,6 @@ module.exports = (sequelize) => {
         },
         profile_picture: {
             type: DataTypes.STRING,
-            allowNull: false
-        },
-        carrito_id: {
-            type: DataTypes.UUID,
-            unique: true,
             allowNull: false
         },
         country: {
