@@ -3,6 +3,7 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
+const { conn } = require('./db.js');
 
 const server = express();
 const port = 8000;
@@ -20,6 +21,10 @@ server.use((req, res, next) => {
   next();
 });
 
-server.listen(port, () => {
+
+conn.sync({ force: false }).then(() => {
+  console.log('DB conectada')
+  server.listen(port, () => {
   console.log(`Server is running on port ${port}`);
+});
 });
