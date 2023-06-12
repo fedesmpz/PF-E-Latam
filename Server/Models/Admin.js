@@ -55,7 +55,7 @@ module.exports = (sequelize) => {
           },
     },
     postal_code: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: false
     }
   },
