@@ -1,8 +1,7 @@
 const { DataTypes, UUID } = require("sequelize");
 
 module.exports = (sequelize) => {
-  sequelize.define(
-    "review",
+  sequelize.define('ReviewRating',
     {
       id: {
         type: DataTypes.UUID,
@@ -13,15 +12,29 @@ module.exports = (sequelize) => {
       },
 
       rating: {
-        type: DataTypes.ENUM('1', '2', '3', '4', '5'),
+        type: DataTypes.INTEGER,
+        validate:{
+          min: 1,
+          max: 5
+        },
         defaultValue: 1,
-        allowNull: false,
       },
 
       review_description: {
         type: DataTypes.TEXT,
         allowNull: false,
       },
+
+      productId: {
+        type: DataTypes.STRING,
+        references: {
+          model: 'products',
+          key: 'id',
+        },
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
+      },
+
     },
     { timestamps: true }
   );
