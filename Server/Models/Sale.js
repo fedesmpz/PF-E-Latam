@@ -6,7 +6,7 @@ module.exports = (sequelize) => {
       type: DataTypes.UUID,
       primaryKey: true,
       allowNull: false,
-      defaultValue: UUIDV4
+      defaultValue: DataTypes.UUIDV4
     },
     total_price: {
       type: DataTypes.DECIMAL,
