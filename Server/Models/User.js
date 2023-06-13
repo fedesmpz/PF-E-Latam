@@ -29,10 +29,6 @@ module.exports = (sequelize) => {
             unique: true,
             allowNull: false
         },
-        password: {
-            type: DataTypes.STRING, //Bcryptjs. Se encripta en la ruta
-            allowNull: false
-        },
         birth_date: {
             type: DataTypes.DATE,
             allowNull: false
@@ -65,6 +61,16 @@ module.exports = (sequelize) => {
         postal_code: {
             type: DataTypes.STRING,
             allowNull: false
+        },
+        admin:{
+            type: DataTypes.BOOLEAN,
+            allowNull: false
+
+        },
+        superAdmin:{
+            type: DataTypes.BOOLEAN,
+            allowNull: false
+
         }
     },
         { timestamps: true });
