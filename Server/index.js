@@ -22,7 +22,7 @@ server.use((req, res, next) => {
 });
 
 
-conn.sync({ force: false }).then(() => {
+conn.sync({ force: false }).then(() => { //ADVERTENCIA: NO PONER TRUE GABO POR FAVOR
   console.log('DB conectada')
   server.listen(port, () => {
   console.log(`Server is running on port ${port}`);

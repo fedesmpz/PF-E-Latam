@@ -88,6 +88,14 @@ module.exports = (sequelize) => {
       validate : {
         len:[4,8]
       }
+    },
+    categories: {
+      type: DataTypes.ENUM("computación", "celulares", "camaras", "video juegos", "electrónica"),
+      allowNull: true
+    },
+    country: {
+      type: DataTypes.STRING,
+      allowNull: true
     }
   },
   {
