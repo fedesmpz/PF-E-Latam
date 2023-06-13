@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
 
 module.exports = (sequelize) => {
-  sequelize.define('dogs', {
+  sequelize.define('product', {
     id: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -43,9 +43,8 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING
     },
     shipping: {
-      free_shipping: {
-        type: DataTypes.BOOLEAN
-      }
+      type: DataTypes.JSON,
+      defaultValue: false
     },
     attributes: [
       {
@@ -54,33 +53,29 @@ module.exports = (sequelize) => {
         },
         value_name: {
           type: DataTypes.STRING
-        },
-        source: {
-          type: DataTypes.INTEGER
-        },
-        value_type: {
-          type: DataTypes.STRING
-        },
+        }
       }
     ],
-    installments: {
-      quantity: {
-        type: DataTypes.INTEGER,
-        allowNull: false
-      },
-      amount: {
-        type: DataTypes.DECIMAL,
-        allowNull: false
-      },
-      rate: {
-        type: DataTypes.INTEGER,
-        allowNull: false
-      },
-      currency_id: {
-        type: DataTypes.STRING,
-        allowNull: false
+    installments: [
+      {
+        quantity: {
+          type: DataTypes.INTEGER,
+          allowNull: false
+        },
+        amount: {
+          type: DataTypes.DECIMAL,
+          allowNull: false
+        },
+        rate: {
+          type: DataTypes.INTEGER,
+          allowNull: false
+        },
+        currency_id: {
+          type: DataTypes.STRING,
+          allowNull: false
+        }
       }
-    },
+    ],
     catalog_listing: {
       type: DataTypes.BOOLEAN
     },
@@ -88,10 +83,14 @@ module.exports = (sequelize) => {
       type: DataTypes.BOOLEAN
     },
     promotions: {
-      type: DataTypes.ARRAY
+      type: DataTypes.ARRAY(DataTypes.STRING),
+      allowNull: true,
+      validate : {
+        len:[4,8]
+      }
     }
   },
   {
-    timestamps: false
+    timestamps: true
   });
 };
