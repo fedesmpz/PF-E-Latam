@@ -1,8 +1,7 @@
 const { Router } = require('express');
 const router = Router();
+const { getApiInfoHandler } = require('../Handlers/index')
 
-const getApiInfo = require('./get/getApiInfo')
-
-router.use('/', getApiInfo)
+router.get('/products', getApiInfoHandler)
 
 module.exports = router;
