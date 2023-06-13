@@ -15,3 +15,21 @@ URL_BASE_COL_CEL="https://run.mocky.io/v3/4fb0a576-f594-4f5c-b776-4a3922db38a0"
 URL_BASE_COL_CAM="https://run.mocky.io/v3/2c16600f-53d4-4a54-a203-b457a5a505ac"
 URL_BASE_COL_VIDEO="https://run.mocky.io/v3/21fb388e-5e08-4d2a-a873-cebfd1df65f9"
 URL_BASE_COL_ELEC="https://run.mocky.io/v3/218e803f-79e0-493c-99bc-b7c2d6e01676"
+
+module.exports = {
+    URL_BASE_AR_COMPUTERS,
+    URL_BASE_AR_CEL,
+    URL_BASE_AR_CAM,
+    URL_BASE_AR_VIDEO,
+    URL_BASE_AR_ELEC,
+    URL_BASE_MX_COMPUTERS,
+    URL_BASE_MX_CEL,
+    URL_BASE_MX_CAM,
+    URL_BASE_MX_VIDEO,
+    URL_BASE_MX_ELEC,
+    URL_BASE_COL_COMPUTERS,
+    URL_BASE_COL_CEL,
+    URL_BASE_COL_CAM,
+    URL_BASE_COL_VIDEO,
+    URL_BASE_COL_ELEC
+}
