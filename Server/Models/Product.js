@@ -29,9 +29,8 @@ module.exports = (sequelize) => {
     },
     sale_price: {
       type: DataTypes.BOOLEAN,
-      allowNull: false
     },
-    availiable_quantity: {
+    available_quantity: {
       type: DataTypes.INTEGER,
       allowNull: false
     },
@@ -43,54 +42,59 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING
     },
     shipping: {
-      type: DataTypes.JSON,
+      type: DataTypes.BOOLEAN,
       defaultValue: false
     },
-    attributes: [
-      {
-        name:{
-          type: DataTypes.STRING
-        },
-        value_name: {
-          type: DataTypes.STRING
-        }
-      }
-    ],
-    installments: [
-      {
-        quantity: {
-          type: DataTypes.INTEGER,
-          allowNull: false
-        },
-        amount: {
-          type: DataTypes.DECIMAL,
-          allowNull: false
-        },
-        rate: {
-          type: DataTypes.INTEGER,
-          allowNull: false
-        },
-        currency_id: {
-          type: DataTypes.STRING,
-          allowNull: false
-        }
-      }
-    ],
+    attributes: {
+      type: DataTypes.TEXT
+    },
+    // attributes: [
+    //   {
+    //     name:{
+    //       type: DataTypes.STRING
+    //     },
+    //     value: {
+    //       type: DataTypes.STRING
+    //     }
+    //   }
+    // ],
+
+    //POSIBLEMENTE SE PUEDA USAR PARA ORDENES
+    // installments: [
+    //   {
+    //     quantity: {
+    //       type: DataTypes.INTEGER,
+    //       allowNull: false
+    //     },
+    //     amount: {
+    //       type: DataTypes.DECIMAL,
+    //       allowNull: false
+    //     },
+    //     rate: {
+    //       type: DataTypes.INTEGER,
+    //       allowNull: false
+    //     },
+    //     currency_id: {
+    //       type: DataTypes.STRING,
+    //       allowNull: false
+    //     }
+    //   }
+    // ],
     catalog_listing: {
       type: DataTypes.BOOLEAN
     },
     discounts: {
-      type: DataTypes.BOOLEAN
+      type: DataTypes.STRING
     },
     promotions: {
       type: DataTypes.ARRAY(DataTypes.STRING),
       allowNull: true,
       validate : {
-        len:[4,8]
+        len:[0,10]
       }
     },
     categories: {
-      type: DataTypes.ENUM("computación", "celulares", "camaras", "video juegos", "electrónica"),
+      type: DataTypes.STRING,
       allowNull: true
     },
     country: {
