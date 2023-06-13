@@ -3,24 +3,20 @@ const { Product } = require("../../db")
 const {
     URL_BASE_AR_COMPUTERS,
     URL_BASE_AR_CEL,
-    URL_BASE_AR_CAM,
     URL_BASE_AR_VIDEO,
     URL_BASE_AR_ELEC,
     URL_BASE_MX_COMPUTERS,
     URL_BASE_MX_CEL,
-    URL_BASE_MX_CAM,
     URL_BASE_MX_VIDEO,
     URL_BASE_MX_ELEC,
-    URL_BASE_COL_COMPUTERS,
     URL_BASE_COL_CEL,
-    URL_BASE_COL_CAM,
     URL_BASE_COL_VIDEO,
     URL_BASE_COL_ELEC
 } = require("./endpoints");
 
 const getProducts = async () => {
     try {
-        const { data } = await axios.get(URL_BASE_AR_COMPUTERS);
+        const { data } = await axios.get(URL_BASE_COL_ELEC);
         const products = data.results?.map((product) => {
             const productAttributes = product?.attributes?.map((att) => {
                 return {
@@ -34,8 +30,8 @@ const getProducts = async () => {
                 title: product?.title,
                 thumbnail: product?.thumbnail,
                 original_price: product?.original_price ? product?.original_price : 0,
-                categories: "Computación",
-                country: "Argentina",
+                categories: "Electrónica",
+                country: "Colombia",
                 currency_id: product?.currency_id,
                 price: product?.price,
                 sale_price: false,
@@ -52,7 +48,8 @@ const getProducts = async () => {
         const savedProducts = await Product.bulkCreate(products)
         return savedProducts
     } catch (error) {
-        console.error(`Error en la solicitud GET: ${error.message}`);
+        console.error(`Error en la solicitud GET: ${error.message} ${error}`)
+        throw error;
     }
 }
 
