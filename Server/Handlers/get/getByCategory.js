@@ -1,4 +1,4 @@
-const getByCategory = require('../Controllers/get/getByCategory');
+const getByCategory = require('../../Controllers/get/getByCategory');
 
 const getByCategoryHandler = async (req, res, next) => {
     try {

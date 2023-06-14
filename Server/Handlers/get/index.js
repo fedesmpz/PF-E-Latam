@@ -1,4 +1,4 @@
-const getProducts = require("../Controllers/get/getApiInfo")
+const getProducts = require("../../Controllers/get/getApiInfo")
 
 const getApiInfoHandler = async (req, res) => {
     try {
