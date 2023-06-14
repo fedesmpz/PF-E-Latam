@@ -11,7 +11,7 @@ router.get("/", getApiInfoHandler);
 router.get("/:countryId", getByCountryHandler);
 router.get("/:countryId/:category", getByCategoryHandler);
 router.get("/:countryId/:category/:id", getProductByIdHandler)
-router.post("/:countryId/:category", postProductHandler)
+router.post("/new", postProductHandler)
 
 
 
