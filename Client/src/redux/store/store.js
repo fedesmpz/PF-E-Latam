@@ -1,8 +1,9 @@
+'use client'
 import { configureStore } from "@reduxjs/toolkit";
-import { slice } from "../slice/slice";
+import  slice  from "../slice/slice";
 
 export default configureStore({
     reducer: {
-        names: slice.reducer
+        names: slice
     }
 })
