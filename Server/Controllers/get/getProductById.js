@@ -8,7 +8,7 @@ try {
     }
     return product
 } catch (error) {
-    return ({error:"No se puedo encontrar el producto"})
+    return ({error:"No se pudo encontrar el producto"})
     
 }
 }
