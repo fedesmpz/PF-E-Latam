@@ -1,4 +1,5 @@
 'use client'
+import Link from "next/link";
 import { changeName } from "../redux/slice/slice";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -19,6 +20,9 @@ export default function App() {
 
   return (
     <div>
+
+      <Link href="/Home/Home" >Home</Link>
+
       <input value={nameChanged} onChange={upload} type="name" />
         <button onClick={modifyName} >change name</button>
           <h1>
