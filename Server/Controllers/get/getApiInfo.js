@@ -45,8 +45,9 @@ const getProducts = async () => {
                 promotions: product?.promotions,
             }
         })
-        const savedProducts = await Product.bulkCreate(products)
-        return savedProducts
+        // ESTO NO SE VUELVE A CORRER. YA ESTA POBLADA LA DB
+        // const savedProducts = await Product.bulkCreate(products)
+        // return savedProducts
     } catch (error) {
         console.error(`Error en la solicitud GET: ${error.message} ${error}`)
         throw error;
