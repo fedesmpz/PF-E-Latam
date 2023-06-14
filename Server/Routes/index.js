@@ -1,8 +1,9 @@
 const { Router } = require('express');
 const router = Router();
+const { getApiInfoHandler } = require('../Handlers/index')
+const { getByCountryHandler } = require("../Handlers/getByCountry")
 
-const getApiInfo = require('./get/getApiInfo')
-
-router.use('/', getApiInfo)
+router.get('/products', getApiInfoHandler);
+router.get("/products/:id", getByCountryHandler)
 
 module.exports = router;
