@@ -1,4 +1,4 @@
-const {registerUser} = require("../Controllers/post/registerUser")
+const {registerUser} = require("../../Controllers/post/registerUser")
 
 
 const registerHandler= async(req,res)=>{

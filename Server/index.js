@@ -8,7 +8,10 @@ const { conn } = require('./db.js');
 const server = express();
 const port = 8000;
 
-const productRoutes = require("../Server/Routes/index.js")
+const productRoutes = require("../Server/Routes/product.js")
+const userRoutes = require("../Server/Routes/user.js")
+const reviewRoutes = require("../Server/Routes/ratingAndReview.js")
+
 
 server.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
 server.use(bodyParser.json({ limit: '50mb' }));
@@ -23,7 +26,9 @@ server.use((req, res, next) => {
   next();
 });
 
-server.use("/", productRoutes)
+server.use("/products", productRoutes)
+server.use("/users",userRoutes)
+server.use("/reviews",reviewRoutes)
 
 
 conn.sync({ force: false }).then(() => { //ADVERTENCIA: NO PONER TRUE GABO POR FAVOR
