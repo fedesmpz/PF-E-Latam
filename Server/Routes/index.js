@@ -1,7 +1,9 @@
 const { Router } = require('express');
 const router = Router();
+
 const { getApiInfoHandler } = require('../Handlers/index')
 const { getByCountryHandler } = require("../Handlers/getByCountry")
+const { getProductByIdHandler } = require ("../Handlers/getProductById")
 const { registerHandler } = require("../Handlers/register")
 const { getUserByIdHandler } = require("../Handlers/getUserById")
 const getByCategoryHandler = require("../Handlers/getByCategory")
