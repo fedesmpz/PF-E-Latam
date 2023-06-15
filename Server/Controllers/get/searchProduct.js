@@ -12,7 +12,7 @@ try {
     return productFound
 
 } catch (error) {
-    return ({error:"No se puedo encontrar por ese dato"})
+    return ({error:"No se encontraron productos que coincidan con esta busqueda"})
 }
 }
 
