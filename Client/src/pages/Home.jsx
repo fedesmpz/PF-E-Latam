@@ -6,7 +6,7 @@ import Link from "next/link";
 import style from "./Styles/Home/Home.module.css"
 
 const Home = () => {
-    // const dispatch = useDispatch();
+
 
     // useEffect(() => {
     //     dispatch(axiosAllProducts())

@@ -1,14 +1,19 @@
 'use client'
-
 import Landing from '@/pages/Landing';
-import Home from '@/pages/Home';
-import CreateProduct from '@/pages/CreateProduct';
+import CreateProduct from "@/pages/CreateProduct";
+import { useRouter } from 'next/navigation';
+
 export default function App() {
+  
+  const router = useRouter()
+  
   return (
-      <div>
-          <Landing></Landing>
-          {/* <Home></Home> */}
-          {/* <CreateProduct></CreateProduct> */}
-      </div>
+    <div>
+
+        { router.pathname === "/CreateProduct" && <CreateProduct></CreateProduct> }
+
+        <Landing></Landing>
+
+    </div>
   )
 }

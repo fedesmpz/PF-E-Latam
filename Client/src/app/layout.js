@@ -4,13 +4,13 @@ import './globals.css'
 
 export default function RootLayout({ children }) {
   return (
-          <Providers>
-            <html lang="en">
+    <html lang="en">
               <title>e-Latam</title>
               <body>
-                {children}
+                <Providers>
+                  {children}
+                </Providers>
               </body>
             </html>
-          </Providers>
   )
 }
