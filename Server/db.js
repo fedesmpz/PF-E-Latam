@@ -48,12 +48,12 @@ Product.belongsToMany(User, {through: 'product_user'})
 User.belongsToMany(Product, {through: 'product_user'})
 PromotionCode.belongsToMany(User, {through: 'product_promotionCode'})
 User.belongsToMany(PromotionCode, {through: 'product_promotionCode'})
+Cart.belongsToMany(Product, { through: 'product_cart' });
+Product.belongsToMany(Cart, { through: 'product_cart' });
 
 //uno a muchos
 Product.hasMany(ReviewRating, { foreignKey: 'productId' });
 ReviewRating.belongsTo(Product, { foreignKey: 'productId' });
-Cart.hasMany(Product, { foreignKey: 'cartId' });
-Product.belongsTo(Cart, { foreignKey: 'cartId' });
 
 //uno a uno
 User.hasOne(Cart, { foreignKey: 'userId' });
