@@ -7,7 +7,7 @@ const { removeProductFromCartHandler } = require("../Handlers/delete/removeProdu
 
 router.get("/:id", getCartByIdHandler)
 router.post("/:id/products", addProductToCartHandler);
+// router.delete("/:cartId/products/", removeAllProductsHandler);
 router.delete("/:cartId/products/:productId", removeProductFromCartHandler);
-
 
 module.exports = router;
