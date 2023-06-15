@@ -3,7 +3,7 @@ const {searchProduct} = require ("../../Controllers/get/searchProduct")
 
 const searchProductHandler = async(req,res)=>{
     let {title,country} = req.query;
-   title = title.charAt(0).toUpperCase()+ title.slice(1)
+//    title = title.charAt(0).toUpperCase()+ title.slice(1)
   console.log(title)      
 try {
     const result = await searchProduct(title,country)

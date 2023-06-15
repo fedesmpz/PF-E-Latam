@@ -5,11 +5,9 @@ const { Op } = Sequelize;
 const searchProduct = async(title,country)=>{
 try {
     const productFound = await Product.findAll({
-        where:{
-            country:country,
-             title:{
-                [Op.like]: `%${title}%`}
-             }})
+        where: Sequelize.literal(`LOWER(title) LIKE LOWER('%${title}%') AND country = '${country}'`)
+           
+})
 
     return productFound
 
