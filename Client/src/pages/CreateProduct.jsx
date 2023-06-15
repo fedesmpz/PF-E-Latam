@@ -7,12 +7,7 @@ import validation from "../utils/formValidation"
 import Head from "next/head";
 
 const CreateProduct = () => {
-
-    <Head>
-        <title>admin/product/create</title>
-    </Head>
-
-    // const dispatch = useDispatch();
+    /* const dispatch = useDispatch(); */
 
     const [sale, setSale] = useState(false)
     const [shipping, setShipping] = useState(true)
@@ -104,7 +99,7 @@ const CreateProduct = () => {
     const handleSubmit = (event) => {
         event.preventDefault()
 
-        dispatch(/* crear id random y crear el producto */);
+        /* dispatch( crear id random y crear el producto ); */
 
         setErrors({
             id: "",
@@ -148,17 +143,15 @@ const CreateProduct = () => {
 
     return (
         <div className={style.container}>
-
             <Link href="/Home">
-                <button> Back </button>
+                <button className={style.backButton}> Back </button>
             </Link>
 
             <form onSubmit={handleSubmit}>
-
                 <div>
                     <label htmlFor="title">Titulo:</label>
                     <input type="text" name="title" value={newProduct.title} onChange={handleChange} />
-                    {errors.title && <p>{errors.name}</p>}
+                    {errors.title && <p>{errors.title}</p>}
                 </div>
 
                 <div>
@@ -224,32 +217,37 @@ const CreateProduct = () => {
 
                 <div>
                     <label htmlFor="promotions">Generar ticket de promoción:</label>
-                    <button onClick={() => handlePromotion()}>Crear ticket</button>
+                    <button type="button" onClick={() => handlePromotion()} className={style.submitButton}>Crear ticket</button>
                     <span>aqui esta tu codigo creado: {newProduct.promotions.join("")}</span>
                 </div>
 
                 <div>
                     <label htmlFor="categories">elija una categoría:</label>
-                    <select disabled={newProduct.categories} name="categories" id="categories">
+                    <select disabled={newProduct.categories} name="categories" id="categories" className={style.selectField}>
                         <option value="Computación"> Computación </option>
                         <option value="Celulares"> Celulares </option>
                         <option value="Electrónica"> Electrónica </option>
-                        <option value="Videojuegos"> Videojuegos </option>
+                        <option value="Moda"> Moda </option>
                     </select>
+                    {errors.categories && <p>{errors.categories}</p>}
                 </div>
 
                 <div>
                     <label htmlFor="country">elija un país:</label>
-                    <select disabled={newProduct.country} onChange={handleChange} name="country" id="country">
+                    <select disabled={newProduct.country} name="country" id="country" className={style.selectField}>
                         <option value="Argentina"> Argentina </option>
+                        <option value="Brasil"> Brasil </option>
+                        <option value="Chile"> Chile </option>
                         <option value="Colombia"> Colombia </option>
-                        <option value="Mexico"> Mexico </option>
+                        <option value="México"> México </option>
                     </select>
+                    {errors.country && <p>{errors.country}</p>}
                 </div>
 
+                <button type="submit" className={style.submitButton}> Submit </button>
             </form>
         </div>
     )
-};
+}
 
-export default CreateProduct;
+export default CreateProduct

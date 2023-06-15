@@ -1,23 +1,26 @@
-const {User}= require("../../db.js")
+const { User, Cart } = require("../../db.js");
 
-const deleteUser = async (id)=>{
- try {
-    const users= await User.destroy(
-      {where:{id:id} }
-    )
-    if(users ===1){
-      return id
+const deleteUser = async (id) => {
+  try {
+    const user = await User.findOne({ where: { id: id }, include: Cart });
+    if (!user) {
+      return "No se encontró usuario con el ID especificado. No se pudo eliminar";
     }
-    else{
-      return "No se encontro el id para eliminar"
-    }
- } catch (error) {
-    throw new Error('Error al eliminar el usuario');
- }
-    
-   
-  }
 
-  module.exports={
-    deleteUser
+    const cart = user.cart;
+    if (cart) {
+      await cart.destroy();
+    }
+
+    await user.destroy();
+
+    return id;
+  } catch (error) {
+    console.log(error)
+    throw new Error("Error al eliminar el usuario");
   }
+};
+
+module.exports = {
+  deleteUser,
+};
