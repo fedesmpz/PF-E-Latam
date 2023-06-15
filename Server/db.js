@@ -49,6 +49,22 @@ User.belongsToMany(Product, {through: 'product_user'})
 PromotionCode.belongsToMany(User, {through: 'product_promotionCode'})
 User.belongsToMany(PromotionCode, {through: 'product_promotionCode'})
 Cart.belongsToMany(Product, { through: 'product_cart' });
+// Cart.belongsToMany(Product, {
+//    through: {
+//      model: 'product_cart',
+//      unique: false,
+//      // Add the quantity attribute to the through table
+//      // If you've already added the column to the table, you can omit the defaultValue option
+//      defaults: {
+//        quantity: {
+//          type: DataTypes.INTEGER,
+//          allowNull: false,
+//          defaultValue: 1, // Set a default value if needed
+//        },
+//      },
+//    },
+//    foreignKey: 'cartId',
+//  });
 Product.belongsToMany(Cart, { through: 'product_cart' });
 
 //uno a muchos
