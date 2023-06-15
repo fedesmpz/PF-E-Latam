@@ -1,13 +1,13 @@
 import Link from "next/link"
-import style from "./styles/Landing/Landing.module.css"
+import NavbarPage from "./Components/NavbarPage"
+import style from "./Styles/Landing/Landing.module.css"
+
 
 const Landing = () => {
     return (
         <div className={style.body}>
-            <Link href="/Home" >Home</Link>
-            <h1>Esto es el Landing</h1>
+            <NavbarPage/>
         </div>
-
     )
 }
 
