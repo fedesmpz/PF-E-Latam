@@ -8,7 +8,6 @@ export const productSlice = createSlice({
             products: [],
             category: [],
             detail:[]
-        
         },
     reducers: {
         setProductByCountryCategory:(state, action) => {
@@ -24,6 +23,9 @@ export const productSlice = createSlice({
         },
         setSearchProduct:(state,action) => {
             state.products = action.payload;
+        },
+        setNewProduct:(state, action) => {
+            state.products = [...state.products, action.payload]
         }
     }
 })
