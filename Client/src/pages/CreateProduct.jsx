@@ -1,13 +1,15 @@
 'use client'
 import style from "./Styles/CreateProduct/CreateProduct.module.css"
 import { useState } from "react"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import Link from "next/link"
 import validation from "../utils/formValidation"
 import Head from "next/head";
+import Providers from "@/redux/provider/Provider"
 
 const CreateProduct = () => {
-    /* const dispatch = useDispatch(); */
+    const dispatch = useDispatch();
+    const name = useSelector(state => state.names.name)
 
     const [sale, setSale] = useState(false)
     const [shipping, setShipping] = useState(true)
@@ -143,6 +145,8 @@ const CreateProduct = () => {
 
     return (
         <div className={style.container}>
+
+            <h1>{name}</h1>
             <Link href="/Home">
                 <button className={style.backButton}> Back </button>
             </Link>
@@ -246,8 +250,18 @@ const CreateProduct = () => {
 
                 <button type="submit" className={style.submitButton}> Submit </button>
             </form>
+
         </div>
     )
 }
 
-export default CreateProduct
+const CreateProductWithProvider = () => {
+    return (
+        <Providers>
+            <CreateProduct />
+        </Providers>
+    );
+};
+
+
+export default CreateProductWithProvider;
