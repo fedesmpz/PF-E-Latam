@@ -1,18 +1,14 @@
 'use client'
 
-import Landing from "@/pages/Landing";
-import Home from "@/pages/Home";
-import { Router } from "next/router";
-
+import Landing from '@/pages/Landing';
+import Home from '@/pages/Home';
+import CreateProduct from '@/pages/CreateProduct';
 export default function App() {
-
-
   return (
       <div>
-        
-          <Home></Home>
           <Landing></Landing>
-
+          {/* <Home></Home> */}
+          {/* <CreateProduct></CreateProduct> */}
       </div>
   )
 }

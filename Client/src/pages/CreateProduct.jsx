@@ -1,9 +1,9 @@
 'use client'
-import style from "./CreateProduct.module.css"
+import style from "./Styles/CreateProduct/CreateProduct.module.css"
 import { useState } from "react"
 import { useDispatch } from "react-redux"
 import Link from "next/link"
-import validation from "../../utils/formValidation"
+import validation from "../utils/formValidation"
 import Head from "next/head";
 
 const CreateProduct = () => {
@@ -12,7 +12,7 @@ const CreateProduct = () => {
         <title>admin/product/create</title>
     </Head>
 
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
 
     const [sale, setSale] = useState(false)
     const [shipping, setShipping] = useState(true)
@@ -149,7 +149,7 @@ const CreateProduct = () => {
     return (
         <div className={style.container}>
 
-            <Link href="/">
+            <Link href="/Home">
                 <button> Back </button>
             </Link>
 
