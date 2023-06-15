@@ -3,16 +3,16 @@
 import Landing from "@/pages/Landing";
 import Home from "@/pages/Home";
 import { Router } from "next/router";
+import SearchBar from "@/pages/SearchBar";
 
 export default function App() {
 
 
   return (
       <div>
-        
-          <Home></Home>
-          <Landing></Landing>
-
+          <SearchBar/>
+          <Home/>
+          <Landing/>
       </div>
   )
 }

@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import axios from 'axios'
 
 export const productSlice = createSlice({
+        name: "products",
         initialState: {
         productByCountryCategory: []
     },
