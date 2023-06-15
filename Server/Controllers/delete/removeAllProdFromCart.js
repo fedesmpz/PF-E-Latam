@@ -9,6 +9,7 @@ const removeAllProdFromCart = async(cartId) => {
             throw new Error("El carrito no fue encontrado");
         }
         await cart.setProducts([]);
+        await cart.update({ current_state: "Empty"})
         return "Todos los productos fueron removidos del carrito";
     } catch(error) {
         throw error
