@@ -53,9 +53,9 @@ export const axiosAllProductsByCountries = () => (dispatch) => {
         .catch((error) => console.log(error));
 };
 
-export const axiosAllProductByCountryCategoryId = () => (dispatch) => {
+export const axiosAllProductByCountryCategoryId = (id, countryId, category) => (dispatch) => {
     axios
-        .get("http://localhost:8000/products/:countryId/:category/:id")
+        .get(`http://localhost:8000/products/${countryId}/${category}/${id}`)
         .then((response) => {
             dispatch(setAllProductsByCountriesCategoryId(response.data.data))
         })
