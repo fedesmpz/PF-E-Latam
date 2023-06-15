@@ -6,33 +6,33 @@ const getByCategory = async (countryId, category) => {
         
         if (countryId === "ARG") {
             if (category === "Computacion") {
-                products = await Product.findAll({ where: { country: "Argentina", categories: "Computación" } });
+                products = await Product.findAll({ where: { country: "Argentina", categories: "Computacion" } });
             } else if (category === "Celulares") {
                 products = await Product.findAll({ where: { country: "Argentina", categories: "Celulares" } });
             } else if (category === "Electronica") {
-                products = await Product.findAll({ where: { country: "Argentina", categories: "Electrónica" } });
+                products = await Product.findAll({ where: { country: "Argentina", categories: "Electronica" } });
             } else if (category === "Videojuegos") {
                 products = await Product.findAll({ where: { country: "Argentina", categories: "Videojuegos" } });
             }
 
         } else if (countryId === "COL") {
             if (category === "Computacion") {
-                products = await Product.findAll({ where: { country: "Colombia", categories: "Computación" } });
+                products = await Product.findAll({ where: { country: "Colombia", categories: "Computacion" } });
             } else if (category === "Celulares") {
                 products = await Product.findAll({ where: { country: "Colombia", categories: "Celulares" } });
             } else if (category === "Electronica") {
-                products = await Product.findAll({ where: { country: "Colombia", categories: "Electrónica" } });
+                products = await Product.findAll({ where: { country: "Colombia", categories: "Electronica" } });
             } else if (category === "Videojuegos") {
                 products = await Product.findAll({ where: { country: "Colombia", categories: "Videojuegos" } });
             }
 
         } else if (countryId === "MEX") {
             if (category === "Computacion") {
-                products = await Product.findAll({ where: { country: "Mexico", categories: "Computación" } });
+                products = await Product.findAll({ where: { country: "Mexico", categories: "Computacion" } });
             } else if (category === "Celulares") {
                 products = await Product.findAll({ where: { country: "Mexico", categories: "Celulares" } });
             } else if (category === "Electronica") {
-                products = await Product.findAll({ where: { country: "Mexico", categories: "Electrónica" } });
+                products = await Product.findAll({ where: { country: "Mexico", categories: "Electronica" } });
             } else if (category === "Videojuegos") {
                 products = await Product.findAll({ where: { country: "Mexico", categories: "Videojuegos" } });
             }
