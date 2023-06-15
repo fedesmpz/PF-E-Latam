@@ -69,9 +69,9 @@ export const axiosSearchProduct = () => (dispatch) => {
         .catch((error) => console.log(error));
 };
 
-export const postProduct = (productData) => (dispatch) => {
+export const postProduct = (payload) => {
     axios
-      .post("http://localhost:8000/products/new", productData)
+      .post("http://localhost:8000/products/new", payload)
       .then((response) => {
             console.log(response.data);
       })
