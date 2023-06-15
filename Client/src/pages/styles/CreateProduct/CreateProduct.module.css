@@ -1,3 +1,51 @@
 .container {
-    background-color: aqua;
-}
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid black;
+    border-radius: 20px;
+  }
+  
+  .container button {
+    margin-bottom: 10px;
+  }
+  
+  .container form div {
+    margin-bottom: 10px;
+  }
+  
+  .container form label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .container form input[type="text"],
+  .container form input[type="file"],
+  .container form select {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #ccc;
+  }
+  
+  .container form p {
+    margin-top: 5px;
+    color: red;
+  }
+  
+  .container form button {
+    padding: 5px 10px;
+    background-color: #062a50;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .container form button:hover {
+    background-color: #062a50;
+  }
+  
+  .container form span {
+    display: block;
+    margin-top: 5px;
+  }
+  
