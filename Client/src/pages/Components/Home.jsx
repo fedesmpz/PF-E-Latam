@@ -1,7 +1,7 @@
 'use client'
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { axiosAllProducts } from "../redux/slice/productSlice"
+import { axiosAllProducts } from "../../redux/slice/productSlice"
 import Link from "next/link";
 import style from "./Styles/Home/Home.module.css"
 

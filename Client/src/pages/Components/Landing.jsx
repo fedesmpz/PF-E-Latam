@@ -1,5 +1,5 @@
 import Link from "next/link"
-import NavbarPage from "./Components/NavbarPage"
+import NavbarPage from "./NavbarPage"
 import style from "./Styles/Landing/Landing.module.css"
 
 

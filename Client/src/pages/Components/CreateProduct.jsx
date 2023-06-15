@@ -3,7 +3,7 @@ import style from "./Styles/CreateProduct/CreateProduct.module.css"
 import { useState } from "react"
 import { useDispatch } from "react-redux"
 import Link from "next/link"
-import validation from "../utils/formValidation"
+import validation from "../../utils/formValidation"
 import Head from "next/head";
 
 const CreateProduct = () => {
