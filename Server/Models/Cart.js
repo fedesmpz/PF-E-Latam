@@ -13,22 +13,31 @@ module.exports = (sequelize) => {
     },
     current_state: {
       type: DataTypes.STRING,
+      defaultValue: "Empty",
       allowNull: false,
     },
     date: {
         type: DataTypes.DATE, //formato ISO 8601. ('YYYY-MM-DDTHH:mm:ssZ')
+        defaultValue: DataTypes.NOW,
         allowNull: false,
-      },
+    },
    products_id: {
-      type: DataTypes.STRING,
+      type: DataTypes.ARRAY(DataTypes.STRING),
+      defaultValue: [],
       allowNull: false,
     },
    total_price: {
       type: DataTypes.DECIMAL,
+      defaultValue: 0.00,
       allowNull: false,    
+    },
+    currency_id: {
+      type: DataTypes.STRING,
+      allowNull: false
     },
     promotion_active: {
         type: DataTypes.BOOLEAN,
+        defaultValue: false,
         allowNull: false,
       },
   }, { timestamps: true });
