@@ -64,11 +64,13 @@ module.exports = (sequelize) => {
         },
         admin:{
             type: DataTypes.BOOLEAN,
+            defaultValue: false,
             allowNull: false
 
         },
         superAdmin:{
             type: DataTypes.BOOLEAN,
+            defaultValue: false,
             allowNull: false
 
         }
