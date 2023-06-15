@@ -51,7 +51,7 @@ module.exports = (sequelize) => {
                 len: [3, 50],
             },
         },
-        adress: {
+        address: {
             type: DataTypes.STRING(50),
             allowNull: false,
             validate: {

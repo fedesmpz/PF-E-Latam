@@ -4,7 +4,7 @@ const { conn } = require("../../db.js");
 
 const { currencyIdValidator } = require("../../Utilities/currencyIdValidator.js")
 
-const registerUser= async(id,name,surname,email,birth_date,profile_picture,country,city,adress,postal_code)=>{
+const registerUser= async(id,name,surname,email,birth_date,profile_picture,country,city,address,postal_code)=>{
     const transaction = await conn.transaction();
     try {
         const userRegistered = await User.findOne({
@@ -14,7 +14,7 @@ const registerUser= async(id,name,surname,email,birth_date,profile_picture,count
             throw new Error('Ya existe un usuario registrado con ese email');
         }
         const newUser = await User.create({
-            id,name,surname,email,birth_date,profile_picture,country,city,adress,postal_code
+            id,name,surname,email,birth_date,profile_picture,country,city,address,postal_code
             },
             { transaction }
         )

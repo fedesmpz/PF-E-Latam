@@ -3,7 +3,7 @@ const {Cart}=require("../../db");
 
 const { currencyIdValidator } = require("../../Utilities/currencyIdValidator.js")
 
-const updateUser = async(id,name,surname,email,birth_date,profile_picture,country,city,adress,postal_code)=>{
+const updateUser = async(id,name,surname,email,birth_date,profile_picture,country,city,address,postal_code)=>{
 
 try {
     const user = await User.findByPk(id, {
@@ -17,7 +17,7 @@ try {
         currency_id = currencyIdValidator(country)
     };
     const updatedUser = await User.update({
-            name,surname,email,birth_date,profile_picture,country,city,adress,postal_code
+            name,surname,email,birth_date,profile_picture,country,city,address,postal_code
         },
         {where:{id:id}}
     );
