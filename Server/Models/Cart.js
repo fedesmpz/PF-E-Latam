@@ -21,11 +21,6 @@ module.exports = (sequelize) => {
         defaultValue: DataTypes.NOW,
         allowNull: false,
     },
-   products_id: {
-      type: DataTypes.ARRAY(DataTypes.STRING),
-      defaultValue: [],
-      allowNull: false,
-    },
    total_price: {
       type: DataTypes.DECIMAL,
       defaultValue: 0.00,

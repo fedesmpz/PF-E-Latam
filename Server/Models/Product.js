@@ -49,17 +49,6 @@ module.exports = (sequelize) => {
     attributes: {
       type: DataTypes.TEXT
     },
-    // attributes: [
-    //   {
-    //     name:{
-    //       type: DataTypes.STRING
-    //     },
-    //     value: {
-    //       type: DataTypes.STRING
-    //     }
-    //   }
-    // ],
-
     //POSIBLEMENTE SE PUEDA USAR PARA ORDENES
     // installments: [
     //   {
