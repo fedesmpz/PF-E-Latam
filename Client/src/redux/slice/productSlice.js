@@ -2,6 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 import axios from 'axios'
 
 export const productSlice = createSlice({
+    // se genera error a no colocarle nombre al slice le colocare products ya que es la funcion de este archivo traernos los productos
+    name: 'products',
         initialState: {
         productByCountryCategory: []
     },

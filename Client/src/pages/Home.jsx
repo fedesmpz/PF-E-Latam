@@ -2,20 +2,21 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { axiosAllProducts } from "../redux/slice/productSlice"
-import CreateProduct from "./CreateProduct/CreateProduct";
-import style from "./styles/Home/Home.module.css"
+import Link from "next/link";
+import style from "./Styles/Home/Home.module.css"
 
 const Home = () => {
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
 
-    useEffect(() => {
-        dispatch(axiosAllProducts())
-    })
+    // useEffect(() => {
+    //     dispatch(axiosAllProducts())
+    // })
 
     return (
         <div className={style.body}>
             <h1>Esto es el Home</h1>
-            <CreateProduct></CreateProduct>
+            <Link href="/" >Landing</Link>
+            <Link href="/CreateProduct" >CreateProduct</Link>
         </div>
     )
 }
