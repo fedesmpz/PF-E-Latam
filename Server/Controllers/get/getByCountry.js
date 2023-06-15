@@ -2,15 +2,15 @@ const { Product } = require("../../db");
 
 const getByCountry = async (countryId) => {
     try {
-        if(countryId === "ARG") {
+        if(countryId === "ARS") {
             const products = await Product.findAll({ where: { country: "Argentina" } })
             return products
         }
-        if(countryId === "COL") {
+        if(countryId === "COP") {
             const products = await Product.findAll({ where: { country: "Colombia" } })
             return products
         }
-        if(countryId === "MEX") {
+        if(countryId === "MXN") {
             const products = await Product.findAll({ where: { country: "Mexico" } })
             return products
         }

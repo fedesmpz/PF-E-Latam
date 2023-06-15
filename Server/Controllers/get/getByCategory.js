@@ -4,7 +4,7 @@ const getByCategory = async (countryId, category) => {
     try {
         let products;
         
-        if (countryId === "ARG") {
+        if (countryId === "ARS") {
             if (category === "Computacion") {
                 products = await Product.findAll({ where: { country: "Argentina", categories: "Computacion" } });
             } else if (category === "Celulares") {
@@ -15,7 +15,7 @@ const getByCategory = async (countryId, category) => {
                 products = await Product.findAll({ where: { country: "Argentina", categories: "Videojuegos" } });
             }
 
-        } else if (countryId === "COL") {
+        } else if (countryId === "COP") {
             if (category === "Computacion") {
                 products = await Product.findAll({ where: { country: "Colombia", categories: "Computacion" } });
             } else if (category === "Celulares") {
@@ -26,7 +26,7 @@ const getByCategory = async (countryId, category) => {
                 products = await Product.findAll({ where: { country: "Colombia", categories: "Videojuegos" } });
             }
 
-        } else if (countryId === "MEX") {
+        } else if (countryId === "MXN") {
             if (category === "Computacion") {
                 products = await Product.findAll({ where: { country: "Mexico", categories: "Computacion" } });
             } else if (category === "Celulares") {
