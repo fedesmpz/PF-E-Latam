@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { useDispatch } from "react-redux";
+import Providers from "@/redux/provider/Provider"
 
 const Product = ({ id,title, thumbnail, original_price, currency_id, price, sale_price }) => {
     const dispatch = useDispatch();
