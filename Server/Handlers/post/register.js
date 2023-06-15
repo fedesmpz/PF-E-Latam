@@ -1,6 +1,5 @@
 const {registerUser} = require("../../Controllers/post/registerUser")
 
-
 const registerHandler= async(req,res)=>{
     const{id,name,surname,email,birth_date,profile_picture,country,city,adress,postal_code,admin,superAdmin}= req.body
     try {
