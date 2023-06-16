@@ -38,7 +38,7 @@ export const productSlice = createSlice({
 })
 
 
-export const { setProductByCountryCategory, setAllProductsByCountries,setAllProductsByCountriesCategoryId, setSearchProduct, setAllProducts } = productSlice.actions;
+export const { setProductByCountryCategory, setAllProductsByCountries,setAllProductsByCountriesCategoryId, setSearchProduct, setAllProducts, setNewProduct } = productSlice.actions;
 
 export default productSlice.reducer;
 
