@@ -8,3 +8,4 @@ export default configureStore({
         products: productSlice.reducer
     }
 })
+

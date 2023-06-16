@@ -75,6 +75,8 @@ export const postProduct = (payload) => {
     axios
       .post("http://localhost:8000/products/new", payload)
       .then((response) => {
+            console.log(response.data.data)
+            dispatch(setNewProduct(response.data.data));
             console.log(response.data);
       })
       .catch((error) => console.log(error));
