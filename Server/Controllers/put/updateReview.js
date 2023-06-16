@@ -8,10 +8,10 @@ const updateReview = async (reviewID, updatedReview) => {
       throw new Error("No se encontró la reseña por ID");
     }
 
-    // Actualizar los datos de la reseña
-    review.property1 = updatedReview.property1;
-    review.property2 = updatedReview.property2;
-    // ...
+    //Actualizar los datos de la reseña
+    review.rating = updateReview.rating;
+    review.review_description = updateReview.review_description;
+    //...
 
     await review.save();
     return { message: "Reseña actualizada exitosamente" };

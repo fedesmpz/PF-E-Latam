@@ -1,4 +1,13 @@
-const { ReviewRating } = require("../../db");
+const { ReviewRating } = require('../../db');
+
+const getAllReviews = async (productId) => {
+  try {
+    const reviews = await ReviewRating.findAll({ where: { productId } });
+    return reviews;
+  } catch (error) {
+    throw new Error('No se pudieron obtener las reseñas');
+  }
+};
 
 const getReviewById = async (reviewID) => {
   try {
@@ -6,12 +15,15 @@ const getReviewById = async (reviewID) => {
     if (!review) {
       throw new Error('No se pudo encontrar la reseña por ID');
     }
-    
+
     return review;
   } catch (error) {
-    
+
     throw new Error(error.message);
   }
 };
 
-module.exports = { getReviewById };
+module.exports = {
+  getAllReviews,
+  getReviewById
+}

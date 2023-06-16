@@ -1,11 +1,10 @@
 const { ReviewRating } = require("../../db");
 
-const postReview = async ({ reviewID, rating, review_description, product}) => {
+const postReview = async ({ rating, review_description, product}) => {
   try {
     const createdReview = await ReviewRating.create({
-      reviewID,
       rating : rating,
-      review_description : '',
+      review_description,
       product
     });
     return createdReview;
