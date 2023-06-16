@@ -37,7 +37,7 @@ module.exports = (sequelize) => {
     },
     sold_quantity: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: true
     },
     official_store_name: {
       type: DataTypes.STRING
@@ -74,7 +74,7 @@ module.exports = (sequelize) => {
       type: DataTypes.BOOLEAN
     },
     discounts: {
-      type: DataTypes.STRING
+      type: DataTypes.INTEGER
     },
     promotions: {
       type: DataTypes.ARRAY(DataTypes.STRING),
