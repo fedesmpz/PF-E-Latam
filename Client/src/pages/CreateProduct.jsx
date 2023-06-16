@@ -6,41 +6,25 @@ import Link from "next/link"
 import validation from "../utils/formValidation"
 import Head from "next/head";
 import Providers from "@/redux/provider/Provider"
+import { postProduct } from "@/redux/slice/productSlice"
+
 
 const CreateProduct = () => {
     const dispatch = useDispatch();
     const name = useSelector(state => state.names.name)
 
-    const [sale, setSale] = useState(false)
-    const [shipping, setShipping] = useState(true)
+    let [valueDiscounts, setValueDiscounts] = useState(0)
+    const [selectedFileName, setSelectedFileName] = useState("");
 
     const [newProduct, setNewProduct] = useState({
         id: "",
         title: "",
         thumbnail: "",
         original_price: 0,
-        currency_id: "",
-        price: 0,
-        sale_price: sale,
-        available_quantity: 0,
-        oficial_store_name: "",
-        shipping: shipping,
-        attributes: "",
-        catalog_listing: true,
-        discounts: "",
-        promotions: [],
-        categories: "",
-        country: ""
-    })
-
-    const [errors, setErrors] = useState({
-        id: "",
-        title: "",
-        thumbnail: "",
-        original_price: 0,
-        currency_id: "",
+        currency_id: "ARS",
         price: 0,
         sale_price: false,
+        sold_quantity: 0,
         available_quantity: 0,
         oficial_store_name: "",
         shipping: true,
@@ -52,36 +36,77 @@ const CreateProduct = () => {
         country: ""
     })
 
-    const handlePromotion = (event) => {
-        const prop = event.target.name
 
-        const value = dispatch(/* funcion del back */)
+    const [errors, setErrors] = useState({
+        id: "",
+        title: "",
+        original_price: "",
+        currency_id: "",
+        price: "",
+        available_quantity: "",
+        oficial_store_name: "",
+        attributes: "",
+        discounts: "",
+        promotions: [],
+        categories: "",
+        country: ""
+    })
+
+    const handleCategoriesChange = (event) => {
+        let value = event.target.value
 
         setNewProduct({
             ...newProduct,
-            [prop]: value
+            categories: value
+        })
+    }
+
+    const handleCountryChange = (event) => {
+        let value = event.target.value
+
+        value = (value === "Argentina") ? "ARS"
+            : (value === "México") ? "MXN"
+                : (value === "Colombia") ? "COP"
+                    : value;
+
+
+        setNewProduct({
+            ...newProduct,
+            currency_id: value
         })
     }
 
     const handleCheck = (event) => {
-        const prop = event.target.name
-        const value = event.target.value
+        let prop = event.target.name
+        let value = event.target.checked
 
-        prop === sale
-            ? setSale({
-                ...sale,
-                [prop]: value
+        prop === "sale_price"
+            ?
+            setNewProduct({
+                ...newProduct,
+                sale_price: value
             })
-            : setShipping({
-                ...shipping,
-                [prop]: value
+            :
+            setNewProduct({
+                ...newProduct,
+                shipping: value
             })
 
     }
 
     const handleChange = (event) => {
+
         const prop = event.target.name
         const value = event.target.value
+
+        if (prop === "thumbnail") {
+            const file = event.target.files[0];
+            setNewProduct({
+                ...newProduct,
+                thumbnail: file,
+            })
+            setSelectedFileName(file.name)
+        }
 
         setNewProduct({
             ...newProduct,
@@ -95,13 +120,22 @@ const CreateProduct = () => {
 
         setErrors(validate)
 
+        if (prop === "discounts") {
+
+            let newValue = (newProduct.original_price * value) / 100
+            newValue = newProduct.original_price - newValue
+
+            setValueDiscounts(newValue)
+        }
+
     }
 
+    console.log(newProduct.categories);
 
     const handleSubmit = (event) => {
         event.preventDefault()
-
-        /* dispatch( crear id random y crear el producto ); */
+        console.log(newProduct);
+        dispatch(postProduct(newProduct))
 
         setErrors({
             id: "",
@@ -152,6 +186,17 @@ const CreateProduct = () => {
             </Link>
 
             <form onSubmit={handleSubmit}>
+
+                <div>
+                    <label htmlFor="country">elija un país:</label>
+                    <select onChange={handleCountryChange} disabled={newProduct.country} name="country" id="country" className={style.selectField}>
+                        <option value="Argentina"> Argentina </option>
+                        <option value="Colombia"> Colombia </option>
+                        <option value="México"> México </option>
+                    </select>
+                    {errors.country && <p>{errors.country}</p>}
+                </div>
+
                 <div>
                     <label htmlFor="title">Titulo:</label>
                     <input type="text" name="title" value={newProduct.title} onChange={handleChange} />
@@ -161,11 +206,12 @@ const CreateProduct = () => {
                 <div>
                     <label htmlFor="thumbnail">Imagen:</label>
                     <input type="file" name="thumbnail" value={newProduct.thumbnail} onChange={handleChange} />
+                    {selectedFileName && <p>{selectedFileName}</p>}
                     {errors.thumbnail && <p>{errors.thumbnail}</p>}
                 </div>
 
                 <div>
-                    <label htmlFor="original_price">precio:</label>
+                    <span>{newProduct.currency_id}</span><label htmlFor="original_price">precio:</label>
                     <input type="text" name="original_price" value={newProduct.original_price} onChange={handleChange} />
                     {errors.original_price && <p>{errors.original_price}</p>}
                 </div>
@@ -178,9 +224,9 @@ const CreateProduct = () => {
 
                 <div>
                     <label htmlFor="sale_price">Quiere colocar este producto en oferta?:</label>
-                    <input type="checkbox" value={newProduct.sale_price} onChange={handleCheck} />
+                    <input type="checkbox" checked={newProduct.sale_price} name="sale_price" onChange={handleCheck} />
                     {
-                        sale &&
+                        newProduct.sale_price &&
                         <div>
                             <label htmlFor="price">indique el precio de oferta:</label>
                             <input type="text" name="price" value={newProduct.price} onChange={handleChange} />
@@ -191,7 +237,7 @@ const CreateProduct = () => {
 
                 <div>
                     <label htmlFor="available_quantity">Cantidad de productos en stock:</label>
-                    <input type="text" name="available_quantity" value={newProduct.available_quantity} onChange={handleChange} />
+                    <input type="number" name="available_quantity" value={newProduct.available_quantity} onChange={handleChange} />
                     {errors.available_quantity && <p>{errors.available_quantity}</p>}
                 </div>
 
@@ -209,43 +255,32 @@ const CreateProduct = () => {
 
                 <div>
                     <label htmlFor="shipping">envío gratis:</label>
-                    <input type="checkbox" name="shipping" value={newProduct.shipping} onChange={handleCheck} />
+                    <input type="checkbox" name="shipping" checked={newProduct.shipping} onChange={handleCheck} />
                     {errors.shipping && <p>{errors.shipping}</p>}
                 </div>
 
                 <div>
                     <label htmlFor="discounts">Descuento:</label>
-                    <input type="checkbox" name="discounts" value={newProduct.discounts} onChange={handleChange} />
+                    <span>%</span><input type="text" name="discounts" value={newProduct.discounts} onChange={handleChange} />
+                    {!errors.discounts && <strong>{`Precio del producto con descuento aplicado: ${valueDiscounts}`}</strong>}
                     {errors.discounts && <p>{errors.discounts}</p>}
                 </div>
 
-                <div>
+                {/* <div>
                     <label htmlFor="promotions">Generar ticket de promoción:</label>
                     <button type="button" onClick={() => handlePromotion()} className={style.submitButton}>Crear ticket</button>
                     <span>aqui esta tu codigo creado: {newProduct.promotions.join("")}</span>
-                </div>
+                </div> */}
 
                 <div>
                     <label htmlFor="categories">elija una categoría:</label>
-                    <select disabled={newProduct.categories} name="categories" id="categories" className={style.selectField}>
+                    <select onChange={handleCategoriesChange} name="categories" id="categories" className={style.selectField}>
                         <option value="Computación"> Computación </option>
                         <option value="Celulares"> Celulares </option>
                         <option value="Electrónica"> Electrónica </option>
-                        <option value="Moda"> Moda </option>
+                        <option value="Electrónica"> Videojuegos </option>
                     </select>
                     {errors.categories && <p>{errors.categories}</p>}
-                </div>
-
-                <div>
-                    <label htmlFor="country">elija un país:</label>
-                    <select disabled={newProduct.country} name="country" id="country" className={style.selectField}>
-                        <option value="Argentina"> Argentina </option>
-                        <option value="Brasil"> Brasil </option>
-                        <option value="Chile"> Chile </option>
-                        <option value="Colombia"> Colombia </option>
-                        <option value="México"> México </option>
-                    </select>
-                    {errors.country && <p>{errors.country}</p>}
                 </div>
 
                 <button type="submit" className={style.submitButton}> Submit </button>

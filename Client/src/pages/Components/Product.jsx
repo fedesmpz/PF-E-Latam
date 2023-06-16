@@ -1,39 +1,35 @@
 import Link from "next/link";
-import { useDispatch } from "react-redux";
-import Providers from "@/redux/provider/Provider"
 
-const Product = ({ id,title, thumbnail, original_price, currency_id, price, sale_price }) => {
-    const dispatch = useDispatch();
+const Product = ({ id,title, thumbnail, original_price, currency_id, price, sale_price, categories }) => {
 
-    const handleClick = () => {
-        dispatch(irAlosDetalles(id)); //no esta creada la funcion todavia
-    };
+  let countryID;
+
+  if (currency_id === "ARS") {
+    countryID = "ARG";
+  } else if (currency_id === "COP") {
+    countryID = "COL";
+  } else if (currency_id === "MXN") {
+    countryID = "MEX";
+  }
 
     return (
-        <div onClick={handleClick}>
-         <Link href={`/produts/${id}`}>    
-            <img src={thumbnail} alt={title} /></Link>
-            <h2>{title}</h2>
-            {sale_price ? (
-                <>
-                    <p>Precio original: <s>{original_price}{currency_id}</s></p>
-                    <p>Oferta: {price}{currency_id}</p>
-                </>
-            ) : (
-                <p>Precio: {original_price}{currency_id}</p>
-            )}
-       
+        <div>
+        <Link href={`/DetailProduct/[countryId]/[categories]/[id]`} as={`/DetailProduct/${countryID}/${categories}/${id}`}>
+            <div>
+                <img src={thumbnail} alt={title} />
+                <h2>{title}</h2>
+                {sale_price ? (
+                    <>
+                        <p>Precio original: <s>{original_price}{currency_id}</s></p>
+                        <p>Oferta: {price}{currency_id}</p>
+                    </>
+                ) : (
+                    <p>Precio: {original_price}{currency_id}</p>
+                )}
+            </div>    
+        </Link>
         </div>
     );
 }
 
-const CreateProductWithProvider = () => {
-    return (
-        <Providers>
-            <Product />
-        </Providers>
-    );
-};
-
-
-export default CreateProductWithProvider;
+export default Product;

@@ -53,7 +53,7 @@ const NavbarPage = () => {
             </div>
           ))}
           <button  >Sign In</button>
-          <button className="btn-main-s">Log In</button>
+          <button className="btn_primary btn-main-s">Log In</button>
         </div>
       </nav>
     </header>
