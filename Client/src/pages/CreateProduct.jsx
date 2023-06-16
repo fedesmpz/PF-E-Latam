@@ -1,7 +1,7 @@
 'use client'
 import style from "./Styles/CreateProduct/CreateProduct.module.css"
 import { useState } from "react"
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
 import Link from "next/link"
 import validation from "../utils/formValidation"
 import Head from "next/head";
@@ -10,8 +10,12 @@ import { postProduct } from "@/redux/slice/productSlice"
 
 
 const CreateProduct = () => {
+
+    <Head>
+        <title>/admin/create</title>
+    </Head>
+
     const dispatch = useDispatch();
-    const name = useSelector(state => state.names.name)
 
     let [valueDiscounts, setValueDiscounts] = useState(0)
     const [selectedFileName, setSelectedFileName] = useState("");
@@ -180,7 +184,6 @@ const CreateProduct = () => {
     return (
         <div className={style.container}>
 
-            <h1>{name}</h1>
             <Link href="/Home">
                 <button className={style.backButton}> Back </button>
             </Link>
@@ -199,7 +202,7 @@ const CreateProduct = () => {
 
                 <div>
                     <label htmlFor="title">Titulo:</label>
-                    <input type="text" name="title" value={newProduct.title} onChange={handleChange} />
+                    <input placeholder="Ingrese un titulo" type="text" name="title" value={newProduct.title} onChange={handleChange} />
                     {errors.title && <p>{errors.title}</p>}
                 </div>
 
