@@ -20,7 +20,7 @@ const productDetail = useSelector((state)=>state.products.detail)
       dispatch(axiosAllProductByCountryCategoryId(id, countryId, categories));
     // return () => dispatch(cleanDetail())  CREAR PARA LIMPIAR DETALLES
   }, [dispatch, id, countryId, categories]);
-  console.log(productDetail)
+
 
 
     return(
