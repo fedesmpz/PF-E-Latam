@@ -5,7 +5,7 @@ const Products = ({currentProducts}) => {
    return (
       <div>
          {
-            currentProducts.map(({ id,title, thumbnail, original_price, currency_id, price, sale_price }) => {
+            currentProducts.map(({ id,title, thumbnail, original_price, currency_id, price, sale_price,categories }) => {
                return(
                   <Product
                   key={id}
@@ -16,6 +16,7 @@ const Products = ({currentProducts}) => {
                      currency_id={currency_id}
                      price={price}
                      sale_price={sale_price}
+                     categories={categories}
                   />
                )
             })

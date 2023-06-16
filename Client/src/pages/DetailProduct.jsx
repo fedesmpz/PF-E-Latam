@@ -14,10 +14,20 @@ const {countryId}=router.query
 
 
 
+<<<<<<< HEAD
 useEffect(()=>{
     dispatch(axiosAllProductByCountryCategoryId(id, countryId,categories))
     // return ()=> dispatch(cleanDetail())  CREAR PARA LIMPIAR DETALLES
 }, [dispatch,])
+=======
+const productDetail = useSelector((state)=>state.products.detail)
+
+ useEffect(() => {
+      dispatch(axiosAllProductByCountryCategoryId(id, countryId, categories));
+    // return () => dispatch(cleanDetail())  CREAR PARA LIMPIAR DETALLES
+  }, [dispatch, id, countryId, categories]);
+  console.log(productDetail)
+>>>>>>> c967d264ca4301b63dab3374605b5104e2050929
 
 const productDetail = useSelector(state=>state.detail)
 
