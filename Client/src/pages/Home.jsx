@@ -7,6 +7,7 @@ import Paginado from "./Paginado";
 import Products from "./Components/Products";
 import Filter from "./Components/Filter";
 import SubFooter from "./Components/SubFooter";
+import NavBar from "./Components/NavBar"
 import Link from "next/link";
 import style from "./Styles/Home/Home.module.css"
 import "bootstrap/dist/css/bootstrap.css"
@@ -59,12 +60,7 @@ const Home = () => {
     return (
         <div className={style.body}>
 
-
-            <h1>Esto es el Home</h1>
-
-            <Link href="/" >Landing</Link>
-
-            <Link href="/CreateProduct" >CreateProduct</Link>
+            <NavBar></NavBar>
 
             <Filter
             setCurrentPage={setCurrentPage}
