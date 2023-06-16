@@ -1,7 +1,7 @@
 const validation = (product) => {
 
 
-    const regex = /^[A-Z\s]+$/i //que no contenga numeros o caracteres especiales
+    const regex = /^[A-Za-z0-9\s]+$/ //que no contenga caracteres especiales
     const errors = {};
 
     if (product.title.length < 3 || product.title.length > 30) {
@@ -11,61 +11,54 @@ const validation = (product) => {
     
 //----------------------------------------------------------------------
     
-    if (typeof product.original_price !== "number") {
-        errors.original_price = "Solo pueden ingresarse numeros"
+    if (isNaN(product.original_price)) {
+        errors.original_price = "Solo pueden ingresarse números"
     }
 
     if (product.original_price <= 0) {
-        errors.weight = "el precio minimo no puede ser menor o igual a 0"
-    }
-
-    if (weight.length > 2  || weight.length < 2) {
-        errors.weight = "Enter 2 different values."
-    }
-
-    if (+weight[0] > +weight[1]) {
-        errors.weight = "The minimum weight cannot be greater than maximum weight"
+        errors.original_price = "el precio mínimo no puede ser menor o igual a 0"
     }
     
 //-------------------------------------------------------------------
-    let height = product.height.split(" ")
     
-    if (height.join("") !== +height.join("") ) {
-        errors.height = "Only can be numbers"
+    if (isNaN(product.price)) {
+        errors.price = "Solo pueden ingresarse números"
     }
 
-    if (+height[0] <= 0 || +height[1] <= 0) {
-        errors.height = "The minimum and maximum height cannot be 0 or negative."
-    }
-        
-    if (height.length > 2  || height.length < 2) {
-        errors.height = "Enter 2 different values."
-    }
-        
-    if (+height[0] > +height[1]) {
-        errors.height = "The minimum height cannot be greater than maximum height"
+    if (product.price <= 0) {
+        errors.price = "el precio mínimo no puede ser menor o igual a 0"
     }
 
 //-------------------------------------------------------------------
-    let life_time = product.life_time.split(" ")
+if (isNaN(product.available_quantity)) {
+    errors.available_quantity = "Solo pueden ingresarse números"
+}
 
-    if (life_time.join("") !== +life_time.join("") ) {
-        errors.life_time = "Only can be numbers"
-    }
+if (product.available_quantity <= 0) {
+    errors.available_quantity = "La cantidad mínima no puede ser menor o igual a 0"
+}
 
-    if (+life_time[0] <= 0 || +life_time[1] <= 0) {
-        errors.life_time = "The minimum and maximum life_time cannot be 0 or negative."
-    }
+//--------------------------------------------------------------------------------
 
-    if (life_time.length > 2  || life_time.length < 2) {
-        errors.life_time = "Enter 2 different values."
-    }
+if (!regex.test(product.oficial_store_name)) {
+    errors.oficial_store_name = "No puede contener caracteres especiales"
+}
 
-    if (+life_time[0] > +life_time[1]) {
-        errors.life_time = "The minimum life_time cannot be greater than maximum life_time"
-    }
+//------------------------------------------------------------------------
+
+if (isNaN(product.discounts)) {
+    errors.discounts = "Solo pueden ingresarse números"
+}
+
+if (product.discounts > 100) {
+    errors.discounts = "Debe ingresar valores entre 1 y 100"
+}
     
-    return errors;
+if (product.discounts <= 0) {
+    errors.discounts = "Debe ingresar valores entre 1 y 100"
+}
+
+return errors;
 }
 
 export default validation;
