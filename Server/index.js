@@ -8,10 +8,10 @@ const { conn } = require('./db.js');
 const server = express();
 const port = 8000;
 
-const productRoutes = require("./Server/Routes/product.js")
-const userRoutes = require("./Server/Routes/user.js")
-const reviewRoutes = require("./Server/Routes/ratingAndReview.js")
-const cartRoutes = require("./Server/Routes/cart.js")
+const productRoutes = require("./Routes/product.js")
+const userRoutes = require("./Routes/user.js")
+const reviewRoutes = require("./Routes/ratingAndReview.js")
+const cartRoutes = require("./Routes/cart.js")
 
 
 server.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
