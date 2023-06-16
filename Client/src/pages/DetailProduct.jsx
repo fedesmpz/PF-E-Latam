@@ -4,61 +4,63 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux"
 import { useRouter } from "next/router";
 import Providers from "@/redux/provider/Provider"
-import { all } from "axios";
+import styles from "../pages/Components/Styles/ProductDetail.module.css"
 const DetailProduct = () => {
+    const dispatch = useDispatch();
+    const router = useRouter();
+    const { id } = router.query;
+    const { categories } = router.query;
+    const { countryId } = router.query;
 
-    const dispatch = useDispatch()
-    const router = useRouter()
-    const { id } = router.query
-    const { categories } = router.query
-    const { countryId } = router.query
-
-
-
-    const productDetail = useSelector((state) => state.products.detail)
+    const productDetail = useSelector((state) => state.products.detail);
 
     useEffect(() => {
         dispatch(axiosAllProductByCountryCategoryId(id, countryId, categories));
         // return () => dispatch(cleanDetail())  CREAR PARA LIMPIAR DETALLES
     }, [dispatch, id, countryId, categories]);
 
-    console.log(productDetail.attributes);
     const attributes = productDetail.attributes ? JSON.parse(productDetail.attributes) : [];
 
-    const renderedAttributes = attributes.map(attribute => {
+    const renderedAttributes = attributes.map((attribute) => {
         const attributeName = attribute.name;
         const attributeValue = attribute.value;
-        return `${attributeName}: ${attributeValue}`;
+        return (
+            <li key={attributeName} className={styles.attribute}>
+                <span className={styles.attributeName}>{attributeName}:</span> {attributeValue}
+            </li>
+        );
     });
 
-
-    console.log(renderedAttributes)
-
     return (
-        <div>
-            {
-                productDetail?.title ? (
-                    <>
-                        <img src={productDetail.thumbnail} alt={productDetail.title} />
-                        <h1>{productDetail.title}</h1>
-                        <br />
-                        {renderedAttributes.map((attribute, index) => (
-                            <h2 key={index}>{attribute}</h2>
-                        ))}
-                        <br />
-                        <h2>Precio Orginal: {productDetail.original_price} {productDetail.currency_id}</h2>
-                        <h2>Precio en Sale: {productDetail.price}{productDetail.currency_id}</h2>
-                        <h2>Cantidad disponible: {productDetail.available_quantity} unidades</h2>
-                        <h2>Ya vendidas: {productDetail.sold_quantity} unidades</h2>
-                        <h2>Store Oficial: {productDetail.official_store_name}</h2>
-                        <h2>{productDetail.shipping}</h2>
-                        <h2>Pais: {productDetail.country}</h2>
-                    </>
-                ) : (
-                    <h2>Loading... </h2> // MODIFICAR ESTO OBVIAMENTE
-                )
-            }
-        </div>
+        <div className={styles.container}>
+        {productDetail?.title ? (
+          <>
+            <img src={productDetail.thumbnail} alt={productDetail.title} />
+            <h1 className={styles.title}>{productDetail.title}</h1>
+            <ul className={styles.attributeList}>{renderedAttributes}</ul>
+      
+            {productDetail.sale_price ? (
+              <>
+                <p>Precio original: <s>{productDetail.original_price}{productDetail.currency_id}</s></p>
+                <p>Oferta: {productDetail.price}{productDetail.currency_id}</p>
+              </>
+            ) : (
+              <>
+                <h2 className={styles.price}>Precio Orginal: {productDetail.original_price} {productDetail.currency_id}</h2>
+                <h2 className={styles.price}>Precio en Sale: {productDetail.price} {productDetail.currency_id}</h2>
+              </>
+            )}
+      
+            <h3>Cantidad disponible: {productDetail.available_quantity} unidades</h3>
+            <h3>Ya vendidas: {productDetail.sold_quantity} unidades</h3>
+            <h3>Store Oficial: {productDetail.official_store_name}</h3>
+            <h3>{productDetail.shipping}{productDetail.shipping}</h3>
+            <h3>Pais: {productDetail.country}</h3>
+          </>
+        ) : (
+          <h2>Loading... </h2> // MODIFICAR ESTO OBVIAMENTE
+        )}
+      </div>
     )
 }
 
