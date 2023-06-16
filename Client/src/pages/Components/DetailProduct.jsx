@@ -43,7 +43,7 @@ useEffect(()=>{
 }
 
 
-const CreateProductWithProvider = () => {
+const DetailProductWithProvider = () => {
     return (
         <Providers>
             <DetailProduct />
@@ -52,4 +52,4 @@ const CreateProductWithProvider = () => {
 };
 
 
-export default CreateProductWithProvider;
+export default DetailProductWithProvider;
