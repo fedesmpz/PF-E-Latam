@@ -1,15 +1,20 @@
 import Link from "next/link";
-import { useDispatch } from "react-redux";
-const Product = ({ id,title, thumbnail, original_price, currency_id, price, sale_price, }) => {
-    const dispatch = useDispatch();
 
-    const handleClick = () => {
-        dispatch(irAlosDetalles(id)); //no esta creada la funcion todavia
-    };
+const Product = ({ id,title, thumbnail, original_price, currency_id, price, sale_price, categories }) => {
+
+  let countryID;
+
+  if (currency_id === "ARS") {
+    countryID = "ARG";
+  } else if (currency_id === "COP") {
+    countryID = "COL";
+  } else if (currency_id === "MXN") {
+    countryID = "MEX";
+  }
 
     return (
-        <div onClick={handleClick}>
-        <Link href={`/produts/${currency_id}/${id}`}>
+        <div>
+        <Link href={`/DetailProduct/[countryId]/[categories]/[id]`} as={`/DetailProduct/${countryID}/${categories}/${id}`}>
             <div>
                 <img src={thumbnail} alt={title} />
                 <h2>{title}</h2>
