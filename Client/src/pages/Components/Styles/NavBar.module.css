@@ -18,7 +18,7 @@
   text-decoration: none;
   color: white;
   font-weight: bold;
-  font-size: 18px;
+  font-size: 25px;
   margin-right: 10px;
 }
 
@@ -27,7 +27,7 @@
     border: none;
     background-color: #fff;
     color: #333;
-    font-size: 14px;
+    font-size: 15px;
   }
   
   .search-bar input {
@@ -46,7 +46,7 @@
     align-items: center;
     justify-content: center;
     min-width: 80px;
-    font-size: 17px;
+    font-size: 23px;
     font-weight: 200;
     padding: 10px;
     margin-left: 4px;
@@ -64,7 +64,7 @@
     justify-content: center;
     min-width: 80px;
     width: 1%;
-    font-size: 17px;
+    font-size: 23px;
     font-weight: 200;
     padding: 10px;
     margin-left: 4px;

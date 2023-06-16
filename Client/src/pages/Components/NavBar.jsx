@@ -19,10 +19,12 @@ const NavBar = () => {
         </div>
       </div>
 
+      <p>Inserte searchBar</p>
     {/* Aca iria la searchBar imaginaria q no se donde quedo.. */}
       {/* <div className={Styles["search-bar"]}>
         <input type="text" placeholder="Search..." />
       </div> */}
+
 
       <div className={Styles.rightContainer}>
         <Link className={Styles.button} href="/CreateProduct">New</Link>
