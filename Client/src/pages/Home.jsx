@@ -6,6 +6,7 @@ import Providers from "@/redux/provider/Provider"
 import Paginado from "./Paginado";
 import Products from "./Components/Products";
 import Filter from "./Components/Filter";
+import SubFooter from "./Components/SubFooter";
 import Link from "next/link";
 import style from "./Styles/Home/Home.module.css"
 import "bootstrap/dist/css/bootstrap.css"
@@ -85,6 +86,8 @@ const Home = () => {
             paginado={paginado}
             currentProducts={currentProducts}
             />
+
+            <SubFooter/>
             </div>
             
         </div>
