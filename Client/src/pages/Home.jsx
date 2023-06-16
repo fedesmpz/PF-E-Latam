@@ -6,6 +6,7 @@ import Providers from "@/redux/provider/Provider"
 import Paginado from "./Paginado";
 import Products from "./Components/Products";
 import Filter from "./Components/Filter";
+import SubFooter from "./Components/SubFooter";
 import Link from "next/link";
 import style from "./Styles/Home/Home.module.css"
 import "bootstrap/dist/css/bootstrap.css"
@@ -37,7 +38,6 @@ const Home = () => {
         return accumulator.concat(currentArray);
         }, []);
     const products = concatenatedObjects
-    console.log(products);
     const [currentPage, setCurrentPage] = useState(1);
     const [productsPerPage] = useState(50);
     const indexOfLastProduct = currentPage * productsPerPage;
@@ -85,6 +85,8 @@ const Home = () => {
             paginado={paginado}
             currentProducts={currentProducts}
             />
+
+            <SubFooter/>
             </div>
             
         </div>
