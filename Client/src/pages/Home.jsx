@@ -73,6 +73,11 @@ const Home = () => {
             />
 
             <div className="paginado">
+
+            <Products
+            currentProducts={currentProducts}
+            />
+
             <Paginado
             key="paginado"
             productsPerPage={productsPerPage}
@@ -81,11 +86,7 @@ const Home = () => {
             currentProducts={currentProducts}
             />
             </div>
-
-            <Products
-            currentProducts={currentProducts}
-            />
-
+            
         </div>
     )
 }

@@ -14,12 +14,11 @@ const DetailProduct = () => {
 
     const productDetail = useSelector((state) => state.products.detail);
 
-    useEffect(() => {
-        dispatch(axiosAllProductByCountryCategoryId(id, countryId, categories));
-        // return () => dispatch(cleanDetail())  CREAR PARA LIMPIAR DETALLES
-    }, [dispatch, id, countryId, categories]);
-
-    const attributes = productDetail.attributes ? JSON.parse(productDetail.attributes) : [];
+ useEffect(() => {
+      dispatch(axiosAllProductByCountryCategoryId(id, countryId, categories));
+    // return () => dispatch(cleanDetail())  CREAR PARA LIMPIAR DETALLES
+  }, [dispatch, id, countryId, categories]);
+  console.log(productDetail)
 
     const renderedAttributes = attributes.map((attribute) => {
         const attributeName = attribute.name;
