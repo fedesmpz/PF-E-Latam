@@ -8,6 +8,7 @@ import Head from "next/head";
 import Providers from "@/redux/provider/Provider"
 import { postProduct } from "@/redux/slice/productSlice"
 
+
 const CreateProduct = () => {
     const dispatch = useDispatch();
     const name = useSelector(state => state.names.name)
@@ -23,6 +24,7 @@ const CreateProduct = () => {
         currency_id: "ARS",
         price: 0,
         sale_price: false,
+        sold_quantity: 0,
         available_quantity: 0,
         oficial_store_name: "",
         shipping: true,
@@ -74,17 +76,6 @@ const CreateProduct = () => {
         })
     }
 
-    const handlePromotion = (event) => {
-        const prop = event.target.name
-
-        const value = dispatch(/* funcion del back */)
-
-        setNewProduct({
-            ...newProduct,
-            [prop]: value
-        })
-    }
-
     const handleCheck = (event) => {
         let prop = event.target.name
         let value = event.target.checked
@@ -104,11 +95,12 @@ const CreateProduct = () => {
     }
 
     const handleChange = (event) => {
-        const file = event.target.files[0];
+
         const prop = event.target.name
         const value = event.target.value
 
         if (prop === "thumbnail") {
+            const file = event.target.files[0];
             setNewProduct({
                 ...newProduct,
                 thumbnail: file,
@@ -142,7 +134,7 @@ const CreateProduct = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault()
-
+        console.log(newProduct);
         dispatch(postProduct(newProduct))
 
         setErrors({
@@ -274,11 +266,11 @@ const CreateProduct = () => {
                     {errors.discounts && <p>{errors.discounts}</p>}
                 </div>
 
-                <div>
+                {/* <div>
                     <label htmlFor="promotions">Generar ticket de promoción:</label>
                     <button type="button" onClick={() => handlePromotion()} className={style.submitButton}>Crear ticket</button>
                     <span>aqui esta tu codigo creado: {newProduct.promotions.join("")}</span>
-                </div>
+                </div> */}
 
                 <div>
                     <label htmlFor="categories">elija una categoría:</label>
@@ -286,6 +278,7 @@ const CreateProduct = () => {
                         <option value="Computación"> Computación </option>
                         <option value="Celulares"> Celulares </option>
                         <option value="Electrónica"> Electrónica </option>
+                        <option value="Electrónica"> Videojuegos </option>
                     </select>
                     {errors.categories && <p>{errors.categories}</p>}
                 </div>

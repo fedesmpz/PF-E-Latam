@@ -101,11 +101,11 @@ export const axiosSearchProduct = () => (dispatch) => {
         .catch((error) => console.log(error));
 };
 
-export const postProduct = (payload) => {
+export const postProduct = (payload) => (dispatch) => {
     axios
       .post("http://localhost:8000/products/new", payload)
       .then((response) => {
-            console.log(response.data);
+            dispatch(setNewProduct(response.data.data));
       })
       .catch((error) => console.log(error));
   };
