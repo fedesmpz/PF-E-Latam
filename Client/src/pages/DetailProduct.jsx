@@ -12,16 +12,15 @@ const {id}= router.query
 const {categories}= router.query
 const {countryId}=router.query
 
-console.log(router.query)
 
-const productDetail = useSelector(state=>state.products.detail)
 
-useEffect(() => {
-    if (id && countryId && categories) {
+const productDetail = useSelector((state)=>state.products.detail)
+
+ useEffect(() => {
       dispatch(axiosAllProductByCountryCategoryId(id, countryId, categories));
-    }
     // return () => dispatch(cleanDetail())  CREAR PARA LIMPIAR DETALLES
   }, [dispatch, id, countryId, categories]);
+  console.log(productDetail)
 
 
     return(

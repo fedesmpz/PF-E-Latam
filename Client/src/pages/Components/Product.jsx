@@ -14,7 +14,7 @@ const Product = ({ id, title, thumbnail, original_price, currency_id, price, sal
 
     return (
         <div>
-           <Link href="/DetailProduct" as={`/DetailProduct?country=${countryId}&categories=${categories}&id=${id}`}>
+           <Link href={`/DetailProduct?countryId=${countryId}&categories=${categories}&id=${id}`}>
                 <div>
                     <img src={thumbnail} alt={title} />
                     <h2>{title}</h2>
