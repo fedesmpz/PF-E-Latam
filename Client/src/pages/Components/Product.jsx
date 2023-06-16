@@ -1,8 +1,6 @@
 import Link from "next/link";
 import { useDispatch } from "react-redux";
-import Providers from "@/redux/provider/Provider"
-
-const Product = ({ id,title, thumbnail, original_price, currency_id, price, sale_price }) => {
+const Product = ({ id,title, thumbnail, original_price, currency_id, price, sale_price, }) => {
     const dispatch = useDispatch();
 
     const handleClick = () => {
@@ -11,29 +9,22 @@ const Product = ({ id,title, thumbnail, original_price, currency_id, price, sale
 
     return (
         <div onClick={handleClick}>
-         <Link href={`/produts/${id}`}>    
-            <img src={thumbnail} alt={title} /></Link>
-            <h2>{title}</h2>
-            {sale_price ? (
-                <>
-                    <p>Precio original: <s>{original_price}{currency_id}</s></p>
-                    <p>Oferta: {price}{currency_id}</p>
-                </>
-            ) : (
-                <p>Precio: {original_price}{currency_id}</p>
-            )}
-       
+        <Link href={`/produts/${currency_id}/${id}`}>
+            <div>
+                <img src={thumbnail} alt={title} />
+                <h2>{title}</h2>
+                {sale_price ? (
+                    <>
+                        <p>Precio original: <s>{original_price}{currency_id}</s></p>
+                        <p>Oferta: {price}{currency_id}</p>
+                    </>
+                ) : (
+                    <p>Precio: {original_price}{currency_id}</p>
+                )}
+            </div>    
+        </Link>
         </div>
     );
 }
 
-const CreateProductWithProvider = () => {
-    return (
-        <Providers>
-            <Product />
-        </Providers>
-    );
-};
-
-
-export default CreateProductWithProvider;
+export default Product;
