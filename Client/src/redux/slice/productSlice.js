@@ -7,7 +7,7 @@ export const productSlice = createSlice({
         initialState: {
             products: [],
             category: [],
-            detail:[],
+            detail:{},
             allProducts:[]
         },
     reducers: {
