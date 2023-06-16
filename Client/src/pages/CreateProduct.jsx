@@ -11,9 +11,7 @@ import { postProduct } from "@/redux/slice/productSlice"
 
 const CreateProduct = () => {
 
-    <Head>
-        <title>/admin/create</title>
-    </Head>
+
 
     const dispatch = useDispatch();
 
@@ -183,6 +181,10 @@ const CreateProduct = () => {
 
     return (
         <div className={style.container}>
+
+            <Head>
+                <title>/admin/create</title>
+            </Head>
 
             <Link href="/Home">
                 <button className={style.backButton}> Back </button>
