@@ -1,9 +1,10 @@
-import Product from "./Product"
+import Product from "./Product";
+import Styles from "./Styles/Products.module.css"
 
 const Products = ({currentProducts}) => {
-//hay fallas a la hora de traerme las recetas al home
    return (
-      <div>
+      <div className={Styles.productContainer}>
+         <div className={Styles.products}>
          {
             currentProducts.map(({ id,title, thumbnail, original_price, currency_id, price, sale_price,categories }) => {
                return(
@@ -21,7 +22,9 @@ const Products = ({currentProducts}) => {
                )
             })
          }
+         </div>
       </div>
+      
    )
 }
 
