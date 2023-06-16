@@ -132,7 +132,7 @@ const CreateProduct = () => {
 
     }
 
-    console.log(newProduct.categories);
+
 
     const handleSubmit = (event) => {
         event.preventDefault()

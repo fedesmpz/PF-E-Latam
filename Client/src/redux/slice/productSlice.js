@@ -7,7 +7,7 @@ export const productSlice = createSlice({
         initialState: {
             products: [],
             category: [],
-            detail:[],
+            detail:{},
             allProducts:[]
         },
     reducers: {
@@ -26,6 +26,7 @@ export const productSlice = createSlice({
         
         setAllProductsByCountriesCategoryId:(state, action) => {
             state.detail = action.payload;
+         
         },
         setSearchProduct:(state,action) => {
             state.products = action.payload;
@@ -87,7 +88,9 @@ export const axiosAllProductByCountryCategoryId = (id, countryId, category) => (
     axios
         .get(`http://localhost:8000/products/${countryId}/${category}/${id}`)
         .then((response) => {
-            dispatch(setAllProductsByCountriesCategoryId(response.data.data))
+            dispatch(setAllProductsByCountriesCategoryId(response.data))
+            console.log(response.data)
+    
         })
         .catch((error) => console.log(error));
 };
