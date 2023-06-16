@@ -37,7 +37,6 @@ const Home = () => {
         return accumulator.concat(currentArray);
         }, []);
     const products = concatenatedObjects
-    console.log(products);
     const [currentPage, setCurrentPage] = useState(1);
     const [productsPerPage] = useState(50);
     const indexOfLastProduct = currentPage * productsPerPage;

@@ -1,35 +1,45 @@
-import Link from "next/link";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import styles from "./styles/Paginado/Paginado.module.css";
 
 const Paginado = ({ productsPerPage, products, paginado, currentPage }) => {
+  const [activePage, setActivePage] = useState(currentPage);
 
-    useEffect(()=>{
-        paginado(1)
-    },[products])
+  useEffect(() => {
+    setActivePage(currentPage);
+  }, [currentPage]);
 
-    const pageNumbers = [];
-    for (let i = 0; i < Math.ceil(products / productsPerPage); i++) {
-        pageNumbers.push(i + 1);
-    }
+  useEffect(() => {
+    paginado(1);
+  }, [products]);
 
-return (
+  const pageNumbers = [];
+  for (let i = 0; i < Math.ceil(products / productsPerPage); i++) {
+    pageNumbers.push(i + 1);
+  }
+
+  const handlePageClick = (pageNumber) => {
+    setActivePage(pageNumber);
+    paginado(pageNumber);
+  };
+
+  return (
     <nav>
-        <ul className="ul">
-            {pageNumbers.map((n) => (
-        <li key={n}>
+      <ul className={styles.pagination}>
+        {pageNumbers.map((n) => (
+          <li key={n}>
             <button
-            className={currentPage === n ? "container current" : "container"}
-            onClick={() => paginado(n)}
+              className={
+                activePage === n ? `${styles.pageButton} ${styles.activePageButton}` : styles.pageButton
+              }
+              onClick={() => handlePageClick(n)}
             >
-            {n}
+              {n}
             </button>
-        </li>
-                ))}
-        </ul>
+          </li>
+        ))}
+      </ul>
     </nav>
-    );
-}
+  );
+};
 
 export default Paginado;
-
-
