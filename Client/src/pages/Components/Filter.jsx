@@ -25,7 +25,7 @@ const Filter = ({ setOrden, setCurrentPage }) => {
 
 
   return (
-    <div className="filter-container">
+    <div className={Styles.filtercontainer}>
 
       <label>Precio</label>      
       <select className={Styles.select} onChange={handlePriceChange}>
