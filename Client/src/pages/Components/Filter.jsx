@@ -1,16 +1,10 @@
-// import { axiosAllProducts } from "../../redux/slice/productSlice";
 import React, { useState } from 'react';
 import { useDispatch } from "react-redux";
 import Styles from "./Styles/Filter.module.css"
 
 const Filter = ({ setOrden, setCurrentPage }) => {
     const dispatch = useDispatch();
-    const [selectedCountry, setSelectedCountry] = useState('Argentina');
-
-//   function handleFilterByCountry(event) {
-//     dispatch(axiosAllProducts(event.target.value));
-//   }
-
+    
   function handleSort(event) {
     setCurrentPage(1);
     setOrden(`Ordenado ${event.target.value}`);
