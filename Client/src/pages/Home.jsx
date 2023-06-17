@@ -1,7 +1,7 @@
 'use client'
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { axiosAllProducts } from "../redux/slice/productSlice"
+import { axiosAllProductsByCountries } from "../redux/slice/productSlice"
 import Providers from "@/redux/provider/Provider"
 import Paginado from "./Paginado";
 import Products from "./Components/Products";
@@ -14,6 +14,8 @@ import "bootstrap/dist/css/bootstrap.css"
 
 const Home = () => {
     const dispatch = useDispatch();
+
+    const productsCountry = useSelector((state) => state.products.country);
     //codigo para que haya un spinner.
     const [isLoading, setIsLoading] = useState(true);
     useEffect(() => {
@@ -30,11 +32,11 @@ const Home = () => {
 
     // codigo para llamar los productos
     useEffect(() => {
-        dispatch(axiosAllProducts())
+        dispatch(axiosAllProductsByCountries(productsCountry))
     }, [dispatch]);
     
     //Lógica para el paginado
-    const array = useSelector((state) => state.products.allProducts);
+    const array = useSelector((state) => state.products.products);
     const concatenatedObjects = array.reduce((accumulator, currentArray) => {
         return accumulator.concat(currentArray);
         }, []);
