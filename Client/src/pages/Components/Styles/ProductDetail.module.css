@@ -1,0 +1,49 @@
+.container {
+    margin: 20px;
+    padding: 20px;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+  }
+  
+  .title {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .attributeList {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .attribute {
+    margin-bottom: 5px;
+  }
+  
+  .attributeName {
+    font-weight: bold;
+  }
+  
+  .price {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .thumbnail {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    margin-bottom: 10px;
+    border-radius: 4px;
+  }
+  
+  .loading {
+    font-size: 18px;
+    font-weight: bold;
+    color: #888;
+    text-align: center;
+    margin-top: 50px;
+  }
+  
+  

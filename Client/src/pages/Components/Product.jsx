@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Styles from "./Styles/Product.module.css"
 
 const Product = ({ id, title, thumbnail, original_price, currency_id, price, sale_price, categories }) => {
 
@@ -12,20 +13,32 @@ const Product = ({ id, title, thumbnail, original_price, currency_id, price, sal
         countryId = "MEX";
     }
 
+    const maxLength = 60;
+
+    const shortenTitle = (title) => {
+        if (title.length > maxLength) {
+            return title.substring(0, maxLength) + '...';
+        }
+        return title;
+    };
+
     return (
         <div>
-           <Link href={`/DetailProduct?countryId=${countryId}&categories=${categories}&id=${id}`}>
-                <div>
+           <Link className={Styles.link} href={`/DetailProduct?countryId=${countryId}&categories=${categories}&id=${id}`}>
+                <div className={Styles.card}>
                     <img src={thumbnail} alt={title} />
-                    <h2>{title}</h2>
-                    {sale_price ? (
-                        <>
-                            <p>Precio original: <s>{original_price}{currency_id}</s></p>
-                            <p>Oferta: {price}{currency_id}</p>
-                        </>
-                    ) : (
-                        <p>Precio: {original_price}{currency_id}</p>
-                    )}
+                    <div className={Styles.cardDetails}>
+                        <h2 className={`${Styles.title} ${Styles.thinTitle}`}>{shortenTitle(title)}</h2>
+                        {sale_price ? (
+                            <>
+                                <p className={Styles.text}>Precio<s>{original_price}{currency_id}</s></p>
+                                <p className={Styles.text}>Oferta: {price}{currency_id}</p>
+                            </>
+                        ) : (
+                            <p className={Styles.price}>$ {currency_id} {original_price}</p>
+                        )}
+                        <span className={Styles.category}>{categories}</span>
+                    </div>
                 </div>
             </Link>
         </div>

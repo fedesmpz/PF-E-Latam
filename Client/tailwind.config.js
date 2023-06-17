@@ -15,8 +15,7 @@ module.exports = {
     },
   },
   plugins: [
-    'tailwindcss',
-    'postcss-preset-env',
+    
     require('tailwindcss-animated')
   ],
 }

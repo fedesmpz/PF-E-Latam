@@ -11,17 +11,12 @@ import { postProduct } from "@/redux/slice/productSlice"
 
 const CreateProduct = () => {
 
-    <Head>
-        <title>/admin/create</title>
-    </Head>
-
     const dispatch = useDispatch();
 
     let [valueDiscounts, setValueDiscounts] = useState(0)
     const [selectedFileName, setSelectedFileName] = useState("");
 
     const [newProduct, setNewProduct] = useState({
-        id: "",
         title: "",
         thumbnail: "",
         original_price: 0,
@@ -37,7 +32,7 @@ const CreateProduct = () => {
         discounts: "",
         promotions: [],
         categories: "",
-        country: ""
+        country: "Argentina"
     })
 
 
@@ -67,17 +62,19 @@ const CreateProduct = () => {
 
     const handleCountryChange = (event) => {
         let value = event.target.value
+        let aux = value
 
-        value = (value === "Argentina") ? "ARS"
-            : (value === "México") ? "MXN"
-                : (value === "Colombia") ? "COP"
-                    : value;
-
+        aux = (aux === "Argentina") ? "ARS"
+            : (aux === "México") ? "MXN"
+                : (aux === "Colombia") ? "COP"
+                    : aux;
 
         setNewProduct({
             ...newProduct,
-            currency_id: value
+            currency_id: aux,
+            country: value
         })
+        console.log(newProduct.country);
     }
 
     const handleCheck = (event) => {
@@ -134,15 +131,12 @@ const CreateProduct = () => {
 
     }
 
-    console.log(newProduct.categories);
-
     const handleSubmit = (event) => {
         event.preventDefault()
-        console.log(newProduct);
+
         dispatch(postProduct(newProduct))
 
         setErrors({
-            id: "",
             title: "",
             thumbnail: "",
             original_price: 0,
@@ -161,7 +155,6 @@ const CreateProduct = () => {
         })
 
         setNewProduct({
-            id: "",
             title: "",
             thumbnail: "",
             original_price: 0,
@@ -184,6 +177,10 @@ const CreateProduct = () => {
     return (
         <div className={style.container}>
 
+            <Head>
+                <title>/admin/create</title>
+            </Head>
+
             <Link href="/Home">
                 <button className={style.backButton}> Back </button>
             </Link>
@@ -192,12 +189,11 @@ const CreateProduct = () => {
 
                 <div>
                     <label htmlFor="country">elija un país:</label>
-                    <select onChange={handleCountryChange} disabled={newProduct.country} name="country" id="country" className={style.selectField}>
+                    <select onChange={handleCountryChange} name="country" id="country" className={style.selectField}>
                         <option value="Argentina"> Argentina </option>
                         <option value="Colombia"> Colombia </option>
                         <option value="México"> México </option>
                     </select>
-                    {errors.country && <p>{errors.country}</p>}
                 </div>
 
                 <div>
@@ -278,10 +274,10 @@ const CreateProduct = () => {
                 <div>
                     <label htmlFor="categories">elija una categoría:</label>
                     <select onChange={handleCategoriesChange} name="categories" id="categories" className={style.selectField}>
-                        <option value="Computación"> Computación </option>
-                        <option value="Celulares"> Celulares </option>
-                        <option value="Electrónica"> Electrónica </option>
-                        <option value="Electrónica"> Videojuegos </option>
+                        <option value="computacion"> Computación </option>
+                        <option value="celulares"> Celulares </option>
+                        <option value="electronica"> Electrónica </option>
+                        <option value="videojuegos"> Videojuegos </option>
                     </select>
                     {errors.categories && <p>{errors.categories}</p>}
                 </div>

@@ -1,21 +1,21 @@
-import Image from "next/image";
+import Image from "next/image"; 
 import style from "./styles/Loader/Loader.module.css";
 
 const Loader = () => {
   return (
     <div>
-      <div class={style.container}>
+      <div className={style.container}>
         <Image
-          class={style.logoe}
+          className={style.logoe}
           src="/assets/e-world.png"
           width={100}
           height={100}
           alt="Animación1"
         />
       </div>
-      <div class={style.container2}>
+      <div className={style.container2}>
         <Image
-          class={style.logolam}
+          className={style.logolam}
           src="/assets/latam-store.png"
           width={100}
           height={100}

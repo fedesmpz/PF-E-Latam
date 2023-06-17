@@ -1,0 +1,95 @@
+.price {
+    text-decoration: none;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 420px;
+    height: 450px;
+    margin: 10px;
+    border: 2px solid rgb(223, 223, 223);
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    background-color: white;
+}
+
+
+.card:hover {
+    transform: scale(1.1);
+    z-index: 1;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 420px;
+    min-height: 450px;
+    max-height: fit-content;
+    margin: 10px;
+    border: 2px solid rgb(223, 223, 223);
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    background-color: white;
+}
+
+  
+.card img {
+    width: 100%;
+    height: 60%;
+    object-fit: contain;
+}
+
+.cardDetails {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 30%;
+    margin: 10px;
+}
+
+.link {
+    text-decoration: none;
+}
+
+.title {
+    max-width: 100%;
+    color: black;
+    font-size:21px;
+    font-weight: bolder;
+    text-decoration: none;
+    text-align: center;
+}
+
+.thinTitle {
+    max-width: 400px; 
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.card:hover .thinTitle {
+    max-width: 400px;
+    white-space: wrap;
+    overflow: visible;
+}
+
+
+.price {
+    margin-top: 15px;
+    color: rgb(0, 0, 0);
+    font-weight: bold;
+    font-size: large;
+}
+
+.category {
+    display: inline-block;
+    background-color: #333;
+    color: white;
+    padding: 6px 12px;
+    font-weight: bold;
+    border-radius: 4px;
+    text-transform: capitalize;
+}
