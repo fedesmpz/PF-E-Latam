@@ -2,13 +2,14 @@ import { useEffect, useState } from "react";
 import styles from "./styles/Paginado/Paginado.module.css";
 
 const Paginado = ({ productsPerPage, products, paginado, currentPage }) => {
-  const [activePage, setActivePage] = useState(currentPage);
+  const [activePage, setActivePage] = useState(1); // Página 1 por defecto
 
   useEffect(() => {
     setActivePage(currentPage);
   }, [currentPage]);
 
   useEffect(() => {
+    setActivePage(1); // Establecer la página activa en 1 al cargar nuevos productos
     paginado(1);
   }, [products]);
 
@@ -22,9 +23,32 @@ const Paginado = ({ productsPerPage, products, paginado, currentPage }) => {
     paginado(pageNumber);
   };
 
+  const goToPreviousPage = () => {
+    if (activePage > 1) {
+      handlePageClick(activePage - 1);
+    }
+  };
+
+  const goToNextPage = () => {
+    if (activePage < pageNumbers.length) {
+      handlePageClick(activePage + 1);
+    }
+  };
+
   return (
     <nav>
       <ul className={styles.pagination}>
+        <li>
+          <button
+            className={
+              activePage === 1 ? `${styles.pageButton} ${styles.disabledButton}` : styles.pageButton
+            }
+            onClick={goToPreviousPage}
+            disabled={activePage === 1}
+          >
+            &lt;
+          </button>
+        </li>
         {pageNumbers.map((n) => (
           <li key={n}>
             <button
@@ -37,6 +61,17 @@ const Paginado = ({ productsPerPage, products, paginado, currentPage }) => {
             </button>
           </li>
         ))}
+        <li>
+          <button
+            className={
+              activePage === pageNumbers.length ? `${styles.pageButton} ${styles.disabledButton}` : styles.pageButton
+            }
+            onClick={goToNextPage}
+            disabled={activePage === pageNumbers.length}
+          >
+            &gt;
+          </button>
+        </li>
       </ul>
     </nav>
   );
