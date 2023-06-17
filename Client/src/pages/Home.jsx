@@ -8,6 +8,7 @@ import Products from "./Components/Products";
 import Filter from "./Components/Filter";
 import Link from "next/link";
 import style from "./Styles/Home/Home.module.css"
+import Loader from "./Loader";
 import "bootstrap/dist/css/bootstrap.css"
 
 const Home = () => {
@@ -51,9 +52,7 @@ const Home = () => {
 
     if (isLoading) {
         return (
-            <div>
-                <h5>colocar animación del logo cargando...</h5>
-            </div>
+                <Loader />
             );
     }
     return (
