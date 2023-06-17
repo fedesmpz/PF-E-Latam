@@ -1,0 +1,46 @@
+.sec-features, .sec-benefits {
+    width: 100%;
+    max-width: 768px;
+    margin: auto;
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .sec-features .intro, .sec-benefits .intro {
+    text-align: center;
+  }
+  .sec-features .intro h3, .sec-benefits .intro h3 {
+    font-size: 1.8rem;
+  }
+  .sec-features .intro p, .sec-benefits .intro p {
+    font-size: 0.8rem;
+    color: #888;
+  }
+  .sec-features .features, .sec-benefits .features {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+  }
+  .sec-features .features .text, .sec-benefits .features .text {
+    padding: 2rem 0;
+    flex: 1;
+  }
+  .sec-features .features .text .feature, .sec-benefits .features .text .feature {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  .sec-features .features .text .feature .description, .sec-benefits .features .text .feature .description {
+    margin-left: 1rem;
+    max-width: 20rem;
+  }
+  .sec-features .features .text .feature .description .description-title, .sec-benefits .features .text .feature .description .description-title {
+    font-size: 1.15rem;
+  }
+  .sec-features .features .text .feature .description .description-text, .sec-benefits .features .text .feature .description .description-text {
+    font-size: 1rem;
+  }
+  .sec-features .features .image img, .sec-benefits .features .image img {
+    max-width: 20rem;
+  }

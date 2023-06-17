@@ -2,8 +2,9 @@ import Link from "next/link";
 import React, { useState } from "react";
 import classnames from "classnames";
 import NavItem from "./NavItem";
+import ModalLogin from "./ModalLogin"
+import ModalSignIn from "./ModalSingIn"
 import styles from "./Styles/NavbarPage.module.css";
-import "bootstrap/dist/css/bootstrap.css"
 //import Image from "next/image";
 //import Logo from "./Logo";
 
@@ -52,8 +53,8 @@ const NavbarPage = () => {
               />
             </div>
           ))}
-          <button  >Sign In</button>
-          <button className="btn_primary btn-main-s">Log In</button>
+          <ModalSignIn/>
+          <ModalLogin/>
         </div>
       </nav>
     </header>
