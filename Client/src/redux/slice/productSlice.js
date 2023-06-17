@@ -7,6 +7,7 @@ export const productSlice = createSlice({
         initialState: {
             products: [],
             category: [],
+            country: "ARG",
             detail:{},
             allProducts:[]
         },
@@ -19,7 +20,12 @@ export const productSlice = createSlice({
             state.products = action.payload;
         },
 
+        setProductsCountry: (state, action) => {
+            state.country = action.payload;
+        },
+
         //Creacion para todos los productos
+
         setAllProducts:(state, action) => {
             state.allProducts = action.payload;
         },
@@ -38,7 +44,7 @@ export const productSlice = createSlice({
 })
 
 
-export const { setProductByCountryCategory, setAllProductsByCountries,setAllProductsByCountriesCategoryId, setSearchProduct, setAllProducts, setNewProduct } = productSlice.actions;
+export const { setProductByCountryCategory, setAllProductsByCountries, setProductsCountry, setAllProductsByCountriesCategoryId, setSearchProduct, setAllProducts, setNewProduct } = productSlice.actions;
 
 export default productSlice.reducer;
 
@@ -51,12 +57,14 @@ export const axiosAllProductByCountryCategory = () => (dispatch) => {
         .catch((error) => console.log(error));
 };
 
-export const axiosAllProductsByCountries = () => (dispatch) => {
+export const axiosAllProductsByCountries = (id) => (dispatch) => {
     axios
         .get(`http://localhost:8000/products/${id}`)
         .then((response) => {
+            dispatch(setProductsCountry(id))
             dispatch(setAllProductsByCountries(response.data))
-            console.log(axiosAllProductByCountryCategory());
+            console.log(id)
+            console.log(response.data);
         })
         .catch((error) => console.log(error));
 };
