@@ -68,8 +68,15 @@ const Home = () => {
             orden={orden}
             />
 
-            <div className="paginado">
+            <Paginado
+            key="paginado"
+            productsPerPage={productsPerPage}
+            products={products.length}
+            paginado={paginado}
+            currentProducts={currentProducts}
+            />
 
+            <div className="paginado">
             <Products
             currentProducts={currentProducts}
             />
@@ -83,7 +90,9 @@ const Home = () => {
             />
 
             <SubFooter/>
+
             </div>
+            
             
         </div>
     )
