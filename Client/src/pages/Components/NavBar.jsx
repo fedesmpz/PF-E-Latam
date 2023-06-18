@@ -1,14 +1,19 @@
 import Link from "next/link";
-import React, { useState } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import Styles from "./Styles/NavBar.module.css";
 import { axiosAllProductsByCountries } from "../../redux/slice/productSlice";
+import Image from "next/image"; 
 
 
 const NavBar = () => {
   const dispatch = useDispatch()
 
   const productsCountry = useSelector((state) => state.products.country);
+
+  function handleSearch(event) {
+    console.log(event.target.value)
+  }
   
   function handleFilterByCountry(event) {
       dispatch(axiosAllProductsByCountries(event.target.value));
@@ -17,9 +22,23 @@ const NavBar = () => {
   return (
     <div className={Styles.navbar}>
       <div className={Styles.leftContainer}>
-        <Link className={Styles.logo} href="/" >e-Latam</Link>
-
-
+        <Link className={Styles.logo} href="/" ><div className={Styles.logoContainer}>
+        <Image
+          className={Styles.logoE}
+          src="/assets/e-world.png"
+          width={100}
+          height={100}
+          alt="Animación1"
+        />
+        <Image
+          className={Styles.logoLam}
+          src="/assets/latam-store.png"
+          width={100}
+          height={100}
+          alt="Animación2"
+        />
+        </div></Link>
+        
         {/* Esto va a ser reemplazado por el componente de fede donde renderiza las banderitas */}
         <div className={Styles.flags}>
           <select value={productsCountry} onChange={handleFilterByCountry}>
@@ -28,10 +47,13 @@ const NavBar = () => {
             <option value="MEX">MEX</option>
           </select>
         </div>
+
+        <div className={Styles.searchBar}>
+          <input type="search" placeholder="Que buscas hoy?" onChange={handleSearch}></input>
+        </div>
       </div>
 
-      <p>Inserte searchBar</p>
-    {/* Aca iria la searchBar imaginaria q no se donde quedo.. */}
+      
      
       <div className={Styles.rightContainer}>
         <Link className={Styles.button} href="/CreateProduct">New</Link>

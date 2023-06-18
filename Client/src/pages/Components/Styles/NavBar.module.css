@@ -1,9 +1,10 @@
 .navbar {
     display: flex;
+    padding: 10px;
     align-items: center;
     justify-content: space-between;
-    padding: 10px;
-    background-color: #4E55D9;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   }
 
 .rightContainer {
@@ -12,6 +13,7 @@
 
 .leftContainer {
   display: flex;
+  align-items: center;
 }
   
 .logo {
@@ -19,56 +21,110 @@
   color: white;
   font-weight: bold;
   font-size: 25px;
-  margin-right: 10px;
+  margin: 0px 20px 0px 15px;
 }
 
-  .flags select {
-    padding: 5px;
-    border: none;
-    background-color: #fff;
-    color: #333;
-    font-size: 15px;
-  }
+.logoContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content:center;
+  align-content:center;
+}
+
+.logoE {
+  width: 32px;
+  height: 32px;
+  margin-right: 5px;
+  margin-top: 10px;
+}
+
+.logoLam {
+  height: 46px;
+}
+
+.flags select {
+  padding: 5px;
+  cursor: pointer;
+  color: #000000;
+  outline: none;
+  font-size: 15px;
+  background-color: #fff;
+  border: none; /* Change '1px solid transparent' to 'none' */
+}
+
+.flags select:hover,
+.flags select:active {
+  padding: 5px;
+  color: #000000;
+  outline: none;
+  font-size: 15px;
+  background-color: #fff;
+  border: none; /* Change '1px solid transparent' to 'none' */
+}
+
   
-  .search-bar input {
-    padding: 5px;
-    border: none;
-    background-color: #fff;
-    color: #333;
-    font-size: 14px;
-  }
+.searchBar input {
+  color: #838384;
+  padding: 5px 70px 5px 10px;
+  margin: 0px 25px;
+  font-size: 16px;
+  border: 1px solid #838384;
+  border-radius: 3px;
+  background-color: rgb(238, 238, 238);
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  background-image: none;
+}
+
+/* Hide the cross button in webkit-based browsers */
+.searchBar input[type="search"]::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+/* Hide the cross button in Internet Explorer */
+.searchBar input[type="search"]::-ms-clear {
+  display: none;
+}
+
+.searchBar input::placeholder {
+  color: #838384;
+  font-size: 16px;
+}
   
-  .button{
-    background-color: transparent;
-    text-decoration: none;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 80px;
-    font-size: 23px;
-    font-weight: 200;
-    padding: 10px;
-    margin-left: 4px;
-    cursor: pointer;
-    border: none;
-    border-bottom: 2px solid transparent;
-  }
+.button{
+  background-color: transparent;
+  text-decoration: none;
+  color: #8491D9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 80px;
+  font-size: 23px;
+  font-weight: 200;
+  padding: 10px;
+  margin-left: 4px;
+  cursor: pointer;
+  border: none;
+  border-top: 2px solid transparent;
+}
 
   .button:hover{
     background-color: transparent;
     text-decoration: none;
-    color: white;
+    color: #4E55D9;
     display: flex;
     align-items: center;
     justify-content: center;
     min-width: 80px;
     width: 1%;
     font-size: 23px;
-    font-weight: 200;
+    font-weight: 400;
     padding: 10px;
     margin-left: 4px;
     border: none;
-    border-bottom: 2px solid #8491D9;
+    border-top: 2px solid #4E55D9;
   }
   
