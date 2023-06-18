@@ -11,26 +11,26 @@ const Landing = () => {
     return (
         <div>
             <NavbarPage/>
-            <section class="sec-home">
-        <div class="home-cta"> 
-            <h1 class="home-title display-1">Llegó la hora de comprar online</h1>
-            <p class="home-description">Regístrate de forma ágil y optimiza tu tiempo y dinero con la plataforma líder de Latinoamérica</p>
-            <div class="lead-magnet row align-items-center ">
-                <div class="col">
-                    <input type="text" class="form-control" placeholder="Email address"/>
+            <section className="sec-home">
+        <div className="home-cta"> 
+            <h1 className="home-title display-1">Llegó la hora de comprar online</h1>
+            <p className="home-description">Regístrate de forma ágil y optimiza tu tiempo y dinero con la plataforma líder de Latinoamérica</p>
+            <div className="lead-magnet row align-items-center ">
+                <div className="col">
+                    <input type="text" className="form-control" placeholder="Email address"/>
                 </div>
-                <div class="col">
-                    <button class="btn-main">Regístrate</button>
+                <div className="col">
+                    <button className="btn-main">Regístrate</button>
                 </div>
             </div>
         </div>
-        <div class="home-img d-none d-md-block">
+        <div className="home-img d-none d-md-block">
             {/* imagen */}
         </div>
     </section>
 
-    <section class="sec-benefits">
-      <div class="intro">
+    <section className="sec-benefits">
+      <div className="intro">
         <h3>Los más vendidos</h3>
         <p>Fíjate que tenemos promos exclusivas</p>
       </div>
@@ -98,9 +98,9 @@ const Landing = () => {
 
 
 
-      <section class="sec-video row">
+      <section className="sec-video row">
     <video autoPlay muted loop>
-  <source src="/video/cargando2.mp4" type="video/mp4" />
+  <source src="/video/videopc.mp4" type="video/mp4" />
   Tu navegador no admite el elemento de video.
 </video>
     </section>
@@ -108,28 +108,28 @@ const Landing = () => {
 
 
       
-            <section class="sec-kpis row">
+            <section className="sec-kpis row">
 
-<div class="kpi col-md">
-  <span class="number h3">$547M</span>
-  <span class="desc">En compras de nuestros clientes</span>
+<div className="kpi col-md">
+  <span className="number h3">$547M</span>
+  <span className="desc">En compras de nuestros clientes</span>
 </div>
 
-<div class="kpi col-md">
-  <span class="number h3">+ 750</span>
-  <span class="desc">Productos Ofrecidos</span>
+<div className="kpi col-md">
+  <span className="number h3">+ 750</span>
+  <span className="desc">Productos Ofrecidos</span>
 </div>
 
-<div class="kpi col-md">
-  <span class="number h3">89+M</span>
-  <span class="desc">Usuarios Registrados</span>
+<div className="kpi col-md">
+  <span className="number h3">89+M</span>
+  <span className="desc">Usuarios Registrados</span>
 </div>
 
 
 </section>
             <CommentsUsers/>
-            <section class="sec-benefits">
-      <div class="intro">
+            <section className="sec-benefits">
+      <div className="intro">
         <h3>Productos al mejor precio PROMOCIONES</h3>
         <p>Apúrate que se van a acabar</p>
       </div>
