@@ -12,6 +12,7 @@ import Link from "next/link";
 import style from "./Styles/Home/Home.module.css"
 import Loader from "./Loader";
 import "bootstrap/dist/css/bootstrap.css"
+import FooterLanding from "./Components/FooterLanding";
 
 const Home = () => {
     const dispatch = useDispatch();
@@ -69,14 +70,6 @@ const Home = () => {
             orden={orden}
             />
 
-            <Paginado
-            key="paginado"
-            productsPerPage={productsPerPage}
-            products={products.length}
-            paginado={paginado}
-            currentProducts={currentProducts}
-            />
-
             <div className="paginado">
             <Products
             currentProducts={currentProducts}
@@ -91,6 +84,8 @@ const Home = () => {
             />
 
             <SubFooter/>
+
+            <FooterLanding/>
 
             </div>
             

@@ -75,8 +75,6 @@ ReviewRating.belongsTo(Product, { foreignKey: 'productId' });
 User.hasOne(Cart, { foreignKey: 'userId' });
 Cart.belongsTo(User, { foreignKey: 'userId' });
 
-
-
 module.exports = {
    ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
    conn: sequelize, // para importart la conexión { conn } = require('./db.js');
