@@ -1,51 +1,154 @@
 .container {
-    max-width: 500px;
-    margin: 0 auto;
-    padding: 20px;
-    border: 1px solid black;
-    border-radius: 20px;
-  }
-  
-  .container button {
-    margin-bottom: 10px;
-  }
-  
-  .container form div {
-    margin-bottom: 10px;
-  }
-  
-  .container form label {
-    display: block;
-    margin-bottom: 5px;
-  }
-  
-  .container form input[type="text"],
-  .container form input[type="file"],
-  .container form select {
-    width: 100%;
-    padding: 5px;
-    border: 1px solid #ccc;
-  }
-  
-  .container form p {
-    margin-top: 5px;
-    color: red;
-  }
-  
-  .container form button {
-    padding: 5px 10px;
-    background-color: #062a50;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-  }
-  
-  .container form button:hover {
-    background-color: #062a50;
-  }
-  
-  .container form span {
-    display: block;
-    margin-top: 5px;
-  }
-  
+  margin: 15px;
+  padding: 20px;
+}
+
+.container_backButton {
+  margin-bottom: 20px;
+}
+
+.backButton {
+  margin-bottom: 10px;
+  padding: 10px 20px;
+  background-color: #062a50;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.container button:hover {
+  background-color: #0c4c80;
+}
+
+.container form {
+  background-color:antiquewhite;
+  border-radius: 20px;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 70px;
+}
+
+.container form label {
+  margin: 10px;
+  padding-bottom: 10px;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.container form input[type="text"],
+.container form input[type="file"],
+.container form input[type="number"],
+.container form select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box; 
+}
+
+.container form textarea {
+  display: grid;
+  align-items: center;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box; 
+}
+
+.container form input[type="file"] {
+  border: none;
+  outline: none;
+}
+
+.container form input[type="checkbox"] {
+  margin-right: 5px;
+}
+
+.container form p {
+  margin-top: 5px;
+  color: red;
+  font-size: 14px;
+  margin-bottom: 0;
+  height: 16px;
+  overflow: hidden;
+}
+
+.discountP {
+  margin-top: 5px;
+  font-weight: bold;
+}
+
+.container form span {
+  margin-top: 10px;
+}
+
+.container form option {
+  font-size: 14px;
+}
+
+.container form select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-size: 20px;
+  padding-right: 30px;
+}
+
+.container form select:focus {
+  outline: none;
+  border-color: #062a50;
+}
+
+.container form select::-ms-expand {
+  display: none;
+}
+
+.container form textarea {
+  resize: vertical;
+}
+
+.container form textarea:focus {
+  border-color: #062a50;
+}
+
+.container form input[type="text"]:focus,
+.container form input[type="number"]:focus,
+.container form select:focus {
+  border-color: #062a50;
+}
+.container_submit {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+}
+
+.container form button.submitButton {
+  font-size: 40px;
+  background-color: #4caf50;
+  padding: 10px 20px;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.container form button.submitDisabledButton {
+  font-size: 40px;
+  background-color: #6a866b;
+  padding: 10px 20px;
+  color: #fff;
+  border: none;
+  cursor:not-allowed;
+  transition: background-color 0.3s ease;
+}
+
+.container form button.backButton {
+  background-color: #d32f2f;
+}
+
+.notShow {
+  visibility: hidden;
+}
