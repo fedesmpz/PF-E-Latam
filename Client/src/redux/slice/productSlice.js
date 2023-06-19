@@ -21,7 +21,7 @@ export const productSlice = createSlice({
         },
 
         setProductsCountry: (state, action) => {
-            state.country = action.payload;
+            state.allProducts = action.payload;
         },
 
         //Creacion para todos los productos
@@ -107,12 +107,13 @@ export const axiosAllProductByCountryCategoryId = (id, countryId, category) => (
         .catch((error) => console.log(error));
 };
 
-export const axiosSearchProduct = () => (dispatch) => {
+export const axiosSearchProduct = (title,country) => (dispatch) => {
     axios
-        .get("http://localhost:8000/products/search")
+        .get(`http://localhost:8000/products/search/?title=${title}&country=${country}`)
         .then((response) => {
-            dispatch(setSearchProduct(response.data.data))
+            dispatch(setSearchProduct(response.data))
         })
+        
         .catch((error) => console.log(error));
 };
 
