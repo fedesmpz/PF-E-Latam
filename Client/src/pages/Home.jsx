@@ -22,11 +22,11 @@ const Home = () => {
     const [isLoading, setIsLoading] = useState(true);
     useEffect(() => {
         setIsLoading(true);
-    
+
         const timer = setTimeout(() => {
             setIsLoading(false);
         }, 2500);
-    
+
         return () => {
             clearTimeout(timer);
         };
@@ -36,12 +36,12 @@ const Home = () => {
     useEffect(() => {
         dispatch(axiosAllProductsByCountries(productsCountry))
     }, [dispatch]);
-    
+
     //Lógica para el paginado
-    const array = useSelector((state) => state.products.products);
+    const array = useSelector((state) => state.products.allProducts);
     const concatenatedObjects = array.reduce((accumulator, currentArray) => {
         return accumulator.concat(currentArray);
-        }, []);
+    }, []);
     const products = concatenatedObjects
     const [currentPage, setCurrentPage] = useState(1);
     const [productsPerPage] = useState(50);
@@ -49,15 +49,15 @@ const Home = () => {
     const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
     const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
     const [orden, setOrden] = useState('');
-    
+
     const paginado = (pageNumber) => {
         setCurrentPage(pageNumber);
     };
 
     if (isLoading) {
         return (
-                <Loader />
-            );
+            <Loader />
+        );
     }
     return (
         <div className={style.body}>
@@ -65,31 +65,31 @@ const Home = () => {
             <NavBar></NavBar>
 
             <Filter
-            setCurrentPage={setCurrentPage}
-            setOrden={setOrden}
-            orden={orden}
+                setCurrentPage={setCurrentPage}
+                setOrden={setOrden}
+                orden={orden}
             />
 
             <div className="paginado">
-            <Products
-            currentProducts={currentProducts}
-            />
+                <Products
+                    currentProducts={currentProducts}
+                />
 
-            <Paginado
-            key="paginado"
-            productsPerPage={productsPerPage}
-            products={products.length}
-            paginado={paginado}
-            currentProducts={currentProducts}
-            />
+                <Paginado
+                    key="paginado"
+                    productsPerPage={productsPerPage}
+                    products={products.length}
+                    paginado={paginado}
+                    currentProducts={currentProducts}
+                />
 
-            <SubFooter/>
+                <SubFooter />
 
-            <FooterLanding/>
+                <FooterLanding />
 
             </div>
-            
-            
+
+
         </div>
     )
 }
@@ -97,7 +97,7 @@ const Home = () => {
 const HomeWithProvider = () => {
     return (
         <Providers>
-            <Home/>
+            <Home />
         </Providers>
     );
 };
