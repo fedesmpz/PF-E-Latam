@@ -8,7 +8,6 @@ import Head from "next/head";
 import Providers from "@/redux/provider/Provider"
 import { postProduct } from "@/redux/slice/productSlice"
 
-
 const CreateProduct = () => {
 
     const dispatch = useDispatch();
@@ -25,7 +24,7 @@ const CreateProduct = () => {
         sale_price: false,
         sold_quantity: 0,
         available_quantity: 0,
-        oficial_store_name: "",
+        official_store_name: "",
         shipping: true,
         attributes: "",
         catalog_listing: true,
@@ -131,7 +130,7 @@ const CreateProduct = () => {
             price: 0,
             sale_price: false,
             available_quantity: 0,
-            oficial_store_name: "",
+            official_store_name: "",
             shipping: true,
             attributes: "",
             catalog_listing: true,
@@ -149,7 +148,7 @@ const CreateProduct = () => {
             price: 0,
             sale_price: false,
             available_quantity: 0,
-            oficial_store_name: "",
+            official_store_name: "",
             shipping: true,
             attributes: "",
             catalog_listing: true,
@@ -251,10 +250,10 @@ const CreateProduct = () => {
                     </div>
 
                     <div>
-                        <label htmlFor="oficial_store_name">Marca</label>
-                        <input type="text" name="oficial_store_name" value={newProduct.oficial_store_name} onChange={handleChange} />
-                        {errors.oficial_store_name
-                            ? <p>{errors.oficial_store_name}</p>
+                        <label htmlFor="official_store_name">Marca</label>
+                        <input type="text" name="official_store_name" value={newProduct.official_store_name} onChange={handleChange} />
+                        {errors.official_store_name
+                            ? <p>{errors.official_store_name}</p>
                             : <p></p>
                         }
                     </div>

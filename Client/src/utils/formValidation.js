@@ -40,7 +40,7 @@ const validation = (product) => {
 
 //--------------------------------------------------------------------------------
 
-    if (!regex.test(product.oficial_store_name)) {
+    if (!regex.test(product.official_store_name)) {
         errors.oficial_store_name = "No puede contener caracteres especiales"
     }
 

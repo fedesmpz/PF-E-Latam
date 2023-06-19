@@ -6,7 +6,6 @@ import { setOrderByName, setOrderByPrice, setFilterByCategory, axiosAllProductBy
 const Filter = ({ setOrden, setCurrentPage }) => {
   const dispatch = useDispatch();
   const categories = useSelector(state => state.products.category);
-
   function handleSort(event) {
     setCurrentPage(1);
     setOrden(`Ordenado ${event.target.value}`);
@@ -23,6 +22,8 @@ const Filter = ({ setOrden, setCurrentPage }) => {
     setCurrentPage(1);
     setOrden(`Categoría ${event.target.value}`);
     dispatch(setFilterByCategory(event.target.value));
+    dispatch(setOrderByPrice("---"))
+    dispatch(setOrderByName("---"))
   }
 
   useEffect(() => {
@@ -37,14 +38,14 @@ const Filter = ({ setOrden, setCurrentPage }) => {
     <div className={Styles.filtercontainer}>
       <label>Precio</label>
       <select className={Styles.select} onChange={handlePriceChange}>
-        <option>---</option>
+        <option value="---">---</option>
         <option value="mayormenor">De mayor a menor</option>
         <option value="menormayor">De menor a mayor</option>
       </select>
 
       <label>Orden</label>
       <select className={Styles.select} onChange={handleSort}>
-        <option>---</option>
+        <option value="---">---</option>
         <option value="asc">A-Z</option>
         <option value="des">Z-A</option>
       </select>
@@ -52,13 +53,13 @@ const Filter = ({ setOrden, setCurrentPage }) => {
       <label>Categoría</label>
       <select className={Styles.select} onChange={handleCategoryChange}>
         <option value="all">Todas las categorías</option>
-        <option value="all">Computación</option>
-        <option value="all">Celulares</option>
-        <option value="all">Electrónica</option>
-        <option value="all">Videojuegos</option>
-        {filteredCategories && filteredCategories.map(category => (
+        <option value="computacion">Computación</option>
+        <option value="celulares">Celulares</option>
+        <option value="electronica">Electrónica</option>
+        <option value="videojuegos">Videojuegos</option>
+        {/* {filteredCategories && filteredCategories.map(category => (
           <option key={category.id} value={category.id}>{category.name}</option>
-        ))}
+        ))} */}
       </select>
     </div>
   );
