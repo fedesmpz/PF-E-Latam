@@ -35,7 +35,7 @@ export const productSlice = createSlice({
     },
 
     setSearchProduct: (state, action) => {
-        state.allProducts = action.payload;
+        state.products = action.payload;
     },
 
     setNewProduct: (state, action) => {
@@ -164,6 +164,7 @@ export const axiosSearchProduct = (title,country) => (dispatch) => {
         })
         
         .catch((error) => console.log(error));
+        throw error
 };
 
 
