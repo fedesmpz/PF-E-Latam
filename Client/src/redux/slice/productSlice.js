@@ -5,7 +5,7 @@ export const productSlice = createSlice({
   name: 'products',
   initialState: {
     products: [],
-    category: [],
+    categories: [],
     country: "ARG",
     detail: {},
     allProducts: [],
@@ -15,7 +15,7 @@ export const productSlice = createSlice({
   
   reducers: {
     setProductByCountryCategory: (state, action) => {
-      state.category = action.payload;
+      state.categories = action.payload;
     },
 
     setAllProductsByCountries: (state, action) => {
@@ -33,15 +33,22 @@ export const productSlice = createSlice({
     setAllProductsByCountriesCategoryId: (state, action) => {
       state.detail = action.payload;
     },
-
+    
     setSearchProduct: (state, action) => {
+<<<<<<< HEAD
         state.products = action.payload;
+=======
+      state.allProducts = action.payload;
+>>>>>>> 93a5f81de3131f04d2cdf4130543ee8f4f3ef0e4
     },
 
     setNewProduct: (state, action) => {
       state.products = [...state.products, action.payload];
     },
 
+    cleanDetail:(state)=>{
+      state.detail= {}
+    },
     
     setOrderByName: (state, action) => {
       state.orderByName = action.payload;
@@ -52,7 +59,7 @@ export const productSlice = createSlice({
           return b.title.localeCompare(a.title);
         }
         return 0;
-    });
+      });
     },
 
     setOrderByPrice: (state, action) => {
@@ -62,10 +69,10 @@ export const productSlice = createSlice({
           const priceB = parseFloat(b.price);
           if (state.orderByPrice === 'menormayor') {
             if (priceA < priceB) {
-              return -1;
+              return  1;
             }
             if (priceA > priceB) {
-              return 1;
+              return -1;
             }
             return 0;
           } else if (state.orderByPrice === 'mayormenor') {
@@ -79,13 +86,21 @@ export const productSlice = createSlice({
           }
           return 0;
         });
-      },
-      cleanDetail:(state)=>{
-        state.detail= {}
-    }
-
-
     },
+    setFilterByCategory: (state, action) => {
+      const filterByCategory = state.allProducts;
+      const filteredCat = filterByCategory.filter((product) => {
+        return product.categories === action.payload;
+      });
+
+      if (action.payload === 'all') {
+        state.products = state.allProducts;
+      } else {
+        state.products = filteredCat;
+      }
+    },
+    
+  },
 });
 
 export const {
@@ -101,14 +116,14 @@ export const {
   setCategory,
   filterByCategory,
   cleanDetail,
+  setFilterByCategory,
 } = productSlice.actions;
 
 export default productSlice.reducer;
 
 export const axiosAllProductByCountryCategory = () => (dispatch, getState) => {
   const countryId = getState().products.country;
-  const category = getState().products.category;
-
+  const category = getState().products.categories;
   axios
     .get(`http://localhost:8000/products/${countryId}/${category}`)
     .then((response) => {
@@ -147,9 +162,9 @@ export const axiosAllProducts = () => (dispatch) => {
 
 
 
-export const axiosAllProductByCountryCategoryId = (id, countryId, category) => (dispatch) => {
+export const axiosAllProductByCountryCategoryId = (id, countryId, categories) => (dispatch) => {
     axios
-        .get(`http://localhost:8000/products/${countryId}/${category}/${id}`)
+        .get(`http://localhost:8000/products/${countryId}/${categories}/${id}`)
         .then((response) => {
             dispatch(setAllProductsByCountriesCategoryId(response.data))
         })
