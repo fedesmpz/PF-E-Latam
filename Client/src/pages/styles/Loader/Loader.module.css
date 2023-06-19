@@ -1,5 +1,5 @@
 .container{
-    display: grid;
+    display: grid; 
     grid-template-columns: auto;
     position: relative;
     width: 100px;
