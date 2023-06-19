@@ -1,60 +1,125 @@
 import { createSlice } from "@reduxjs/toolkit";
-import axios from 'axios'
+import axios from 'axios';
 
 export const productSlice = createSlice({
-    // se genera error a no colocarle nombre al slice le colocare products ya que es la funcion de este archivo traernos los productos
-        name: 'products',
-        initialState: {
-            products: [],
-            category: [],
-            country: "ARG",
-            detail:{},
-            allProducts:[]
-        },
-    reducers: {
-        setProductByCountryCategory:(state, action) => {
-            state.category = action.payload;
-        },
+  name: 'products',
+  initialState: {
+    products: [],
+    category: [],
+    country: "ARG",
+    detail: {},
+    allProducts: [],
+    orderByName: 'asc',
+    orderByPrice: 'asc',
+    selectedCategory: null,
+  },
+  
+  reducers: {
+    setProductByCountryCategory: (state, action) => {
+      state.category = action.payload;
+    },
 
-        setAllProductsByCountries:(state, action) => {
-            state.products = action.payload;
-        },
+    setAllProductsByCountries: (state, action) => {
+      state.products = action.payload;
+    },
 
-        setProductsCountry: (state, action) => {
-            state.country = action.payload;
-        },
+    setProductsCountry: (state, action) => {
+      state.country = action.payload;
+    },
 
-        //Creacion para todos los productos
+    setAllProducts: (state, action) => {
+      state.allProducts = action.payload;
+    },
 
-        setAllProducts:(state, action) => {
-            state.allProducts = action.payload;
-        },
-        
-        setAllProductsByCountriesCategoryId:(state, action) => {
-            state.detail = action.payload;
-         
-        },
-        setSearchProduct:(state,action) => {
-            state.products = action.payload;
-        },
-        setNewProduct:(state, action) => {
-            state.products = [...state.products, action.payload]
+    setAllProductsByCountriesCategoryId: (state, action) => {
+      state.detail = action.payload;
+    },
+
+    setSearchProduct: (state, action) => {
+      state.products = action.payload;
+    },
+
+    setNewProduct: (state, action) => {
+      state.products = [...state.products, action.payload];
+    },
+
+    
+    setOrderByName: (state, action) => {
+      state.orderByName = action.payload;
+      state.products.sort((a, b) => {
+        if (state.orderByName === 'asc') {
+          return a.title.localeCompare(b.title);
+        } else if (state.orderByName === 'des') {
+          return b.title.localeCompare(a.title);
         }
-    }
-})
+        return 0;
+    });
+    },
 
+    setOrderByPrice: (state, action) => {
+        state.orderByPrice = action.payload;
+        state.products?.sort((a, b) => {
+          const priceA = parseFloat(a.price);
+          const priceB = parseFloat(b.price);
+          if (state.orderByPrice === 'menormayor') {
+            if (priceA < priceB) {
+              return -1;
+            }
+            if (priceA > priceB) {
+              return 1;
+            }
+            return 0;
+          } else if (state.orderByPrice === 'mayormenor') {
+            if (priceA > priceB) {
+              return -1;
+            }
+            if (priceA < priceB) {
+              return 1;
+            }
+            return 0;
+          }
+          return 0;
+        });
+      },
 
-export const { setProductByCountryCategory, setAllProductsByCountries, setProductsCountry, setAllProductsByCountriesCategoryId, setSearchProduct, setAllProducts, setNewProduct } = productSlice.actions;
+setCategory: (state, action) => {
+  state.category = action.payload;
+},
+
+    filterByCategory: (state) => {
+        if (state.category) {
+            state.products = state.allProducts.filter(product => product.categories.includes(state.category));
+        }
+    },
+  },
+});
+
+export const {
+  setProductByCountryCategory,
+  setAllProductsByCountries,
+  setProductsCountry,
+  setAllProductsByCountriesCategoryId,
+  setSearchProduct,
+  setAllProducts,
+  setNewProduct,
+  setOrderByName,
+  setOrderByPrice,
+  setCategory,
+  filterByCategory,
+} = productSlice.actions;
 
 export default productSlice.reducer;
 
-export const axiosAllProductByCountryCategory = () => (dispatch) => {
-    axios
-        .get("http://localhost:8000/products/:countryId/:category")
-        .then((response) => {
-            dispatch(setProductByCountryCategory(response.data.data))
-        })
-        .catch((error) => console.log(error));
+export const axiosAllProductByCountryCategory = () => (dispatch, getState) => {
+  const countryId = getState().products.country;
+  const category = getState().products.category;
+
+  axios
+    .get(`http://localhost:8000/products/${countryId}/${category}`)
+    .then((response) => {
+      dispatch(setProductByCountryCategory(response.data.data));
+    })
+    .catch((error) => console.log(error));
 };
 
 export const axiosAllProductsByCountries = (id) => (dispatch) => {
@@ -63,16 +128,12 @@ export const axiosAllProductsByCountries = (id) => (dispatch) => {
         .then((response) => {
             dispatch(setProductsCountry(id))
             dispatch(setAllProductsByCountries(response.data))
-            console.log(id)
-            console.log(response.data);
         })
         .catch((error) => console.log(error));
 };
 
 
-// esta funcion me trae todos los productos para dejarlos cargados en el home y proceder a filtrarlos según el pais
 
-//importante para que funcione debes ir al server/controllers/get/archivo getByCountry y cambiar ARL por ARG COP por COL y MXN por MEX ya que hay un error leve en esas rutas.
 export const axiosAllProducts = () => (dispatch) => {
     const urls = [
         'http://localhost:8000/products/ARG',
@@ -84,8 +145,7 @@ export const axiosAllProducts = () => (dispatch) => {
         .then((responses) => {
             const allProducts = responses.map(response => response.data);
             dispatch(setAllProducts(allProducts));
-            //se realiza el console.log para verificar la información traida en el home hay otro console.log para validar actualmente es el que se esta monstrando en consola
-            //console.log(products);
+
         })
         .catch((error) => console.log(error));
 };
@@ -97,8 +157,6 @@ export const axiosAllProductByCountryCategoryId = (id, countryId, category) => (
         .get(`http://localhost:8000/products/${countryId}/${category}/${id}`)
         .then((response) => {
             dispatch(setAllProductsByCountriesCategoryId(response.data))
-            console.log(response.data)
-    
         })
         .catch((error) => console.log(error));
 };
