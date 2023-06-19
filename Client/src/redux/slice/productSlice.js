@@ -39,12 +39,16 @@ export const productSlice = createSlice({
         },
         setNewProduct:(state, action) => {
             state.products = [...state.products, action.payload]
+        },
+        cleanDetail:(state)=>{
+            state.detail= {}
         }
+
     }
 })
 
 
-export const { setProductByCountryCategory, setAllProductsByCountries, setProductsCountry, setAllProductsByCountriesCategoryId, setSearchProduct, setAllProducts, setNewProduct } = productSlice.actions;
+export const { setProductByCountryCategory, setAllProductsByCountries, setProductsCountry, setAllProductsByCountriesCategoryId, setSearchProduct, setAllProducts, setNewProduct, cleanDetail} = productSlice.actions;
 
 export default productSlice.reducer;
 

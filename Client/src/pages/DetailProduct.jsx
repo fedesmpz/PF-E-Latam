@@ -1,5 +1,5 @@
 "use client"
-import { axiosAllProductByCountryCategoryId } from "@/redux/slice/productSlice";
+import { axiosAllProductByCountryCategoryId, cleanDetail } from "@/redux/slice/productSlice";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux"
 import { useRouter } from "next/router";
@@ -16,7 +16,7 @@ const DetailProduct = () => {
     const attributes = productDetail.attributes ? JSON.parse(productDetail.attributes) : [];
  useEffect(() => {
       dispatch(axiosAllProductByCountryCategoryId(id, countryId, categories));
-    // return () => dispatch(cleanDetail())  CREAR PARA LIMPIAR DETALLES
+       return () => dispatch(cleanDetail())  
   }, [dispatch, id, countryId, categories]);
 
 
