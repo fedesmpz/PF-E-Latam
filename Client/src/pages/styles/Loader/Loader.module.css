@@ -11,7 +11,7 @@
     width: 113%;
     height: 113%;
     top: 230%;
-    left: 490%;
+    left: 480%;
     animation: spin 5s linear infinite;
   }
   
@@ -32,7 +32,6 @@
     position: relative;
     width: 170%;
     height: 160%;
-    top: 135%;
-    left: 610%;
-    /* animation: spin 5s linear infinite; */
+    top: 230%;
+    left: 500%;
   }
