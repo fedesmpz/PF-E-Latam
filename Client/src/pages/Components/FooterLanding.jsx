@@ -64,7 +64,7 @@ const FooterLanding = () => {
             <Link className={styles.link} href="/Home">
                 <span className={styles["cta-description"]}>Gabriel Yopasa.<br/> <br/></span>
             </Link>
-            <Link className={styles.link} href="/Home">
+            <Link className={styles.link} href="/About">
                 <p className={styles["cta-description"]}>About</p>
             </Link>
             </div>
