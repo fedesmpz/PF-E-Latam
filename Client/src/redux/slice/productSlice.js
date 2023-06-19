@@ -35,7 +35,11 @@ export const productSlice = createSlice({
     },
     
     setSearchProduct: (state, action) => {
+<<<<<<< HEAD
+        state.products = action.payload;
+=======
       state.allProducts = action.payload;
+>>>>>>> 93a5f81de3131f04d2cdf4130543ee8f4f3ef0e4
     },
 
     setNewProduct: (state, action) => {
@@ -175,6 +179,7 @@ export const axiosSearchProduct = (title,country) => (dispatch) => {
         })
         
         .catch((error) => console.log(error));
+        throw error
 };
 
 

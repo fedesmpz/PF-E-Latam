@@ -7,7 +7,6 @@ const searchProductHandler = async (req, res) => {
         if (!result.length){
             throw new Error("No se encontro producto con ese dato")
         }
-        console.log(result)
         return res.status(200).json(result)
 
     } catch (error) {
