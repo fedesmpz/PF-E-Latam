@@ -56,30 +56,20 @@ export const productSlice = createSlice({
     },
 
     setOrderByPrice: (state, action) => {
-        state.orderByPrice = action.payload;
-        state.products?.sort((a, b) => {
-          const priceA = parseFloat(a.price);
-          const priceB = parseFloat(b.price);
-          if (state.orderByPrice === 'menormayor') {
-            if (priceA < priceB) {
-              return -1;
-            }
-            if (priceA > priceB) {
-              return 1;
-            }
-            return 0;
-          } else if (state.orderByPrice === 'mayormenor') {
-            if (priceA > priceB) {
-              return -1;
-            }
-            if (priceA < priceB) {
-              return 1;
-            }
-            return 0;
-          }
-          return 0;
-        });
-      },
+      state.orderByPrice = action.payload;
+      state.products?.sort((a, b) => {
+        const priceA = parseFloat(a.price);
+        const priceB = parseFloat(b.price);
+    
+        if (state.orderByPrice === 'menormayor') {
+          return priceA - priceB;
+        } else if (state.orderByPrice === 'mayormenor') {
+          return priceB - priceA;
+        }
+    
+        return 0;
+      });
+    },
 
     },
 });
