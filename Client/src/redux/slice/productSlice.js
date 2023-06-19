@@ -35,7 +35,7 @@ export const productSlice = createSlice({
     },
 
     setSearchProduct: (state, action) => {
-        state.allProducts = action.payload;
+      state.products = action.payload;
     },
 
     setNewProduct: (state, action) => {
@@ -80,9 +80,7 @@ export const productSlice = createSlice({
           return 0;
         });
       },
-      cleanDetail:(state)=>{
-        state.detail= {}
-      }
+
     },
 });
 
@@ -98,7 +96,6 @@ export const {
   setOrderByPrice,
   setCategory,
   filterByCategory,
-  cleanDetail
 } = productSlice.actions;
 
 export default productSlice.reducer;
@@ -154,16 +151,14 @@ export const axiosAllProductByCountryCategoryId = (id, countryId, category) => (
         .catch((error) => console.log(error));
 };
 
-export const axiosSearchProduct = (title,country) => (dispatch) => {
+export const axiosSearchProduct = () => (dispatch) => {
     axios
-        .get(`http://localhost:8000/products/search/?title=${title}&country=${country}`)
+        .get("http://localhost:8000/products/search")
         .then((response) => {
-            dispatch(setSearchProduct(response.data))
+            dispatch(setSearchProduct(response.data.data))
         })
-        
         .catch((error) => console.log(error));
 };
-
 
 export const postProduct = (payload) => (dispatch) => {
     axios
