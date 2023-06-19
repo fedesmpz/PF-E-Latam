@@ -20,6 +20,7 @@ export const productSlice = createSlice({
 
     setAllProductsByCountries: (state, action) => {
       state.products = action.payload;
+      state.allProducts = action.payload;
     },
 
     setProductsCountry: (state, action) => {
@@ -48,24 +49,27 @@ export const productSlice = createSlice({
     
     setOrderByName: (state, action) => {
       state.orderByName = action.payload;
-      state.products.sort((a, b) => {
+      const sortedProductsByName = state.allProducts.sort((a, b) => {
         const titleA = a.title.trim();
         const titleB = b.title.trim();
         if (state.orderByName === 'asc') {
           return titleA.localeCompare(titleB);
         } else if (state.orderByName === 'des') {
           return titleB.localeCompare(titleA);
+        } else if (state.orderByName === "---") {
+          return state.allProducts
         }
         return 0;
       });
+      state.allProducts = sortedProductsByName;
     },
 
     setOrderByPrice: (state, action) => {
       state.orderByPrice = action.payload;
-      const sortedProducts = [...state.products]; // Realizar una copia del array de productos
+      const sortedProducts = [...state.allProducts]; // Realizar una copia del array de productos
       sortedProducts.sort((a, b) => {
-        const priceA = parseFloat(a.price);
-        const priceB = parseFloat(b.price);
+        const priceA = parseFloat(a.original_price);
+        const priceB = parseFloat(b.original_price);
         if (state.orderByPrice === 'menormayor') {
           if (priceA < priceB) {
             return -1;
@@ -83,21 +87,24 @@ export const productSlice = createSlice({
           }
           return 0;
         }
+        if (state.orderByPrice === "---") {
+          return state.allProducts
+        }
         return 0;
       });
-      state.products = sortedProducts; // Asignar la lista ordenada al estado
+      state.allProducts = sortedProducts; // Asignar la lista ordenada al estado
     },
     
     setFilterByCategory: (state, action) => {
-      const filterByCategory = state.allProducts;
+      const filterByCategory = state.products;
       const filteredCat = filterByCategory.filter((product) => {
         return product.categories === action.payload;
       });
 
       if (action.payload === 'all') {
-        state.products = state.allProducts;
+        state.allProducts = state.products;
       } else {
-        state.products = filteredCat;
+        state.allProducts = filteredCat;
       }
     },
     
@@ -172,16 +179,17 @@ export const axiosAllProductByCountryCategoryId = (id, countryId, categories) =>
         .catch((error) => console.log(error));
 };
 
-export const axiosSearchProduct = (title,country) => (dispatch) => {
-    axios
-        .get(`http://localhost:8000/products/search/?title=${title}&country=${country}`)
-        .then((response) => {
-            dispatch(setSearchProduct(response.data))
-        })
-        
-        .catch((error) => console.log(error));
-        throw error
-};
+export const axiosSearchProduct = (title, country) => (dispatch) => {
+    return axios
+      .get(`http://localhost:8000/products/search/?title=${title}&country=${country}`)
+      .then((response) => {
+        dispatch(setSearchProduct(response.data));
+      })
+      .catch((error) => {
+ 
+        throw error;
+      });
+  };
 
 
 export const postProduct = (payload) => (dispatch) => {

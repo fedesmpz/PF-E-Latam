@@ -8,7 +8,6 @@ import Head from "next/head";
 import Providers from "@/redux/provider/Provider"
 import { postProduct } from "@/redux/slice/productSlice"
 
-
 const CreateProduct = () => {
 
     const dispatch = useDispatch();
@@ -19,13 +18,13 @@ const CreateProduct = () => {
     const [newProduct, setNewProduct] = useState({
         title: "",
         thumbnail: "",
-        original_price: 0,
+        original_price: undefined,
         currency_id: "ARS",
         price: 0,
         sale_price: false,
         sold_quantity: 0,
         available_quantity: 0,
-        oficial_store_name: "",
+        official_store_name: "",
         shipping: true,
         attributes: "",
         catalog_listing: true,
@@ -36,20 +35,7 @@ const CreateProduct = () => {
     })
 
 
-    const [errors, setErrors] = useState({
-        id: "",
-        title: "",
-        original_price: "",
-        currency_id: "",
-        price: "",
-        available_quantity: "",
-        oficial_store_name: "",
-        attributes: "",
-        discounts: "",
-        promotions: [],
-        categories: "",
-        country: ""
-    })
+    const [errors, setErrors] = useState({})
 
     const handleCategoriesChange = (event) => {
         let value = event.target.value
@@ -144,7 +130,7 @@ const CreateProduct = () => {
             price: 0,
             sale_price: false,
             available_quantity: 0,
-            oficial_store_name: "",
+            official_store_name: "",
             shipping: true,
             attributes: "",
             catalog_listing: true,
@@ -162,7 +148,7 @@ const CreateProduct = () => {
             price: 0,
             sale_price: false,
             available_quantity: 0,
-            oficial_store_name: "",
+            official_store_name: "",
             shipping: true,
             attributes: "",
             catalog_listing: true,
@@ -181,110 +167,153 @@ const CreateProduct = () => {
                 <title>/admin/create</title>
             </Head>
 
-            <Link href="/Home">
-                <button className={style.backButton}> Back </button>
-            </Link>
+            <div className={style.container_backButton}>
+                <Link href="/Home">
+                    <button className={style.backButton}> Back </button>
+                </Link>
+            </div>
 
-            <form onSubmit={handleSubmit}>
 
-                <div>
-                    <label htmlFor="country">elija un país:</label>
-                    <select onChange={handleCountryChange} name="country" id="country" className={style.selectField}>
-                        <option value="Argentina"> Argentina </option>
-                        <option value="Colombia"> Colombia </option>
-                        <option value="México"> México </option>
-                    </select>
-                </div>
+            <div className={style.container_form}>
+                <form onSubmit={handleSubmit}>
 
-                <div>
-                    <label htmlFor="title">Titulo:</label>
-                    <input placeholder="Ingrese un titulo" type="text" name="title" value={newProduct.title} onChange={handleChange} />
-                    {errors.title && <p>{errors.title}</p>}
-                </div>
+                    <div>
+                        <label htmlFor="country">Elija un país</label>
+                        <select onChange={handleCountryChange} name="country" id="country" className={style.selectField}>
+                            <option value="Argentina"> Argentina </option>
+                            <option value="Colombia"> Colombia </option>
+                            <option value="México"> México </option>
+                        </select>
+                    </div>
 
-                <div>
-                    <label htmlFor="thumbnail">Imagen:</label>
-                    <input type="file" name="thumbnail" value={newProduct.thumbnail} onChange={handleChange} />
-                    {selectedFileName && <p>{selectedFileName}</p>}
-                    {errors.thumbnail && <p>{errors.thumbnail}</p>}
-                </div>
+                    <div>
+                        <label htmlFor="title">Titulo</label>
+                        <input placeholder="Ingrese un titulo" type="text" name="title" value={newProduct.title} onChange={handleChange} />
 
-                <div>
-                    <span>{newProduct.currency_id}</span><label htmlFor="original_price">precio:</label>
-                    <input type="text" name="original_price" value={newProduct.original_price} onChange={handleChange} />
-                    {errors.original_price && <p>{errors.original_price}</p>}
-                </div>
+                        {errors.title
+                            ? <p>{errors.title}</p>
+                            : <p></p>
+                        }
+                    </div>
 
-                {/* <div>
-                    <label htmlFor="currency_id">elija el tipo de moneda:</label>
-                    <input type="text" name="currency_id" value={newProduct.currency_id} onChange={handleChange} />
-                    {errors.currency_id && <p>{errors.currency_id}</p>}
-                </div> */}
+                    <div>
+                        <label htmlFor="thumbnail">Imagen</label>
+                        <input type="file" name="thumbnail" value={newProduct.thumbnail} onChange={handleChange} />
+                        {selectedFileName && <p>{selectedFileName}</p>}
+                        {errors.thumbnail
+                            ? <p>{errors.thumbnail}</p>
+                            : <p></p>
+                        }
+                    </div>
 
-                <div>
-                    <label htmlFor="sale_price">Quiere colocar este producto en oferta?:</label>
-                    <input type="checkbox" checked={newProduct.sale_price} name="sale_price" onChange={handleCheck} />
-                    {
-                        newProduct.sale_price &&
+                    <div>
+                        <span>{newProduct.currency_id}</span><label htmlFor="original_price">Precio</label>
+                        <input type="text" name="original_price" value={newProduct.original_price} onChange={handleChange} />
+                        {errors.original_price
+                            ? <p>{errors.original_price}</p>
+                            : <p></p>
+                        }
+                    </div>
+
+                    <div>
+                        <label htmlFor="sale_price">Quiere colocar este producto en oferta?</label>
+                        <input type="checkbox" checked={newProduct.sale_price} name="sale_price" onChange={handleCheck} />
+                        {
+                            newProduct.sale_price
+                                ?
+                                <div>
+                                    <input type="text" name="price" value={newProduct.price} onChange={handleChange} />
+                                    <label htmlFor="price">Indique el precio de oferta</label>
+                                    {errors.price
+                                        ? <p>{errors.price}</p>
+                                        : <p></p>
+                                    }
+                                </div>
+                                : <div className={style.notShow}>
+                                    <input type="text" name="price" value={newProduct.price} onChange={handleChange} />
+                                    <label htmlFor="price">Indique el precio de oferta</label>
+                                    {errors.price
+                                        ? <p>{errors.price}</p>
+                                        : <p></p>
+                                    }
+                                </div>
+                        }
+                    </div>
+
+                    <div>
+                        <label htmlFor="available_quantity">Cantidad de productos en stock</label>
+                        <input type="number" name="available_quantity" value={newProduct.available_quantity} onChange={handleChange} />
+                        {errors.available_quantity
+                            ? <p>{errors.available_quantity}</p>
+                            : <p></p>
+                        }
+                    </div>
+
+                    <div>
+                        <label htmlFor="official_store_name">Marca</label>
+                        <input type="text" name="official_store_name" value={newProduct.official_store_name} onChange={handleChange} />
+                        {errors.official_store_name
+                            ? <p>{errors.official_store_name}</p>
+                            : <p></p>
+                        }
+                    </div>
+
+                    <div>
+                        <label htmlFor="attributes">Descripción</label>
+                        <textarea type="text-area" name="attributes" value={newProduct.attributes} onChange={handleChange} rows="4" cols="50" />
+                        {errors.attributes
+                            ? <p>{errors.attributes}</p>
+                            : <p></p>
+                        }
+                    </div>
+
+                    <div>
+                        <label htmlFor="shipping">Envío gratis</label>
+                        <input type="checkbox" name="shipping" checked={newProduct.shipping} onChange={handleCheck} />
+                        {errors.shipping
+                            ? <p>{errors.shipping}</p>
+                            : <p></p>
+                        }
+                    </div>
+
+                    <div>
+                        <label htmlFor="discounts">Descuento</label>
+                        <span>%</span><input type="text" name="discounts" value={newProduct.discounts} onChange={handleChange} />
                         <div>
-                            <label htmlFor="price">indique el precio de oferta:</label>
-                            <input type="text" name="price" value={newProduct.price} onChange={handleChange} />
-                            {errors.price && <p>{errors.price}</p>}
+                            {!errors.discounts && <strong>{`Precio del producto con descuento aplicado: ${valueDiscounts}`}</strong>
+                            }
                         </div>
-                    }
-                </div>
+                        <div>
+                            {errors.discounts
+                                ? <p>{errors.discounts}</p>
+                                : <p></p>
+                            }
+                        </div>
+                    </div>
 
-                <div>
-                    <label htmlFor="available_quantity">Cantidad de productos en stock:</label>
-                    <input type="number" name="available_quantity" value={newProduct.available_quantity} onChange={handleChange} />
-                    {errors.available_quantity && <p>{errors.available_quantity}</p>}
-                </div>
+                    <div>
+                        <label htmlFor="categories">Elija una categoría</label>
+                        <select onChange={handleCategoriesChange} name="categories" id="categories" className={style.selectField}>
+                            <option value="computacion"> Computación </option>
+                            <option value="celulares"> Celulares </option>
+                            <option value="electronica"> Electrónica </option>
+                            <option value="videojuegos"> Videojuegos </option>
+                        </select>
+                        {errors.categories
+                            ? <p>{errors.categories}</p>
+                            : <p></p>
+                        }
+                    </div>
 
-                <div>
-                    <label htmlFor="oficial_store_name">Marca:</label>
-                    <input type="text" name="oficial_store_name" value={newProduct.oficial_store_name} onChange={handleChange} />
-                    {errors.oficial_store_name && <p>{errors.oficial_store_name}</p>}
-                </div>
-
-                <div>
-                    <label htmlFor="attributes">Descripción:</label>
-                    <input type="text" name="attributes" value={newProduct.attributes} onChange={handleChange} />
-                    {errors.attributes && <p>{errors.attributes}</p>}
-                </div>
-
-                <div>
-                    <label htmlFor="shipping">envío gratis:</label>
-                    <input type="checkbox" name="shipping" checked={newProduct.shipping} onChange={handleCheck} />
-                    {errors.shipping && <p>{errors.shipping}</p>}
-                </div>
-
-                <div>
-                    <label htmlFor="discounts">Descuento:</label>
-                    <span>%</span><input type="text" name="discounts" value={newProduct.discounts} onChange={handleChange} />
-                    {!errors.discounts && <strong>{`Precio del producto con descuento aplicado: ${valueDiscounts}`}</strong>}
-                    {errors.discounts && <p>{errors.discounts}</p>}
-                </div>
-
-                {/* <div>
-                    <label htmlFor="promotions">Generar ticket de promoción:</label>
-                    <button type="button" onClick={() => handlePromotion()} className={style.submitButton}>Crear ticket</button>
-                    <span>aqui esta tu codigo creado: {newProduct.promotions.join("")}</span>
-                </div> */}
-
-                <div>
-                    <label htmlFor="categories">elija una categoría:</label>
-                    <select onChange={handleCategoriesChange} name="categories" id="categories" className={style.selectField}>
-                        <option value="computacion"> Computación </option>
-                        <option value="celulares"> Celulares </option>
-                        <option value="electronica"> Electrónica </option>
-                        <option value="videojuegos"> Videojuegos </option>
-                    </select>
-                    {errors.categories && <p>{errors.categories}</p>}
-                </div>
-
-                <button type="submit" className={style.submitButton}> Submit </button>
-            </form>
-
+                    <div className={style.container_submit}>
+                        {
+                            (Object.keys(errors).length > 0 || !newProduct.title)
+                                ? <button type="submit" disabled={true} className={style.submitDisabledButton}> Submit </button>
+                                : <button type="submit" className={style.submitButton}> Submit </button>
+                        }
+                    </div>
+                </form>
+            </div>
         </div>
     )
 }

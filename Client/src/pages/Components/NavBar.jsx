@@ -13,33 +13,34 @@ const NavBar = () => {
   const [error, setError] = useState('');
 
   function handleSearch(event) {
-    setTitle(event.target.value);
     setError('')
+    setTitle(event.target.value);
   }
 
   const handlerClick = async () => {
-    try {
-      if (title.trim() === '') {
-        setError('Ingrese un dato para la búsqueda');
-      } else {
-        let selectedCountry = '';
-
-        if (country === 'ARG') {
-          selectedCountry = 'Argentina';
-        } else if (country === 'COL') {
-          selectedCountry = 'Colombia';
-        } else if (country === 'MEX') {
-          selectedCountry = 'Mexico';
-        }
-
+    if (title.trim() === '') {
+      setError('Ingrese algún dato');
+    } else {
+      let selectedCountry = '';
+  
+      if (country === 'ARG') {
+        selectedCountry = 'Argentina';
+      } else if (country === 'COL') {
+        selectedCountry = 'Colombia';
+      } else if (country === 'MEX') {
+        selectedCountry = 'Mexico';
+      }
+  
+      try {
         await dispatch(axiosSearchProduct(title, selectedCountry));
         setTitle('');
-        setError('')
+      } catch (error) {
+        setError('Producto no encontrado'); 
+       
       }
-    } catch (error) {
-      setError('Producto no encontrado');
     }
   };
+
   function handleFilterByCountry(event) {
     const selectedValue = event.target.value;
     setCountry(selectedValue);
@@ -78,9 +79,11 @@ const NavBar = () => {
         </div>
 
         <div className={Styles.searchBar}>
+           
           <input type="search" placeholder="¿Qué buscas hoy?" value={title} onChange={handleSearch} />
-          <button onClick={handlerClick}>Buscar</button>
-          {error && <p>{error}</p>}
+          <button onClick={handlerClick}className={Styles.buttonBusqueda}>Buscar</button>
+         {error && <p className={Styles.error}>{error}</p>}
+
         </div>
       </div>
 
