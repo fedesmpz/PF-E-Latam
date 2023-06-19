@@ -49,10 +49,12 @@ export const productSlice = createSlice({
     setOrderByName: (state, action) => {
       state.orderByName = action.payload;
       state.products.sort((a, b) => {
+        const titleA = a.title.trim();
+        const titleB = b.title.trim();
         if (state.orderByName === 'asc') {
-          return a.title.localeCompare(b.title);
+          return titleA.localeCompare(titleB);
         } else if (state.orderByName === 'des') {
-          return b.title.localeCompare(a.title);
+          return titleB.localeCompare(titleA);
         }
         return 0;
       });
