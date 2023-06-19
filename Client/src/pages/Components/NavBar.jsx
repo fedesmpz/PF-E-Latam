@@ -1,24 +1,43 @@
 import Link from "next/link";
-import React from 'react';
+import React, { use } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import Styles from "./Styles/NavBar.module.css";
-import { axiosAllProductsByCountries } from "../../redux/slice/productSlice";
+import { axiosAllProductsByCountries, axiosSearchProduct } from "../../redux/slice/productSlice";
 import Image from "next/image"; 
+import { useState } from "react";
 
 
 const NavBar = () => {
   const dispatch = useDispatch()
 
   const productsCountry = useSelector((state) => state.products.country);
+  const [title, setTitle] = useState('');
+  const [country, setCountry] = useState('ARG');
 
   function handleSearch(event) {
-    console.log(event.target.value)
-  }
-  
-  function handleFilterByCountry(event) {
-      dispatch(axiosAllProductsByCountries(event.target.value));
+    setTitle(event.target.value);
   }
 
+  const handlerClick = async () => {
+    let selectedCountry = '';
+
+    if (country === 'ARG') {
+      selectedCountry = 'Argentina';
+    } else if (country === 'COL') {
+      selectedCountry = 'Colombia';
+    } else if (country === 'MEX') {
+      selectedCountry = 'Mexico';
+    }
+
+    await dispatch(axiosSearchProduct(title, selectedCountry));
+    setTitle('');
+  };
+
+  function handleFilterByCountry(event) {
+    const selectedValue = event.target.value;
+    setCountry(selectedValue);
+    dispatch(axiosAllProductsByCountries(selectedValue));
+  }
   return (
     <div className={Styles.navbar}>
       <div className={Styles.leftContainer}>
@@ -41,7 +60,7 @@ const NavBar = () => {
         
         {/* Esto va a ser reemplazado por el componente de fede donde renderiza las banderitas */}
         <div className={Styles.flags}>
-          <select value={productsCountry} onChange={handleFilterByCountry}>
+          <select value={country} onChange={handleFilterByCountry}>
             <option value="ARG">ARG</option>
             <option value="COL">COL</option>
             <option value="MEX">MEX</option>
@@ -49,7 +68,8 @@ const NavBar = () => {
         </div>
 
         <div className={Styles.searchBar}>
-          <input type="search" placeholder="Que buscas hoy?" onChange={handleSearch}></input>
+          <input type="search" placeholder="Que buscas hoy?" value={title}onChange={handleSearch}></input>
+          <button onClick={()=>{handlerClick ()}}>Buscar</button>
         </div>
       </div>
 

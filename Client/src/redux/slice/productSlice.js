@@ -23,68 +23,28 @@ export const productSlice = createSlice({
       state.products = action.payload;
     },
 
-    setProductsCountry: (state, action) => {
-      state.country = action.payload;
-    },
+        setProductsCountry: (state, action) => {
+            state.country = action.payload;
+        },
 
-    setAllProducts: (state, action) => {
-      state.allProducts = action.payload;
-    },
+        //Creacion para todos los productos
 
-    setAllProductsByCountriesCategoryId: (state, action) => {
-      state.detail = action.payload;
-    },
-
-    setSearchProduct: (state, action) => {
-      state.products = action.payload;
-    },
-
-    setNewProduct: (state, action) => {
-      state.products = [...state.products, action.payload];
-    },
-
-    
-    setOrderByName: (state, action) => {
-      state.orderByName = action.payload;
-      state.products.sort((a, b) => {
-        if (state.orderByName === 'asc') {
-          return a.title.localeCompare(b.title);
-        } else if (state.orderByName === 'des') {
-          return b.title.localeCompare(a.title);
+        setAllProducts:(state, action) => {
+            state.allProducts = action.payload;
+        },
+        
+        setAllProductsByCountriesCategoryId:(state, action) => {
+            state.detail = action.payload;
+         
+        },
+        setSearchProduct:(state,action) => {
+            state.products = action.payload;
+        },
+        setNewProduct:(state, action) => {
+            state.products = [...state.products, action.payload]
         }
-        return 0;
-    });
-    },
-
-    setOrderByPrice: (state, action) => {
-        state.orderByPrice = action.payload;
-        state.products?.sort((a, b) => {
-          const priceA = parseFloat(a.price);
-          const priceB = parseFloat(b.price);
-          if (state.orderByPrice === 'menormayor') {
-            if (priceA < priceB) {
-              return -1;
-            }
-            if (priceA > priceB) {
-              return 1;
-            }
-            return 0;
-          } else if (state.orderByPrice === 'mayormenor') {
-            if (priceA > priceB) {
-              return -1;
-            }
-            if (priceA < priceB) {
-              return 1;
-            }
-            return 0;
-          }
-          return 0;
-        });
-      },
-
-setCategory: (state, action) => {
-  state.category = action.payload;
-},
+    }
+})
 
     filterByCategory: (state) => {
         if (state.category) {
@@ -94,19 +54,7 @@ setCategory: (state, action) => {
   },
 });
 
-export const {
-  setProductByCountryCategory,
-  setAllProductsByCountries,
-  setProductsCountry,
-  setAllProductsByCountriesCategoryId,
-  setSearchProduct,
-  setAllProducts,
-  setNewProduct,
-  setOrderByName,
-  setOrderByPrice,
-  setCategory,
-  filterByCategory,
-} = productSlice.actions;
+export const { setProductByCountryCategory, setAllProductsByCountries, setProductsCountry, setAllProductsByCountriesCategoryId, setSearchProduct, setAllProducts, setNewProduct } = productSlice.actions;
 
 export default productSlice.reducer;
 
@@ -161,12 +109,13 @@ export const axiosAllProductByCountryCategoryId = (id, countryId, category) => (
         .catch((error) => console.log(error));
 };
 
-export const axiosSearchProduct = () => (dispatch) => {
+export const axiosSearchProduct = (title,country) => (dispatch) => {
     axios
-        .get("http://localhost:8000/products/search")
+        .get(`http://localhost:8000/products/search/?title=${title}&country=${country}`)
         .then((response) => {
-            dispatch(setSearchProduct(response.data.data))
+            dispatch(setSearchProduct(response.data))
         })
+        
         .catch((error) => console.log(error));
 };
 
