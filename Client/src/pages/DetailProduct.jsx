@@ -14,6 +14,7 @@ const DetailProduct = () => {
   const { countryId } = router.query;
 
   const productDetail = useSelector((state) => state.products.detail);
+  console.log(productDetail);
   const attributes = productDetail.attributes ? JSON.parse(productDetail.attributes) : [];
 
   useEffect(() => {
