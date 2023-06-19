@@ -80,6 +80,10 @@ export const productSlice = createSlice({
           return 0;
         });
       },
+      cleanDetail:(state)=>{
+        state.detail= {}
+    }
+
 
     },
 });
