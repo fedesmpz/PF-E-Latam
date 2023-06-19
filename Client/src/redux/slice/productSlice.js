@@ -35,7 +35,7 @@ export const productSlice = createSlice({
     },
 
     setSearchProduct: (state, action) => {
-      state.products = action.payload;
+        state.allProducts = action.payload;
     },
 
     setNewProduct: (state, action) => {
@@ -56,6 +56,7 @@ export const productSlice = createSlice({
     },
 
     setOrderByPrice: (state, action) => {
+<<<<<<< HEAD
       state.orderByPrice = action.payload;
       state.products?.sort((a, b) => {
         const priceA = parseFloat(a.price);
@@ -70,6 +71,36 @@ export const productSlice = createSlice({
         return 0;
       });
     },
+=======
+        state.orderByPrice = action.payload;
+        state.products?.sort((a, b) => {
+          const priceA = parseFloat(a.price);
+          const priceB = parseFloat(b.price);
+          if (state.orderByPrice === 'menormayor') {
+            if (priceA < priceB) {
+              return -1;
+            }
+            if (priceA > priceB) {
+              return 1;
+            }
+            return 0;
+          } else if (state.orderByPrice === 'mayormenor') {
+            if (priceA > priceB) {
+              return -1;
+            }
+            if (priceA < priceB) {
+              return 1;
+            }
+            return 0;
+          }
+          return 0;
+        });
+      },
+      cleanDetail:(state)=>{
+        state.detail= {}
+    }
+
+>>>>>>> 5b4d6351913d8ce028eb16a7688bf69882e83c16
 
     },
 });
@@ -86,6 +117,7 @@ export const {
   setOrderByPrice,
   setCategory,
   filterByCategory,
+  cleanDetail,
 } = productSlice.actions;
 
 export default productSlice.reducer;
@@ -141,14 +173,16 @@ export const axiosAllProductByCountryCategoryId = (id, countryId, category) => (
         .catch((error) => console.log(error));
 };
 
-export const axiosSearchProduct = () => (dispatch) => {
+export const axiosSearchProduct = (title,country) => (dispatch) => {
     axios
-        .get("http://localhost:8000/products/search")
+        .get(`http://localhost:8000/products/search/?title=${title}&country=${country}`)
         .then((response) => {
-            dispatch(setSearchProduct(response.data.data))
+            dispatch(setSearchProduct(response.data))
         })
+        
         .catch((error) => console.log(error));
 };
+
 
 export const postProduct = (payload) => (dispatch) => {
     axios
