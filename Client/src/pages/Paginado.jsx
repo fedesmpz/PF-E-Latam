@@ -2,14 +2,14 @@ import { useEffect, useState } from "react";
 import styles from "./styles/Paginado/Paginado.module.css";
 
 const Paginado = ({ productsPerPage, products, paginado, currentPage }) => {
-  const [activePage, setActivePage] = useState(1); // Página 1 por defecto
+  const [activePage, setActivePage] = useState(1);
 
   useEffect(() => {
     setActivePage(currentPage);
   }, [currentPage]);
 
   useEffect(() => {
-    setActivePage(1); // Establecer la página activa en 1 al cargar nuevos productos
+    setActivePage(1);
     paginado(1);
   }, [products]);
 

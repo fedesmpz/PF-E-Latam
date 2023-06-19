@@ -1,8 +1,8 @@
-.conteiner1 {
-    color: rgba(123, 83, 18, 0.508);
-}
-.conteiner2 {
-    color: rgba(123, 83, 18, 0.508);
+.containerSubFooter {
+    color:#4BBF68;
+    margin: 10px 30px 10px 30px;
+    display: flex;
+    justify-content: space-between;
 }
 .about {
     font-style:italic;

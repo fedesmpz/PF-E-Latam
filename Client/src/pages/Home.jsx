@@ -1,7 +1,7 @@
 'use client'
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { axiosAllProducts } from "../redux/slice/productSlice"
+import { axiosAllProductsByCountries } from "../redux/slice/productSlice"
 import Providers from "@/redux/provider/Provider"
 import Paginado from "./Paginado";
 import Products from "./Components/Products";
@@ -12,9 +12,12 @@ import Link from "next/link";
 import style from "./Styles/Home/Home.module.css"
 import Loader from "./Loader";
 import "bootstrap/dist/css/bootstrap.css"
+import FooterLanding from "./Components/FooterLanding";
 
 const Home = () => {
     const dispatch = useDispatch();
+
+    const productsCountry = useSelector((state) => state.products.country);
     //codigo para que haya un spinner.
     const [isLoading, setIsLoading] = useState(true);
     useEffect(() => {
@@ -31,11 +34,11 @@ const Home = () => {
 
     // codigo para llamar los productos
     useEffect(() => {
-        dispatch(axiosAllProducts())
+        dispatch(axiosAllProductsByCountries(productsCountry))
     }, [dispatch]);
     
     //Lógica para el paginado
-    const array = useSelector((state) => state.products.allProducts);
+    const array = useSelector((state) => state.products.products);
     const concatenatedObjects = array.reduce((accumulator, currentArray) => {
         return accumulator.concat(currentArray);
         }, []);
@@ -67,14 +70,6 @@ const Home = () => {
             orden={orden}
             />
 
-            <Paginado
-            key="paginado"
-            productsPerPage={productsPerPage}
-            products={products.length}
-            paginado={paginado}
-            currentProducts={currentProducts}
-            />
-
             <div className="paginado">
             <Products
             currentProducts={currentProducts}
@@ -89,6 +84,8 @@ const Home = () => {
             />
 
             <SubFooter/>
+
+            <FooterLanding/>
 
             </div>
             
