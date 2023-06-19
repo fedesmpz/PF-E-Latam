@@ -25,40 +25,40 @@ const validation = (product) => {
         errors.price = "Solo pueden ingresarse números"
     }
 
-    if (product.price <= 0) {
+    if (product.price < 0) {
         errors.price = "el precio mínimo no puede ser menor o igual a 0"
     }
 
 //-------------------------------------------------------------------
-if (isNaN(product.available_quantity)) {
-    errors.available_quantity = "Solo pueden ingresarse números"
-}
+    if (isNaN(product.available_quantity)) {
+        errors.available_quantity = "Solo pueden ingresarse números"
+    }
 
-if (product.available_quantity <= 0) {
-    errors.available_quantity = "La cantidad mínima no puede ser menor o igual a 0"
-}
+    if (product.available_quantity <= 0) {
+        errors.available_quantity = "La cantidad mínima no puede ser menor o igual a 0"
+    }
 
 //--------------------------------------------------------------------------------
 
-if (!regex.test(product.oficial_store_name)) {
-    errors.oficial_store_name = "No puede contener caracteres especiales"
-}
+    if (!regex.test(product.oficial_store_name)) {
+        errors.oficial_store_name = "No puede contener caracteres especiales"
+    }
 
 //------------------------------------------------------------------------
 
-if (isNaN(product.discounts)) {
-    errors.discounts = "Solo pueden ingresarse números"
-}
+    if (isNaN(product.discounts)) {
+        errors.discounts = "Solo pueden ingresarse números"
+    }
 
-if (product.discounts > 100) {
-    errors.discounts = "Debe ingresar valores entre 1 y 100"
-}
+    if (product.discounts > 100) {
+        errors.discounts = "Debe ingresar valores entre 1 y 100"
+    }
+        
+    if (product.discounts <= 0) {
+        errors.discounts = "Debe ingresar valores entre 1 y 100"
+    }
     
-if (product.discounts <= 0) {
-    errors.discounts = "Debe ingresar valores entre 1 y 100"
-}
-
-return errors;
+    return errors;
 }
 
 export default validation;
