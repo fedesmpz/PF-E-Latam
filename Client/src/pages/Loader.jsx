@@ -3,7 +3,7 @@ import style from "./styles/Loader/Loader.module.css";
 
 const Loader = () => {
   return (
-    <div>
+    <div className="d-flex items-center justify-center">
       <div className={style.container}>
         <Image
           className={style.logoe}
