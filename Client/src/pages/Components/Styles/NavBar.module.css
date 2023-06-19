@@ -1,11 +1,11 @@
 .navbar {
-    display: flex;
-    padding: 10px;
-    align-items: center;
-    justify-content: space-between;
-    background-color: white;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  }
+  display: flex;
+  padding: 10px;
+  align-items: center;
+  justify-content: space-between;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
 
 .rightContainer {
   display: flex;
@@ -15,7 +15,7 @@
   display: flex;
   align-items: center;
 }
-  
+
 .logo {
   text-decoration: none;
   color: white;
@@ -27,8 +27,8 @@
 .logoContainer {
   display: flex;
   flex-direction: row;
-  justify-content:center;
-  align-content:center;
+  justify-content: center;
+  align-content: center;
 }
 
 .logoE {
@@ -62,11 +62,15 @@
   border: none; /* Change '1px solid transparent' to 'none' */
 }
 
-  
+.searchBar {
+  position: relative;
+}
+
 .searchBar input {
   color: #838384;
   padding: 5px 70px 5px 10px;
-  margin: 0px 25px;
+  margin-right: 0px;
+  margin-left: 45px;
   font-size: 16px;
   border: 1px solid #838384;
   border-radius: 3px;
@@ -78,13 +82,12 @@
   background-image: none;
 }
 
-/* Hide the cross button in webkit-based browsers */
 .searchBar input[type="search"]::-webkit-search-cancel-button {
   -webkit-appearance: none;
   appearance: none;
 }
 
-/* Hide the cross button in Internet Explorer */
+
 .searchBar input[type="search"]::-ms-clear {
   display: none;
 }
@@ -93,6 +96,17 @@
   color: #838384;
   font-size: 16px;
 }
+
+.error {
+  position: absolute;
+  top: 100%;
+  left: 50px;
+  top:40px;
+  width: 100%;
+  font-size: 14px;
+  color: red;
+}
+  
   
 .button{
   background-color: transparent;
@@ -128,3 +142,34 @@
     border-top: 2px solid #4E55D9;
   }
   
+  .buttonBusqueda{
+    background-color: transparent;
+    text-decoration: none;
+    color: #8491D9;
+    align-items: center;
+    justify-content: center;
+    min-width: 80px;
+    font-size: 18px;
+    font-weight: 200;
+    padding: 10px;
+    margin-left: 0px;
+    cursor: pointer;
+    border: none;
+    border-top: 2px solid transparent;
+  }
+  
+    .buttonBusqueda:hover{
+      background-color: transparent;
+      text-decoration: none;
+      color: #4E55D9;
+      align-items: center;
+      justify-content: center;
+      min-width: 80px;
+      width: 1%;
+      font-size: 18px;
+      font-weight: 400;
+      padding: 10px;
+      margin-left: 0px;
+      border: none;
+      border-top: 2px solid #4E55D9;
+    }
