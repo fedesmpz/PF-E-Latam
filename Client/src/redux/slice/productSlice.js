@@ -172,16 +172,17 @@ export const axiosAllProductByCountryCategoryId = (id, countryId, categories) =>
         .catch((error) => console.log(error));
 };
 
-export const axiosSearchProduct = (title,country) => (dispatch) => {
-    axios
-        .get(`http://localhost:8000/products/search/?title=${title}&country=${country}`)
-        .then((response) => {
-            dispatch(setSearchProduct(response.data))
-        })
-        
-        .catch((error) => console.log(error));
-        throw error
-};
+export const axiosSearchProduct = (title, country) => (dispatch) => {
+    return axios
+      .get(`http://localhost:8000/products/search/?title=${title}&country=${country}`)
+      .then((response) => {
+        dispatch(setSearchProduct(response.data));
+      })
+      .catch((error) => {
+ 
+        throw error;
+      });
+  };
 
 
 export const postProduct = (payload) => (dispatch) => {
