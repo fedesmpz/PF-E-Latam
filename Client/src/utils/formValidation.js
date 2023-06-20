@@ -2,7 +2,7 @@ const validation = (product) => {
 
 
     const regex = /^[A-Za-z0-9\s]+$/; //que no contenga caracteres especiales
-    const urlPattern = /^(ftp|http|https):\/\/[^ "]+$/;
+    const urlPattern = /^https?:\/\/(?:[a-z]+\.)?[a-z0-9-]+(?:\.[a-z]{2,})+(?:\/[^/?#]+)+\.(?:jpeg|jpg|gif|png)$/i;
     const errors = {};
 
     if (product.title.length < 3 || product.title.length > 30) {
@@ -72,7 +72,9 @@ const validation = (product) => {
     }
 
 
-
+    if (product.thumbnail.length < 5) {
+        errors.thumbnail = "Debe ingresar una URL de imagen válida"
+    }
 
 
 
