@@ -8,6 +8,7 @@ import Head from "next/head";
 import Providers from "@/redux/provider/Provider"
 import { postProduct } from "@/redux/slice/productSlice"
 import Button from 'react-bootstrap/Button';
+import NavBar from "./Components/NavBar"
 
 
 const CreateProduct = () => {
@@ -28,9 +29,9 @@ const CreateProduct = () => {
         available_quantity: 0,
         official_store_name: "",
         shipping: true,
-        attributes: [{ name: "Marca", value: "Libercam" }, { name: "Largo del cable", value: 10 }],
+        attributes: "",
         catalog_listing: true,
-        discounts: "",
+        discounts: 0,
         promotions: [],
         categories: "",
         country: "Argentina"
@@ -60,7 +61,7 @@ const CreateProduct = () => {
         let aux = value
 
         aux = (aux === "Argentina") ? "ARS"
-            : (aux === "México") ? "MXN"
+            : (aux === "Mexico") ? "MXN"
                 : (aux === "Colombia") ? "COP"
                     : aux;
 
@@ -125,6 +126,7 @@ const CreateProduct = () => {
         }
 
     }
+    console.log(newProduct);
 
     const handleSubmit = (event) => {
         event.preventDefault()
@@ -159,7 +161,7 @@ const CreateProduct = () => {
             available_quantity: 0,
             official_store_name: "",
             shipping: true,
-            attributes: [],
+            attributes: "",
             catalog_listing: true,
             discounts: "",
             promotions: [],
@@ -176,6 +178,7 @@ const CreateProduct = () => {
                 <title>/admin/create</title>
             </Head>
 
+            <NavBar></NavBar>
             <div className={style.container_backButton}>
                 <Link href="/Home">
                     <Button variant="dark">
@@ -193,7 +196,7 @@ const CreateProduct = () => {
                         <select onChange={handleCountryChange} name="country" id="country" className={style.selectField}>
                             <option value="Argentina"> Argentina </option>
                             <option value="Colombia"> Colombia </option>
-                            <option value="México"> México </option>
+                            <option value="Mexico"> México </option>
                         </select>
                     </div>
 
@@ -278,14 +281,14 @@ const CreateProduct = () => {
                         }
                     </div>
 
-                    {/* <div>
+                    <div>
                         <label htmlFor="attributes">Descripción</label>
                         <textarea type="text-area" name="attributes" value={newProduct.attributes} onChange={handleChange} rows="4" cols="50" />
                         {errors.attributes
                             ? <p>{errors.attributes}</p>
                             : <p></p>
                         }
-                    </div> */}
+                    </div>
 
                     <div>
                         <label htmlFor="shipping">Envío gratis</label>
@@ -314,6 +317,7 @@ const CreateProduct = () => {
                     <div>
                         <label htmlFor="categories">Elija una categoría</label>
                         <select onChange={handleCategoriesChange} name="categories" id="categories" className={style.selectField}>
+                            <option value="">---</option>
                             <option value="computacion"> Computación </option>
                             <option value="celulares"> Celulares </option>
                             <option value="electronica"> Electrónica </option>
@@ -328,8 +332,8 @@ const CreateProduct = () => {
                     <div className={style.container_submit}>
                         {
                             (Object.keys(errors).length > 0 || !newProduct.title)
-                                ? <Button type="submit" disabled={true} className={style.submitDisabledButton}> Submit </Button>
-                                : <Button type="submit" className="btn btn-success"> Submit </Button>
+                                ? <button type="submit" disabled={true} className={style.submitDisabledButton}> Submit </button>
+                                : <button type="submit" className={style.submitButton}> Submit </button>
 
                         }
                     </div>

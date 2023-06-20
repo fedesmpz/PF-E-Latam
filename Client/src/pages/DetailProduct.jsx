@@ -52,7 +52,8 @@ const DetailProduct = () => {
                     <path d="M20.59 12H5.41l4.29-4.29a1 1 0 1 0-1.42-1.42l-6 6a1 1 0 0 0 0 1.42l6 6a1 1 0 0 0 1.42-1.42L5.41 12h15.18z"/>
                   </svg>
                 </button>
-      </Link> 
+      </Link>
+
       <NavBar></NavBar>
 
       <div className={styles.container}>
