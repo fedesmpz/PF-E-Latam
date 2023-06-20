@@ -61,7 +61,7 @@ const CreateProduct = () => {
         let aux = value
 
         aux = (aux === "Argentina") ? "ARS"
-            : (aux === "México") ? "MXN"
+            : (aux === "Mexico") ? "MXN"
                 : (aux === "Colombia") ? "COP"
                     : aux;
 
@@ -196,7 +196,7 @@ const CreateProduct = () => {
                         <select onChange={handleCountryChange} name="country" id="country" className={style.selectField}>
                             <option value="Argentina"> Argentina </option>
                             <option value="Colombia"> Colombia </option>
-                            <option value="México"> México </option>
+                            <option value="Mexico"> México </option>
                         </select>
                     </div>
 
