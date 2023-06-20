@@ -1,7 +1,8 @@
 const validation = (product) => {
 
 
-    const regex = /^[A-Za-z0-9\s]+$/ //que no contenga caracteres especiales
+    const regex = /^[A-Za-z0-9\s]+$/; //que no contenga caracteres especiales
+    const urlPattern = /^(ftp|http|https):\/\/[^ "]+$/;
     const errors = {};
 
     if (product.title.length < 3 || product.title.length > 30) {
@@ -58,6 +59,26 @@ const validation = (product) => {
         errors.discounts = "Debe ingresar valores entre 1 y 100"
     }
     
+//-------------------------------------------------------------------------------
+
+    if (product.categories) {
+        errors.categories = "Debe elejir una categoría para el producto"
+    }
+
+//------------------------------------------------------------------------
+
+    if (urlPattern.test(product.thumbnail)) {
+        errors.thumbnail = "Debe ingresar una URL de imagen válida"
+    }
+
+
+
+
+
+
+
+
+
     return errors;
 }
 
