@@ -126,6 +126,10 @@ button.backButton:hover svg {
   padding-right: 30px;
 }
 
+.notShow {
+  visibility: hidden;
+}
+
 /* 
 
 /// ESTE COMENTADO PQ TODAVIA NO USAMOS FILE
@@ -195,8 +199,5 @@ button.backButton:hover svg {
 
 .container form button.backButton {
   background-color: #d32f2f;
-}
+}*/
 
-.notShow {
-  visibility: hidden;
-} */

@@ -7,7 +7,6 @@ import validation from "../utils/formValidation"
 import Head from "next/head";
 import Providers from "@/redux/provider/Provider"
 import { postProduct } from "@/redux/slice/productSlice"
-import Button from 'react-bootstrap/Button';
 import NavBar from "./Components/NavBar"
 import SubFooter from "./Components/SubFooter"
 import FooterLanding from "./Components/FooterLanding"
@@ -23,7 +22,7 @@ const CreateProduct = () => {
     const [newProduct, setNewProduct] = useState({
         title: "",
         thumbnail: "",
-        original_price: undefined,
+        original_price: 0,
         currency_id: "ARS",
         price: 0,
         sale_price: false,
@@ -36,16 +35,9 @@ const CreateProduct = () => {
         discounts: 0,
         promotions: [],
         categories: "",
-        country: "Argentina"
+        country: "Argentina",
+        description: "",
     })
-
-    function ButtonSuccess() {
-        return (
-            <>
-                <Button variant="success">Success</Button>
-            </>
-        );
-    }
 
     const [errors, setErrors] = useState({})
 
@@ -135,23 +127,7 @@ const CreateProduct = () => {
 
         dispatch(postProduct(newProduct))
 
-        setErrors({
-            title: "",
-            thumbnail: "",
-            original_price: 0,
-            currency_id: "",
-            price: 0,
-            sale_price: false,
-            available_quantity: 0,
-            official_store_name: "",
-            shipping: true,
-            attributes: "",
-            catalog_listing: true,
-            discounts: "",
-            promotions: [],
-            categories: "",
-            country: ""
-        })
+        setErrors({})
 
         setNewProduct({
             title: "",
@@ -185,13 +161,13 @@ const CreateProduct = () => {
                 <Link href="/Home">
                     <button className={style.backButton}>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-                            <path fill="none" d="M0 0h24v24H0z"/>
-                            <path d="M20.59 12H5.41l4.29-4.29a1 1 0 1 0-1.42-1.42l-6 6a1 1 0 0 0 0 1.42l6 6a1 1 0 0 0 1.42-1.42L5.41 12h15.18z"/>
+                            <path fill="none" d="M0 0h24v24H0z" />
+                            <path d="M20.59 12H5.41l4.29-4.29a1 1 0 1 0-1.42-1.42l-6 6a1 1 0 0 0 0 1.42l6 6a1 1 0 0 0 1.42-1.42L5.41 12h15.18z" />
                         </svg>
                     </button>
                 </Link>
             </div>
-            <h1  className={style.createProduct}>Crear producto</h1>
+            <h1 className={style.createProduct}>Crear producto</h1>
             <div className={style.containerForm}>
                 <form onSubmit={handleSubmit}>
 
@@ -236,20 +212,17 @@ const CreateProduct = () => {
                     <div>
                         <label htmlFor="original_price" className={style.label}>Precio del producto</label>
                         <div className={style.priceCont}>
-                        <span className={style.priceTag}>$ {newProduct.currency_id}</span>
-                        <input   className={style.priceInput} type="text" name="original_price" value={newProduct.original_price} onChange={handleChange} />
+                            <span className={style.priceTag}>$ {newProduct.currency_id}</span>
+                            <input className={style.priceInput} type="text" name="original_price" value={newProduct.original_price} onChange={handleChange} />
                         </div>
-                        {errors.original_price
-                            ? <p>{errors.original_price}</p>
-                            : <p></p>
-                        }
+                        {errors.original_price && <p>{errors.original_price}</p>}
                     </div>
 
                     <div>
-                    <div className={style.checkDiv}>
-                        <label htmlFor="sale_price" className={style.label}>Quiere colocar este producto en oferta?</label>
-                        <input type="checkbox" checked={newProduct.sale_price} name="sale_price" onChange={handleCheck} />
-                    </div>
+                        <div className={style.checkDiv}>
+                            <label htmlFor="sale_price" className={style.label}>Quiere colocar este producto en oferta?</label>
+                            <input type="checkbox" checked={newProduct.sale_price} name="sale_price" onChange={handleCheck} />
+                        </div>
                         {
                             newProduct.sale_price
                                 ?
@@ -314,7 +287,7 @@ const CreateProduct = () => {
                         <label htmlFor="discounts" className={style.label}>Descuento del producto</label>
                         <div className={style.priceCont}>
                             <span className={style.priceTag}>%</span>
-                            <input  className={style.priceInput} type="text" name="discounts" value={newProduct.discounts} onChange={handleChange} />
+                            <input className={style.priceInput} type="text" name="discounts" value={newProduct.discounts} onChange={handleChange} />
                         </div>
                         <div>
                             {!errors.discounts && <strong>{`Precio del producto con descuento aplicado: ${valueDiscounts}`}</strong>
