@@ -54,7 +54,7 @@ const validation = (product) => {
         errors.discounts = "Debe ingresar valores entre 1 y 100"
     }
         
-    if (product.discounts <= 0) {
+    if (product.discounts < 0) {
         errors.discounts = "Debe ingresar valores entre 1 y 100"
     }
     

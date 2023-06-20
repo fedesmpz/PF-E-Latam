@@ -7,6 +7,8 @@ import validation from "../utils/formValidation"
 import Head from "next/head";
 import Providers from "@/redux/provider/Provider"
 import { postProduct } from "@/redux/slice/productSlice"
+import Button from 'react-bootstrap/Button';
+
 
 const CreateProduct = () => {
 
@@ -26,7 +28,7 @@ const CreateProduct = () => {
         available_quantity: 0,
         official_store_name: "",
         shipping: true,
-        attributes: "",
+        attributes: [{ name: "Marca", value: "Libercam" }, { name: "Largo del cable", value: 10 }],
         catalog_listing: true,
         discounts: "",
         promotions: [],
@@ -34,6 +36,13 @@ const CreateProduct = () => {
         country: "Argentina"
     })
 
+    function ButtonSuccess() {
+        return (
+            <>
+                <Button variant="success">Success</Button>
+            </>
+        );
+    }
 
     const [errors, setErrors] = useState({})
 
@@ -150,7 +159,7 @@ const CreateProduct = () => {
             available_quantity: 0,
             official_store_name: "",
             shipping: true,
-            attributes: "",
+            attributes: [],
             catalog_listing: true,
             discounts: "",
             promotions: [],
@@ -169,7 +178,9 @@ const CreateProduct = () => {
 
             <div className={style.container_backButton}>
                 <Link href="/Home">
-                    <button className={style.backButton}> Back </button>
+                    <Button variant="dark">
+                        Volver al inicio
+                    </Button>
                 </Link>
             </div>
 
@@ -267,14 +278,14 @@ const CreateProduct = () => {
                         }
                     </div>
 
-                    <div>
+                    {/* <div>
                         <label htmlFor="attributes">Descripción</label>
                         <textarea type="text-area" name="attributes" value={newProduct.attributes} onChange={handleChange} rows="4" cols="50" />
                         {errors.attributes
                             ? <p>{errors.attributes}</p>
                             : <p></p>
                         }
-                    </div>
+                    </div> */}
 
                     <div>
                         <label htmlFor="shipping">Envío gratis</label>
@@ -317,8 +328,9 @@ const CreateProduct = () => {
                     <div className={style.container_submit}>
                         {
                             (Object.keys(errors).length > 0 || !newProduct.title)
-                                ? <button type="submit" disabled={true} className={style.submitDisabledButton}> Submit </button>
-                                : <button type="submit" className={style.submitButton}> Submit </button>
+                                ? <Button type="submit" disabled={true} className={style.submitDisabledButton}> Submit </Button>
+                                : <Button type="submit" className="btn btn-success"> Submit </Button>
+
                         }
                     </div>
                 </form>
