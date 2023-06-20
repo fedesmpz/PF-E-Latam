@@ -41,10 +41,19 @@ const DetailProduct = () => {
 
 
   return (
-    <>
-      {/* <Link className={styles.link} href="/Home">
-        volver
-      </Link> */}
+   
+    <div className={styles.fondo}>
+ <>
+  
+       <Link  href="/Home">
+       <button className={styles.backButton}>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                    <path fill="none" d="M0 0h24v24H0z"/>
+                    <path d="M20.59 12H5.41l4.29-4.29a1 1 0 1 0-1.42-1.42l-6 6a1 1 0 0 0 0 1.42l6 6a1 1 0 0 0 1.42-1.42L5.41 12h15.18z"/>
+                  </svg>
+                </button>
+      </Link>
+
       <NavBar></NavBar>
 
       <div className={styles.container}>
@@ -71,7 +80,9 @@ const DetailProduct = () => {
           <h3>País: {productDetail.country}</h3>
         </div>
       </div>
+     
     </>
+     </div>
   );
 };
 
