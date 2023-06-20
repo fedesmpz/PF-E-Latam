@@ -1,7 +1,9 @@
 .sec-footer-cta {
+  margin-top: 4rem;
   background-color: #2C3357;
   width: 100%;
   padding: 5rem;
+  padding-bottom: 1rem;
   display: flex;
   flex-direction: row;
   color: #ddd;
@@ -25,6 +27,18 @@
     flex-direction: column;
     align-items: center;
     padding: 2rem;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 980px) {
+  .sec-footer-cta {
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 2rem;
+  }
+
+  .sec-footer-cta .footer-cta {
+    width: 50%;
   }
 }
 
@@ -56,6 +70,12 @@
 
 .link:hover {
   color: orange; /* Puedes ajustar el color a tu preferencia */
+}
+
+.icon {
+  margin: 0.5rem;
+  color: white;
+  font-size: 3rem; /* Ajusta el tamaño del icono según tus necesidades */
 }
 
 

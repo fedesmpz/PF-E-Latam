@@ -13,8 +13,8 @@ function Example() {
 
   return (
     <>
-      <Button variant="secundary" onClick={handleShow}>
-        Sign In
+      <Button variant="btn btn-outline-secondary" onClick={handleShow}>
+        Regístrate
       </Button>
 
       <Modal show={show} onHide={handleClose}>
