@@ -5,15 +5,18 @@ import CardGroup from 'react-bootstrap/CardGroup';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Styles from "./Styles/CarouselProducts.module.css"
 
 const CommentsUsers = () => {
   return (
-    <div>
+    <div >
+      <div className={Styles.centerContainer}>
+
+      </div>
     <Container>
         <Row>
-        <Col xs={12} md={6}>
-        
-        <Carousel data-bs-theme="dark">
+        <Col xs={{ span: 12, offset: 4 }} md={6} className='mb-3'>
+        <Carousel data-bs-theme="dark" indicators={false} controls={false}>
       <Carousel.Item>
       <Container>
       <Row>

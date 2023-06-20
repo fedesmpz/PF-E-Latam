@@ -117,7 +117,7 @@ const FooterLanding = () => {
         </div>
     </div>
 
-    <div className={styles["footer-cta"]}>
+    {/* <div className={styles["footer-cta"]}>
         <div className={styles["footer-text"]}>
         <p className={styles.link}>
             <p className={styles["cta-description"]}>Ingresa a Nuestra Tienda<br/><ModalLogin/><br/></p>
@@ -126,7 +126,7 @@ const FooterLanding = () => {
                 Para recibir ofertas y los mejores productos
             </d1>
         </div>
-    </div>
+    </div> */}
     </section>
     );
 };
