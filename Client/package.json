@@ -17,6 +17,8 @@
     "classnames": "^2.3.2",
     "eslint": "8.42.0",
     "eslint-config-next": "13.4.5",
+    "firebase": "^9.22.2",
+    "firebase-admin": "^11.9.0",
     "flag-icon-css": "^4.1.7",
     "next": "13.4.5",
     "postcss": "^8.4.24",

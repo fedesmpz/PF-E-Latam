@@ -4,6 +4,8 @@ import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
+//import Register from '../Register';
+import RegisterForm from './RegisterForm';
 
 function Example() {
   const [show, setShow] = useState(false);
@@ -13,8 +15,8 @@ function Example() {
 
   return (
     <>
-      <Button variant="btn btn-outline-secondary" onClick={handleShow}>
-        Regístrate
+      <Button variant="secundary" onClick={handleShow}>
+        Sign In
       </Button>
 
       <Modal show={show} onHide={handleClose}>
@@ -22,7 +24,7 @@ function Example() {
           <Modal.Title>Modal heading</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-        <Form>
+        {/* <Form>
       <Form.Group as={Row} className="mb-3" controlId="formHorizontalEmail">
         <Form.Label column sm={2}>
           Email
@@ -76,10 +78,11 @@ function Example() {
       <Form.Group as={Row} className="mb-3">
         <Col sm={{ span: 10, offset: 2 }}>
           <Button type="submit" className="m-4">Sign in</Button>
-          <Button variant="secondary" className="" onClick={handleClose}>Close</Button>
         </Col>
       </Form.Group>
-    </Form>
+    </Form> */}
+    <RegisterForm></RegisterForm>
+          <Button variant="secondary" className="" onClick={handleClose}>Close</Button>
         </Modal.Body>
       </Modal>
     </>
