@@ -49,6 +49,9 @@ module.exports = (sequelize) => {
     attributes: {
       type: DataTypes.TEXT
     },
+    description: {
+      type: DataTypes.TEXT
+    },
     //POSIBLEMENTE SE PUEDA USAR PARA ORDENES
     // installments: [
     //   {
@@ -71,7 +74,8 @@ module.exports = (sequelize) => {
     //   }
     // ],
     catalog_listing: {
-      type: DataTypes.BOOLEAN
+      type: DataTypes.BOOLEAN,
+      defaultValue: true
     },
     discounts: {
       type: DataTypes.INTEGER
