@@ -1,141 +1,147 @@
 import Link from "next/link"
+import { useState, useEffect } from "react";
 import Providers from "@/redux/provider/Provider"
 import NavbarPage from "./Components/NavbarPage"
 import CarouselProducts from "./Components/CarouselProducts"
+import CarouselHero from "./Components/CarouselImg"
 import FooterLanding from "./Components/FooterLanding"
 import CommentsUsers from "./Components/CommentsUsers"
-import style from "./Styles/Landing/Landing.module.css"
-import classnames from "classnames";
+import styles from "./Styles/Landing/Landing.module.css"
+import ModalSignin from "./Components/ModalSingIn"
+import LoaderLanding from "./Components/LoaderLanding"
 
 const Landing = () => {
+  const [isLoading, setIsLoading] = useState(true);
+    useEffect(() => {
+        setIsLoading(true);
+
+        const timer = setTimeout(() => {
+            setIsLoading(false);
+        }, 2900);
+
+        return () => {
+            clearTimeout(timer);
+        };
+    }, []);
+    if (isLoading) {
+      return (
+          <LoaderLanding/>
+      );
+  }
     return (
         <div>
             <NavbarPage/>
-            <section className="sec-home">
-        <div className="home-cta"> 
-            <h1 className="home-title display-1">Llegó la hora de comprar online</h1>
-            <p className="home-description">Regístrate de forma ágil y optimiza tu tiempo y dinero con la plataforma líder de Latinoamérica</p>
-            <div className="lead-magnet row align-items-center ">
-                <div className="col">
-                    <input type="text" className="form-control" placeholder="Email address"/>
+            <CarouselHero/>
+            <section className={styles.container}>
+              <div className={styles['text-container']}>
+                <h1 className="display-1">Llegó la hora de comprar online</h1>
+                <span>Regístrate de forma ágil y optimiza tu tiempo y dinero con la plataforma líder de Latinoamérica</span>
+                <div className={styles['input-container']}>
+                  <input type="text" placeholder="Email address" />
+                  <div className={styles['button-container']}>
+                  <ModalSignin />
+                  </div>
                 </div>
-                <div className="col">
-                    <button className="btn-main">Regístrate</button>
-                </div>
-            </div>
-        </div>
-        <div className="home-img d-none d-md-block">
-            {/* imagen */}
-        </div>
-    </section>
+              </div>
+              
+              <div className={styles['video-container']}>
+                <video autoPlay muted loop>
+                  <source src="/video/Landing-sechome.mp4" type="video/mp4" />
+                  Tu navegador no admite el elemento de video.
+                </video>
+              </div>
+            </section>
 
-    <section className="sec-benefits">
-      <div className="intro">
-        <h3>Los más vendidos</h3>
-        <p>Fíjate que tenemos promos exclusivas</p>
-      </div>
-      </section>
+            <section className={styles['sec-benefits']}>
+              <div className={styles.intro}>
+                <h2 className={styles.title}>Los más <span className={styles.bold}>vendidos</span></h2>
+              </div>
+            </section>
+
             <CarouselProducts/>
 
-
-
-
-
-
-
-    
-
-
-
-
-
-            <section className={classnames(style.secFeatures, style.secBenefits)}>
-        <div className={style.intro}>
-          <h3>¿Por qué comprar con nosotros?</h3>
-          <p>
-            Nosotros hemos creado el mejor sitio para que realices tus compras de forma segura y rápida.
-          </p>
-        </div>
-        <div className={style.features}>
-          <div className={classnames(style.text, style.feature)}>
-            <span className={style.iconSm}>
+            <section className={styles['sec-features']}>
+              <div className={styles.intro}>
+                <h2 className={styles.title}>¿Por qué comprar con<span className={styles.bold}> e-Latam</span>?</h2>
+              </div>
+              <div className={styles.features}>
+        <div className={styles.text}>
+          <div className={styles.feature}>
+            <span className={styles['icon-sm']}>
               <i className="bi bi-graph-up"></i>
             </span>
-            <div className={style.description}>
-              <h4 className={style.descriptionTitle}>Compras seguras</h4>
-              <p className={style.descriptionText}>
-                Te garantizamos la calidad de nuestros Productos
-              </p>
+            <div className={styles.description}>
+              <h4 className={styles['description-title']}>Compras seguras</h4>
+              <p className={styles['description-text']}>Te garantizamos la calidad de nuestros productos.</p>
             </div>
           </div>
-          <div className={classnames(style.text, style.feature)}>
-            <span className={style.iconSm}>
+          <div className={styles.feature}>
+            <span className={styles['icon-sm']}>
               <i className="bi bi-calendar"></i>
             </span>
-            <div className={style.description}>
-              <h4 className={style.descriptionTitle}>Tiempos de entrega record</h4>
-              <p className={style.descriptionText}>
+            <div className={styles.description}>
+              <h4 className={styles['description-title']}>Tiempos de entrega récord</h4>
+              <p className={styles['description-text']}>
                 No sufras por el calendario, tenemos socios logísticos que te brindarán la mejor experiencia de transporte de tus productos.
               </p>
             </div>
           </div>
-          <div className={classnames(style.text, style.feature)}>
-            <span className={style.iconSm}>
+          <div className={styles.feature}>
+            <span className={styles['icon-sm']}>
               <i className="bi bi-phone"></i>
             </span>
-            <div className={style.description}>
-              <h4 className={style.descriptionTitle}>Servicio 24/7</h4>
-              <p className={style.descriptionText}>
-                Gestiona tus compras con nuestra ayuda en cualquier momento.
-              </p>
+            <div className={styles.description}>
+              <h4 className={styles['description-title']}>Servicio 24/7</h4>
+              <p className={styles['description-text']}>Gestiona tus compras con nuestra ayuda en cualquier momento.</p>
             </div>
           </div>
         </div>
-        <div className={classnames(style.features, style.image, "d-none", "d-md-block")}>
-          <img src="./Components/multimedia/images/flag_of_Colombiaok.png" alt="chart" />
+        <div className={styles.image}>
+    <img src="/images/img_features.png" alt="chart" />
+</div>
         </div>
-      </section>
+            </section>
 
 
 
-      <section className="sec-video row">
+      <section className={styles['sec-video']}>
     <video autoPlay muted loop>
   <source src="/video/videopc.mp4" type="video/mp4" />
   Tu navegador no admite el elemento de video.
 </video>
     </section>
 
-
+    <section className={styles['sec-promotions']}>
+      <div className={styles.intro}>
+          <h2 className={styles.title}>Productos al mejor precio, disfruta de nuestras<span className={styles.bold}> PROMOCIONES</span></h2>
+        </div>
+    </section>
+    <CarouselProducts/>
 
       
-            <section className="sec-kpis row">
-
-<div className="kpi col-md">
-  <span className="number h3">$547M</span>
-  <span className="desc">En compras de nuestros clientes</span>
-</div>
-
-<div className="kpi col-md">
-  <span className="number h3">+ 750</span>
-  <span className="desc">Productos Ofrecidos</span>
-</div>
-
-<div className="kpi col-md">
-  <span className="number h3">89+M</span>
-  <span className="desc">Usuarios Registrados</span>
-</div>
-
-
-</section>
-            <CommentsUsers/>
-            <section className="sec-benefits">
-      <div className="intro">
-        <h3>Productos al mejor precio PROMOCIONES</h3>
-        <p>Apúrate que se van a acabar</p>
+    <section className={`${styles['sec-kpis']} row`}>
+      <div className={`kpi col-md ${styles.kpi}`}>
+        <span className={`number h3 ${styles.number}`}>$547M</span>
+        <span className={`desc ${styles.desc}`}>En compras de nuestros clientes</span>
       </div>
-      </section>
-            <CarouselProducts/>
+      <div className={`kpi col-md ${styles.kpi}`}>
+        <span className={`number h3 ${styles.number}`}>+ 750</span>
+        <span className={`desc ${styles.desc}`}>Productos Ofrecidos</span>
+      </div>
+      <div className={`kpi col-md ${styles.kpi}`}>
+        <span className={`number h3 ${styles.number}`}>89+M</span>
+        <span className={`desc ${styles.desc}`}>Usuarios Registrados</span>
+      </div>
+    </section>
+            <div>
+            <CommentsUsers/>
+            </div>
+            <div>
             <FooterLanding/>
+            </div>
+            
+            
+            
         </div>
     )
 }

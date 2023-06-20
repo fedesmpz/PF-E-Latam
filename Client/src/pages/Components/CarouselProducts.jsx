@@ -28,7 +28,7 @@ const ControlledCarousel = () => {
   return (
     <section className="sec-more-selled">
       <div className="carousel">
-      <Carousel activeIndex={index} onSelect={handleSelect} data-bs-theme="dark">
+      <Carousel activeIndex={index} onSelect={handleSelect} data-bs-theme="dark" indicators={false}>
       {[...Array(totalItems)].map((_, idx) => {
         const indexOfLastProduct = (idx + 1) * productsPerPage;
         const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
