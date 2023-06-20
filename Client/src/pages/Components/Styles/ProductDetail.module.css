@@ -4,7 +4,7 @@
   margin-left: 20px;
   margin-right: 20px;
   padding: 20px;
-  background-color: #f5f5f5;
+  background-color: #ffffff;
   border-radius: 8px;
   display: flex;
   flex-direction: column;
@@ -57,16 +57,20 @@
   text-decoration: none;
   color: #333;
   font-weight: bold;
-  font-size: 25px;
+  font-size: 35px;
   margin-left: 20px;
+  position:absolute;
+  top: 90px;
+  left: 40px
 }
 
+
 .link:hover {
-  color: #555;
+  color: #dd2121;
 }
 
 .h3Container {
-  background-color: #dcdada;
+  background-color:rgba(22, 119, 37, 0.21);
   padding: 20px;
   border-radius: 8px;
   margin-top: 0px;
@@ -107,4 +111,36 @@
   .title {
     margin-top: 0;
   }
+}
+
+button.backButton {
+  position: absolute;;
+  align-items: center;
+  background: none;
+  border: none;
+  color: black;
+  cursor: pointer;
+  font-size: 1.2rem;
+  padding: 0;
+  top: 95px;
+  left: 30px
+}
+
+button.backButton svg {
+  fill: #333;
+  height: 2em;
+  margin-right: 0.5em;
+  width: 2em;
+}
+
+button.backButton:hover svg {
+  fill: #666;
+  cursor: pointer;
+}
+
+.fondo{
+  position: absolute;
+  background-color: rgba(22, 119, 36, 0.456);
+  width: 100%;
+  height: 100%;
 }
