@@ -35,7 +35,8 @@ const CreateProduct = () => {
         discounts: 0,
         promotions: [],
         categories: "",
-        country: "Argentina"
+        country: "Argentina",
+        description: "",
     })
 
     const [errors, setErrors] = useState({})
@@ -214,10 +215,7 @@ const CreateProduct = () => {
                             <span className={style.priceTag}>$ {newProduct.currency_id}</span>
                             <input className={style.priceInput} type="text" name="original_price" value={newProduct.original_price} onChange={handleChange} />
                         </div>
-                        {errors.original_price
-                            ? <p>{errors.original_price}</p>
-                            : <p></p>
-                        }
+                        {errors.original_price && <p>{errors.original_price}</p>}
                     </div>
 
                     <div>
