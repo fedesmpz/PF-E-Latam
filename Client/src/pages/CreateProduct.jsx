@@ -86,14 +86,14 @@ const CreateProduct = () => {
         const prop = event.target.name
         const value = event.target.value
 
-        if (prop === "thumbnail") {
-            const file = event.target.files[0];
-            setNewProduct({
-                ...newProduct,
-                thumbnail: file,
-            })
-            setSelectedFileName(file.name)
-        }
+        // if (prop === "thumbnail") {
+        //     const file = event.target.files[0];
+        //     setNewProduct({
+        //         ...newProduct,
+        //         thumbnail: file,
+        //     })
+        //     setSelectedFileName(file.name)
+        // }
 
         setNewProduct({
             ...newProduct,
@@ -196,10 +196,19 @@ const CreateProduct = () => {
                         }
                     </div>
 
-                    <div>
+                    {/* <div>
                         <label htmlFor="thumbnail">Imagen</label>
                         <input type="file" name="thumbnail" value={newProduct.thumbnail} onChange={handleChange} />
                         {selectedFileName && <p>{selectedFileName}</p>}
+                        {errors.thumbnail
+                            ? <p>{errors.thumbnail}</p>
+                            : <p></p>
+                        }
+                    </div> */}
+
+                    <div>
+                        <label htmlFor="thumbnail">Imagen</label>
+                        <input type="text" name="thumbnail" value={newProduct.thumbnail} onChange={handleChange} />
                         {errors.thumbnail
                             ? <p>{errors.thumbnail}</p>
                             : <p></p>
