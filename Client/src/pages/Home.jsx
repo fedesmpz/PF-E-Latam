@@ -10,7 +10,7 @@ import SubFooter from "./Components/SubFooter";
 import NavBar from "./Components/NavBar"
 import Link from "next/link";
 import style from "./Styles/Home/Home.module.css"
-import Loader from "./Loader";
+import LoaderLanding from "./Components/LoaderLanding"
 import "bootstrap/dist/css/bootstrap.css"
 import FooterLanding from "./Components/FooterLanding";
 
@@ -56,7 +56,7 @@ const Home = () => {
 
     if (isLoading) {
         return (
-            <Loader />
+            <LoaderLanding/>
         );
     }
     return (
