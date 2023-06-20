@@ -9,6 +9,8 @@ import Providers from "@/redux/provider/Provider"
 import { postProduct } from "@/redux/slice/productSlice"
 import Button from 'react-bootstrap/Button';
 import NavBar from "./Components/NavBar"
+import SubFooter from "./Components/SubFooter"
+import FooterLanding from "./Components/FooterLanding"
 
 
 const CreateProduct = () => {
@@ -181,18 +183,20 @@ const CreateProduct = () => {
             <NavBar></NavBar>
             <div className={style.container_backButton}>
                 <Link href="/Home">
-                    <Button variant="dark">
-                        Volver al inicio
-                    </Button>
+                    <button className={style.backButton}>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                            <path fill="none" d="M0 0h24v24H0z"/>
+                            <path d="M20.59 12H5.41l4.29-4.29a1 1 0 1 0-1.42-1.42l-6 6a1 1 0 0 0 0 1.42l6 6a1 1 0 0 0 1.42-1.42L5.41 12h15.18z"/>
+                        </svg>
+                    </button>
                 </Link>
             </div>
-
-
-            <div className={style.container_form}>
+            <h1  className={style.createProduct}>Crear producto</h1>
+            <div className={style.containerForm}>
                 <form onSubmit={handleSubmit}>
 
                     <div>
-                        <label htmlFor="country">Elija un país</label>
+                        <label htmlFor="country" className={style.label}>País del producto</label>
                         <select onChange={handleCountryChange} name="country" id="country" className={style.selectField}>
                             <option value="Argentina"> Argentina </option>
                             <option value="Colombia"> Colombia </option>
@@ -201,7 +205,7 @@ const CreateProduct = () => {
                     </div>
 
                     <div>
-                        <label htmlFor="title">Titulo</label>
+                        <label htmlFor="title" className={style.label}>Titulo del producto</label>
                         <input placeholder="Ingrese un titulo" type="text" name="title" value={newProduct.title} onChange={handleChange} />
 
                         {errors.title
@@ -221,7 +225,7 @@ const CreateProduct = () => {
                     </div> */}
 
                     <div>
-                        <label htmlFor="thumbnail">Imagen</label>
+                        <label htmlFor="thumbnail" className={style.label}>Imagen del producto</label>
                         <input type="text" name="thumbnail" value={newProduct.thumbnail} onChange={handleChange} />
                         {errors.thumbnail
                             ? <p>{errors.thumbnail}</p>
@@ -230,8 +234,11 @@ const CreateProduct = () => {
                     </div>
 
                     <div>
-                        <span>{newProduct.currency_id}</span><label htmlFor="original_price">Precio</label>
-                        <input type="text" name="original_price" value={newProduct.original_price} onChange={handleChange} />
+                        <label htmlFor="original_price" className={style.label}>Precio del producto</label>
+                        <div className={style.priceCont}>
+                        <span className={style.priceTag}>$ {newProduct.currency_id}</span>
+                        <input   className={style.priceInput} type="text" name="original_price" value={newProduct.original_price} onChange={handleChange} />
+                        </div>
                         {errors.original_price
                             ? <p>{errors.original_price}</p>
                             : <p></p>
@@ -239,8 +246,10 @@ const CreateProduct = () => {
                     </div>
 
                     <div>
-                        <label htmlFor="sale_price">Quiere colocar este producto en oferta?</label>
+                    <div className={style.checkDiv}>
+                        <label htmlFor="sale_price" className={style.label}>Quiere colocar este producto en oferta?</label>
                         <input type="checkbox" checked={newProduct.sale_price} name="sale_price" onChange={handleCheck} />
+                    </div>
                         {
                             newProduct.sale_price
                                 ?
@@ -254,7 +263,7 @@ const CreateProduct = () => {
                                 </div>
                                 : <div className={style.notShow}>
                                     <input type="text" name="price" value={newProduct.price} onChange={handleChange} />
-                                    <label htmlFor="price">Indique el precio de oferta</label>
+                                    <label htmlFor="price" className={style.label}>Indique el precio de oferta</label>
                                     {errors.price
                                         ? <p>{errors.price}</p>
                                         : <p></p>
@@ -264,7 +273,7 @@ const CreateProduct = () => {
                     </div>
 
                     <div>
-                        <label htmlFor="available_quantity">Cantidad de productos en stock</label>
+                        <label htmlFor="available_quantity" className={style.label}>Cantidad de productos en stock</label>
                         <input type="number" name="available_quantity" value={newProduct.available_quantity} onChange={handleChange} />
                         {errors.available_quantity
                             ? <p>{errors.available_quantity}</p>
@@ -273,7 +282,7 @@ const CreateProduct = () => {
                     </div>
 
                     <div>
-                        <label htmlFor="official_store_name">Marca</label>
+                        <label htmlFor="official_store_name" className={style.label}>Marca del producto</label>
                         <input type="text" name="official_store_name" value={newProduct.official_store_name} onChange={handleChange} />
                         {errors.official_store_name
                             ? <p>{errors.official_store_name}</p>
@@ -282,7 +291,7 @@ const CreateProduct = () => {
                     </div>
 
                     <div>
-                        <label htmlFor="attributes">Descripción</label>
+                        <label htmlFor="attributes" className={style.label}>Descripción del producto</label>
                         <textarea type="text-area" name="attributes" value={newProduct.attributes} onChange={handleChange} rows="4" cols="50" />
                         {errors.attributes
                             ? <p>{errors.attributes}</p>
@@ -291,8 +300,10 @@ const CreateProduct = () => {
                     </div>
 
                     <div>
-                        <label htmlFor="shipping">Envío gratis</label>
-                        <input type="checkbox" name="shipping" checked={newProduct.shipping} onChange={handleCheck} />
+                        <div className={style.checkDiv}>
+                            <label htmlFor="shipping" className={style.label}>Este producto posee envío gratis?</label>
+                            <input className={style.checkDiv} type="checkbox" name="shipping" checked={newProduct.shipping} onChange={handleCheck} />
+                        </div>
                         {errors.shipping
                             ? <p>{errors.shipping}</p>
                             : <p></p>
@@ -300,8 +311,11 @@ const CreateProduct = () => {
                     </div>
 
                     <div>
-                        <label htmlFor="discounts">Descuento</label>
-                        <span>%</span><input type="text" name="discounts" value={newProduct.discounts} onChange={handleChange} />
+                        <label htmlFor="discounts" className={style.label}>Descuento del producto</label>
+                        <div className={style.priceCont}>
+                            <span className={style.priceTag}>%</span>
+                            <input  className={style.priceInput} type="text" name="discounts" value={newProduct.discounts} onChange={handleChange} />
+                        </div>
                         <div>
                             {!errors.discounts && <strong>{`Precio del producto con descuento aplicado: ${valueDiscounts}`}</strong>
                             }
@@ -315,7 +329,7 @@ const CreateProduct = () => {
                     </div>
 
                     <div>
-                        <label htmlFor="categories">Elija una categoría</label>
+                        <label htmlFor="categories" className={style.label}>Elija una categoría para el producto</label>
                         <select onChange={handleCategoriesChange} name="categories" id="categories" className={style.selectField}>
                             <option value="">---</option>
                             <option value="computacion"> Computación </option>
@@ -332,13 +346,15 @@ const CreateProduct = () => {
                     <div className={style.container_submit}>
                         {
                             (Object.keys(errors).length > 0 || !newProduct.title)
-                                ? <button type="submit" disabled={true} className={style.submitDisabledButton}> Submit </button>
-                                : <button type="submit" className={style.submitButton}> Submit </button>
+                                ? <button type="submit" disabled={true} className={style.submitDisabledButton}> Crear producto </button>
+                                : <button type="submit" className={style.submitButton}> Crear producto </button>
 
                         }
                     </div>
                 </form>
             </div>
+            <SubFooter></SubFooter>
+            <FooterLanding></FooterLanding>
         </div>
     )
 }

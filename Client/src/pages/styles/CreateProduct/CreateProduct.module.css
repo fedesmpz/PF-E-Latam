@@ -1,40 +1,53 @@
-
-
 .container_backButton {
-  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
   padding: 15px;
 }
 
-.backButton {
-  margin-bottom: 10px;
-  padding: 10px 20px;
-  background-color: #062a50;
-  color: #fff;
+button.backButton {
+  display: flex;
+  align-items: center;
+  background: none;
   border: none;
+  color: black;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  font-size: 1.2rem;
+  padding: 0;
 }
 
-.container button:hover {
-  background-color: #0c4c80;
+button.backButton svg {
+  fill: #000000;
+  height: 2em;
+  margin-right: 0.5em;
+  width: 2em;
 }
 
-.container form {
-  background-color:rgba(22, 119, 36, 0.456);
-  border-radius: 20px;
+button.backButton:hover svg {
+  fill:#4E55D9;
+  cursor: pointer;
+}
+
+.createProduct {
+  display: flex;
+  justify-content: center;
+  margin: 2px;
+}
+
+.containerForm {
+  background-color: #4BBF68;
   padding: 20px;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 70px;
-  margin: 15px;
-  padding: 20px;
 }
 
-.container form label {
-  margin: 10px;
-  padding-bottom: 10px;
+.label {
+  display: flex;
+  padding: 10px;
   font-weight: bold;
-  font-size: 20px;
+  justify-content: center;
+  color: whitesmoke
 }
 
 .container form input[type="text"],
@@ -43,24 +56,49 @@
 .container form select {
   width: 100%;
   padding: 10px;
-  border: 1px solid #ccc;
+  border: 1px solid transparent;
   border-radius: 4px;
   box-sizing: border-box; 
+  font-size: 16px;
 }
 
 .container form textarea {
   display: grid;
   align-items: center;
-  width: 100%;
   padding: 10px;
-  border: 1px solid #ccc;
+  min-width: 100%;
+  padding: 10px;
+  border: 1px solid transparent;
   border-radius: 4px;
   box-sizing: border-box; 
+  font-size: 16px;
 }
 
-.container form input[type="file"] {
-  border: none;
-  outline: none;
+.priceCont {
+  display: flex;
+  border-radius: 4px;
+}
+
+.priceTag {
+  display: flex;
+  width: 60px;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(219, 219, 219);
+  border-radius: 4px 0px 0px 4px ; 
+  color: #4BBF68;
+  font-weight: bold;
+}
+
+.priceInput {
+  border-radius: 0px 4px 4px 0px !important;
+}
+
+.checkDiv {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 }
 
 .container form input[type="checkbox"] {
@@ -76,17 +114,8 @@
   overflow: hidden;
 }
 
-.discountP {
-  margin-top: 5px;
-  font-weight: bold;
-}
-
-.container form span {
-  margin-top: 10px;
-}
-
 .container form option {
-  font-size: 14px;
+  font-size: 16px;
 }
 
 .container form select {
@@ -96,6 +125,23 @@
   background-size: 20px;
   padding-right: 30px;
 }
+
+/* 
+
+/// ESTE COMENTADO PQ TODAVIA NO USAMOS FILE
+.container form input[type="file"] {
+  border: none;
+  outline: none;
+}
+
+//// NO HAY NINGUNA CLASSNAME LLAMABA discountP
+
+.discountP {
+  margin-top: 5px;
+  font-weight: bold;
+}
+
+/// ESTOS TODAVIA NO LOS CHEQUEE
 
 .container form select:focus {
   outline: none;
@@ -153,4 +199,4 @@
 
 .notShow {
   visibility: hidden;
-}
+} */
