@@ -5,6 +5,7 @@ import Styles from "./Styles/NavBar.module.css";
 import { axiosAllProductsByCountries, axiosSearchProduct } from "../../redux/slice/productSlice";
 import Image from "next/image";
 import { useRouter } from "next/router"
+import Select from 'react-select'
 
 const NavBar = () => {
 
@@ -14,6 +15,11 @@ const NavBar = () => {
   const [title, setTitle] = useState('');
   const [country, setCountry] = useState('ARG');
   const [error, setError] = useState('');
+  const options = [
+    { value: 'ARG', /* label: ' Argentina' */ img: 'https://flagcdn.com/w20/ar.png' },
+    { value: 'COL', /* label: ' Colombia' */ img: 'https://flagcdn.com/w20/co.png' },
+    { value: 'MEX', /* label: ' México' */ img: 'https://flagcdn.com/w20/mx.png' },
+  ];
 
   function handleSearch(event) {
     setError('')
@@ -45,7 +51,7 @@ const NavBar = () => {
   };
 
   function handleFilterByCountry(event) {
-    const selectedValue = event.target.value;
+    const selectedValue = event.value;
     setCountry(selectedValue);
     dispatch(axiosAllProductsByCountries(selectedValue));
   }
@@ -72,9 +78,23 @@ const NavBar = () => {
           </div>
         </Link>
 
-        {/* Esto va a ser reemplazado por el componente de fede donde renderiza las banderitas */}
+        <div className={Styles.flags}>
+          <Select
+            options={options}
+            value={options.find(option => option.value === country)}
+            onChange={handleFilterByCountry}
+            isSearchable={false}
+            getOptionLabel={option => (
+              <div>
+                <img src={option.img} alt={option.label} className={Styles.flagIcon} />
+                {option.label}
+              </div>
+            )}
+            getOptionValue={option => option.value}
+          />
+        </div>
 
-        {router.pathname === "/Home" &&
+        {/* {router.pathname === "/Home" &&
           <div className={Styles.flags}>
             <select value={country} onChange={handleFilterByCountry}>
               <option value="ARG">ARG</option>
@@ -82,7 +102,7 @@ const NavBar = () => {
               <option value="MEX">MEX</option>
             </select>
           </div>
-        }
+        } */}
 
         {router.pathname === "/Home" &&
           <div className={Styles.searchBar}>
