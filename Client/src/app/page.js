@@ -1,6 +1,5 @@
 'use client'
 import Landing from '@/pages/Landing';
-import CreateProduct from "@/pages/CreateProduct";
 import { useRouter } from 'next/navigation';
 
 export default function App() {
@@ -9,8 +8,6 @@ export default function App() {
   
   return (
     <div>
-
-        { router.pathname === "/CreateProduct" && <CreateProduct></CreateProduct> }
 
         <Landing></Landing>
 

@@ -3,9 +3,12 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import Styles from "./Styles/NavBar.module.css";
 import { axiosAllProductsByCountries, axiosSearchProduct } from "../../redux/slice/productSlice";
-import Image from "next/image"; 
+import Image from "next/image";
+import { useRouter } from "next/router"
 
 const NavBar = () => {
+
+  const router = useRouter();
   const dispatch = useDispatch();
   const productsCountry = useSelector((state) => state.products.country);
   const [title, setTitle] = useState('');
@@ -22,7 +25,7 @@ const NavBar = () => {
       setError('Ingrese algún dato');
     } else {
       let selectedCountry = '';
-  
+
       if (country === 'ARG') {
         selectedCountry = 'Argentina';
       } else if (country === 'COL') {
@@ -30,13 +33,13 @@ const NavBar = () => {
       } else if (country === 'MEX') {
         selectedCountry = 'Mexico';
       }
-  
+
       try {
         await dispatch(axiosSearchProduct(title, selectedCountry));
         setTitle('');
       } catch (error) {
-        setError('Producto no encontrado'); 
-       
+        setError('Producto no encontrado');
+
       }
     }
   };
@@ -68,23 +71,28 @@ const NavBar = () => {
             />
           </div>
         </Link>
-        
+
         {/* Esto va a ser reemplazado por el componente de fede donde renderiza las banderitas */}
-        <div className={Styles.flags}>
-          <select value={country} onChange={handleFilterByCountry}>
-            <option value="ARG">ARG</option>
-            <option value="COL">COL</option>
-            <option value="MEX">MEX</option>
-          </select>
-        </div>
 
-        <div className={Styles.searchBar}>
-           
-          <input type="search" placeholder="¿Qué buscas hoy?" value={title} onChange={handleSearch} />
-          <button onClick={handlerClick}className={Styles.buttonBusqueda}>Buscar</button>
-         {error && <p className={Styles.error}>{error}</p>}
+        {router.pathname === "/Home" &&
+          <div className={Styles.flags}>
+            <select value={country} onChange={handleFilterByCountry}>
+              <option value="ARG">ARG</option>
+              <option value="COL">COL</option>
+              <option value="MEX">MEX</option>
+            </select>
+          </div>
+        }
 
-        </div>
+        {router.pathname === "/Home" &&
+          <div className={Styles.searchBar}>
+
+            <input type="search" placeholder="¿Qué buscas hoy?" value={title} onChange={handleSearch} />
+            <button onClick={handlerClick} className={Styles.buttonBusqueda}>Buscar</button>
+            {error && <p className={Styles.error}>{error}</p>}
+
+          </div>
+        }
       </div>
 
       <div className={Styles.rightContainer}>

@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import Providers from "@/redux/provider/Provider";
 import styles from "../pages/Components/Styles/ProductDetail.module.css";
 import Link from "next/link";
+import NavBar from "./Components/NavBar";
 
 const DetailProduct = () => {
   const dispatch = useDispatch();
@@ -41,9 +42,10 @@ const DetailProduct = () => {
 
   return (
     <>
-      <Link className={styles.link} href="/Home">
+      {/* <Link className={styles.link} href="/Home">
         volver
-      </Link>
+      </Link> */}
+      <NavBar></NavBar>
 
       <div className={styles.container}>
         <div className={styles.imageContainer}>
