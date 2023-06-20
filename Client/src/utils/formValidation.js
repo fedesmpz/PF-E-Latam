@@ -72,7 +72,9 @@ const validation = (product) => {
     }
 
 
-
+    if (product.thumbnail.length < 5) {
+        errors.thumbnail = "Debe ingresar una URL de imagen válida"
+    }
 
 
 
