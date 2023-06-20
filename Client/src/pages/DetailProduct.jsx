@@ -14,23 +14,30 @@ const DetailProduct = () => {
   const { countryId } = router.query;
 
   const productDetail = useSelector((state) => state.products.detail);
-  console.log(productDetail);
-  const attributes = productDetail.attributes ? JSON.parse(productDetail.attributes) : [];
+  let attributes = productDetail.attributes;
+  let renderedAttributes
+
+  if (attributes?.includes('{')) {
+    attributes = JSON.parse(productDetail.attributes);
+    renderedAttributes = attributes.map((attribute) => {
+      const attributeName = attribute.name;
+      const attributeValue = attribute.value;
+      return (
+        <li key={attributeName} className={styles.attribute}>
+          <span className={styles.attributeName}>{attributeName}:</span> {attributeValue}
+        </li>
+      );
+    });
+  } else {
+    renderedAttributes = attributes
+  }
 
   useEffect(() => {
     dispatch(axiosAllProductByCountryCategoryId(id, countryId, categories));
     return () => dispatch(cleanDetail());
   }, [dispatch, id, countryId, categories]);
 
-  const renderedAttributes = attributes.map((attribute) => {
-    const attributeName = attribute.name;
-    const attributeValue = attribute.value;
-    return (
-      <li key={attributeName} className={styles.attribute}>
-        <span className={styles.attributeName}>{attributeName}:</span> {attributeValue}
-      </li>
-    );
-  });
+
 
   return (
     <>
