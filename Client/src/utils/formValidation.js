@@ -12,67 +12,67 @@ const validation = (product) => {
     
 //----------------------------------------------------------------------
     
-    if (isNaN(product.original_price)) {
+   else if(typeof product.original_price !== "number") {
         errors.original_price = "Solo pueden ingresarse números"
     }
 
-    if (product.original_price <= 0) {
+    else if(product.original_price < 0) {
         errors.original_price = "el precio mínimo no puede ser menor o igual a 0"
     }
     
 //-------------------------------------------------------------------
     
-    if (isNaN(product.price)) {
+    else if(isNaN(product.price)) {
         errors.price = "Solo pueden ingresarse números"
     }
 
-    if (product.price < 0) {
+    else if(product.price < 0) {
         errors.price = "el precio mínimo no puede ser menor o igual a 0"
     }
 
 //-------------------------------------------------------------------
-    if (isNaN(product.available_quantity)) {
+    else if(isNaN(product.available_quantity)) {
         errors.available_quantity = "Solo pueden ingresarse números"
     }
 
-    if (product.available_quantity <= 0) {
+    else if(product.available_quantity < 0) {
         errors.available_quantity = "La cantidad mínima no puede ser menor o igual a 0"
     }
 
 //--------------------------------------------------------------------------------
 
-    if (!regex.test(product.official_store_name)) {
+    else if(!regex.test(product.official_store_name)) {
         errors.oficial_store_name = "No puede contener caracteres especiales"
     }
 
 //------------------------------------------------------------------------
 
-    if (isNaN(product.discounts)) {
+    else if (isNaN(product.discounts)) {
         errors.discounts = "Solo pueden ingresarse números"
     }
 
-    if (product.discounts > 100) {
+    else if (product.discounts > 100) {
         errors.discounts = "Debe ingresar valores entre 1 y 100"
     }
         
-    if (product.discounts < 0) {
+    else if (product.discounts < 0) {
         errors.discounts = "Debe ingresar valores entre 1 y 100"
     }
     
 //-------------------------------------------------------------------------------
 
-    if (product.categories) {
+    else if (product.categories) {
         errors.categories = "Debe elejir una categoría para el producto"
     }
 
 //------------------------------------------------------------------------
 
-    if (urlPattern.test(product.thumbnail)) {
+    else if (urlPattern.test(product.thumbnail)) {
         errors.thumbnail = "Debe ingresar una URL de imagen válida"
     }
 
 
-    if (product.thumbnail.length < 5) {
+    else if (product.thumbnail.length < 5) {
         errors.thumbnail = "Debe ingresar una URL de imagen válida"
     }
 
