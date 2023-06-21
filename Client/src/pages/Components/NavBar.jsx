@@ -117,7 +117,8 @@ const NavBar = () => {
 
       <div className={Styles.rightContainer}>
         <Link className={Styles.button} href="/CreateProduct">New</Link>
-        {/*<button className={Styles.button}>Login</button>*/}
+        <button className={Styles.button}>Login</button>
+        <Link className={Styles.button} href="/DashboardAdmin">Admin</Link>
       </div>
     </div>
   );
