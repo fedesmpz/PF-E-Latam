@@ -211,4 +211,3 @@ export const postProduct = (payload) => (dispatch) => {
         dispatch(setNewProductMessage(error.response?.data?.error));
       });
   };
-
