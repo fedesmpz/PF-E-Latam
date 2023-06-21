@@ -17,8 +17,6 @@ import { setNewProductMessage } from "../redux/slice/productSlice"
 const CreateProduct = () => {
 
     const dispatch = useDispatch();
-
-    let [valueDiscounts, setValueDiscounts] = useState(0)
     const [selectedFileName, setSelectedFileName] = useState("");
     const [isFormValid, setIsFormValid] = useState(false)
     let [errors, setErrors] = useState({})
@@ -37,7 +35,6 @@ const CreateProduct = () => {
         official_store_name: "",
         shipping: null,
         attributes: "",
-        discounts: 0,
         promotions: [],
         categories: "",
         country: "Argentina",
@@ -68,6 +65,10 @@ const CreateProduct = () => {
         })
     }
 
+    const handleDiscountSelect = (event) => {
+        setValueSelect(event.target.value)
+    }
+
     const handleChange = (event) => {
 
         const prop = event.target.name
@@ -89,17 +90,10 @@ const CreateProduct = () => {
 
         validation(prop, value, errors, setErrors)
 
-        if (prop === "discounts") {
-
-            let newValue = (newProduct.original_price * value) / 100
-            newValue = newProduct.original_price - newValue
-
-            setValueDiscounts(newValue)
-        }
-
     }
     console.log(Object.keys(errors).length);
     console.log(Object.keys(newProduct).length);
+    console.log(newProduct);
 
     const handleSubmit = (event) => {
         event.preventDefault()
@@ -119,7 +113,6 @@ const CreateProduct = () => {
                 shipping: true,
                 attributes: "",
                 catalog_listing: true,
-                discounts: "",
                 promotions: [],
                 categories: "",
                 country: ""
@@ -246,20 +239,6 @@ const CreateProduct = () => {
                             <option value={false} >No</option>
                         </select>
                         {errors.shipping && <p>{errors.shipping}</p>}
-                    </div>
-
-                    <div>
-                        <label htmlFor="discounts" className={style.label}>Descuento del producto</label>
-                        <div className={style.priceCont}>
-                            <span className={style.priceTag}>%</span>
-                            <input className={style.priceInput} type="number" name="discounts" value={newProduct.discounts} onChange={handleChange} />
-                        </div>
-                        {errors.discounts && <p>{errors.discounts}</p>}
-                        <div>
-                            {(!errors.discounts) && <strong>{`Precio del producto con descuento aplicado: ${valueDiscounts}`}</strong>
-                            }
-                        </div>
-
                     </div>
 
                     <div>

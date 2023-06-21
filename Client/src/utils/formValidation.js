@@ -111,31 +111,6 @@ const validation = (prop, value, errors, setErrors) => {
         }
     }
     
-
-//------------------------------------------------------------------------
-    if (prop === "discounts") {
-        // const trimmedValue = value.trim();
-        const numericValue = Number(value);
-        // if (trimmedValue.length === 0) {
-        //     setErrors({
-        //       ...errors,
-        //       [prop]: "Debe ingresar un valor numérico"
-        //     });
-        // }
-        if (isNaN(numericValue) || !Number.isInteger(numericValue) || numericValue < 0 || numericValue > 100) {
-            setErrors({
-              ...errors,
-              [prop]: "Debe ingresar enteros valores entre 0 y 100"
-            });
-        } else {
-            setErrors({
-              ...errors,
-              [prop]: ""
-            });
-        }
-    }
-    
-    
 //-------------------------------------------------------------------------------
     if (prop === "categories") {
         if (!value) {
