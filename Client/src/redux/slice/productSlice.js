@@ -199,6 +199,7 @@ export const axiosSearchProduct = (title, country) => (dispatch) => {
       .get(`http://localhost:8000/products/search/?title=${title}&country=${country}`)
       .then((response) => {
         dispatch(setSearchProduct(response.data));
+        console.log(response.data)
       })
       .catch((error) => {
  

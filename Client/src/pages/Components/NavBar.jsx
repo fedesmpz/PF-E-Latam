@@ -7,6 +7,7 @@ import Image from "next/image";
 import { useRouter } from "next/router"
 import Select from 'react-select'
 
+
 const NavBar = () => {
 
   const router = useRouter();
@@ -14,7 +15,7 @@ const NavBar = () => {
   const productsCountry = useSelector((state) => state.products.country);
   const [title, setTitle] = useState('');
   const [country, setCountry] = useState('ARG');
-  const [error, setError] = useState('');
+  const [showModal, setShowModal] = useState(false);
   const options = [
     { value: 'ARG', /* label: ' Argentina' */ img: 'https://flagcdn.com/w20/ar.png' },
     { value: 'COL', /* label: ' Colombia' */ img: 'https://flagcdn.com/w20/co.png' },
@@ -22,13 +23,12 @@ const NavBar = () => {
   ];
 
   function handleSearch(event) {
-    setError('')
     setTitle(event.target.value);
   }
 
   const handlerClick = async () => {
     if (title.trim() === '') {
-      setError('Ingrese algún dato');
+     setShowModal(true);
     } else {
       let selectedCountry = '';
 
@@ -43,9 +43,9 @@ const NavBar = () => {
       try {
         await dispatch(axiosSearchProduct(title, selectedCountry));
         setTitle('');
+  
       } catch (error) {
-        setError('Producto no encontrado');
-
+        setShowModal(true);
       }
     }
   };
@@ -55,6 +55,9 @@ const NavBar = () => {
     setCountry(selectedValue);
     dispatch(axiosAllProductsByCountries(selectedValue));
   }
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
 
   return (
     <div className={Styles.navbar}>
@@ -103,13 +106,22 @@ const NavBar = () => {
             </select>
           </div>
         } */}
+         {showModal && (
+        <div className={Styles.modal}>
+          <div className={Styles.modalContent}>
+            <h2>Error de búsqueda</h2>
+            <p>Por favor, ingresa algún dato válido antes de realizar la búsqueda.</p>
+            <button className={Styles.closeButton} onClick={handleCloseModal}>Cerrar</button>
+          </div>
+        </div>
+      )}
 
         {router.pathname === "/Home" &&
           <div className={Styles.searchBar}>
 
             <input type="search" placeholder="¿Qué buscas hoy?" value={title} onChange={handleSearch} />
             <button onClick={handlerClick} className={Styles.buttonBusqueda}>Buscar</button>
-            {error && <p className={Styles.error}>{error}</p>}
+            
 
           </div>
         }
