@@ -6,6 +6,7 @@ import Providers from "@/redux/provider/Provider";
 import styles from "../pages/Components/Styles/ProductDetail.module.css";
 import Link from "next/link";
 import NavBar from "./Components/NavBar";
+import ReviewRating from "./Components/ReviewRating";
 
 const DetailProduct = () => {
   const dispatch = useDispatch();
@@ -124,7 +125,7 @@ const DetailProduct = () => {
             <h3>País: {productDetail.country}</h3>
           </div>
         </div>
-
+<ReviewRating></ReviewRating>
       </>
     </div>
   );
