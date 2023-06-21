@@ -1,3 +1,6 @@
+.container{
+  font-family: "Montserrat", sans-serif;
+}
 .container_backButton {
   display: flex;
   align-items: center;
