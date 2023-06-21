@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from 'axios';
-import { actionAsyncStorage } from "next/dist/client/components/action-async-storage";
 
 export const productSlice = createSlice({
   name: 'products',
@@ -9,6 +8,7 @@ export const productSlice = createSlice({
     categories: [],
     country: "ARG",
     detail: {},
+    newProductMessage: null,
     allProducts: [],
     orderByName: 'asc',
     orderByPrice: 'mayormenor',
@@ -42,6 +42,10 @@ export const productSlice = createSlice({
 
     setNewProduct: (state, action) => {
       state.products = [...state.products, action.payload];
+    },
+
+    setNewProductMessage: (state, action) => {
+      state.newProductMessage = action.payload;
     },
 
     cleanDetail:(state)=>{
@@ -133,6 +137,7 @@ export const {
   filterByCategory,
   cleanDetail,
   setFilterByCategory,
+  setNewProductMessage,
   setHideProduct,
   setDeleteProduct,
 } = productSlice.actions;
@@ -202,18 +207,17 @@ export const axiosSearchProduct = (title, country) => (dispatch) => {
   };
 
 
-export const postProduct = (payload) => (dispatch) => {
+  export const postProduct = (payload) => (dispatch) => {
     axios
       .post("http://localhost:8000/products/new", payload)
       .then((response) => {
-            dispatch(setNewProduct(response.data.data));
+            dispatch(setNewProductMessage(response.data));
+            dispatch(setNewProduct(response.data));
       })
       .catch((error) => {
         console.log(error.response?.data?.error)
         dispatch(setNewProductMessage(error.response?.data?.error));
       });
-  };
-      .catch((error) => console.log(error));
   };
 
 
