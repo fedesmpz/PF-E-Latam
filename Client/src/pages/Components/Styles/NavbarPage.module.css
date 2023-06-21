@@ -178,6 +178,7 @@
 
   /* Estilos para tamaños de pantalla pequeños */
 @media (max-width: 576px) {
+  
   .menu {
     width: 50%;
     border-radius: 0.5rem;
@@ -188,6 +189,18 @@
     height: 100vh;
     transform: translateX(0);
     transition: transform 0.3s ease;
+    z-index: 1; /* Cambiado a un valor superior */
+  }
+
+  .back {
+    background-color: rgba(255, 255, 255, 0.601);
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* Cambiado a un valor inferior */
+    position: fixed;
+    top: 0;
+    left: 0;
+    backdrop-filter: blur(8px); /* Aplica un desenfoque al contenido detrás */
   }
 
   .menuNon {

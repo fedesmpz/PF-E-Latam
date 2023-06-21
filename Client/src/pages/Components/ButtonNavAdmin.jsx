@@ -16,8 +16,8 @@ const Menu = () => {
         <div></div>
       </button>
     {open && (
-      <div className={styles.menu}>
       <div className={styles.back}>
+      <div className={styles.menu}>
         <ul>
           <li><a href="#">Opción 1</a></li>
           <li><a href="#">Opción 2</a></li>
@@ -30,7 +30,6 @@ const Menu = () => {
       </div>
     )}
     {!open && (
-      <div className={styles.back}>
       <div className={styles.menuNon}>
         <ul>
           <li><a href="#"> 1</a></li>
@@ -40,7 +39,6 @@ const Menu = () => {
         <button className={styles['logout-buttonNon']} onClick={handleLogout}>
         Log out
           </button>
-      </div>
       </div>
     )}
   </>
