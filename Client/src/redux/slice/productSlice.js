@@ -112,9 +112,14 @@ export const productSlice = createSlice({
         state.allProducts = filteredCat;
       }
     },
+    setHideProduct:(state,action)=>{
+      state.products = action.payload;
+   
+    }
     
   },
 });
+
 
 export const {
   setProductByCountryCategory,
@@ -212,3 +217,11 @@ export const postProduct = (payload) => (dispatch) => {
       });
   };
 
+  export const hideProduct = (id) => (dispatch) => {
+    axios
+      .put(`http://localhost:8000/products/hide/${id}`)
+      .then((response) => {
+            dispatch(setHideProduct(response.data));
+      })
+      .catch((error) => console.log(error));
+  };
