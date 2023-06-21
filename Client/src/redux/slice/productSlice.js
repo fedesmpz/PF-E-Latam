@@ -7,6 +7,7 @@ export const productSlice = createSlice({
     products: [],
     categories: [],
     country: "ARG",
+    newProductMessage: null,
     detail: {},
     allProducts: [],
     orderByName: 'asc',
@@ -41,6 +42,10 @@ export const productSlice = createSlice({
 
     setNewProduct: (state, action) => {
       state.products = [...state.products, action.payload];
+    },
+
+    setNewProductMessage: (state, action) => {
+      state.newProductMessage = action.payload;
     },
 
     cleanDetail:(state)=>{
@@ -125,6 +130,7 @@ export const {
   filterByCategory,
   cleanDetail,
   setFilterByCategory,
+  setNewProductMessage,
 } = productSlice.actions;
 
 export default productSlice.reducer;
@@ -197,7 +203,11 @@ export const postProduct = (payload) => (dispatch) => {
     axios
       .post("http://localhost:8000/products/new", payload)
       .then((response) => {
-            dispatch(setNewProduct(response.data.data));
+            dispatch(setNewProductMessage(response.data));
+            dispatch(setNewProduct(response.data));
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        dispatch(setNewProductMessage(error.response.data.message));
+      });
   };
+
