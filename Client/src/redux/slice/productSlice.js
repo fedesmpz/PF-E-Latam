@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from 'axios';
-import { actionAsyncStorage } from "next/dist/client/components/action-async-storage";
 
 export const productSlice = createSlice({
   name: 'products',
