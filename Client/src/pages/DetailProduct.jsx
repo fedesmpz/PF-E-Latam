@@ -125,7 +125,7 @@ const DetailProduct = () => {
             <h3>País: {productDetail.country}</h3>
           </div>
         </div>
-<ReviewRating></ReviewRating>
+        <ReviewRating></ReviewRating>
       </>
     </div>
   );
