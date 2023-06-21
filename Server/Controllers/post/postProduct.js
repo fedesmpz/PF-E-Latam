@@ -6,15 +6,15 @@ const postProduct = async(id, title, thumbnail, original_price, currency_id, pri
             where:{ title: title}
         });
         if (productExists) {
-            throw new Error('Ya existe un producto con ese titulo');
+            throw new Error(`Ya existe un producto con el titulo ${title}`);
         }
         const newProduct = await Product.create({id, title, thumbnail, original_price, currency_id, price, sale_price, available_quantity, sold_quantity, official_store_name, shipping, attributes, catalog_listing, discounts, promotions, categories, country});
         if(newProduct){
-            return "Producto creado correctamente" 
+            return `Producto ${title} creado correctamente con ID ${id}` 
         }
     } catch(error) {
         console.log(error)
-        throw new Error("Ha ocurrido un error al agregar el producto")
+        throw error
     }
 }
 

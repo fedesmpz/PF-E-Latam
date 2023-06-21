@@ -5,7 +5,7 @@ const validation = (prop, value, errors, setErrors) => {
     const urlPattern = /^https?:\/\/(?:[a-z]+\.)?[a-z0-9-]+(?:\.[a-z]{2,})+(?:\/[^/?#]+)+\.(?:jpeg|jpg|gif|png)$/i;
 
     if (prop === "title") {
-        if(!value) {
+        if(!value.length) {
             setErrors({
                 ...errors,
                 [prop]: "Debe ingresar un titulo para el producto"
@@ -33,10 +33,10 @@ const validation = (prop, value, errors, setErrors) => {
                 [prop]: "Solo pueden ingresarse números"
             })
         }
-        if(value < 0) {
+        if(value <= 0) {
             setErrors({
                 ...errors,
-                [prop]: "el precio mínimo no puede ser menor a 0",
+                [prop]: "el precio mínimo no puede ser menor o igual a 0",
             });
         }
         else {
@@ -56,10 +56,10 @@ const validation = (prop, value, errors, setErrors) => {
                 [prop]: "Solo pueden ingresarse números",
             });
         }
-        if(value < 0) {
+        if(value <= 0) {
             setErrors({
                 ...errors,
-                [prop]: "el precio mínimo no puede ser menor a 0",
+                [prop]: "el precio mínimo no puede ser menor o igual a 0",
             })
         }
         else {
@@ -81,7 +81,7 @@ const validation = (prop, value, errors, setErrors) => {
             })
         }
     
-        if(value < 0) {
+        if(value <= 0) {
             setErrors({
                 ...errors,
                 [prop]: "La cantidad mínima no puede ser menor o igual a 0",
@@ -98,13 +98,12 @@ const validation = (prop, value, errors, setErrors) => {
 
 //--------------------------------------------------------------------------------
     if (prop === "official_store_name") {
-        if(!regex.test(value)) {
+        if(!value.length || !regex.test(value)) {
             setErrors({
                 ...errors,
-                [prop]: "No puede contener caracteres especiales",
+                [prop]: "El nombre oficial de la tienda no puede estar vacio o contener caracteres especiales",
             })
-        }
-        else {
+        } else {
             setErrors({
               ...errors,
               [prop]: "",
@@ -115,30 +114,23 @@ const validation = (prop, value, errors, setErrors) => {
 
 //------------------------------------------------------------------------
     if (prop === "discounts") {
-        if (isNaN(value)) {
-            setErrors({
-                ...errors,
-                [prop]: "Solo pueden ingresarse números",
-            })
-        }
-    
-        if (value > 100) {
-            setErrors({
-                ...errors,
-                [prop]: "Debe ingresar valores entre 1 y 100",
-            })
-        }
-            
-        if (value < 0) {
-            setErrors({
-                ...errors,
-                [prop]: "Debe ingresar valores entre 1 y 100",
-            })
-        }
-        else {
+        // const trimmedValue = value.trim();
+        const numericValue = Number(value);
+        // if (trimmedValue.length === 0) {
+        //     setErrors({
+        //       ...errors,
+        //       [prop]: "Debe ingresar un valor numérico"
+        //     });
+        // }
+        if (isNaN(numericValue) || !Number.isInteger(numericValue) || numericValue < 0 || numericValue > 100) {
             setErrors({
               ...errors,
-              [prop]: "",
+              [prop]: "Debe ingresar enteros valores entre 0 y 100"
+            });
+        } else {
+            setErrors({
+              ...errors,
+              [prop]: ""
             });
         }
     }
@@ -149,7 +141,7 @@ const validation = (prop, value, errors, setErrors) => {
         if (!value) {
             setErrors({
                 ...errors,
-                [prop]: "Debe elejir una categoría para el producto",
+                [prop]: "Debe elegir una categoría para el producto",
             })
         }
         else {
@@ -188,6 +180,27 @@ const validation = (prop, value, errors, setErrors) => {
             setErrors({
                 ...errors,
                 [prop]: "Debe elejir una opción",
+            })
+        }
+        else {
+            setErrors({
+              ...errors,
+              [prop]: "",
+            });
+        }
+    }
+
+    if (prop === "attributes") {
+        if (!value.length) {
+            setErrors({
+                ...errors,
+                [prop]: "La descripción no puede estar vacia",
+            })
+        }
+        if (value.length < 20) {
+            setErrors({
+                ...errors,
+                [prop]: "La descripción del producto debe tener al menos 20 caracteres",
             })
         }
         else {
