@@ -87,7 +87,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: #369ae1b9;
+    background-color: #4E55D9;
     color: #fff;
     border: none;
     padding: 0;
@@ -95,7 +95,13 @@
     height: 60px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    position: fixed; /* Fija la posición */
+    left: 0.5rem; /* Alinea a la izquierda */
+    top: 4rem; /* Ajusta la posición verticalmente según tus necesidades */
+    transform: translateY(-50%); /* Centra verticalmente */
+    margin-top: 0; /* Elimina el margen superior */
     margin-right: 0.5rem;
+    border-radius: 0.5rem;
   }
   
   .menu-button:hover {
@@ -114,14 +120,14 @@
     background-color: #c5d7e8;
   }
   .menu {
+    padding: 2rem;
     border-radius: 0.5rem;
   margin-top: 7.5rem;
   position: fixed;
   top: 0;
   left: 0;
   height: 100vh;
-  width: 30%;
-  background-color: #369ae1df;
+  background-color: #4E55D9;
   }
   
   .menu ul {
@@ -141,13 +147,13 @@
   top: 0;
   left: 0;
   height: 100vh;
-  width: 9%;
-  background-color: #369ae1df;
+  width: min-content;
+  background-color: #4E55D9;
     display: flex;
     flex-direction: column;
     align-items: center;
     color: #fff;
-    padding: 10px;
+    padding: 5px;
   }
   
   .menuNon ul {
@@ -216,7 +222,7 @@
 /* Estilos para tamaños de pantalla medianos y grandes */
 @media (min-width: 577px) {
   .menu {
-    width: 30%;
+    width: max-content;
     border-radius: 0.5rem;
     margin-top: 7.5rem;
     position: fixed;
@@ -228,7 +234,7 @@
   }
 
   .menuNon {
-    width: 9%;
+    width: min-content;
     border-radius: 0.5rem;
     margin-top: 7.5rem;
     position: fixed;
@@ -242,7 +248,7 @@
 
 /* Estilos comunes a todos los tamaños de pantalla */
 .menu {
-  background-color: #369ae1df;
+  background-color:#4E55D9;
 }
 
 .menu ul {
@@ -289,3 +295,10 @@
   color: #c5d7e8;
 }
 
+
+/*estilo para las baderitas del admin*/
+.flagsadmin{
+  max-width: max-content;
+  width: auto;
+  margin: 0.5rem;
+}
