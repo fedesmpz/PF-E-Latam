@@ -21,7 +21,6 @@ const Product = ({ id, title, thumbnail, original_price, currency_id, price, sal
         }
         return title;
     };
-console.log({catalog_listing})
     return (
         <div>
            <Link className={Styles.link} href={`/DetailProduct?countryId=${countryId}&categories=${categories}&id=${id}`}>
