@@ -1,4 +1,4 @@
-import { axiosAllProductByCountryCategoryId, cleanDetail, hideProduct } from "@/redux/slice/productSlice";
+import { axiosAllProductByCountryCategoryId, cleanDetail, deleteProduct, hideProduct } from "@/redux/slice/productSlice";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useRouter } from "next/router";
@@ -6,7 +6,6 @@ import Providers from "@/redux/provider/Provider";
 import styles from "../pages/Components/Styles/ProductDetail.module.css";
 import Link from "next/link";
 import NavBar from "./Components/NavBar";
-
 
 const DetailProduct = () => {
   const dispatch = useDispatch();
@@ -16,7 +15,8 @@ const DetailProduct = () => {
   const { countryId } = router.query;
   const productDetail = useSelector((state) => state.products.detail);
   const [isVisible, setIsVisible] = useState(productDetail?.catalog_listing);
-
+  const [showModal, setShowModal] = useState(false);
+ 
   let attributes = productDetail.attributes;
   let renderedAttributes
   if (attributes?.includes('{')) {
@@ -27,10 +27,8 @@ const DetailProduct = () => {
       return (
         <li key={attributeName} className={styles.attribute}>
           <span className={styles.attributeName}>{attributeName}:</span> {attributeValue}
-        </li>
-      );
-    });
-  } else {
+        </li> )})}
+   else {
     renderedAttributes = attributes
   }
 
@@ -48,6 +46,18 @@ const DetailProduct = () => {
     await dispatch(hideProduct(id));
     setIsVisible(!isVisible);
   }
+  const handlerCorfirm = async() => {
+    await dispatch(deleteProduct(id));
+    setShowModal(false);
+    router.push("/Home")
+  };
+  const handlerCancel = async()=>{
+    setShowModal(false);
+  }
+  const handlerDelete = async () => {
+    setShowModal(true);
+    
+  };
 
   let admin = true // HARIAMOS LA VALIDACION DEL TOKEN 
   
@@ -69,8 +79,26 @@ const DetailProduct = () => {
         <NavBar></NavBar>
 
         <div className={styles.container}>
+
           {admin &&(
-          <button className={`${styles.buttonOcultar} ${isVisible ? styles.mostrar : styles.ocultar}`} onClick={handlerClic} >{isVisible ? "Ocultar Producto":'Mostrar Producto'}</button>)}
+            <>
+          <button className={`${styles.buttonOcultar} ${isVisible ? styles.mostrar : styles.ocultar}`} onClick={handlerClic} >{isVisible ? "Ocultar Producto":'Mostrar Producto'}</button>
+          <button className={styles.buttonDelete}onClick={handlerDelete}>Eliminar Producto</button>
+          </>)}
+          <>
+           {showModal && admin && (
+            <div className={styles.modal}>
+              <div className={styles.modalContent}>
+                <h2>Confirmación de Eliminación</h2>
+                <p>¿Estás seguro de que quieres eliminar el producto {productDetail.title}?</p>
+                <div className={styles.modalButtons}>
+                  <button onClick={handlerCorfirm}>Eliminar</button>
+                  <button onClick={handlerCancel}>Cancelar</button>
+                </div>
+              </div>
+            </div>
+          )}
+          </>
 
 
           <div className={styles.imageContainer}>
