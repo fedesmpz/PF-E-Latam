@@ -71,7 +71,8 @@ module.exports = (sequelize) => {
     //   }
     // ],
     catalog_listing: {
-      type: DataTypes.BOOLEAN
+      type: DataTypes.BOOLEAN,
+      defaultValue: true
     },
     discounts: {
       type: DataTypes.INTEGER
