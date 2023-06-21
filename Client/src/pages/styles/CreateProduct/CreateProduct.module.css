@@ -126,6 +126,14 @@ button.backButton:hover svg {
   padding-right: 30px;
 }
 
+.successMessage {
+  display: inline;
+  color: #6ed94e;
+}
+
+.successMessageContainer {
+  background-color: grey;
+}
 /* 
 
 /// ESTE COMENTADO PQ TODAVIA NO USAMOS FILE

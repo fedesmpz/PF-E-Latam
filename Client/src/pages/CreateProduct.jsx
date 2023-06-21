@@ -22,7 +22,7 @@ const CreateProduct = () => {
     const [selectedFileName, setSelectedFileName] = useState("");
     const [isFormValid, setIsFormValid] = useState(false)
     let [errors, setErrors] = useState({})
-    const message = useSelector(state => state.products.neeProductMessage)
+    const message = useSelector(state => state.products.newProductMessage)
 
 
     const [newProduct, setNewProduct] = useState({
@@ -31,11 +31,11 @@ const CreateProduct = () => {
         original_price: 0,
         currency_id: "ARS",
         price: 0,
-        sale_price: false,
+        sale_price: null,
         sold_quantity: 0,
         available_quantity: 0,
         official_store_name: "",
-        shipping: true,
+        shipping: null,
         attributes: "",
         discounts: 0,
         promotions: [],
@@ -44,7 +44,7 @@ const CreateProduct = () => {
     })
 
     useEffect(() => {
-        const isValid = ((Object.keys(errors).length === Object.keys(newProduct).length - 6) || (Object.keys(errors).length === Object.keys(newProduct).length - 5)) && Object.values(errors).every((error) => error === "");
+        const isValid = ((Object.keys(errors).length === Object.keys(newProduct).length - 5) || (Object.keys(errors).length === Object.keys(newProduct).length - 4)) && Object.values(errors).every((error) => error === "");
         setIsFormValid(isValid);
     }, [errors, newProduct]);
 
@@ -98,7 +98,6 @@ const CreateProduct = () => {
         }
 
     }
-    console.log(message);
     console.log(Object.keys(errors).length);
     console.log(Object.keys(newProduct).length);
 
@@ -138,14 +137,6 @@ const CreateProduct = () => {
 
             <NavBar></NavBar>
 
-            <span>
-                {message && (
-                    <p className={style.successMessage}>{message}<button onClick={handleCloseMessage} className={style.closeButton}>
-                        X
-                    </button></p>
-                )}
-            </span>
-
             <div className={style.container_backButton}>
                 <Link href="/Home">
                     <button className={style.backButton}>
@@ -157,6 +148,16 @@ const CreateProduct = () => {
                 </Link>
             </div>
             <h1 className={style.createProduct}>Crear producto</h1>
+            <div className={style.successMessageContainer}>
+            <p>este es el mensaje:</p>
+                {message && (
+                    <div>
+                    <p className={style.successMessage}>{message}<button onClick={handleCloseMessage} className={style.closeButton}>
+                        X
+                    </button></p>
+                    </div>
+                )}
+            </div>
             <div className={style.containerForm}>
                 <form onSubmit={handleSubmit}>
 
@@ -204,10 +205,11 @@ const CreateProduct = () => {
                     <div>
                         <label htmlFor="sale_price" className={style.label}>Quiere colocar este producto en oferta?</label>
                         <select name="sale_price" id="sale_price" value={newProduct.sale_price} onChange={handleChange}>
+                            <option value="">---</option>
                             <option value={true}>Sí</option>
                             <option value={false}>No</option>
                         </select>
-
+                        {errors.sale_price && <p>{errors.sale_price}</p>}
                         {
                             (newProduct.sale_price === "true") &&
                             <div>
@@ -239,6 +241,7 @@ const CreateProduct = () => {
                     <div>
                         <label htmlFor="shipping" className={style.label}>Este producto posee envío gratis?</label>
                         <select name="shipping" id="shipping" value={newProduct.shipping} onChange={handleChange}>
+                            <option value="">---</option>
                             <option value={true} >Sí</option>
                             <option value={false} >No</option>
                         </select>
@@ -251,13 +254,12 @@ const CreateProduct = () => {
                             <span className={style.priceTag}>%</span>
                             <input className={style.priceInput} type="number" name="discounts" value={newProduct.discounts} onChange={handleChange} />
                         </div>
+                        {errors.discounts && <p>{errors.discounts}</p>}
                         <div>
-                            {!errors.discounts && <strong>{`Precio del producto con descuento aplicado: ${valueDiscounts}`}</strong>
+                            {(!errors.discounts) && <strong>{`Precio del producto con descuento aplicado: ${valueDiscounts}`}</strong>
                             }
                         </div>
-                        <div>
-                            {errors.discounts && <p>{errors.discounts}</p>}
-                        </div>
+
                     </div>
 
                     <div>

@@ -207,7 +207,8 @@ export const postProduct = (payload) => (dispatch) => {
             dispatch(setNewProduct(response.data));
       })
       .catch((error) => {
-        dispatch(setNewProductMessage(error.response.data.message));
+        console.log(error.response?.data?.error)
+        dispatch(setNewProductMessage(error.response?.data?.error));
       });
   };
 
