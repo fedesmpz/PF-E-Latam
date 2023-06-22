@@ -25,7 +25,7 @@ const DetailProduct = () => {
   const [modalHide, setModalHide] = useState(false);
 
   console.log(productDetail)
- 
+
   let attributes = productDetail.attributes;
   let renderedAttributes
   if (attributes?.includes('{')) {
@@ -44,19 +44,22 @@ const DetailProduct = () => {
   }
 
   useEffect(() => {
-    if (cart.length !== 0) {
-      dispatch(addProduct(JSON.parse(localStorage.getItem("cart"))));
+    const savedCart = JSON.parse(localStorage.getItem("cart"));
+    if (savedCart && savedCart.length > 0) {
+      dispatch(addProduct(savedCart));
     } else {
-      localStorage.clear()
+      localStorage.removeItem("cart");
     }
-  }, [])
+  }, []);
 
   useEffect(() => {
-    console.log(cart);
-    if (productDetail && !(cart?.some(item => item.id === productDetail.id))) {
-      localStorage.setItem("cart", JSON.stringify(cart))
+    if (cart.length > 0) {
+      localStorage.setItem("cart", JSON.stringify(cart));
+    } else {
+      localStorage.removeItem("cart");
     }
-  }, [cart, productDetail])
+  }, [cart, productDetail]);
+
 
   useEffect(() => {
     setIsVisible(productDetail?.catalog_listing)
@@ -67,8 +70,8 @@ const DetailProduct = () => {
   useEffect(() => {
     setIsVisible(productDetail?.catalog_listing);
   }, [productDetail]);
-  
-  const handlerClick = async() => {
+
+  const handlerClick = async () => {
     await dispatch(hideProduct(id));
     setIsVisible(!isVisible);
     setModalHide(true)
@@ -99,7 +102,7 @@ const DetailProduct = () => {
 
   };
 
-  const handlerEdit = async() => {
+  const handlerEdit = async () => {
     router.push(`/EditProduct?id=${id}`)
   }
 
@@ -133,64 +136,64 @@ const DetailProduct = () => {
             </h2>
             <ul className={styles.attributeList}>{renderedAttributes}</ul>
             <p className={styles.hiddenProductTag}>
-             {productDetail.catalog_listing === true ? '' : `Producto oculto`}
+              {productDetail.catalog_listing === true ? '' : `Producto oculto`}
             </p>
           </div>
           <div className={styles.buttonsContainer}>
-          <button className={styles.buttonAddCart} onClick={handlerAddCart}>Agregar</button>
-        {admin && (
+            <button className={styles.buttonAddCart} onClick={handlerAddCart}>Agregar</button>
+            {admin && (
+              <>
+                <button className={`${styles.buttonOcultar} ${isVisible ? styles.mostrar : styles.ocultar}`} onClick={handlerClick} >{isVisible ? "Ocultar" : 'Mostrar'}</button>
+                <button className={styles.buttonEdit} onClick={handlerEdit} >Editar</button>
+                <button className={styles.buttonDelete} onClick={handlerDelete}>Eliminar</button>
+
+              </>)}
             <>
-              <button className={`${styles.buttonOcultar} ${isVisible ? styles.mostrar : styles.ocultar}`} onClick={handlerClick} >{isVisible ? "Ocultar" : 'Mostrar'}</button>
-              <button className={styles.buttonEdit} onClick={handlerEdit} >Editar</button>
-              <button className={styles.buttonDelete} onClick={handlerDelete}>Eliminar</button>
-              
-            </>)}
-          <>
-           {showModal && admin && (
-            <div className={styles.modal}>
-              <div className={styles.modalContent}>
-                <h2>Confirmación de Eliminación</h2>
-                <p>¿Estás seguro de que quieres eliminar el producto {productDetail.title}?</p>
-                <div className={styles.modalButtons}>
-                  <button onClick={handlerConfirm}>Eliminar</button>
-                  <button onClick={handlerCancel}>Cancelar</button>
-                </div>
-              </div>
-            </div>
-          )}
-          </>
-          <>
-            {admin && showModalDeleted && (
-              <div className={styles.modal}>
-                <div className={styles.modalContent}>
-                  <p>{productDetail.title}</p>
-                  <h2>{deletedMessage}</h2>
-                  <div className={styles.modalButtons}>
-                    <button onClick={handlerDeleted}>x</button>
+              {showModal && admin && (
+                <div className={styles.modal}>
+                  <div className={styles.modalContent}>
+                    <h2>Confirmación de Eliminación</h2>
+                    <p>¿Estás seguro de que quieres eliminar el producto {productDetail.title}?</p>
+                    <div className={styles.modalButtons}>
+                      <button onClick={handlerConfirm}>Eliminar</button>
+                      <button onClick={handlerCancel}>Cancelar</button>
+                    </div>
                   </div>
                 </div>
-              </div>
-            )
-
-            }
-          </>
-          <>
-            {admin && modalHide && (
-              <div className={styles.modal}>
-                <div className={styles.modalContent}>
-                  <p>{productDetail.title}</p>
-                  <h2>{hideMessage}</h2>
-                  <div className={styles.modalButtons}>
-                    <button onClick={handlerCancel}>x</button>
+              )}
+            </>
+            <>
+              {admin && showModalDeleted && (
+                <div className={styles.modal}>
+                  <div className={styles.modalContent}>
+                    <p>{productDetail.title}</p>
+                    <h2>{deletedMessage}</h2>
+                    <div className={styles.modalButtons}>
+                      <button onClick={handlerDeleted}>x</button>
+                    </div>
                   </div>
                 </div>
-              </div>
-            )
+              )
 
-            }
-          </>
+              }
+            </>
+            <>
+              {admin && modalHide && (
+                <div className={styles.modal}>
+                  <div className={styles.modalContent}>
+                    <p>{productDetail.title}</p>
+                    <h2>{hideMessage}</h2>
+                    <div className={styles.modalButtons}>
+                      <button onClick={handlerCancel}>x</button>
+                    </div>
+                  </div>
+                </div>
+              )
 
-        </div>
+              }
+            </>
+
+          </div>
 
         </div>
 
