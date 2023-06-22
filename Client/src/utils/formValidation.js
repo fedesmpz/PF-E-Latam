@@ -1,8 +1,8 @@
 const validation = (prop, value, errors, setErrors) => {
 
-
     const regex = /^[A-Za-z0-9\s]+$/; //que no contenga caracteres especiales
-    const urlPattern = /^https?:\/\/(?:[a-z]+\.)?[a-z0-9-]+(?:\.[a-z]{2,})+(?:\/[^/?#]+)+\.(?:jpeg|jpg|gif|png)$/i;
+    const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+    const maxSize = 8 * 1024 * 1024; // 8 MB
 
     if (prop === "title") {
         if(!value.length) {
@@ -130,19 +130,24 @@ const validation = (prop, value, errors, setErrors) => {
 
 //------------------------------------------------------------------------
     if (prop === "thumbnail") {
-        if (urlPattern.test(value)) {
+        console.log(value.type)
+        if (!value) {
             setErrors({
                 ...errors,
-                [prop]: "Debe ingresar una URL de imagen válida",
-            })
+                [prop]: "Debe seleccionar una imagen",
+              });
         }
-        if (value.length < 5) {
+        if (!allowedTypes.includes(value?.type)) {
             setErrors({
                 ...errors,
-                [prop]: "Debe ingresar una URL de imagen válida",
-            })
-        }
-        else {
+                [prop]: "Tipo de archivo invalido",
+              });
+        } if (value?.size > maxSize) {
+            setErrors({
+                ...errors,
+                [prop]: "La imagen excede el limite, seleccione una imagen de 8MB o menor",
+              });
+        } else {
             setErrors({
               ...errors,
               [prop]: "",

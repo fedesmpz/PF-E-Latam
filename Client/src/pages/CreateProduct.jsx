@@ -13,19 +13,16 @@ import FooterLanding from "./Components/FooterLanding"
 import { useEffect } from "react"
 import { setNewProductMessage } from "../redux/slice/productSlice"
 
-
 const CreateProduct = () => {
-
+    
     const dispatch = useDispatch();
-    const [selectedFileName, setSelectedFileName] = useState("");
     const [isFormValid, setIsFormValid] = useState(false)
     let [errors, setErrors] = useState({})
     const message = useSelector(state => state.products.newProductMessage)
-
+    const [productThumbnail, setProductThumbnail] = useState("")
 
     const [newProduct, setNewProduct] = useState({
         title: "",
-        thumbnail: "",
         original_price: 0,
         currency_id: "ARS",
         price: 0,
@@ -41,10 +38,10 @@ const CreateProduct = () => {
     })
 
     useEffect(() => {
-        const isValid = ((Object.keys(errors).length === Object.keys(newProduct).length - 5) || (Object.keys(errors).length === Object.keys(newProduct).length - 4)) && Object.values(errors).every((error) => error === "");
+        const isValid = ((Object.keys(errors).length === Object.keys(newProduct).length - 4) || (Object.keys(errors).length === Object.keys(newProduct).length - 3)) && Object.values(errors).every((error) => error === "");
         setIsFormValid(isValid);
     }, [errors, newProduct]);
-
+    
     const handleCloseMessage = () => {
         dispatch(setNewProductMessage(""))
     };
@@ -65,23 +62,29 @@ const CreateProduct = () => {
         })
     }
 
-    const handleDiscountSelect = (event) => {
-        setValueSelect(event.target.value)
+    const handleProductThumbnailUpload = (event) => {
+        const prop = event.target.name
+        const file = event.target.files[0];
+        validation(prop, file, errors, setErrors)
+        transformFile(file)
+    }
+
+    const transformFile = (file) => {
+        const reader = new FileReader()
+        if(file) {
+            reader.readAsDataURL(file)
+            reader.onloadend = () => {
+                setProductThumbnail(reader.result);
+            }
+        } else {
+            setProductThumbnail("")
+        }
     }
 
     const handleChange = (event) => {
 
         const prop = event.target.name
         const value = event.target.value
-
-        // if (prop === "thumbnail") {
-        //     const file = event.target.files[0];
-        //     setNewProduct({
-        //         ...newProduct,
-        //         thumbnail: file,
-        //     })
-        //     setSelectedFileName(file.name)
-        // }
 
         setNewProduct({
             ...newProduct,
@@ -93,17 +96,18 @@ const CreateProduct = () => {
     }
     console.log(Object.keys(errors).length);
     console.log(Object.keys(newProduct).length);
-    console.log(newProduct);
 
     const handleSubmit = (event) => {
         event.preventDefault()
 
-        dispatch(postProduct(newProduct))
+        dispatch(postProduct({
+            ...newProduct,
+            uri: productThumbnail
+        }))
 
         if (isFormValid) {
             setNewProduct({
                 title: "",
-                thumbnail: "",
                 original_price: 0,
                 currency_id: "",
                 price: 0,
@@ -152,7 +156,8 @@ const CreateProduct = () => {
                 )}
             </div>
             <div className={style.containerForm}>
-                <form onSubmit={handleSubmit}>
+                {productThumbnail && <img src={productThumbnail} alt="product_thumbnail"></img>}
+                <form encType="multipart/form-data" onSubmit={handleSubmit}>
 
                     <div>
                         <label htmlFor="country" className={style.label}>País del producto</label>
@@ -170,21 +175,20 @@ const CreateProduct = () => {
                         {errors.title && <p>{errors.title}</p>}
                     </div>
 
-                    {/* <div>
+                    <div>
                         <label htmlFor="thumbnail">Imagen</label>
-                        <input type="file" name="thumbnail" value={newProduct.thumbnail} onChange={handleChange} />
-                        {selectedFileName && <p>{selectedFileName}</p>}
+                        <input type="file" name="thumbnail" multiple={false} accept="image/*" onChange={handleProductThumbnailUpload} />
                         {errors.thumbnail
                             ? <p>{errors.thumbnail}</p>
                             : <p></p>
                         }
-                    </div> */}
+                    </div>
 
-                    <div>
+                    {/* <div>
                         <label htmlFor="thumbnail" className={style.label}>Imagen del producto</label>
                         <input type="text" name="thumbnail" value={newProduct.thumbnail} onChange={handleChange} />
                         {errors.thumbnail && <p>{errors.thumbnail}</p>}
-                    </div>
+                    </div> */}
 
                     <div>
                         <label htmlFor="original_price" className={style.label}>Precio del producto</label>
