@@ -28,3 +28,47 @@
 .dropdown li:hover {
     background-color: #f1f1f1;
 }
+/*-- estilos para el contenerdos de los productos----*/
+.containerAdmin{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.containerHomeBar{
+    width: max-content;
+    padding: auto;
+    margin: 1rem;
+}
+.containerHomeAdmin{
+    display: flex;
+    flex-direction: column;
+    margin-left: 4rem;
+}
+.containerProducts{
+    display: flex;
+    flex-direction: column;
+    width: max-content;
+    padding: 0;
+    background-color: aquamarine;
+    margin-top: 1rem;
+}
+.containerBar{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #4E55D9;
+    color: #fff;
+    border: none;
+    padding: 0;
+    width: 60px;
+    height: 100vh;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    position: fixed; /* Fija la posición */
+    left: 0.5rem; /* Alinea a la izquierda */
+    top: 50%; /* Ajusta la posición verticalmente según tus necesidades */
+    transform: translateY(-50%); /* Centra verticalmente */
+    margin-top: 0; /* Elimina el margen superior */
+    margin-right: 0.5rem;
+}
