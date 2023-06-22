@@ -12,7 +12,6 @@ const Cart = () => {
     const router = useRouter();
     const dispatch = useDispatch();
     const cart = useSelector(state => state.carts.cart)
-    const [update, setUpdate] = useState(false)
 
     useEffect(() => {
         const cartLS = JSON.parse(localStorage.getItem("cart"))
