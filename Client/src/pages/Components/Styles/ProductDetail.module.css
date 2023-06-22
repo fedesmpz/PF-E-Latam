@@ -1,14 +1,57 @@
+.fondo{
+  position: absolute;
+  background-color: white;
+  width: 100%;
+  height: 100%;
+}
+
+button.backButton {
+  display: flex;
+  align-items: center;
+  background: none;
+  border: none;
+  color: black;
+  cursor: pointer;
+  font-size: 1.2rem;
+  padding: 15px;
+  margin-left: 30px;
+}
+
+button.backButton svg {
+  fill: #000000;
+  height: 2em;
+  margin-right: 0.5em;
+  width: 2em;
+}
+
+button.backButton:hover svg {
+  fill: rgb(165, 182, 199);
+  cursor: pointer;
+}
+
 .container {
-  margin-bottom: 0px; 
-  margin-top: 20px;
-  margin-left: 20px;
-  margin-right: 20px;
+  margin: 10px 50px 5px 50px;
   padding: 20px;
-  background-color: #ffffff;
+  background-color: rgb(230, 230, 230);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   border-radius: 8px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+}
+
+.h3Container {
+  background-color: rgb(230, 230, 230);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  padding: 20px;
+  border-radius: 8px;
+  margin: 30px 50px 5px 50px;
+}
+
+.h3InnerContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
 }
 
 .imageContainer {
@@ -69,22 +112,6 @@
   color: #dd2121;
 }
 
-.h3Container {
-  background-color:rgba(22, 119, 37, 0.21);
-  padding: 20px;
-  border-radius: 8px;
-  margin-top: 0px;
-  margin-left: 20px;
-  margin-right: 20px;
-  margin-bottom: 20px;
-}
-
-.h3InnerContainer {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-}
-
 @media screen and (min-width: 768px) {
   .container {
     flex-direction: row;
@@ -113,109 +140,80 @@
   }
 }
 
-button.backButton {
-  position: absolute;;
-  align-items: center;
-  background: none;
-  border: none;
-  color: black;
-  cursor: pointer;
-  font-size: 1.2rem;
-  padding: 0;
-  top: 95px;
-  left: 30px
-}
-
-button.backButton svg {
-  fill: #333;
-  height: 2em;
-  margin-right: 0.5em;
-  width: 2em;
-}
-
-button.backButton:hover svg {
-  fill: #666;
-  cursor: pointer;
-}
-
-.fondo{
-  position: absolute;
-  background-color: rgba(22, 119, 36, 0.456);
-  width: 100%;
-  height: 100%;
+.buttonsContainer {
+  display: flex;
+  flex-direction: column;
+  align-items:center;
+  justify-content: space-around;
+  height: 400px 
 }
 
 .buttonOcultar {
-  position: absolute;
   align-items: center;
-  background: none;
-  color: black;
+  color: white !important;
   cursor: pointer;
   font-size: 1.2rem;
-  padding: 0;
-  top: 395px;
-  right: 30px;
+  padding: 10px;
   border: 2px solid transparent;
   border-radius: 8px;
-  padding: 3px;
-  background-color:rgba(22, 119, 37, 0.21);
+  width: 100px;
+  background-color:rgb(19, 171, 42);
 }
-
 .buttonOcultar:hover {
-  color: #403f3f !important;
-  cursor: pointer;
-  border: 2px solid rgba(22, 119, 37, 0.414);;
+  background-color: rgb(22, 119, 37);;
 }
 
-.buttonOcultar.mostrar {
-  color: rgba(40, 120, 13, 0.329); 
-}
-
-.buttonOcultar.ocultar {
+.buttonOcultar.mostrar , .buttonOcultar.ocultar{
   color: rgb(40, 120, 13); 
 }
 
 .buttonDelete{
-  position: absolute;
   align-items: center;
-  background: none;
-  color: black;
+  color: white;
   cursor: pointer;
   font-size: 1.2rem;
-  padding: 0;
-  top: 450px;
-  right: 30px;
   border: 2px solid transparent;
   border-radius: 8px;
-  padding: 3px;
-  background-color:rgba(230, 35, 9, 0.21);
+  padding: 10px;
+  width: 100px;
+  background-color:rgb(230, 35, 9);
 }
 .buttonAddCart {
-  position: absolute;
   align-items: center;
   background: none;
-  color: black;
+  color: white;
   cursor: pointer;
   font-size: 1.2rem;
-  padding: 0;
-  top: 495px;
-  right: 30px;
   border: 2px solid transparent;
   border-radius: 8px;
-  padding: 3px;
-  background-color:rgba(16, 29, 165, 0.21);
+  padding: 10px;
+  width: 100px;
+  background-color:rgb(42, 57, 220)
 }
 .buttonAddCart:hover {
-  color: #403f3f !important;
-  cursor: pointer;
-  border: 2px solid rgba(16, 29, 165, 0.21);;
+  background-color: rgb(29, 40, 158);
 }
 
 .buttonDelete:hover {
-  color: #403f3f !important;
-  cursor: pointer;
-  border: 2px solid rgba(255, 74, 3, 0.414);;
+  background-color:rgb(183, 28, 8);
 }
+
+.buttonEdit{
+  align-items: center;
+  color: white;
+  cursor: pointer;
+  font-size: 1.2rem;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  padding: 10px;
+  width: 100px;
+  background-color:rgb(238, 170, 10);
+}
+
+.buttonEdit:hover {
+  background-color:rgb(201, 144, 12);
+}
+
 
 .modal {
   position: fixed;

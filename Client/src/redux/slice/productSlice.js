@@ -12,8 +12,8 @@ export const productSlice = createSlice({
     allProducts: [],
     orderByName: 'asc',
     orderByPrice: 'mayormenor',
-    hideProductMessage:null,
-    deleteProductMessage:null,
+    hideProductMessage: null,
+    deleteProductMessage: null,
   },
   
   reducers: {
@@ -124,6 +124,14 @@ export const productSlice = createSlice({
     setDeleteProduct:(state,action)=>{
       state.deleteProductMessage = action.payload
   
+    },
+
+    setEditProduct:(state, action) => {
+      const editedProduct = action.payload;
+      const index = state.findIndex(product => product.id === editedProduct.id);
+      if (index !== -1) {
+        state[index] = editedProduct;
+      }
     }
     
   },
@@ -227,6 +235,16 @@ export const axiosSearchProduct = (title, country) => (dispatch) => {
       });
   };
 
+  export const editProduct = (id) => (dispatch) => {
+    axios
+      .put(`http://localhost:8000/products/edit/${id}`)
+      .then((response) => {
+            dispatch(setEditProduct(response.data));
+      })
+      .catch((error) => {
+        dispatch(setNewProductMessage(error.response?.data?.error));
+      });
+  };
 
   export const hideProduct = (id) => (dispatch) => {
     axios
