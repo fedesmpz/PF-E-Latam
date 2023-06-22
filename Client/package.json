@@ -19,6 +19,7 @@
     "eslint-config-next": "13.4.5",
     "firebase": "^9.22.2",
     "firebase-admin": "^11.9.0",
+    "firestore": "^1.1.6",
     "flag-icon-css": "^4.1.7",
     "next": "13.4.5",
     "postcss": "^8.4.24",
