@@ -42,21 +42,22 @@ const DetailProduct = () => {
   }
 
   useEffect(() => {
-    if (cart.length !== 0) {
-      dispatch(addProduct(JSON.parse(localStorage.getItem("cart"))));
+    const savedCart = JSON.parse(localStorage.getItem("cart"));
+    if (savedCart && savedCart.length > 0) {
+      dispatch(addProduct(savedCart));
     } else {
-      localStorage.clear()
+      localStorage.removeItem("cart");
     }
-    console.log("cart", cart);
-  }, [])
+  }, []);
 
   useEffect(() => {
-    console.log(cart);
-    if (productDetail && !(cart?.some(item => item.id === productDetail.id))) {
-      localStorage.setItem("cart", JSON.stringify(cart))
+    if (cart.length > 0) {
+      localStorage.setItem("cart", JSON.stringify(cart));
+    } else {
+      localStorage.removeItem("cart");
     }
-    console.log("detail", cart);
-  }, [cart, productDetail])
+  }, [cart]);
+
 
   useEffect(() => {
     setIsVisible(productDetail?.catalog_listing)

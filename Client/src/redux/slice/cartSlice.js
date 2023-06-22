@@ -9,18 +9,26 @@ export const cartSlice = createSlice({
     initialState,
     reducers: {
         setAddProduct:(state, action) => {
-            state.cart = [...state.cart, action.payload]
-        }
+            state.cart = [action.payload]
+        },
+        setRemoveProduct: (state, action) => {
+            const id = action.payload;
+            state.cart = state.cart.filter((product) => product.id !== id);
+        },
     }
 })
 
 export const { 
-    setAddProduct 
+    setAddProduct,
+    setRemoveProduct
 } = cartSlice.actions;
 
 export default cartSlice.reducer;
 
 export const addProduct = (product) => (dispatch) => {
-    console.log("slice",product);
     dispatch(setAddProduct(product));
   };
+
+export const removeProduct = (id) => (dispatch) => {
+    dispatch(setRemoveProduct(id))
+}
