@@ -13,13 +13,12 @@ import style from "./Styles/Home/Home.module.css"
 import LoaderLanding from "./Components/LoaderLanding"
 import "bootstrap/dist/css/bootstrap.css"
 import FooterLanding from "./Components/FooterLanding";
-
 const Home = () => {
     const dispatch = useDispatch();
-
     const productsCountry = useSelector((state) => state.products.country);
-    //codigo para que haya un spinner.
     const [isLoading, setIsLoading] = useState(true);
+ 
+
     useEffect(() => {
         setIsLoading(true);
 
@@ -32,22 +31,31 @@ const Home = () => {
         };
     }, []);
 
-    // codigo para llamar los productos
     useEffect(() => {
-        dispatch(axiosAllProductsByCountries(productsCountry))
-    }, [dispatch]);
+        dispatch(axiosAllProductsByCountries(productsCountry));
+    }, [dispatch, productsCountry]);
 
-    //Lógica para el paginado
     const array = useSelector((state) => state.products.allProducts);
     const concatenatedObjects = array.reduce((accumulator, currentArray) => {
         return accumulator.concat(currentArray);
     }, []);
-    const products = concatenatedObjects
+
+let currentProducts = concatenatedObjects;
+    const [isAdmin, setIsAdmin] = useState(false); //logica para probar si es admin o no ... y si no lo es no le muestra lo de ocultar
+    if (!isAdmin) {
+        currentProducts = concatenatedObjects.filter(
+            (product) => product.catalog_listing === true
+        );
+    }
+    
     const [currentPage, setCurrentPage] = useState(1);
     const [productsPerPage] = useState(50);
     const indexOfLastProduct = currentPage * productsPerPage;
     const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-    const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
+    const paginatedProducts = currentProducts.slice(
+        indexOfFirstProduct,
+        indexOfLastProduct
+    );
     const [orden, setOrden] = useState('');
 
     const paginado = (pageNumber) => {
@@ -55,44 +63,32 @@ const Home = () => {
     };
 
     if (isLoading) {
-        return (
-            <LoaderLanding/>
-        );
+        return <LoaderLanding />;
     }
+
     return (
         <div className={style.body}>
-
-            <NavBar></NavBar>
-
+            <NavBar />
             <Filter
                 setCurrentPage={setCurrentPage}
                 setOrden={setOrden}
                 orden={orden}
             />
-
             <div className="paginado">
-                <Products
-                    currentProducts={currentProducts}
-                />
-
+                <Products currentProducts={paginatedProducts} />
                 <Paginado
                     key="paginado"
                     productsPerPage={productsPerPage}
-                    products={products.length}
+                    products={currentProducts.length}
                     paginado={paginado}
-                    currentProducts={currentProducts}
+                    currentProducts={paginatedProducts}
                 />
-
                 <SubFooter />
-
                 <FooterLanding />
-
             </div>
-
-
         </div>
-    )
-}
+    );
+};
 
 const HomeWithProvider = () => {
     return (
@@ -101,5 +97,5 @@ const HomeWithProvider = () => {
         </Providers>
     );
 };
-export default HomeWithProvider;
 
+export default HomeWithProvider;

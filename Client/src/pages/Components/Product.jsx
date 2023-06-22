@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Styles from "./Styles/Product.module.css"
 
-const Product = ({ id, title, thumbnail, original_price, currency_id, price, sale_price, categories }) => {
+const Product = ({ id, title, thumbnail, original_price, currency_id, price, sale_price, categories,catalog_listing }) => {
 
     let countryId;
 
@@ -21,11 +21,10 @@ const Product = ({ id, title, thumbnail, original_price, currency_id, price, sal
         }
         return title;
     };
-
     return (
         <div>
            <Link className={Styles.link} href={`/DetailProduct?countryId=${countryId}&categories=${categories}&id=${id}`}>
-                <div className={Styles.card}>
+           <div className={`${!catalog_listing ? Styles.unlistedCard : Styles.card}`}>
                     <img src={thumbnail} alt={title} />
                     <div className={Styles.cardDetails}>
                         <h2 className={`${Styles.title} ${Styles.thinTitle}`}>{shortenTitle(title)}</h2>

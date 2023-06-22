@@ -8,13 +8,13 @@ const {updateUserHandler} = require("../Handlers/put/updateUser")
 
 router.get("/:id", getUserByIdHandler)
 router.post("/register",registerHandler)
-// router.get("/login", loginHandler)
-// router.get("/login", loginOutHandler)
 router.delete("/delete/:id", deleteUserHandler)
 router.put("/update/:id",updateUserHandler)
 
 
 
+// router.get("/login", loginHandler)
+// router.get("/login", loginOutHandler)
 module.exports = router;
 
 
