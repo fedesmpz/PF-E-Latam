@@ -12,7 +12,7 @@ export const ratingReviewSlice = createSlice({
 
     extraReducers: (builder) => {
       builder
-        .addCase(getAllReviews.fulfilled, (state, action) => {
+        .addCase(getAllReviewsForProduct.fulfilled, (state, action) => {
           state.reviews = action.payload;
         })
         .addCase(getReviewById.fulfilled, (state, action) => {
@@ -35,11 +35,13 @@ export const ratingReviewSlice = createSlice({
     },
   });
 
-  export const getAllReviews = createAsyncThunk(
-    'reviews/getAllReviews',
-    async () => {
+  export const getAllReviewsForProduct = createAsyncThunk(
+    'reviews/getAllReviewsForProduct',
+    async (productId) => {
+       console.log("esta es el repsonse:"+productId)
       try {
-        const response = await axios.get('http://localhost:8000/reviews');
+        const response = await axios.get(`http://localhost:8000/reviews/product/${productId}`);
+       
         return response.data;
       } catch (error) {
         console.log(error);
