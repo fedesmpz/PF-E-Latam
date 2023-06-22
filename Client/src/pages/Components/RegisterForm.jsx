@@ -5,10 +5,12 @@ import { GoogleAuthProvider,
    signInWithPopup,
    createUserWithEmailAndPassword, 
    signInWithEmailAndPassword,
+   verifyIdToken,
    sendEmailVerification,
     } from 'firebase/auth'
 import { auth } from '../../utils/firebase'
 import axios from 'axios';
+
 
 
 const BASE_URL = 'localhoss:8000'
@@ -76,45 +78,51 @@ const countries = [
     const loginGoogle = async () => {
       const provider = await new GoogleAuthProvider()
       const result = await signInWithPopup(auth, provider);
-      const token = result.user.accessToken;
+      // const token = result.user.accessToken;
       
       //validar si existe o no con axios a users/googleExist, llega false o datos del usuario
-      const data = { email : result.user.email }
-      const response = await axios.post('http://localhost:8000/users/googleExist', data);
-      if (response.exist){
-        //SE GUARDA EL TOKEN EN LOCALSTORAGE
-        localStorage.setItem("token", JSON.stringify(token))
-        //DATOS PARA GUARDAR EN ESTADOS
-        const user = {
-                      name: result.user.displayName,
-                      email: result.user.email,
-                      access: response.access,
-                      isAdmin: response.isAdmin,
-                      isSuperAdmin: response.isSuperAdmin
-                      }
+      const dataEmail = { email : result.user.email }
+      const response = await axios.post('http://localhost:8000/users/googleExist', dataEmail);
+      const user = {
+        name: result.user.displayName,
+        email: result.user.email,
+        access: response.data.access,
+        isAdmin: response.data.isAdmin,
+        isSuperAdmin: response.data.isSuperAdmin
+      }
 
-        console.log(user);
+      if (response.data.exist){
+        //SE GUARDA EL TOKEN EN LOCALSTORAGE
+        const token = await axios.post('http://localhost:8000/users/getToken', user)
+        localStorage.setItem("token", JSON.stringify(token))
+//***** DATOS PARA GUARDAR EN ESTADOS *****
+        console.log(user); //user es lo que se guarda en el estado, el token ya se guarda en localStorage
 
       }else{
-
+        //no existe en nnuestra DB, hay que verificar el usuario
+        sendEmailVerification(result.user)
         //RESOLVER TEMA PAIS
         setPopUp(true)
         const data = { name : result.user.displayName || 'AAAA',
-        email: result.user.email,
-        country: 'Argentina'}
+                       email: result.user.email,
+                       country: 'Argentina'
+                      }
         
-        //SE CREA EN NUESTRA DB EL USUARIO              
+        //SE CREA EN NUESTRA DB EL USUARIO Y SE GENERA EL TOKEN          
         const response = await axios.post('http://localhost:8000/users/googleLogin', data);
+        const token = await axios.post('http://localhost:8000/users/getToken', user)
+        //SE GUARDA EL TOKEN
         localStorage.setItem("token", JSON.stringify(token))
         const user = {
           name: result.user.displayName,
           email: result.user.email,
-          access: response.access,
-          isAdmin: response.isAdmin,
-          isSuperAdmin: response.isSuperAdmin
+          access: response.data.access,
+          isAdmin: response.data.isAdmin,
+          isSuperAdmin: response.data.isSuperAdmin
           }
-
-        console.log(user);
+        
+//***** DATOS PARA GUARDAR EN ESTADOS *****
+        console.log(user);//user es lo que se guarda en el estado, el token ya se guarda en localStorage
       }
     }
 
