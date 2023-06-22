@@ -5,6 +5,7 @@ import Providers from "@/redux/provider/Provider";
 import TableInfo from "./ComponentsAdmin/Table/TableInfo";
 import SalesCard from "./ComponentsAdmin/Statistics/SalesCard";
 import SalesStats from "./ComponentsAdmin/Statistics/SalesStats";
+import LastOrders from "./ComponentsAdmin/Orders/LastOrders";
 
 const DashboardAdmin = () => {
 
@@ -42,7 +43,8 @@ const DashboardAdmin = () => {
             totalSales={totalSales}
             todaySales={todaySales}
             monthSales={monthSales}/>
-            {/* <SalesStats data={data}/> */}
+            <SalesStats />
+            <LastOrders />
         </div>
     )
     
