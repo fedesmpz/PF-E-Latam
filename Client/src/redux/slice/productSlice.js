@@ -8,6 +8,7 @@ export const productSlice = createSlice({
     categories: [],
     country: "ARG",
     detail: {},
+    editDetail: {},
     newProductMessage: null,
     allProducts: [],
     orderByName: 'asc',
@@ -37,6 +38,10 @@ export const productSlice = createSlice({
 
     setAllProductsByCountriesCategoryId: (state, action) => {
       state.detail = action.payload;
+    },
+
+    setEditDetail: (state, action) => {
+      state.editDetail = action.payload
     },
     
     setSearchProduct: (state, action) => {
@@ -142,6 +147,7 @@ export const {
   setAllProductsByCountries,
   setProductsCountry,
   setAllProductsByCountriesCategoryId,
+  setEditDetail,
   setSearchProduct,
   setAllProducts,
   setNewProduct,
@@ -203,9 +209,18 @@ export const axiosAllProductByCountryCategoryId = (id, countryId, categories) =>
     axios
         .get(`http://localhost:8000/products/${countryId}/${categories}/${id}`)
         .then((response) => {
-            dispatch(setAllProductsByCountriesCategoryId(response.data))
+            dispatch(setAllProductsByCountriesCategoryId(response.data));
         })
         .catch((error) => console.log(error));
+};
+
+export const ProductByIdForEditForm = (id, countryId, categories) => (dispatch) => {
+  axios
+      .get(`http://localhost:8000/products/${countryId}/${categories}/${id}`)
+      .then((response) => {
+          dispatch(setEditDetail(response.data))
+      })
+      .catch((error) => console.log(error));
 };
 
 export const axiosSearchProduct = (title, country) => (dispatch) => {
