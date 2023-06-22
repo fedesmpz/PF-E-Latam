@@ -12,8 +12,8 @@ export const productSlice = createSlice({
     allProducts: [],
     orderByName: 'asc',
     orderByPrice: 'mayormenor',
-    hideProductMessage:null,
-    deleteProductMessage:null,
+    hideProductMessage: null,
+    deleteProductMessage: null,
   },
   
   reducers: {

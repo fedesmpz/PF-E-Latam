@@ -21,6 +21,8 @@ const DetailProduct = () => {
   const [showModal, setShowModal] = useState(false);
   const [showModalDeleted, setShowModalDeleted]=useState(false)
   const [modalHide, setModalHide] = useState(false);
+
+  console.log(productDetail)
  
   let attributes = productDetail.attributes;
   let renderedAttributes
@@ -47,12 +49,12 @@ const DetailProduct = () => {
     setIsVisible(productDetail?.catalog_listing);
   }, [productDetail]);
   
-  const handlerClic =async() => {
+  const handlerClick = async() => {
     await dispatch(hideProduct(id));
     setIsVisible(!isVisible);
     setModalHide(true)
   }
-  const handlerCorfirm = async() => {
+  const handlerConfirm = async() => {
     await dispatch(deleteProduct(id));
     setShowModal(false);
     setShowModalDeleted(true)
@@ -73,6 +75,11 @@ const DetailProduct = () => {
     
   };
 
+  const handlerEdit = async() => {
+    await dispatch(editProduct(productDetail.id))
+
+  }
+
   let admin = true // HARIAMOS LA VALIDACION DEL TOKEN 
   
   return (
@@ -80,6 +87,8 @@ const DetailProduct = () => {
     <div className={styles.fondo}>
 
       <>
+
+        <NavBar></NavBar>
 
         <Link href="/Home">
           <button className={styles.backButton}>
@@ -90,14 +99,26 @@ const DetailProduct = () => {
           </button>
         </Link>
 
-        <NavBar></NavBar>
-
         <div className={styles.container}>
-
-          {admin && (
+          <div className={styles.imageContainer}>
+            <img src={productDetail.thumbnail} alt={productDetail.title} className={styles.thumbnail} />
+          </div>
+          <div className={styles.content}>
+            <h1 className={styles.title}>{productDetail.title}</h1>
+            <h2 className={styles.price}>
+              {productDetail.currency_id} ${productDetail.original_price}
+            </h2>
+            <ul className={styles.attributeList}>{renderedAttributes}</ul>
+            <p className={styles.hiddenProductTag}>
+             {productDetail.catalog_listing === true ? '' : `Producto oculto`}
+            </p>
+          </div>
+          <div className={styles.buttonsContainer}>
+        {admin && (
             <>
-          <button className={`${styles.buttonOcultar} ${isVisible ? styles.mostrar : styles.ocultar}`} onClick={handlerClic} >{isVisible ? "Ocultar Producto":'Mostrar Producto'}</button>
-          <button className={styles.buttonDelete}onClick={handlerDelete}>Eliminar Producto</button>
+          <button className={`${styles.buttonOcultar} ${isVisible ? styles.mostrar : styles.ocultar}`} onClick={handlerClick} >{isVisible ? "Ocultar":'Mostrar'}</button>
+          <button className={styles.buttonEdit} onClick={handlerEdit} >Editar</button>
+          <button className={styles.buttonDelete} onClick={handlerDelete}>Eliminar</button>
           </>)}
           <>
            {showModal && admin && (
@@ -106,7 +127,7 @@ const DetailProduct = () => {
                 <h2>Confirmación de Eliminación</h2>
                 <p>¿Estás seguro de que quieres eliminar el producto {productDetail.title}?</p>
                 <div className={styles.modalButtons}>
-                  <button onClick={handlerCorfirm}>Eliminar</button>
+                  <button onClick={handlerConfirm}>Eliminar</button>
                   <button onClick={handlerCancel}>Cancelar</button>
                 </div>
               </div>
@@ -144,17 +165,8 @@ const DetailProduct = () => {
           }
           </>
 
+        </div>
 
-          <div className={styles.imageContainer}>
-            <img src={productDetail.thumbnail} alt={productDetail.title} className={styles.thumbnail} />
-          </div>
-          <div className={styles.content}>
-            <h1 className={styles.title}>{productDetail.title}</h1>
-            <h2 className={styles.price}>
-              {productDetail.currency_id} ${productDetail.original_price}
-            </h2>
-            <ul className={styles.attributeList}>{renderedAttributes}</ul>
-          </div>
         </div>
 
         <div className={styles.h3Container}>
@@ -168,6 +180,7 @@ const DetailProduct = () => {
             <h3>País: {productDetail.country}</h3>
           </div>
         </div>
+
         <ReviewRating></ReviewRating>
       </>
     </div>
