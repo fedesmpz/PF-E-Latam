@@ -7,6 +7,7 @@ import styles from "../pages/Components/Styles/ProductDetail.module.css";
 import Link from "next/link";
 import NavBar from "./Components/NavBar";
 import ReviewRating from "./Components/ReviewRating";
+import { addProduct } from "@/redux/slice/cartSlice";
 
 const DetailProduct = () => {
   const dispatch = useDispatch();
@@ -15,13 +16,14 @@ const DetailProduct = () => {
   const { categories } = router.query;
   const { countryId } = router.query;
   const productDetail = useSelector((state) => state.products.detail);
-  const hideMessage= useSelector((state)=> state.products.hideProductMessage)
-  const deletedMessage=useSelector((state)=>state.products.deleteProductMessage)
+  const hideMessage = useSelector((state) => state.products.hideProductMessage)
+  const deletedMessage = useSelector((state) => state.products.deleteProductMessage)
+  const cart = useSelector(state => state.carts.cart)
   const [isVisible, setIsVisible] = useState(productDetail?.catalog_listing);
   const [showModal, setShowModal] = useState(false);
-  const [showModalDeleted, setShowModalDeleted]=useState(false)
+  const [showModalDeleted, setShowModalDeleted] = useState(false)
   const [modalHide, setModalHide] = useState(false);
- 
+
   let attributes = productDetail.attributes;
   let renderedAttributes
   if (attributes?.includes('{')) {
@@ -32,10 +34,29 @@ const DetailProduct = () => {
       return (
         <li key={attributeName} className={styles.attribute}>
           <span className={styles.attributeName}>{attributeName}:</span> {attributeValue}
-        </li> )})}
-   else {
+        </li>)
+    })
+  }
+  else {
     renderedAttributes = attributes
   }
+
+  useEffect(() => {
+    if (cart.length !== 0) {
+      dispatch(addProduct(JSON.parse(localStorage.getItem("cart"))));
+    } else {
+      localStorage.clear()
+    }
+    console.log("cart", cart);
+  }, [])
+
+  useEffect(() => {
+    console.log(cart);
+    if (productDetail && !(cart?.some(item => item.id === productDetail.id))) {
+      localStorage.setItem("cart", JSON.stringify(cart))
+    }
+    console.log("detail", cart);
+  }, [cart, productDetail])
 
   useEffect(() => {
     setIsVisible(productDetail?.catalog_listing)
@@ -46,23 +67,28 @@ const DetailProduct = () => {
   useEffect(() => {
     setIsVisible(productDetail?.catalog_listing);
   }, [productDetail]);
-  
-  const handlerClic =async() => {
+
+  const handlerClic = async () => {
     await dispatch(hideProduct(id));
     setIsVisible(!isVisible);
     setModalHide(true)
   }
-  const handlerCorfirm = async() => {
+  const handlerCorfirm = async () => {
     await dispatch(deleteProduct(id));
     setShowModal(false);
     setShowModalDeleted(true)
-   
+
   };
-  const handlerCancel = async()=>{
+
+  const handlerAddCart = () => {
+    dispatch(addProduct(productDetail))
+  };
+
+  const handlerCancel = async () => {
     setShowModal(false);
     setModalHide(false)
   }
-  const handlerDeleted = async()=>{
+  const handlerDeleted = async () => {
     setShowModal(false);
     setModalHide(false)
     setShowModalDeleted(true)
@@ -70,13 +96,13 @@ const DetailProduct = () => {
   }
   const handlerDelete = async () => {
     setShowModal(true);
-    
+
   };
 
   let admin = true // HARIAMOS LA VALIDACION DEL TOKEN 
-  
+
   return (
- 
+
     <div className={styles.fondo}>
 
       <>
@@ -96,52 +122,53 @@ const DetailProduct = () => {
 
           {admin && (
             <>
-          <button className={`${styles.buttonOcultar} ${isVisible ? styles.mostrar : styles.ocultar}`} onClick={handlerClic} >{isVisible ? "Ocultar Producto":'Mostrar Producto'}</button>
-          <button className={styles.buttonDelete}onClick={handlerDelete}>Eliminar Producto</button>
-          </>)}
+              <button className={`${styles.buttonOcultar} ${isVisible ? styles.mostrar : styles.ocultar}`} onClick={handlerClic} >{isVisible ? "Ocultar Producto" : 'Mostrar Producto'}</button>
+              <button className={styles.buttonDelete} onClick={handlerDelete}>Eliminar Producto</button>
+              <button className={styles.buttonAddCart} onClick={handlerAddCart}>Agregar al carrito</button>
+            </>)}
           <>
-           {showModal && admin && (
-            <div className={styles.modal}>
-              <div className={styles.modalContent}>
-                <h2>Confirmación de Eliminación</h2>
-                <p>¿Estás seguro de que quieres eliminar el producto {productDetail.title}?</p>
-                <div className={styles.modalButtons}>
-                  <button onClick={handlerCorfirm}>Eliminar</button>
-                  <button onClick={handlerCancel}>Cancelar</button>
+            {showModal && admin && (
+              <div className={styles.modal}>
+                <div className={styles.modalContent}>
+                  <h2>Confirmación de Eliminación</h2>
+                  <p>¿Estás seguro de que quieres eliminar el producto {productDetail.title}?</p>
+                  <div className={styles.modalButtons}>
+                    <button onClick={handlerCorfirm}>Eliminar</button>
+                    <button onClick={handlerCancel}>Cancelar</button>
+                  </div>
                 </div>
               </div>
-            </div>
-          )}
+            )}
           </>
           <>
-          {admin && showModalDeleted &&(
-            <div className={styles.modal}>
-            <div className={styles.modalContent}>
-              <p>{productDetail.title}</p>
-              <h2>{deletedMessage}</h2>
-              <div className={styles.modalButtons}>
-                <button onClick={handlerDeleted}>x</button>
+            {admin && showModalDeleted && (
+              <div className={styles.modal}>
+                <div className={styles.modalContent}>
+                  <p>{productDetail.title}</p>
+                  <h2>{deletedMessage}</h2>
+                  <div className={styles.modalButtons}>
+                    <button onClick={handlerDeleted}>x</button>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-          )
+            )
 
-          }
+            }
           </>
           <>
-          {admin && modalHide&&(
-            <div className={styles.modal}>
-            <div className={styles.modalContent}>
-              <p>{productDetail.title}</p>
-              <h2>{hideMessage}</h2>
-              <div className={styles.modalButtons}>
-                <button onClick={handlerCancel}>x</button>
+            {admin && modalHide && (
+              <div className={styles.modal}>
+                <div className={styles.modalContent}>
+                  <p>{productDetail.title}</p>
+                  <h2>{hideMessage}</h2>
+                  <div className={styles.modalButtons}>
+                    <button onClick={handlerCancel}>x</button>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-          )
+            )
 
-          }
+            }
           </>
 
 
