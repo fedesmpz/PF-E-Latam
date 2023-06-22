@@ -3,6 +3,9 @@ import React, { useState } from 'react';
 import NavbarAdmin from "./Components/NavbarAdmin"
 import Providers from "@/redux/provider/Provider";
 import TableInfo from "./ComponentsAdmin/Table/TableInfo";
+import SalesCard from "./ComponentsAdmin/Statistics/SalesCard";
+import SalesStats from "./ComponentsAdmin/Statistics/SalesStats";
+import LastOrders from "./ComponentsAdmin/Orders/LastOrders";
 
 const DashboardAdmin = () => {
 
@@ -23,15 +26,25 @@ const DashboardAdmin = () => {
     const monthSales = 71;
 
 
-    const chartData = {
+    const data = {
         labels: ['Ventas en linea', 'Ventas por mayor', 'Ventas tienda oficial'],
-        values: [60, 20, 20],
+        datasets: [{
+            values: [60, 20, 20],
+            backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
+            hoverBackgroundColor: ['#FF6386', '#36A4EB', '#FFCE58']
+        }]
     } 
     
     return (
         <div>
             <NavbarAdmin/>
             <TableInfo/>
+            <SalesCard 
+            totalSales={totalSales}
+            todaySales={todaySales}
+            monthSales={monthSales}/>
+            <SalesStats />
+            <LastOrders />
         </div>
     )
     
