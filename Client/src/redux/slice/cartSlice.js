@@ -1,8 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
-import axios from "axios"
 
 const initialState= {
-    cart:{}
+    cart:[]
 }
 
 export const cartSlice = createSlice({
@@ -10,7 +9,7 @@ export const cartSlice = createSlice({
     initialState,
     reducers: {
         setAddProduct:(state, action) => {
-            state.cart = action.payload;
+            state.cart = [...state.cart, action.payload]
         }
     }
 })
@@ -21,13 +20,7 @@ export const {
 
 export default cartSlice.reducer;
 
-export const addProduct = (countryId, categories, id) => (dispatch) => {
-    axios
-        .get(`http://localhost:8000/products/${countryId}/${categories}/${id}`)
-        .then((response) => {
-                dispatch(setAddProduct(response.data));
-        })
-        .catch((error) => {
-            console.log(error.response?.data?.error)
-        });
-};
+export const addProduct = (product) => (dispatch) => {
+    console.log("slice",product);
+    dispatch(setAddProduct(product));
+  };

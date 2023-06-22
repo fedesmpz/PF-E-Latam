@@ -18,6 +18,7 @@ const DetailProduct = () => {
   const productDetail = useSelector((state) => state.products.detail);
   const hideMessage = useSelector((state) => state.products.hideProductMessage)
   const deletedMessage = useSelector((state) => state.products.deleteProductMessage)
+  const cart = useSelector(state => state.carts.cart)
   const [isVisible, setIsVisible] = useState(productDetail?.catalog_listing);
   const [showModal, setShowModal] = useState(false);
   const [showModalDeleted, setShowModalDeleted] = useState(false)
@@ -39,6 +40,23 @@ const DetailProduct = () => {
   else {
     renderedAttributes = attributes
   }
+
+  useEffect(() => {
+    if (cart.length !== 0) {
+      dispatch(addProduct(JSON.parse(localStorage.getItem("cart"))));
+    } else {
+      localStorage.clear()
+    }
+    console.log("cart", cart);
+  }, [])
+
+  useEffect(() => {
+    console.log(cart);
+    if (productDetail && !(cart?.some(item => item.id === productDetail.id))) {
+      localStorage.setItem("cart", JSON.stringify(cart))
+    }
+    console.log("detail", cart);
+  }, [cart, productDetail])
 
   useEffect(() => {
     setIsVisible(productDetail?.catalog_listing)
@@ -63,7 +81,7 @@ const DetailProduct = () => {
   };
 
   const handlerAddCart = () => {
-    dispatch(addProduct(id, countryId, categories))
+    dispatch(addProduct(productDetail))
   };
 
   const handlerCancel = async () => {

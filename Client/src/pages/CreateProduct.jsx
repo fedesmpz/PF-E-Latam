@@ -10,11 +10,12 @@ import { postProduct } from "@/redux/slice/productSlice"
 import NavBar from "./Components/NavBar"
 import SubFooter from "./Components/SubFooter"
 import FooterLanding from "./Components/FooterLanding"
+import Cart from "./Cart"
 import { useEffect } from "react"
 import { setNewProductMessage } from "../redux/slice/productSlice"
 
 const CreateProduct = () => {
-    
+
     const dispatch = useDispatch();
     const [isFormValid, setIsFormValid] = useState(false)
     let [errors, setErrors] = useState({})
@@ -41,7 +42,7 @@ const CreateProduct = () => {
         const isValid = ((Object.keys(errors).length === Object.keys(newProduct).length - 4) || (Object.keys(errors).length === Object.keys(newProduct).length - 3)) && Object.values(errors).every((error) => error === "");
         setIsFormValid(isValid);
     }, [errors, newProduct]);
-    
+
     const handleCloseMessage = () => {
         dispatch(setNewProductMessage(""))
     };
@@ -71,7 +72,7 @@ const CreateProduct = () => {
 
     const transformFile = (file) => {
         const reader = new FileReader()
-        if(file) {
+        if (file) {
             reader.readAsDataURL(file)
             reader.onloadend = () => {
                 setProductThumbnail(reader.result);
@@ -146,12 +147,12 @@ const CreateProduct = () => {
             </div>
             <h1 className={style.createProduct}>Crear producto</h1>
             <div className={style.successMessageContainer}>
-            <p>este es el mensaje:</p>
+                <p>este es el mensaje:</p>
                 {message && (
                     <div>
-                    <p className={style.successMessage}>{message}<button onClick={handleCloseMessage} className={style.closeButton}>
-                        X
-                    </button></p>
+                        <p className={style.successMessage}>{message}<button onClick={handleCloseMessage} className={style.closeButton}>
+                            X
+                        </button></p>
                     </div>
                 )}
             </div>
@@ -266,6 +267,7 @@ const CreateProduct = () => {
             </div>
             <SubFooter></SubFooter>
             <FooterLanding></FooterLanding>
+            <Cart></Cart>
         </div>
     )
 }

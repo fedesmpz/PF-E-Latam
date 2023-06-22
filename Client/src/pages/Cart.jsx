@@ -1,39 +1,57 @@
+'use client'
 import Providers from "@/redux/provider/Provider";
 import { useEffect, useState } from "react"
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import style from "./styles/Cart/Cart.module.css"
+import { addProduct } from "@/redux/slice/cartSlice";
+import { useRouter } from "next/router"
 
 
 const Cart = () => {
 
-    const [cart, setCart] = useState({})
-    const productAdded = useSelector(state => state.carts.cart)
-    const productDetail = useSelector(state => state.products.detail)
-
+    const router = useRouter();
+    const dispatch = useDispatch();
+    const cart = useSelector(state => state.carts.cart)
+    const [update, setUpdate] = useState(false)
 
     useEffect(() => {
-        localStorage.setItem("cart", JSON.stringify(cart));
-    }, [cart])
+        const cartLS = JSON.parse(localStorage.getItem("cart"))
+        dispatch(addProduct(cartLS))
+    }, [])
+
+    const handleEliminate = (id) => {
+        const updatedCart = cart.filter((product) => product.id !== id);
+        localStorage.setItem("cart", JSON.stringify(updatedCart));
+        router.push("/Cart");
+    };
 
     return (
         <div>
-            <div className={style.product_container}>
-                <div>
-                    <img src={cart.thumbnail} alt="product_image" />
-                </div>
+            {cart?.map(product => {
+                return (product?.title &&
+                    <div>
+                        <div className={style.product_container}>
+                            <div>
+                                <img src={product.thumbnail} alt="product_image" />
+                            </div>
 
-                <div>
-                    <h1>{cart.title}</h1>
-                </div>
+                            <div>
+                                <h1>{product.title}</h1>
+                            </div>
 
-                <div>
-                    <p>$ {cart.price}</p>
-                </div>
+                            <div>
+                                <p>${product.original_price}</p>
+                            </div>
 
-                <button>Eliminar</button>
-                <button>Comprar ahora</button>
+                            <button onClick={() => handleEliminate(product.id)}>Eliminar</button>
+                            <button>Comprar ahora</button>
+                        </div>
+                    </div>
+                )
+            })
 
-            </div>
+            }
+
             <div className={style.resume_container}>
                 <div>
                     <h1>Resumen de compra</h1>
@@ -52,9 +70,12 @@ const Cart = () => {
 };
 
 const CartComponent = () => {
-    <Providers>
-        <Cart />
-    </Providers>
+    return (
+        <Providers>
+            <Cart />
+        </Providers>
+    )
+
 }
 
 export default CartComponent;
