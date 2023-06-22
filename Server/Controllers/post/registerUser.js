@@ -1,12 +1,20 @@
 const {User} = require("../../db.js");
 const {Cart} = require("../../db.js");
 const { conn } = require("../../db.js");
+const { getAuth,
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    GoogleAuthProvider } = require ("firebase/auth");
+const { auth } = require('../../Utilities/firebase.js')
+const provider = new GoogleAuthProvider()
 
 const { currencyIdValidator } = require("../../Utilities/currencyIdValidator.js")
 
-const registerUser= async(id,name,surname,email,birth_date,profile_picture,country,city,address,postal_code)=>{
+const registerUser= async(name, surname, email, password, country, city, address)=>{
     const transaction = await conn.transaction();
+    
     try {
+        const userCredentials = await createUserWithEmailAndPassword(auth, email, password)
         const userRegistered = await User.findOne({
             where:{ email:email}
         });
@@ -14,7 +22,7 @@ const registerUser= async(id,name,surname,email,birth_date,profile_picture,count
             throw new Error('Ya existe un usuario registrado con ese email');
         }
         const newUser = await User.create({
-            id,name,surname,email,birth_date,profile_picture,country,city,address,postal_code
+            name, surname, email, country, city, address
             },
             { transaction }
         )
@@ -27,12 +35,10 @@ const registerUser= async(id,name,surname,email,birth_date,profile_picture,count
             { transaction }
         );
         await transaction.commit();
-        if(newUser){
-            console.log(`Usuario de ${name} ${surname} creado de manera exitosa y asociado a carrito con ID ${newCart.id}.`) 
-        }
+        return {message: `Usuario de ${name} ${surname} creado de manera exitosa y asociado a carrito con ID ${newCart.id}.`}
     } catch (error) {
-        console.log(error)
-        throw new Error('Error al registrar al usuario');
+
+        return {message: error.message};
     }
 }
 

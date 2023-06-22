@@ -40,10 +40,11 @@ const Landing = () => {
                 {/* <span>Regístrate de forma ágil y optimiza tu tiempo y dinero con la plataforma líder de Latinoamérica</span>
                 <div className={styles['input-container']}>
                   <input type="text" placeholder="Email address" />
-                  <div className={styles['button-container']}>
-                  <ModalSignin />
-                  </div>
+                                  <div className={styles['button-container']}>
+                  <ModalSignin/>
+                 </div>
                 </div> */}
+
               </div>
               
               <div className={styles['video-container']}>
