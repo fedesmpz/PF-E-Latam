@@ -150,12 +150,15 @@ button.backButton:hover svg {
   padding-right: 30px;
 }
 
-.successMessage::first-letter {
+.successMessage {
   display: inline;
   color: #ffffff;
   font-size: larger;
   font-weight: bolder;
   margin: 5px;
+}
+
+.successMessage::first-letter {
   text-transform: uppercase;
 }
 
@@ -290,10 +293,13 @@ button.backButton:hover svg {
   color:  rgb(101, 101, 101)
 }
 
-.previewValue::first-letter {
+.previewValue {
   display: flex;
   justify-content: center;
   max-width: 1000px;
   color: black;
+}
+
+.previewValue::first-letter {
   text-transform: uppercase;
 }

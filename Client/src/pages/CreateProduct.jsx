@@ -36,7 +36,7 @@ const CreateProduct = () => {
     })
 
     useEffect(() => {
-        const isValid = ((Object.keys(errors).length === Object.keys(newProduct).length - 4) || (Object.keys(errors).length === Object.keys(newProduct).length - 3)) && Object.values(errors).every((error) => error === "");
+        const isValid = ((Object.keys(errors).length === Object.keys(newProduct).length - 3) || (Object.keys(errors).length === Object.keys(newProduct).length - 2)) && Object.values(errors).every((error) => error === "");
         setIsFormValid(isValid);
     }, [errors, newProduct]);
     
@@ -194,13 +194,8 @@ const CreateProduct = () => {
                     <div>
                         <label htmlFor="thumbnail" className={style.label}>Imagen</label>
                         <input type="file" name="thumbnail" multiple={false} accept="image/*" onChange={handleProductThumbnailUpload} />
-                        {errors.thumbnail
-                            ? <p>{errors.thumbnail}</p>
-                            : <p></p>
-                        }
+                        {errors.thumbnail && <p>{errors.thumbnail}</p>}
                     </div>
-
-
 
                     <div>
                         <label htmlFor="sale_price" className={style.label}>Quiere colocar este producto en oferta?</label>
