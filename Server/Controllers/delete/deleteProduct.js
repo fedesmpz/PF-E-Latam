@@ -7,7 +7,7 @@ const deleteProduct = async(id) => {
             {where: {id:id} }
         )
         if(deletedProduct) {
-            return product
+           return "Se eliminó correctamente de la Base de Datos"
         }
     } catch(error) {
         throw error

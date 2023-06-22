@@ -15,8 +15,12 @@ const DetailProduct = () => {
   const { categories } = router.query;
   const { countryId } = router.query;
   const productDetail = useSelector((state) => state.products.detail);
+  const hideMessage= useSelector((state)=> state.products.hideProductMessage)
+  const deletedMessage=useSelector((state)=>state.products.deleteProductMessage)
   const [isVisible, setIsVisible] = useState(productDetail?.catalog_listing);
   const [showModal, setShowModal] = useState(false);
+  const [showModalDeleted, setShowModalDeleted]=useState(false)
+  const [modalHide, setModalHide] = useState(false);
  
   let attributes = productDetail.attributes;
   let renderedAttributes
@@ -46,14 +50,23 @@ const DetailProduct = () => {
   const handlerClic =async() => {
     await dispatch(hideProduct(id));
     setIsVisible(!isVisible);
+    setModalHide(true)
   }
   const handlerCorfirm = async() => {
     await dispatch(deleteProduct(id));
     setShowModal(false);
-    router.push("/Home")
+    setShowModalDeleted(true)
+   
   };
   const handlerCancel = async()=>{
     setShowModal(false);
+    setModalHide(false)
+  }
+  const handlerDeleted = async()=>{
+    setShowModal(false);
+    setModalHide(false)
+    setShowModalDeleted(true)
+    router.push("/Home")
   }
   const handlerDelete = async () => {
     setShowModal(true);
@@ -81,7 +94,7 @@ const DetailProduct = () => {
 
         <div className={styles.container}>
 
-          {admin &&(
+          {admin && (
             <>
           <button className={`${styles.buttonOcultar} ${isVisible ? styles.mostrar : styles.ocultar}`} onClick={handlerClic} >{isVisible ? "Ocultar Producto":'Mostrar Producto'}</button>
           <button className={styles.buttonDelete}onClick={handlerDelete}>Eliminar Producto</button>
@@ -99,6 +112,36 @@ const DetailProduct = () => {
               </div>
             </div>
           )}
+          </>
+          <>
+          {admin && showModalDeleted &&(
+            <div className={styles.modal}>
+            <div className={styles.modalContent}>
+              <p>{productDetail.title}</p>
+              <h2>{deletedMessage}</h2>
+              <div className={styles.modalButtons}>
+                <button onClick={handlerDeleted}>x</button>
+              </div>
+            </div>
+          </div>
+          )
+
+          }
+          </>
+          <>
+          {admin && modalHide&&(
+            <div className={styles.modal}>
+            <div className={styles.modalContent}>
+              <p>{productDetail.title}</p>
+              <h2>{hideMessage}</h2>
+              <div className={styles.modalButtons}>
+                <button onClick={handlerCancel}>x</button>
+              </div>
+            </div>
+          </div>
+          )
+
+          }
           </>
 
 

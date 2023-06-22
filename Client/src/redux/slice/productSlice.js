@@ -12,6 +12,8 @@ export const productSlice = createSlice({
     allProducts: [],
     orderByName: 'asc',
     orderByPrice: 'mayormenor',
+    hideProductMessage:null,
+    deleteProductMessage:null,
   },
   
   reducers: {
@@ -30,6 +32,7 @@ export const productSlice = createSlice({
 
     setAllProducts: (state, action) => {
       state.allProducts = action.payload;
+      state.products =action.payload;
     },
 
     setAllProductsByCountriesCategoryId: (state, action) => {
@@ -37,11 +40,12 @@ export const productSlice = createSlice({
     },
     
     setSearchProduct: (state, action) => {
-        state.allProducts = action.payload;
+        state.products = action.payload;
     },
 
     setNewProduct: (state, action) => {
       state.products = [...state.products, action.payload];
+      state.allProducts= [...state.products, action.payload];
     },
 
     setNewProductMessage: (state, action) => {
@@ -54,7 +58,7 @@ export const productSlice = createSlice({
     
     setOrderByName: (state, action) => {
       state.orderByName = action.payload;
-      const sortedProductsByName = state.allProducts.sort((a, b) => {
+      const sortedProductsByName = state.products.sort((a, b) => {
         const titleA = a.title.trim();
         const titleB = b.title.trim();
         if (state.orderByName === 'asc') {
@@ -62,16 +66,16 @@ export const productSlice = createSlice({
         } else if (state.orderByName === 'des') {
           return titleB.localeCompare(titleA);
         } else if (state.orderByName === "---") {
-          return state.allProducts
+          return state.products
         }
         return 0;
       });
-      state.allProducts = sortedProductsByName;
+      state.products = sortedProductsByName;
     },
 
     setOrderByPrice: (state, action) => {
       state.orderByPrice = action.payload;
-      const sortedProducts = [...state.allProducts]; // Realizar una copia del array de productos
+      const sortedProducts = [...state.products]; // Realizar una copia del array de productos
       sortedProducts.sort((a, b) => {
         const priceA = parseFloat(a.original_price);
         const priceB = parseFloat(b.original_price);
@@ -93,31 +97,33 @@ export const productSlice = createSlice({
           return 0;
         }
         if (state.orderByPrice === "---") {
-          return state.allProducts
+          return state.products
         }
         return 0;
       });
-      state.allProducts = sortedProducts; // Asignar la lista ordenada al estado
+      state.products = sortedProducts; // Asignar la lista ordenada al estado
     },
     
     setFilterByCategory: (state, action) => {
-      const filterByCategory = state.products;
+      const filterByCategory = state.allProducts;
       const filteredCat = filterByCategory.filter((product) => {
         return product.categories === action.payload;
       });
 
       if (action.payload === 'all') {
-        state.allProducts = state.products;
+        state.products = state.allProducts;
       } else {
-        state.allProducts = filteredCat;
+        state.products = filteredCat;
       }
     },
     setHideProduct:(state,action)=>{
-      state.products = action.payload;
+      state.hideProductMessage = action.payload;
+    
    
     },
     setDeleteProduct:(state,action)=>{
-      state.products = action.payload
+      state.deleteProductMessage = action.payload
+  
     }
     
   },
@@ -227,6 +233,7 @@ export const axiosSearchProduct = (title, country) => (dispatch) => {
       .put(`http://localhost:8000/products/hide/${id}`)
       .then((response) => {
             dispatch(setHideProduct(response.data));
+            console.log(response.data)
       })
       .catch((error) => console.log(error));
   };
@@ -236,6 +243,7 @@ export const axiosSearchProduct = (title, country) => (dispatch) => {
     .delete(`http://localhost:8000/products/delete/${id}`)
     .then((response)=>{
       dispatch(setDeleteProduct(response.data))
+      console.log(response)
     })
     .catch((error)=>console.log(error))
   }
