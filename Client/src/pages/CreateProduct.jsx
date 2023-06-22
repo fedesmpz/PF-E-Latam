@@ -1,17 +1,15 @@
 'use client'
-import style from "./Styles/CreateProduct/CreateProduct.module.css"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
+import { postProduct } from "@/redux/slice/productSlice"
+import { setNewProductMessage } from "../redux/slice/productSlice"
 import Link from "next/link"
 import validation from "../utils/formValidation"
 import Head from "next/head";
 import Providers from "@/redux/provider/Provider"
-import { postProduct } from "@/redux/slice/productSlice"
 import NavBar from "./Components/NavBar"
 import SubFooter from "./Components/SubFooter"
-import FooterLanding from "./Components/FooterLanding"
-import { useEffect } from "react"
-import { setNewProductMessage } from "../redux/slice/productSlice"
+import style from "./Styles/CreateProduct/CreateProduct.module.css"
 
 const CreateProduct = () => {
     
@@ -38,7 +36,7 @@ const CreateProduct = () => {
     })
 
     useEffect(() => {
-        const isValid = ((Object.keys(errors).length === Object.keys(newProduct).length - 4) || (Object.keys(errors).length === Object.keys(newProduct).length - 3)) && Object.values(errors).every((error) => error === "");
+        const isValid = ((Object.keys(errors).length === Object.keys(newProduct).length - 3) || (Object.keys(errors).length === Object.keys(newProduct).length - 2)) && Object.values(errors).every((error) => error === "");
         setIsFormValid(isValid);
     }, [errors, newProduct]);
     
@@ -133,8 +131,7 @@ const CreateProduct = () => {
             </Head>
 
             <NavBar></NavBar>
-
-            <div className={style.container_backButton}>
+            <div className={style.container_top}>
                 <Link href="/Home">
                     <button className={style.backButton}>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
@@ -143,30 +140,19 @@ const CreateProduct = () => {
                         </svg>
                     </button>
                 </Link>
-            </div>
-            <h1 className={style.createProduct}>Crear producto</h1>
-            <div className={style.successMessageContainer}>
-            <p>este es el mensaje:</p>
+                <div>
                 {message && (
-                    <div>
+                    <div className={style.successMessageContainer}>
                     <p className={style.successMessage}>{message}<button onClick={handleCloseMessage} className={style.closeButton}>
                         X
                     </button></p>
                     </div>
                 )}
+                </div>
             </div>
+           
             <div className={style.containerForm}>
-                {productThumbnail && <img src={productThumbnail} alt="product_thumbnail"></img>}
                 <form encType="multipart/form-data" onSubmit={handleSubmit}>
-
-                    <div>
-                        <label htmlFor="country" className={style.label}>País del producto</label>
-                        <select onChange={handleCountryChange} name="country" id="country" className={style.selectField}>
-                            <option value="Argentina"> Argentina </option>
-                            <option value="Colombia"> Colombia </option>
-                            <option value="Mexico"> México </option>
-                        </select>
-                    </div>
 
                     <div>
                         <label htmlFor="title" className={style.label}>Titulo del producto</label>
@@ -176,27 +162,39 @@ const CreateProduct = () => {
                     </div>
 
                     <div>
-                        <label htmlFor="thumbnail">Imagen</label>
-                        <input type="file" name="thumbnail" multiple={false} accept="image/*" onChange={handleProductThumbnailUpload} />
-                        {errors.thumbnail
-                            ? <p>{errors.thumbnail}</p>
-                            : <p></p>
-                        }
+                        <label htmlFor="official_store_name" className={style.label}>Marca</label>
+                        <input type="text" name="official_store_name" value={newProduct.official_store_name} onChange={handleChange} />
+                        {errors.official_store_name && <p>{errors.official_store_name}</p>}
                     </div>
 
-                    {/* <div>
-                        <label htmlFor="thumbnail" className={style.label}>Imagen del producto</label>
-                        <input type="text" name="thumbnail" value={newProduct.thumbnail} onChange={handleChange} />
-                        {errors.thumbnail && <p>{errors.thumbnail}</p>}
-                    </div> */}
+                    <div>
+                        <label htmlFor="country" className={style.label}>País</label>
+                        <select onChange={handleCountryChange} name="country" id="country" className={style.selectField}>
+                            <option value="Argentina"> Argentina </option>
+                            <option value="Colombia"> Colombia </option>
+                            <option value="Mexico"> México </option>
+                        </select>
+                    </div>
 
                     <div>
-                        <label htmlFor="original_price" className={style.label}>Precio del producto</label>
+                        <label htmlFor="original_price" className={style.label}>Precio</label>
                         <div className={style.priceCont}>
                             <span className={style.priceTag}>$ {newProduct.currency_id}</span>
                             <input className={style.priceInput} type="number" name="original_price" value={newProduct.original_price} onChange={handleChange} />
                         </div>
                         {errors.original_price && <p>{errors.original_price}</p>}
+                    </div>
+
+                    <div>
+                        <label htmlFor="available_quantity" className={style.label}>Stock disponible</label>
+                        <input type="number" name="available_quantity" value={newProduct.available_quantity} onChange={handleChange} />
+                        {errors.available_quantity && <p>{errors.available_quantity}</p>}
+                    </div>
+
+                    <div>
+                        <label htmlFor="thumbnail" className={style.label}>Imagen</label>
+                        <input type="file" name="thumbnail" multiple={false} accept="image/*" onChange={handleProductThumbnailUpload} />
+                        {errors.thumbnail && <p>{errors.thumbnail}</p>}
                     </div>
 
                     <div>
@@ -217,23 +215,11 @@ const CreateProduct = () => {
                         }
                     </div>
 
-                    <div>
-                        <label htmlFor="available_quantity" className={style.label}>Cantidad de productos en stock</label>
-                        <input type="number" name="available_quantity" value={newProduct.available_quantity} onChange={handleChange} />
-                        {errors.available_quantity && <p>{errors.available_quantity}</p>}
-                    </div>
 
-                    <div>
-                        <label htmlFor="official_store_name" className={style.label}>Marca del producto</label>
-                        <input type="text" name="official_store_name" value={newProduct.official_store_name} onChange={handleChange} />
-                        {errors.official_store_name && <p>{errors.official_store_name}</p>}
-                    </div>
 
-                    <div>
-                        <label htmlFor="attributes" className={style.label}>Descripción del producto</label>
-                        <textarea type="text-area" name="attributes" value={newProduct.attributes} onChange={handleChange} rows="4" cols="50" />
-                        {errors.attributes && <p>{errors.attributes}</p>}
-                    </div>
+
+
+
 
                     <div>
                         <label htmlFor="shipping" className={style.label}>Este producto posee envío gratis?</label>
@@ -258,14 +244,51 @@ const CreateProduct = () => {
                         }
                     </div>
 
+                    <div>
+                        <label htmlFor="attributes" className={style.label}>Descripción</label>
+                        <textarea type="text-area" name="attributes" value={newProduct.attributes} onChange={handleChange} rows="4" cols="50" />
+                        {errors.attributes && <p>{errors.attributes}</p>}
+                    </div>
+
                     <div className={style.container_submit}>
-                        <button className={`${style.submitButton} ${isFormValid ? '' : style.submitDisabledButton}`} type="submit" disabled={!isFormValid}>Create</button>
+                        <button className={` ${isFormValid ? style.submitButton : style.submitDisabledButton}`} type="submit" disabled={!isFormValid}>Create</button>
 
                     </div>
                 </form>
+                <div className={style.secondColumn}>
+                    <h2 className={style.PreviewofProduct}>PREVISUALIZACION DEL PRODUCTO</h2>
+                    <div className={style.firstRow}>
+                    <div className={style.thumbnailContainer}>
+                    {!productThumbnail && 
+                    <p className={style.previewTitleThumbnail}>La vista previa de la imagen aparecera aqui</p>}
+                    {productThumbnail && <img className={style.thumbnail} src={productThumbnail} alt="product_thumbnail"></img>}
+                    </div>
+                    <div>
+                        <h2 className={style.previewValue}>{newProduct.title ? newProduct.title : `Titulo del producto`}</h2>
+                        <h3 className={style.previewValue}>{newProduct.official_store_name ? newProduct.official_store_name : `Marca del producto`}</h3>
+                        <span className={style.previewLines}><h3 className={style.previewLabel}>Pais</h3><h3 className={style.previewValue}>{newProduct.country}</h3></span>
+                        <span className={style.previewLines}><h3 className={style.previewLabel}>Precio</h3>
+                        <h3 className={style.previewValue}>$ {newProduct.currency_id} {newProduct.original_price}</h3></span>
+                        <span className={style.previewLines}><h3 className={style.previewLabel}>Stock disponible</h3><h3 className={style.previewValue}> {newProduct.available_quantity}</h3></span>
+                    </div>
+                    </div>
+
+                    <div className={style.previewData}>
+                        <span className={style.previewLines}><h3 className={style.previewLabel}>Producto en oferta?</h3>
+                        <p className={style.previewValue}>{newProduct.sale_price ? newProduct.sale_price : `-`}</p></span>
+                        <span className={style.previewLines}> <h3 className={style.previewLabel}>Precio de oferta</h3>
+                        <p className={style.previewValue}>{newProduct.price}</p></span>
+                        <span className={style.previewLines}><h3 className={style.previewLabel}>Envio gratis</h3>
+                        <p className={style.previewValue}>{newProduct.shipping ? newProduct.shipping : `-`}</p></span>
+                        <span className={style.previewLines}><h3 className={style.previewLabel}>Categoria</h3>
+                        <h3 className={style.previewValue}>{newProduct.categories ? newProduct.categories : `-` }</h3></span>  
+                        <h3 className={style.previewLabel}>Descripcion</h3>
+                        <p className={style.previewValue}>{newProduct.attributes ? newProduct.attributes : `Describe el producto brindando información clara y detallada sobre el artículo para ayudar a los clientes a comprender sus características, beneficios y especificaciones; tambien intenta incluir su propósito, función y uso. Enumera las características específicas del producto, como tamaño, dimensiones, materiales, color, capacidad, peso, etc. Si el producto tiene características técnicas, como velocidad, capacidad de almacenamiento o conectividad, asegúrate de incluirlas aquí.`}</p>                  
+                    </div>
+                </div>
+
             </div>
             <SubFooter></SubFooter>
-            <FooterLanding></FooterLanding>
         </div>
     )
 }

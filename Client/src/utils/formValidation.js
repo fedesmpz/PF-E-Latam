@@ -130,19 +130,21 @@ const validation = (prop, value, errors, setErrors) => {
 
 //------------------------------------------------------------------------
     if (prop === "thumbnail") {
-        console.log(value.type)
+        console.log(value)
+        if (!allowedTypes.includes(value?.type)) {
+            setErrors({
+                ...errors,
+                [prop]: "Tipo de archivo invalido",
+              });
+            console.log(errors)
+        } 
         if (!value) {
             setErrors({
                 ...errors,
                 [prop]: "Debe seleccionar una imagen",
               });
         }
-        if (!allowedTypes.includes(value?.type)) {
-            setErrors({
-                ...errors,
-                [prop]: "Tipo de archivo invalido",
-              });
-        } if (value?.size > maxSize) {
+        if (value?.size > maxSize) {
             setErrors({
                 ...errors,
                 [prop]: "La imagen excede el limite, seleccione una imagen de 8MB o menor",
