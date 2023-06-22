@@ -94,7 +94,7 @@ const countries = [
       if (response.data.exist){
         //SE GUARDA EL TOKEN EN LOCALSTORAGE
         const token = await axios.post('http://localhost:8000/users/getToken', user)
-        localStorage.setItem("token", JSON.stringify(token))
+        localStorage.setItem("token", JSON.stringify(token.data))
 //***** DATOS PARA GUARDAR EN ESTADOS *****
         console.log(user); //user es lo que se guarda en el estado, el token ya se guarda en localStorage
 
@@ -112,7 +112,7 @@ const countries = [
         const response = await axios.post('http://localhost:8000/users/googleLogin', data);
         const token = await axios.post('http://localhost:8000/users/getToken', user)
         //SE GUARDA EL TOKEN
-        localStorage.setItem("token", JSON.stringify(token))
+        localStorage.setItem("token", JSON.stringify(token.data))
         const user = {
           name: result.user.displayName,
           email: result.user.email,
