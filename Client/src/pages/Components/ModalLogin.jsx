@@ -17,8 +17,20 @@ function Example() {
 
   const login = async (form) => {
     try{ 
+      //envia el formulario
       const response = await axios.post('http://localhost:8000/users/login', form)
+      //si no hay error, genera el token
+      const token = await axios.post('http://localhost:8000/users/getToken', response.data)
+      //si no hay error guarda el token
+      localStorage.setItem("token", JSON.stringify(token))
+
+ //***** DATOS PARA GUARDAR EN ESTADOS *****     
       console.log(response.data);
+      //access:true
+      //email:"fede.mpz@gmail.com"
+      //isAdmin:false
+      //isSuperAdmin:false
+      //name:"Federico Pezzutti"
         
     }catch(error){
         console.log(error.message);

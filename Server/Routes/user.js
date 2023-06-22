@@ -7,6 +7,7 @@ const {deleteUserHandler } = require("../Handlers/delete/deleteUser")
 const { updateUserHandler } = require("../Handlers/put/updateUser")
 const { googleLoginHandler, googleExist } = require("../Handlers/post/googleLogin")
 const { loginHandler } = require("../Handlers/post/loginHandler")
+const { getToken, validateToken } = require("../Handlers/post/tokenHandler")
 
 router.get("/:id", getUserByIdHandler)
 router.post("/register",registerHandler)
@@ -19,10 +20,9 @@ router.post("/login", loginHandler)
 router.delete("/delete/:id", deleteUserHandler)
 router.put("/update/:id",updateUserHandler)
 
+router.post("/getToken", getToken)
+router.post("/validateToken", validateToken)
 
-
-// router.get("/login", loginHandler)
-// router.get("/login", loginOutHandler)
 module.exports = router;
 
 
