@@ -28,7 +28,7 @@ const NavBar = () => {
 
   const handlerClick = async () => {
     if (title.trim() === '') {
-     setShowModal(true);
+      setShowModal(true);
     } else {
       let selectedCountry = '';
 
@@ -43,7 +43,7 @@ const NavBar = () => {
       try {
         await dispatch(axiosSearchProduct(title, selectedCountry));
         setTitle('');
-  
+
       } catch (error) {
         setShowModal(true);
       }
@@ -106,28 +106,38 @@ const NavBar = () => {
             </select>
           </div>
         } */}
-         {showModal && (
-        <div className={Styles.modal}>
-          <div className={Styles.modalContent}>
-            <h2>Error de búsqueda</h2>
-            <p>Por favor, ingresa algún dato válido antes de realizar la búsqueda.</p>
-            <button className={Styles.closeButton} onClick={handleCloseModal}>Cerrar</button>
+        {showModal && (
+          <div className={Styles.modal}>
+            <div className={Styles.modalContent}>
+              <h2>Error de búsqueda</h2>
+              <p>Por favor, ingresa algún dato válido antes de realizar la búsqueda.</p>
+              <button className={Styles.closeButton} onClick={handleCloseModal}>Cerrar</button>
+            </div>
           </div>
-        </div>
-      )}
+        )}
 
         {router.pathname === "/Home" &&
           <div className={Styles.searchBar}>
 
             <input type="search" placeholder="¿Qué buscas hoy?" value={title} onChange={handleSearch} />
             <button onClick={handlerClick} className={Styles.buttonBusqueda}>Buscar</button>
-            
+
 
           </div>
         }
       </div>
 
       <div className={Styles.rightContainer}>
+        <Link className={Styles.button} href="/Cart" >
+          <Image
+            className={Styles.logoE}
+            src="/assets/carritoIcon.jpg"
+            width={100}
+            height={100}
+            alt="cart_icon"
+          >
+          </Image>
+        </Link>
         <Link className={Styles.button} href="/CreateProduct">New</Link>
         <button className={Styles.button}>Login</button>
         <Link className={Styles.button} href="/DashboardAdmin">Admin</Link>
