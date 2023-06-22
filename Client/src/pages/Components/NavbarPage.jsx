@@ -68,8 +68,8 @@ const NavbarPage = () => {
               />
             </div>
           ))}
-          {/* <ModalSignIn/>
-          <ModalLogin/> */}
+          <ModalSignIn/>
+          <ModalLogin/>
         </div>
       </nav>
     </header>

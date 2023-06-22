@@ -10,7 +10,6 @@ module.exports = (sequelize) => {
         },
         name: {
             type: DataTypes.STRING(25),
-            unique: true,
             allowNull: false,
             validate: {
                 len: [1, 25],
@@ -18,7 +17,6 @@ module.exports = (sequelize) => {
         },
         surname: {
             type: DataTypes.STRING(25),
-            unique: true,
             allowNull: false,
             validate: {
               len: [1, 25],
@@ -31,11 +29,11 @@ module.exports = (sequelize) => {
         },
         birth_date: {
             type: DataTypes.DATE,
-            allowNull: false
+            allowNull: true
         },
         profile_picture: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: true
         },
         country: {
             type: DataTypes.STRING(50),
@@ -60,7 +58,7 @@ module.exports = (sequelize) => {
         },
         postal_code: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: true
         },
         admin:{
             type: DataTypes.BOOLEAN,
