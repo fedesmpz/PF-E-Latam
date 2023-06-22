@@ -49,7 +49,6 @@ const DetailProduct = () => {
     } else {
       localStorage.clear()
     }
-    console.log("cart", cart);
   }, [])
 
   useEffect(() => {
@@ -57,7 +56,6 @@ const DetailProduct = () => {
     if (productDetail && !(cart?.some(item => item.id === productDetail.id))) {
       localStorage.setItem("cart", JSON.stringify(cart))
     }
-    console.log("detail", cart);
   }, [cart, productDetail])
 
   useEffect(() => {
@@ -102,8 +100,7 @@ const DetailProduct = () => {
   };
 
   const handlerEdit = async() => {
-    await dispatch(editProduct(productDetail.id))
-
+    router.push(`/EditProduct?id=${id}`)
   }
 
   let admin = true // HARIAMOS LA VALIDACION DEL TOKEN 
@@ -140,11 +137,13 @@ const DetailProduct = () => {
             </p>
           </div>
           <div className={styles.buttonsContainer}>
+          <button className={styles.buttonAddCart} onClick={handlerAddCart}>Agregar</button>
         {admin && (
             <>
-              <button className={`${styles.buttonOcultar} ${isVisible ? styles.mostrar : styles.ocultar}`} onClick={handlerClic} >{isVisible ? "Ocultar Producto" : 'Mostrar Producto'}</button>
-              <button className={styles.buttonDelete} onClick={handlerDelete}>Eliminar Producto</button>
-              <button className={styles.buttonAddCart} onClick={handlerAddCart}>Agregar al carrito</button>
+              <button className={`${styles.buttonOcultar} ${isVisible ? styles.mostrar : styles.ocultar}`} onClick={handlerClick} >{isVisible ? "Ocultar" : 'Mostrar'}</button>
+              <button className={styles.buttonEdit} onClick={handlerEdit} >Editar</button>
+              <button className={styles.buttonDelete} onClick={handlerDelete}>Eliminar</button>
+              
             </>)}
           <>
            {showModal && admin && (
