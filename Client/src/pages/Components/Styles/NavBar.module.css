@@ -173,3 +173,57 @@
       border: none;
       border-top: 2px solid #4E55D9;
     }
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 9999;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+    
+    .modalContent {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      max-width: 400px;
+      text-align: center;
+    }
+    
+    .modalContent h2 {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+    
+    .modalContent p {
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+    
+    .modalButtons {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
+    
+    .modalButtons .modalButton {
+      margin: 0 10px;
+      padding: 8px 16px;
+      font-size: 14px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    
+    .modalButtons .modalButton:first-child {
+      background-color: #e74c3c;
+      color: #fff;
+    }
+    
+    .modalButtons .modalButton:last-child {
+      background-color: #ccc;
+      color: #333;
+    }

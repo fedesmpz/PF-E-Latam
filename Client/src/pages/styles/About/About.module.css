@@ -12,9 +12,16 @@
     margin-left: -0.4%;
     margin-top: -0.4%;
   }
+.titulo{
+  display: flex;
+  margin-top: -45%;
+  margin-left: 45%;
+  color: rgb(245, 245, 245);
+}
 .letras {
     color: rgba(255, 255, 255, 0.748);
     width: 45%;
-    margin-right: 50%;
+    margin-left: -90%;
 }
+
   

@@ -8,6 +8,7 @@ export const productSlice = createSlice({
     categories: [],
     country: "ARG",
     detail: {},
+    newProductMessage: null,
     allProducts: [],
     orderByName: 'asc',
     orderByPrice: 'mayormenor',
@@ -41,6 +42,10 @@ export const productSlice = createSlice({
 
     setNewProduct: (state, action) => {
       state.products = [...state.products, action.payload];
+    },
+
+    setNewProductMessage: (state, action) => {
+      state.newProductMessage = action.payload;
     },
 
     cleanDetail:(state)=>{
@@ -107,6 +112,13 @@ export const productSlice = createSlice({
         state.allProducts = filteredCat;
       }
     },
+    setHideProduct:(state,action)=>{
+      state.products = action.payload;
+   
+    },
+    setDeleteProduct:(state,action)=>{
+      state.products = action.payload
+    }
     
   },
 });
@@ -125,6 +137,9 @@ export const {
   filterByCategory,
   cleanDetail,
   setFilterByCategory,
+  setNewProductMessage,
+  setHideProduct,
+  setDeleteProduct,
 } = productSlice.actions;
 
 export default productSlice.reducer;
@@ -183,8 +198,8 @@ export const axiosSearchProduct = (title, country) => (dispatch) => {
     return axios
       .get(`http://localhost:8000/products/search/?title=${title}&country=${country}`)
       .then((response) => {
-        console.log(response.data);
         dispatch(setSearchProduct(response.data));
+        console.log(response.data)
       })
       .catch((error) => {
  
@@ -193,11 +208,34 @@ export const axiosSearchProduct = (title, country) => (dispatch) => {
   };
 
 
-export const postProduct = (payload) => (dispatch) => {
+  export const postProduct = (payload) => (dispatch) => {
     axios
       .post("http://localhost:8000/products/new", payload)
       .then((response) => {
-            dispatch(setNewProduct(response.data.data));
+            dispatch(setNewProductMessage(response.data));
+            dispatch(setNewProduct(response.data));
+      })
+      .catch((error) => {
+        console.log(error.response?.data?.error)
+        dispatch(setNewProductMessage(error.response?.data?.error));
+      });
+  };
+
+
+  export const hideProduct = (id) => (dispatch) => {
+    axios
+      .put(`http://localhost:8000/products/hide/${id}`)
+      .then((response) => {
+            dispatch(setHideProduct(response.data));
       })
       .catch((error) => console.log(error));
   };
+
+  export const deleteProduct=(id)=>(dispatch)=>{
+    axios
+    .delete(`http://localhost:8000/products/delete/${id}`)
+    .then((response)=>{
+      dispatch(setDeleteProduct(response.data))
+    })
+    .catch((error)=>console.log(error))
+  }
