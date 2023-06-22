@@ -13,7 +13,6 @@ const postProduct = async(id, title, thumbnail, original_price, currency_id, pri
             return `Producto ${title} creado correctamente con ID ${id}` 
         }
     } catch(error) {
-        console.log(error)
         throw error
     }
 }

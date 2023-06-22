@@ -14,7 +14,7 @@ module.exports = (sequelize) => {
     },
     thumbnail: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: true
     },
     original_price: {
       type: DataTypes.DECIMAL,
