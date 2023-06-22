@@ -7,7 +7,7 @@ const logicDelete = async(id) => {
             return res.status(404).json({ error: 'El producto no existe' });
         }
         const hiddenProduct = await Product.update({ catalog_listing: !product.catalog_listing }, { where: { id: id }});
-        return "Producto actualizado correctamente"
+        return "Se actualizó correctamente"
     } catch(error) {
         throw error
     }

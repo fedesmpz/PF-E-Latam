@@ -35,13 +35,14 @@ const Home = () => {
         dispatch(axiosAllProductsByCountries(productsCountry));
     }, [dispatch, productsCountry]);
 
-    const array = useSelector((state) => state.products.allProducts);
+    const array = useSelector((state) => state.products.products);
+    console.log("lalala"+array)
     const concatenatedObjects = array.reduce((accumulator, currentArray) => {
         return accumulator.concat(currentArray);
     }, []);
 
 let currentProducts = concatenatedObjects;
-    const [isAdmin, setIsAdmin] = useState(false); //logica para probar si es admin o no ... y si no lo es no le muestra lo de ocultar
+    const [isAdmin, setIsAdmin] = useState(true); //logica para probar si es admin o no ... y si no lo es no le muestra lo de ocultar
     if (!isAdmin) {
         currentProducts = concatenatedObjects.filter(
             (product) => product.catalog_listing === true
