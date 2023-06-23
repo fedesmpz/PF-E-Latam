@@ -130,8 +130,8 @@ const NavBar = () => {
       <div className={Styles.rightContainer}>
         <Link className={Styles.button} href="/Cart" >
           <Image
-            className={Styles.logoE}
-            src="/assets/carritoIcon.jpg"
+            className={Styles.iconCarrito}
+            src="/assets/iconCarrito.png"
             width={100}
             height={100}
             alt="cart_icon"
