@@ -3,7 +3,7 @@ import Providers from "@/redux/provider/Provider";
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux";
 import style from "./styles/Cart/Cart.module.css"
-import { addProduct, removeProduct } from "@/redux/slice/cartSlice";
+import { removeProduct } from "@/redux/slice/cartSlice";
 import { useRouter } from "next/router"
 
 
@@ -18,15 +18,16 @@ const Cart = () => {
         const cartLS = JSON.parse(localStorage.getItem("cart"))
         setCart(cartLS)
         console.log(cart);
-    }, [dispatch])
+    }, [])
 
     const handleEliminate = (id) => {
-        dispatch(removeProduct(id))
-        const updatedCart = cart.filter(product => product.id !== id)
-        localStorage.setItem("cart", JSON.stringify(updatedCart));
+        const updatedCart = cart.filter((product) => product.id !== id);
         setCart(updatedCart);
+        localStorage.setItem("cart", JSON.stringify(updatedCart));
+        dispatch(removeProduct(id));
         router.push("/Cart");
     };
+
 
     return (
         <div className={style.cartContainer}>
