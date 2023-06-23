@@ -1,3 +1,20 @@
+.navContainer{
+  margin: 0.5rem;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  width: max-content;
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  justify-content: flex-start;
+  background-color: #e6e3e3;
+}
+/*estilo para las baderitas del admin*/
+.flagsIcon{
+  max-width: max-content;
+  width: auto;
+  margin: 0.5rem;
+}
 .pagination {
     list-style: none;
     display: flex;
