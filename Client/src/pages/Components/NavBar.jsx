@@ -128,10 +128,10 @@ const NavBar = () => {
       </div>
 
       <div className={Styles.rightContainer}>
-        <Link className={Styles.button} href="/Cart" >
+        <Link className={Styles.cartButton} href="/Cart" >
           <Image
             className={Styles.iconCarrito}
-            src="/assets/iconCarrito.png"
+            src="/assets/CarritoVioleta.png"
             width={100}
             height={100}
             alt="cart_icon"
