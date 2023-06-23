@@ -8,8 +8,13 @@ export const cartSlice = createSlice({
     name: "carts",
     initialState,
     reducers: {
-        setAddProduct:(state, action) => {
-            state.cart = [action.payload]
+        setAddProduct: (state, action) => {
+            const newProduct = action.payload;
+            const existingProduct = state.cart?.find((product) => product.id === newProduct.id);
+            if (!existingProduct) {
+                console.log("hola mundo");
+                state.cart.push(newProduct);
+            }
         },
         setRemoveProduct: (state, action) => {
             const id = action.payload;
