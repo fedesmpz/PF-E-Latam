@@ -23,8 +23,7 @@ const DetailProduct = () => {
   const [showModal, setShowModal] = useState(false);
   const [showModalDeleted, setShowModalDeleted] = useState(false)
   const [modalHide, setModalHide] = useState(false);
-
-  console.log(productDetail)
+  const [showModalAdded, setShowModalAdded] = useState(false)
 
   let attributes = productDetail.attributes;
   let renderedAttributes
@@ -45,10 +44,10 @@ const DetailProduct = () => {
 
   useEffect(() => {
     const savedCart = JSON.parse(localStorage.getItem("cart"));
-    if (savedCart && savedCart.length > 0) {
+    if (savedCart && savedCart.length > 0 && cart.length === 0) {
       dispatch(addProduct(savedCart));
-    } else {
-      localStorage.removeItem("cart");
+    } else if (!savedCart || savedCart.length === 0) {
+      localStorage.clear();
     }
   }, []);
 
@@ -56,7 +55,7 @@ const DetailProduct = () => {
     if (cart.length > 0) {
       localStorage.setItem("cart", JSON.stringify(cart));
     } else {
-      localStorage.removeItem("cart");
+      localStorage.clear();
     }
   }, [cart, productDetail]);
 
@@ -85,6 +84,7 @@ const DetailProduct = () => {
 
   const handlerAddCart = () => {
     dispatch(addProduct(productDetail))
+    setShowModalAdded(true)
   };
 
   const handlerCancel = async () => {
@@ -99,8 +99,11 @@ const DetailProduct = () => {
   }
   const handlerDelete = async () => {
     setShowModal(true);
-
   };
+
+  const handlerCloseCart = () => {
+    setShowModalAdded(false)
+  }
 
   const handlerEdit = async () => {
     router.push(`/EditProduct?countryId=${countryId}&categories=${categories}&id=${id}`)
@@ -163,6 +166,20 @@ const DetailProduct = () => {
               )}
             </>
             <>
+              {showModalAdded && (
+                <div className={styles.modal}>
+                  <div className={styles.modalContent}>
+                    <p>el producto <strong>{productDetail.title}</strong> fue agregado correctamente!</p>
+                    <div className={styles.modalButtons}>
+                      <button onClick={handlerCloseCart}>x</button>
+                    </div>
+                  </div>
+                </div>
+              )
+
+              }
+            </>
+            <>
               {admin && showModalDeleted && (
                 <div className={styles.modal}>
                   <div className={styles.modalContent}>
@@ -189,7 +206,6 @@ const DetailProduct = () => {
                   </div>
                 </div>
               )
-
               }
             </>
 

@@ -97,7 +97,7 @@
     transition: background-color 0.3s ease;
     position: fixed; /* Fija la posición */
     left: 0.5rem; /* Alinea a la izquierda */
-    top: 4rem; /* Ajusta la posición verticalmente según tus necesidades */
+    top: 9rem; /* Ajusta la posición verticalmente según tus necesidades */
     transform: translateY(-50%); /* Centra verticalmente */
     margin-top: 0; /* Elimina el margen superior */
     margin-right: 0.5rem;
@@ -224,7 +224,7 @@
   .menu {
     width: max-content;
     border-radius: 0.5rem;
-    margin-top: 7.5rem;
+    margin-top: 12rem;
     position: fixed;
     top: 0;
     left: 0;
@@ -236,7 +236,7 @@
   .menuNon {
     width: min-content;
     border-radius: 0.5rem;
-    margin-top: 7.5rem;
+    margin-top: 12rem;
     position: fixed;
     top: 0;
     left: 0;

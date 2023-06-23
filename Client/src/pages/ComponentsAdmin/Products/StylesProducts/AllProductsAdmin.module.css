@@ -1,0 +1,48 @@
+.container {
+    width: 70%;
+    grid-column: span 1;
+    position: relative;
+    height: 50vh;
+    margin: auto;
+    padding: 1rem;
+    border: 1px solid;
+    border-radius: 0.5rem;
+    background-color: #e938ec;
+    overflow: scroll;
+  }
+  
+  .order {
+    background-color: #f9fafb;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    border-radius: 0.5rem;
+    margin-top: 0.75rem;
+    margin-bottom: 0.75rem;
+    padding: 0.5rem;
+  }
+  
+  .order:hover {
+    background-color: #f3f4f6;
+  }
+  
+  .faShop {
+    background-color: #1e1427;
+    border-radius: 0.5rem;
+    padding: 0.75rem;
+  }
+  
+  .textContainer {
+    padding-left: 1rem;
+  }
+  
+  .date {
+    display: flex;
+    /* display: none; Segun esto se oculta en pantallas medianas y más chicas */
+    position: absolute;
+    right: 1.5rem;
+    font-size: 0.875rem;
+  }
+  
+
+

@@ -36,7 +36,7 @@ const Home = () => {
     }, [dispatch, productsCountry]);
 
     const array = useSelector((state) => state.products.products);
-    console.log("lalala" + array)
+
     const concatenatedObjects = array.reduce((accumulator, currentArray) => {
         return accumulator.concat(currentArray);
     }, []);

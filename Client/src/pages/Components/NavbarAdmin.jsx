@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import styles from "./Styles/NavbarPage.module.css";
 import Style from "./Styles/NavBar.module.css";
 import Image from "next/image";
-import ButtonNavAdmin from './ButtonNavAdmin'
 
 
 const NavbarPage = () => {
@@ -13,7 +12,6 @@ const NavbarPage = () => {
   return (
     <header className={styles.header}>
       <nav className={styles.navv}>
-      <ButtonNavAdmin/>
 
 
 
