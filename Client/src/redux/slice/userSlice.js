@@ -5,15 +5,15 @@ const initialState = {
   users: [],
   loading: false,
   error: null,
+  userData: {}
 };
 
 const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    getUsersStart(state) {
-      state.loading = true;
-      state.error = null;
+    getUsersStart(state, action) {
+      state.userData = action;
     },
     getUsersSuccess(state, action) {
       state.users = action.payload;
@@ -74,11 +74,10 @@ export const {
   updateUserFailure,
 } = userSlice.actions;
 
-export const fetchUsers = () => async (dispatch) => {
+export const fetchUsers = (user) => async (dispatch) => {
   try {
-    dispatch(getUsersStart());
-    const response = await axios.get('http://localhost:8000/:id');
-    dispatch(getUsersSuccess(response.data));
+    dispatch(getUsersStart(user));
+
   } catch (error) {
     dispatch(getUsersFailure(error.message));
   }

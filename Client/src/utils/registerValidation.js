@@ -18,8 +18,8 @@ const validate = (form) =>{
   
     if (form.password.trim() === '') {
         errors.password = 'El campo Contraseña es requerido';
-      } else if (form.password.length < 8) {
-        errors.password = 'La Contraseña debe tener al menos 8 caracteres';
+      } else if (form.password.length < 5) {
+        errors.password = 'La Contraseña debe tener al menos 6 caracteres';
       } else if (!/\d/.test(form.password) || !/[a-zA-Z]/.test(form.password)) {
         errors.password = 'La Contraseña debe contener al menos una letra y un número';
       }
