@@ -5,11 +5,12 @@ import Providers from "@/redux/provider/Provider";
 import TableProducts from "./ComponentsAdmin/Products/TableProducts"
 import AllProductsAdmin from "./ComponentsAdmin/Products/AllProductsAdmin"
 import StylesAdmin from "./styles/DashboardAdmin/DashboardAdmin.module.css"
-import { FaShoppingBag, FaUsers, FaChartLine } from 'react-icons/fa';
+import { FaShoppingBag, FaUsers, FaChartLine, FaClipboardList } from 'react-icons/fa';
 import styles from './ComponentsAdmin/SideBar/Sidebar.module.css';
 import SalesCard from "./ComponentsAdmin/Statistics/SalesCard";
 import SalesStats from "./ComponentsAdmin/Statistics/SalesStats";
 import LastOrders from "./ComponentsAdmin/Orders/LastOrders";
+
 
 const DashboardAdmin = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -95,8 +96,14 @@ const DashboardAdmin = () => {
                 </a>
               </li>
               <li className={styles['li']}>
-                <a className={styles['a']} href="#">
+                <a className={styles['a']} href="/DashboardAdmin/Statistics">
                   <FaChartLine className={styles['icon']} />
+                  <span className={`${styles['text']} ${isOpen ? '' : styles.hidden}`}>Estadisticas</span>
+                </a>
+              </li>
+              <li className={styles['li']}>
+                <a className={styles['a']} href="/DashboardAdmin/Sales">
+                  <FaClipboardList className={styles['icon']} />
                   <span className={`${styles['text']} ${isOpen ? '' : styles.hidden}`}>Ventas</span>
                 </a>
               </li>

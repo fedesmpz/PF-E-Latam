@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FaShoppingBag, FaUsers, FaChartLine } from 'react-icons/fa';
+import { FaShoppingBag, FaUsers, FaChartLine, FaClipboardList } from 'react-icons/fa';
 import styles from './Sidebar.module.css';
 
 const Sidebar = () => {
@@ -34,11 +34,17 @@ const Sidebar = () => {
           </a>
         </li>
         <li className={styles['li']}>
-          <a className={styles['a']} href="#">
+          <a className={styles['a']} href="/DashboardAdmin/Statistics">
             <FaChartLine className={styles['icon']} />
-            <span className={`${styles['text']} ${isOpen ? '' : styles.hidden}`}>Ventas</span>
+            <span className={`${styles['text']} ${isOpen ? '' : styles.hidden}`}>Estadisticas</span>
           </a>
         </li>
+        <li className={styles['li']}>
+                <a className={styles['a']} href="/DashboardAdmin/Sales">
+                  <FaClipboardList className={styles['icon']} />
+                  <span className={`${styles['text']} ${isOpen ? '' : styles.hidden}`}>Ventas</span>
+                </a>
+              </li>
       </ul>
     </nav>
   </div>
