@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { compose, createSlice } from "@reduxjs/toolkit";
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
@@ -8,7 +8,11 @@ export const ratingReviewSlice = createSlice({
       reviews: [],
       review: {},
     },
-    reducers: {},
+    reducers: {
+      cleanDetailReviews: (state) => {
+        state.reviews = [];
+      },
+    },
 
     extraReducers: (builder) => {
       builder
@@ -38,13 +42,10 @@ export const ratingReviewSlice = createSlice({
   export const getAllReviewsForProduct = createAsyncThunk(
     'reviews/getAllReviewsForProduct',
     async (productId) => {
-       console.log("esta es el repsonse:"+productId)
       try {
         const response = await axios.get(`http://localhost:8000/reviews/product/${productId}`);
-       
         return response.data;
       } catch (error) {
-        console.log(error);
         throw error;
       }
     }
@@ -65,9 +66,9 @@ export const ratingReviewSlice = createSlice({
   
   export const postReview = createAsyncThunk(
     'reviews/postReview',
-    async (reviewData) => {
+    async (opinion) => {
       try {
-        const response = await axios.post('http://localhost:8000/reviews', reviewData);
+        const response = await axios.post('http://localhost:8000/reviews', opinion);
         return response.data;
       } catch (error) {
         console.log(error);
@@ -78,10 +79,12 @@ export const ratingReviewSlice = createSlice({
   
   export const deleteReview = createAsyncThunk(
     'reviews/deleteReview',
-    async (reviewID) => {
+    async (reviewId) => {
       try {
-        const response = await axios.delete(`http://localhost:8000/reviews/delete/${reviewID}`);
+        const response = await axios.delete(`http://localhost:8000/reviews/delete/${reviewId}`);
+        console.log(response.data)
         return response.data;
+
       } catch (error) {
         console.log(error);
         throw error;
@@ -95,6 +98,7 @@ export const ratingReviewSlice = createSlice({
       try {
         const response = await axios.put(`http://localhost:8000/reviews/update/${reviewID}`, reviewData);
         return response.data;
+
       } catch (error) {
         console.log(error);
         throw error;
@@ -103,5 +107,5 @@ export const ratingReviewSlice = createSlice({
   );
   
 
-
+  export const { cleanDetailReviews } = ratingReviewSlice.actions;
   export default ratingReviewSlice.reducer;

@@ -11,7 +11,8 @@ const updateReview = async (reviewID, rating,review_description) => {
 
     const updatedReview =await ReviewRating.update({rating,review_description},
       {where:{id: reviewID}})
-    return { message: "Reseña actualizada exitosamente" };
+    const reviewFinal = ReviewRating.findByPk(reviewID)
+    return reviewFinal
   } catch (error) {
     throw new Error("No se pudo actualizar la reseña");
   }
