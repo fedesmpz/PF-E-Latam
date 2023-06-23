@@ -1,13 +1,13 @@
-const { ReviewRating } = require("../../db");
+const { ReviewRating,Product } = require("../../db");
 
-const postReview = async ({ reviewID, rating, review_description, product}) => {
+const postReview = async ( rating, review_description, productId) => {
   try {
     const createdReview = await ReviewRating.create({
-      reviewID,
-      rating : rating,
-      review_description : '',
-      product
+      rating:rating,
+      review_description:review_description,
+      productId:productId,
     });
+
     return createdReview;
   } catch (error) {
     throw new Error('No se pudo crear la reseña');

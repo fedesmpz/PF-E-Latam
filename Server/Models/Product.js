@@ -14,7 +14,7 @@ module.exports = (sequelize) => {
     },
     thumbnail: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: true
     },
     original_price: {
       type: DataTypes.DECIMAL,
@@ -37,7 +37,7 @@ module.exports = (sequelize) => {
     },
     sold_quantity: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: true
     },
     official_store_name: {
       type: DataTypes.STRING
@@ -71,10 +71,11 @@ module.exports = (sequelize) => {
     //   }
     // ],
     catalog_listing: {
-      type: DataTypes.BOOLEAN
+      type: DataTypes.BOOLEAN,
+      defaultValue: true
     },
     discounts: {
-      type: DataTypes.STRING
+      type: DataTypes.INTEGER
     },
     promotions: {
       type: DataTypes.ARRAY(DataTypes.STRING),

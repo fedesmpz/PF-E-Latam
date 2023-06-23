@@ -1,39 +1,47 @@
 import Link from "next/link";
-import { useDispatch } from "react-redux";
-import Providers from "@/redux/provider/Provider"
+import Styles from "./Styles/Product.module.css"
 
-const Product = ({ id,title, thumbnail, original_price, currency_id, price, sale_price }) => {
-    const dispatch = useDispatch();
+const Product = ({ id, title, thumbnail, original_price, currency_id, price, sale_price, categories,catalog_listing }) => {
 
-    const handleClick = () => {
-        dispatch(irAlosDetalles(id)); //no esta creada la funcion todavia
+    let countryId;
+
+    if (currency_id === "ARS") {
+        countryId = "ARG";
+    } else if (currency_id === "COP") {
+        countryId = "COL";
+    } else if (currency_id === "MXN") {
+        countryId = "MEX";
+    }
+
+    const maxLength = 60;
+
+    const shortenTitle = (title) => {
+        if (title.length > maxLength) {
+            return title.substring(0, maxLength) + '...';
+        }
+        return title;
     };
-
     return (
-        <div onClick={handleClick}>
-         <Link href={`/produts/${id}`}>    
-            <img src={thumbnail} alt={title} /></Link>
-            <h2>{title}</h2>
-            {sale_price ? (
-                <>
-                    <p>Precio original: <s>{original_price}{currency_id}</s></p>
-                    <p>Oferta: {price}{currency_id}</p>
-                </>
-            ) : (
-                <p>Precio: {original_price}{currency_id}</p>
-            )}
-       
+        <div>
+           <Link className={Styles.link} href={`/DetailProduct?countryId=${countryId}&categories=${categories}&id=${id}`}>
+           <div className={`${!catalog_listing ? Styles.unlistedCard : Styles.card}`}>
+                    <img src={thumbnail} alt={title} />
+                    <div className={Styles.cardDetails}>
+                        <h2 className={`${Styles.title} ${Styles.thinTitle}`}>{shortenTitle(title)}</h2>
+                        {sale_price ? (
+                            <>
+                                <p className={Styles.text}>Precio<s>{original_price}{currency_id}</s></p>
+                                <p className={Styles.text}>Oferta: {price}{currency_id}</p>
+                            </>
+                        ) : (
+                            <p className={Styles.price}>$ {currency_id} {original_price}</p>
+                        )}
+                        <span className={Styles.category}>{categories}</span>
+                    </div>
+                </div>
+            </Link>
         </div>
     );
 }
 
-const CreateProductWithProvider = () => {
-    return (
-        <Providers>
-            <Product />
-        </Providers>
-    );
-};
-
-
-export default CreateProductWithProvider;
+export default Product;

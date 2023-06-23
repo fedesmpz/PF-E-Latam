@@ -1,24 +1,5 @@
-.btn-main-s {
-    padding: 0.25rem 1.5rem;
-    border-radius: 0.25rem;
-    margin: 0.25rem;
-    background-color: #1e6bc9;
-    color: white;
-    border: solid 1px #1e6bc9;
-  }
-  .btn-main:hover, .btn-main-s:hover {
-    background-color: white;
-    color: #434335;
-  }
-  .btn-main-s {
-    font-size: 0.75rem;
-    padding: 0.1rem 1rem;
-  }
 
-.link{
-    text-decoration: none;
-    color: inherit;
-  } 
+
   .header{
     position: sticky;
     z-index: 30;
@@ -30,14 +11,17 @@
     justify-content: space-around;
     align-items: center;
     width: 100%;
-    height: 4rem;
+    height: 6rem;
     border-bottom: solid 1px #ddd;
+    background-color: whitesmoke;
   }
   .nav__menu-bar{
     display: flex;
     flex-direction: column;
     row-gap: 6px;
     cursor: pointer;
+    background-color: whitesmoke;
+    text-decoration: none;
   }
   .nav__menu-bar div{
     width: 40px;
@@ -49,26 +33,17 @@
     display: flex;
     flex-direction: column;
     position: fixed;
-    top: 6rem;
+    top: 7rem;
     width: 288px;
     row-gap: 24px;
     right: -20rem;
     padding: 24px 16px;
     transition: all 1s;
     min-height: calc(100vh - 60px);
-    
+    background-color: whitesmoke;
   }
   .nav__menu-list.active{
     right: 0;
-  }
-  .nav__link{
-    font-size: 18px; 
-    position: relative;
-    transition: all 1s;
-  }
-  
-  .nav__link:hover{
-   font-weight: bold;
   }
   
   .center{
@@ -77,11 +52,24 @@
     justify-content: center;
     align-items: center;
   }
+
+  .link-home {
+  color: inherit;
+  text-decoration: none;
+}
+
+.link-home:hover {
+  text-decoration: none;
+  color: inherit;
+}
+
   @media screen and (min-width: 768px) {
     .nav__menu-bar{
+      text-decoration: none;
       display: none;
     }
     .nav__menu-list{
+      text-decoration: none;
       position: unset;
       flex-direction: row;
       min-height: fit-content;
@@ -89,18 +77,6 @@
       column-gap: 24px;
       align-items: center;
     }
-    .nav__link::before{
-      content: '';
-      position: absolute;
-      width: 0%;
-      height: 6px;
-      bottom: -16px;
-      left: 0;
-      background-color: black;
-      transition: all 1s;
-    }
     
-    .nav__link:hover:before{
-     width: 100%;
-    }
   }
+

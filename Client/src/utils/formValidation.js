@@ -1,70 +1,213 @@
-const validation = (product) => {
+const validation = (prop, value, errors, setErrors) => {
 
+    const regex = /^[A-Za-z0-9\s]+$/; //que no contenga caracteres especiales
+    const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+    const maxSize = 8 * 1024 * 1024; // 8 MB
 
-    const regex = /^[A-Z\s]+$/i //que no contenga numeros o caracteres especiales
-    const errors = {};
-
-    if (product.title.length < 3 || product.title.length > 30) {
-        errors.title = "Debe tener entre 3 y 40 caracteres"
+    if (prop === "title") {
+        if(!value.length) {
+            setErrors({
+                ...errors,
+                [prop]: "Debe ingresar un titulo para el producto"
+            })
+        }
+        if (value.length < 3 || value.length > 30) {
+            setErrors({
+                ...errors,
+                [prop]: "Debe tener entre 3 y 40 caracteres"
+            })
+        }
+        else {
+            setErrors({
+              ...errors,
+              [prop]: "",
+            });
+        }
     }
-    
     
 //----------------------------------------------------------------------
+    if (prop === "original_price") {
+        if(isNaN(value)) {
+            setErrors({
+                ...errors,
+                [prop]: "Solo pueden ingresarse números"
+            })
+        }
+        if(value <= 0) {
+            setErrors({
+                ...errors,
+                [prop]: "el precio mínimo no puede ser menor o igual a 0",
+            });
+        }
+        else {
+            setErrors({
+              ...errors,
+              [prop]: "",
+            });
+        }
+    }
     
-    if (typeof product.original_price !== "number") {
-        errors.original_price = "Solo pueden ingresarse numeros"
-    }
-
-    if (product.original_price <= 0) {
-        errors.weight = "el precio minimo no puede ser menor o igual a 0"
-    }
-
-    if (weight.length > 2  || weight.length < 2) {
-        errors.weight = "Enter 2 different values."
-    }
-
-    if (+weight[0] > +weight[1]) {
-        errors.weight = "The minimum weight cannot be greater than maximum weight"
-    }
     
 //-------------------------------------------------------------------
-    let height = product.height.split(" ")
+    if (prop === "price") {
+        if(isNaN(value)) {
+            setErrors({
+                ...errors,
+                [prop]: "Solo pueden ingresarse números",
+            });
+        }
+        if(value <= 0) {
+            setErrors({
+                ...errors,
+                [prop]: "el precio mínimo no puede ser menor o igual a 0",
+            })
+        }
+        else {
+            setErrors({
+              ...errors,
+              [prop]: "",
+            });
+        }
+    }
     
-    if (height.join("") !== +height.join("") ) {
-        errors.height = "Only can be numbers"
-    }
-
-    if (+height[0] <= 0 || +height[1] <= 0) {
-        errors.height = "The minimum and maximum height cannot be 0 or negative."
-    }
-        
-    if (height.length > 2  || height.length < 2) {
-        errors.height = "Enter 2 different values."
-    }
-        
-    if (+height[0] > +height[1]) {
-        errors.height = "The minimum height cannot be greater than maximum height"
-    }
 
 //-------------------------------------------------------------------
-    let life_time = product.life_time.split(" ")
-
-    if (life_time.join("") !== +life_time.join("") ) {
-        errors.life_time = "Only can be numbers"
-    }
-
-    if (+life_time[0] <= 0 || +life_time[1] <= 0) {
-        errors.life_time = "The minimum and maximum life_time cannot be 0 or negative."
-    }
-
-    if (life_time.length > 2  || life_time.length < 2) {
-        errors.life_time = "Enter 2 different values."
-    }
-
-    if (+life_time[0] > +life_time[1]) {
-        errors.life_time = "The minimum life_time cannot be greater than maximum life_time"
+    
+    if (prop === "available_quantity") {
+        if(isNaN(value)) {
+            setErrors({
+                ...errors,
+                [prop]: "Solo pueden ingresarse números",
+            })
+        }
+    
+        if(value <= 0) {
+            setErrors({
+                ...errors,
+                [prop]: "La cantidad mínima no puede ser menor o igual a 0",
+            })
+        }
+        else {
+            setErrors({
+              ...errors,
+              [prop]: "",
+            });
+        }
     }
     
+
+//--------------------------------------------------------------------------------
+    if (prop === "official_store_name") {
+        if(!value.length || !regex.test(value)) {
+            setErrors({
+                ...errors,
+                [prop]: "El nombre oficial de la tienda no puede estar vacio o contener caracteres especiales",
+            })
+        } else {
+            setErrors({
+              ...errors,
+              [prop]: "",
+            });
+        }
+    }
+    
+//-------------------------------------------------------------------------------
+    if (prop === "categories") {
+        if (!value) {
+            setErrors({
+                ...errors,
+                [prop]: "Debe elegir una categoría para el producto",
+            })
+        }
+        else {
+            setErrors({
+              ...errors,
+              [prop]: "",
+            });
+        }
+    }
+    
+
+//------------------------------------------------------------------------
+    if (prop === "thumbnail") {
+        console.log(value)
+        if (!allowedTypes.includes(value?.type)) {
+            setErrors({
+                ...errors,
+                [prop]: "Tipo de archivo invalido",
+              });
+            console.log(errors)
+        } 
+        if (!value) {
+            setErrors({
+                ...errors,
+                [prop]: "Debe seleccionar una imagen",
+              });
+        }
+        if (value?.size > maxSize) {
+            setErrors({
+                ...errors,
+                [prop]: "La imagen excede el limite, seleccione una imagen de 8MB o menor",
+              });
+        } else {
+            setErrors({
+              ...errors,
+              [prop]: "",
+            });
+        }
+    }
+
+    if (prop === "shipping") {
+        if (!value) {
+            setErrors({
+                ...errors,
+                [prop]: "Debe elejir una opción",
+            })
+        }
+        else {
+            setErrors({
+              ...errors,
+              [prop]: "",
+            });
+        }
+    }
+
+    if (prop === "attributes") {
+        if (!value.length) {
+            setErrors({
+                ...errors,
+                [prop]: "La descripción no puede estar vacia",
+            })
+        }
+        if (value.length < 20) {
+            setErrors({
+                ...errors,
+                [prop]: "La descripción del producto debe tener al menos 20 caracteres",
+            })
+        }
+        else {
+            setErrors({
+              ...errors,
+              [prop]: "",
+            });
+        }
+    }
+
+    if (prop === "sale_price") {
+        if (!value) {
+            setErrors({
+                ...errors,
+                [prop]: "Debe elejir una opción",
+            })
+        }
+        else {
+            setErrors({
+              ...errors,
+              [prop]: "",
+            });
+        }
+    }
+
     return errors;
 }
 

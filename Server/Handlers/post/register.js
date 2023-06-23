@@ -1,9 +1,9 @@
 const {registerUser} = require("../../Controllers/post/registerUser")
 
 const registerHandler= async(req,res)=>{
-    const{id,name,surname,email,birth_date,profile_picture,country,city,address,postal_code,admin,superAdmin}= req.body
+    const{ name, surname, email, password, country, city, address }= req.body
     try {
-        const register= await registerUser(id,name,surname,email,birth_date,profile_picture,country,city,address,postal_code,admin,superAdmin)
+        const register= await registerUser(name, surname, email, password, country, city, address)
         res.status(200).json(register)
     } catch (error) {
         res.status(400).json({ error: error.message });
