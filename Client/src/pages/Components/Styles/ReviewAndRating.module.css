@@ -9,6 +9,7 @@
     justify-content: center;
     align-items: center;
     background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1;
   }
   
   .modalContent {
@@ -17,6 +18,7 @@
     border-radius: 8px;
     max-width: 400px;
     text-align: center;
+   
   }
   
   .modalContent h2 {
@@ -51,3 +53,86 @@
     background-color: #ccc;
     color: #333;
   }
+
+  .textarea {
+    width: 40vw;
+    height: 15vh; 
+    resize: none; 
+    font-size: 20px;
+  }
+
+  .buttonAgregar{
+    position: relative;
+    left: 117vh;
+    background: none;
+    color: white;
+    cursor: pointer;
+    font-size: 1.2rem;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    padding: 10px;
+    width: 100px;
+    background-color:rgb(42, 57, 220)
+  } 
+  .buttonAgregar[disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  .buttonAgregar:hover {
+    background-color: rgb(29, 40, 158);
+  }
+
+  
+  .container{
+    background-color: rgb(230, 230, 230);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    border-radius: 8px;
+    margin: 30px 50px 5px 50px;
+    }
+  
+
+  .secondContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+  }
+  
+.secondContainerCalificaicon{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  padding: 10px;
+  margin: 5px;
+
+}
+
+.buttonDelete{
+  align-items: center;
+  color: white;
+  cursor: pointer;
+  font-size: 1.2rem;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  padding: 10px;
+  width: 100px;
+  background-color:rgb(230, 35, 9);
+}
+.buttonDelete:hover {
+  background-color:rgb(183, 28, 8);
+}
+.buttonDelete[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.parrafo{
+  background-color: #fff;
+  font-size: 20px;
+  min-height: 15vh;
+
+}
+
+.puntaje{
+  font-size: 25px;
+}
