@@ -136,11 +136,6 @@ const countries = [
         }
     }
 
-    // const clearSuccess = () =>{
-    //     if(success === 'Usuario creado exitosamente')navigate('/login')
-    //     setSuccess('')
-    //   }
-
     const handleSubmit = async (event) => {
         event.preventDefault();
 
@@ -275,7 +270,7 @@ const countries = [
         </form>
 
         {/* ESTO HAY QUE MOVERLO AL SIGNIN */}
-        <button onClick={loginGoogle}>INICIAR CON GOOGLE</button>
+        {/* <button onClick={loginGoogle}>INICIAR CON GOOGLE</button> */}
 
         {success && (
           <div>
