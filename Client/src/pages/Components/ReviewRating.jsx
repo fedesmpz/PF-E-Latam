@@ -1,16 +1,18 @@
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getAllReviewsForProduct, updateReview } from '../../redux/slice/ratingReviewSlice';
 import { useRouter } from "next/router";
-import { cleanDetailReviews, postReview } from '@/redux/slice/ratingReviewSlice';
-
+import { cleanDetailReviews, postReview,getAllReviewsForProduct,deleteReview} from '@/redux/slice/ratingReviewSlice';
+import styles from "./Styles/ReviewAndRating.module.css"
 const ReviewRating = () => {
   const dispatch = useDispatch();
   const reviews = useSelector((state) => state.reviews.reviews);
   const router = useRouter();
   const { id } = router.query;
   const productId = id;
-
+  const [showModal, setShowModal] = useState(false);
+  const [showModalDeleted, setShowModalDeleted] = useState(false)
+  const [deleteReviewId, setDeleteReviewId] = useState(null);
+  const deletedMessage = useSelector((state) => state.reviews.deletedMessage)
   const [opinion, setOpinion] = useState({
     rating: "",
     review_description: "",
@@ -21,7 +23,7 @@ const ReviewRating = () => {
     review_description: "",
     productId: productId
   });
-  const [editReview, setEditReview] = useState(null);
+
 
   useEffect(() => {
     dispatch(getAllReviewsForProduct(productId));
@@ -62,14 +64,7 @@ const ReviewRating = () => {
       return;
     }
 
-    if (editReview) {
-      // Lógica para editar la reseña existente
-      dispatch(updateReview({ reviewID: editReview.id, reviewData: opinion }));
-      setEditReview(null); // Limpia el estado de editReview después de la edición
-    } else {
-      // Lógica para crear una nueva reseña
-      dispatch(postReview(opinion));
-    }
+    dispatch(postReview(opinion));
 
     setError({
       rating: "",
@@ -82,46 +77,75 @@ const ReviewRating = () => {
       productId: productId
     });
   };
-
-  const handlerEdit = (review) => {
-    setEditReview(review); // Almacena la reseña que se está editando en el estado editReview
-    setOpinion({
-      rating: review.rating,
-      review_description: review.review_description,
-      productId: productId
-    });
+  const handlerDelete = (reviewId) => {
+    setDeleteReviewId(reviewId);
+    setShowModal(true);
   };
+
+  const handlerConfirm = async() => {
+    await dispatch(deleteReview(deleteReviewId));
+    setShowModal(false);
+    setShowModalDeleted(true)
+  }; 
+  const handlerCancel = async () => {
+    setDeleteReviewId(null);
+    setShowModal(false);
+  }
+  const handlerDeleted = async () => {
+    setShowModal(false);
+    setShowModalDeleted(false)
+    window.location.reload();
+  }
 
   return (
     <div>
-      <h1>Opiniones del producto: </h1>
-      <h2>Valoración: {promedio}</h2>
-      <div>
-        {/* Renderiza los datos de las reviews */}
-        {reviews.map((review) => (
-          <div key={review.id}>
-            <h3>Puntaje: {review.rating}</h3>
-            <p>{review.review_description}</p>
-            <button onClick={() => handlerEdit(review)}>Editar</button>
+    <h1>Opiniones del producto: </h1>
+    <h2>Valoración: {promedio}</h2>
+    <div>
+      {reviews.map((review) => (
+        <div key={review.id}>
+          <h3>Puntaje: {review.rating}</h3>
+          <p>{review.review_description}</p>
+          <button onClick={() => handlerDelete(review.id)}>Eliminar</button>
+        </div>
+      ))}
+        
+        {showModal && (
+        <div className={styles.modal}>
+          <div className={styles.modalContent}>
+            <h2>Confirmación de Eliminación</h2>
+            <p>¿Estás seguro de que quieres eliminar esta reseña?</p>
+            <div className={styles.modalButtons}>
+              <button onClick={ handlerConfirm}>Eliminar</button>
+              <button onClick={handlerCancel}>Cancelar</button>
+            </div>
           </div>
-        ))}
+        </div>
+      )}
+        { showModalDeleted && (
+                <div className={styles.modal}>
+                  <div className={styles.modalContent}>
+                    <p>{deletedMessage}</p>
+                    <div className={styles.modalButtons}>
+                      <button onClick={handlerDeleted}>x</button>
+                    </div>
+                  </div>
+                </div>
+              )
+
+              }
+
         <form onSubmit={handlerSubmit}>
           <label htmlFor="rating">Puntaje:{opinion.rating}</label>
           <input type="range" name="rating" min="1" max="5" value={opinion.rating} onChange={handlerChangeRating}
-            disabled={!!editReview} // Deshabilita el campo de calificación en modo de edición
+       
           />
           {error.rating && <p>{error.rating}</p>}
           <br />
           <label htmlFor="review_description">Tu opinión nos importa: </label>
-          <textarea
-            name="review_description"
-            value={opinion.review_description}
-            onChange={handlerChange}
-          />
+          <textarea name="review_description" value={opinion.review_description} onChange={handlerChange}/>
           {error.review_description && <p>{error.review_description}</p>}
-          <button type="submit" disabled={!opinion.rating || !opinion.review_description}>
-            {editReview ? "Editar" : "Agregar"} {/* Cambia el texto del botón según el modo (edición o creación) */}
-          </button>
+          <button type="submit" disabled={!opinion.rating || !opinion.review_description}> Agregar </button>
         </form>
       </div>
     </div>

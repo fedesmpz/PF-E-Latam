@@ -7,6 +7,7 @@ export const ratingReviewSlice = createSlice({
     initialState: {
       reviews: [],
       review: {},
+      deletedMessage:""
     },
     reducers: {
       cleanDetailReviews: (state) => {
@@ -26,7 +27,8 @@ export const ratingReviewSlice = createSlice({
           state.reviews.push(action.payload);
         })
         .addCase(deleteReview.fulfilled, (state, action) => {
-          state.reviews = state.reviews.filter(review => review.id !== action.payload.id);
+          state.deletedMessage= action.payload
+         
         })
         .addCase(updateReview.fulfilled, (state, action) => {
           state.reviews = state.reviews.map(review => {
@@ -82,7 +84,6 @@ export const ratingReviewSlice = createSlice({
     async (reviewId) => {
       try {
         const response = await axios.delete(`http://localhost:8000/reviews/delete/${reviewId}`);
-        console.log(response.data)
         return response.data;
 
       } catch (error) {
