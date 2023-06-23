@@ -5,7 +5,7 @@ import Providers from "@/redux/provider/Provider";
 import TableProducts from "./ComponentsAdmin/Products/TableProducts"
 import AllProductsAdmin from "./ComponentsAdmin/Products/AllProductsAdmin"
 import StylesAdmin from "./styles/DashboardAdmin/DashboardAdmin.module.css"
-import { FaShoppingBag, FaUsers, FaChartLine, FaClipboardList } from 'react-icons/fa';
+import { FaShoppingBag, FaUsers, FaChartLine, FaClipboardList, FaHome, FaLaptopCode } from 'react-icons/fa';
 import styles from './ComponentsAdmin/SideBar/Sidebar.module.css';
 import SalesCard from "./ComponentsAdmin/Statistics/SalesCard";
 import SalesStats from "./ComponentsAdmin/Statistics/SalesStats";
@@ -83,6 +83,18 @@ const DashboardAdmin = () => {
           </button>
           <nav className={styles['nav']}>
             <ul className={styles['ul']}>
+            <li className={styles['li']}>
+                <a className={styles['a']} href="/Home">
+                  <FaHome className={styles['icon']} />
+                  <span className={`${styles['text']} ${isOpen ? '' : styles.hidden}`}>Home</span>
+                </a>
+              </li>
+              <li className={styles['li']}>
+                <a className={styles['a']} href="/DashboardAdmin">
+                  <FaLaptopCode className={styles['icon']} />
+                  <span className={`${styles['text']} ${isOpen ? '' : styles.hidden}`}>Dashboard</span>
+                </a>
+              </li>
               <li className={styles['li']}>
                 <a className={styles['a']} href="#">
                   <FaShoppingBag className={styles['icon']} />
