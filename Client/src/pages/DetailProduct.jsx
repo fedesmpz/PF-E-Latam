@@ -7,7 +7,7 @@ import styles from "../pages/Components/Styles/ProductDetail.module.css";
 import Link from "next/link";
 import NavBar from "./Components/NavBar";
 import ReviewRating from "./Components/ReviewRating";
-import { addProduct } from "@/redux/slice/cartSlice";
+import { addProduct, addProductNoRepeat } from "@/redux/slice/cartSlice";
 
 const DetailProduct = () => {
   const dispatch = useDispatch();
@@ -45,7 +45,7 @@ const DetailProduct = () => {
   useEffect(() => {
     const savedCart = JSON.parse(localStorage.getItem("cart"));
     if (savedCart && savedCart.length > 0 && cart.length === 0) {
-      dispatch(addProduct(savedCart));
+      dispatch(addProductNoRepeat(savedCart));
     } else if (!savedCart || savedCart.length === 0) {
       localStorage.clear();
     }
