@@ -234,7 +234,7 @@ button.backButton {
   border: 1px solid white;
   width: fit-content;
   min-width: 400px;
-  height: fit-content;
+  max-width: 400px;
   background-color: white;
 }
 
