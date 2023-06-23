@@ -18,30 +18,43 @@ const EditProduct = () => {
     let [errors, setErrors] = useState({})
     const message = useSelector(state => state.products.newProductMessage)
     const [productThumbnail, setProductThumbnail] = useState("")
-    const editDetail = useSelector((state) => state.products.editDetail);
-    console.log(editDetail)
+    let editDetail = useSelector((state) => state.products.editDetail);
 
-    const [editProduct, setEditedProduct] = useState({
-      title: "",
-      original_price: 0,
-      currency_id: "ARS",
-      price: 0,
-      sale_price: null,
-      sold_quantity: 0,
-      available_quantity: 0,
-      official_store_name: "",
-      shipping: null,
-      attributes: "",
-      promotions: [],
-      categories: "",
-      country: "Argentina",
-  })
+    // const [editProduct, setEditedProduct] = useState({
+    //   title: "",
+    //   original_price: 0,
+    //   currency_id: "ARS",
+    //   price: 0,
+    //   sale_price: null,
+    //   sold_quantity: 0,
+    //   available_quantity: 0,
+    //   official_store_name: "",
+    //   shipping: null,
+    //   attributes: "",
+    //   promotions: [],
+    //   categories: "",
+    //   country: "Argentina",
+    // })
+
+    // setEditedProduct({
+    //   ...editProduct,
+    //   ...editDetail
+    // })
+
+    console.log(editProduct)
     
     const handleCountryChange = () => {
 
     }
 
-    const handleChange = () => {
+    const handleChange = (event) => {
+      const prop = event.target.name;
+      const value = event.target.value
+
+      editDetail = {
+        ...editDetail,
+        [prop]: value
+      }
 
     }
 
@@ -88,7 +101,7 @@ const EditProduct = () => {
 
                     <div>
                         <label htmlFor="title" className={style.label}>Titulo del producto</label>
-                        <input type="text" name="title" placeholder={editDetail.title} onChange={handleChange} />
+                        <input type="text" name="title" value={editDetail.title} onChange={handleChange} />
 
                         {errors.title && <p>{errors.title}</p>}
                     </div>
@@ -185,9 +198,9 @@ const EditProduct = () => {
                     <h2 className={style.PreviewofProduct}>PREVISUALIZACION DEL PRODUCTO</h2>
                     <div className={style.firstRow}>
                     <div className={style.thumbnailContainer}>
-                    {!productThumbnail && 
+                    {!editDetail.thumbnail && 
                     <p className={style.previewTitleThumbnail}>La vista previa de la imagen aparecera aqui</p>}
-                    {productThumbnail && <img className={style.thumbnail} src={productThumbnail} alt="product_thumbnail"></img>}
+                    {editDetail.thumbnail && <img src={editDetail.thumbnail} className={style.thumbnail}  alt="product_thumbnail"></img>}
                     </div>
                     <div>
                         <h2 className={style.previewValue}>{editDetail.title ? editDetail.title : `Titulo del producto`}</h2>
