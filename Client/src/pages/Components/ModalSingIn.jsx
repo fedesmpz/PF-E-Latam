@@ -6,6 +6,7 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 //import Register from '../Register';
 import RegisterForm from './RegisterForm';
+import style from "./Styles/ModalSingIn.module.css"
 
 function Example() {
   const [show, setShow] = useState(false);
@@ -19,7 +20,7 @@ function Example() {
         Sign In
       </Button>
 
-      <Modal show={show} onHide={handleClose}>
+      <Modal className={style.modal} show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Modal heading</Modal.Title>
         </Modal.Header>

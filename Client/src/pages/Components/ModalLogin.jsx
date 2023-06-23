@@ -4,6 +4,7 @@ import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import style from "./Styles/Footerlanding.module.css"
 import axios from 'axios'
+import Style from "./Styles/ModalLogin.module.css";
 
 function Example() {
   const [show, setShow] = useState(false);
@@ -68,7 +69,7 @@ function Example() {
         Log In
       </Button>
 
-      <Modal show={show} onHide={handleClose}>
+      <Modal show={show} onHide={handleClose} className={Style.login}>
         <Modal.Header closeButton>
           <Modal.Title>Modal heading</Modal.Title>
         </Modal.Header>

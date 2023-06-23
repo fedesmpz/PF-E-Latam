@@ -10,7 +10,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
               <title>e-Latam</title>
               <body>
-                <Providers>
+                <Providers >
                   {children}
                 </Providers>
               </body>

@@ -1,4 +1,12 @@
 body{
     width: 100%;
     font-family: "Montserrat", sans-serif;
+    color: #000;
+    background-color: #fff;
+    
+}
+
+[data-theme="dark"] body{
+    background-color: #000;
+    color:#fff
 }

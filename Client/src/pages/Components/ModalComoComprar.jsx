@@ -15,7 +15,7 @@ function ModalComoComprar() {
         Cómo Comprar
     </Button>
 
-    <Modal show={show} onHide={handleClose} animation={false}>
+    <Modal show={show} onHide={handleClose} animation={false} className={style.modal}>
         <Modal.Header closeButton>
             <Modal.Title>Modal heading</Modal.Title>
         </Modal.Header>

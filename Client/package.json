@@ -23,6 +23,7 @@
     "firestore": "^1.1.6",
     "flag-icon-css": "^4.1.7",
     "next": "13.4.5",
+    "next-themes": "^0.2.1",
     "postcss": "^8.4.24",
     "react": "18.2.0",
     "react-bootstrap": "^2.7.4",

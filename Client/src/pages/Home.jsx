@@ -13,6 +13,9 @@ import style from "./Styles/Home/Home.module.css"
 import LoaderLanding from "./Components/LoaderLanding"
 import "bootstrap/dist/css/bootstrap.css"
 import FooterLanding from "./Components/FooterLanding";
+import { ThemeProvider } from "next-themes";
+import DarkMode from "./Components/DarkMode";
+
 const Home = () => {
     const dispatch = useDispatch();
     const productsCountry = useSelector((state) => state.products.country);
@@ -69,7 +72,7 @@ const Home = () => {
 
     return (
         <div className={style.body}>
-            <NavBar />
+            <NavBar/>
             <Filter
                 setCurrentPage={setCurrentPage}
                 setOrden={setOrden}
