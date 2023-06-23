@@ -11,10 +11,10 @@ const validation = (prop, value, errors, setErrors) => {
                 [prop]: "Debe ingresar un titulo para el producto"
             })
         }
-        if (value.length < 3 || value.length > 30) {
+        if (value.length < 3 || value.length > 90) {
             setErrors({
                 ...errors,
-                [prop]: "Debe tener entre 3 y 40 caracteres"
+                [prop]: "Debe tener entre 3 y 90 caracteres"
             })
         }
         else {
