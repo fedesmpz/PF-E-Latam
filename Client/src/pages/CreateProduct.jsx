@@ -215,12 +215,6 @@ const CreateProduct = () => {
                         }
                     </div>
 
-
-
-
-
-
-
                     <div>
                         <label htmlFor="shipping" className={style.label}>Este producto posee envío gratis?</label>
                         <select name="shipping" id="shipping" value={newProduct.shipping} onChange={handleChange}>
@@ -251,7 +245,7 @@ const CreateProduct = () => {
                     </div>
 
                     <div className={style.container_submit}>
-                        <button className={` ${isFormValid ? style.submitButton : style.submitDisabledButton}`} type="submit" disabled={!isFormValid}>Create</button>
+                        <button className={` ${isFormValid ? style.submitButton : style.submitDisabledButton}`} type="submit" disabled={!isFormValid}>Crear</button>
 
                     </div>
                 </form>

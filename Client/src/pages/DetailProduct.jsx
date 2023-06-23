@@ -106,7 +106,7 @@ const DetailProduct = () => {
   }
 
   const handlerEdit = async () => {
-    router.push(`/EditProduct?id=${id}`)
+    router.push(`/EditProduct?countryId=${countryId}&categories=${categories}&id=${id}`)
   }
 
   let admin = true // HARIAMOS LA VALIDACION DEL TOKEN 
