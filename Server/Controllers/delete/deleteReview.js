@@ -9,7 +9,7 @@ const deleteReview = async (reviewID) => {
     }
 
     await review.destroy();
-    return { message: "Reseña eliminada exitosamente" };
+    return "Reseña eliminada exitosamente" ;
   } catch (error) {
     throw new Error("No se pudo eliminar la reseña");
   }
