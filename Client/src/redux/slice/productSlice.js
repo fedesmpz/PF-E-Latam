@@ -258,7 +258,6 @@ export const axiosSearchProduct = (title, country) => (dispatch) => {
             dispatch(setNewProduct(response.data));
       })
       .catch((error) => {
-        console.log(error.response?.data?.error)
         dispatch(setNewProductMessage(error.response?.data?.error));
       });
   };
@@ -268,11 +267,9 @@ export const axiosSearchProduct = (title, country) => (dispatch) => {
       .put(`http://localhost:8000/products/edit/${id}`, payload)
       .then((response) => {
             dispatch(setEditProductMessage(response.data));
-            console.log("message:",response.data)
             // dispatch(setEditedProduct(payload));
       })
       .catch((error) => {
-        console.log("error:",error.response)
         dispatch(setEditProductMessage(error.response?.data?.error));
       });
   };
@@ -282,7 +279,6 @@ export const axiosSearchProduct = (title, country) => (dispatch) => {
       .put(`http://localhost:8000/products/hide/${id}`)
       .then((response) => {
             dispatch(setHideProduct(response.data));
-            console.log(response.data)
       })
       .catch((error) => console.log(error));
   };
