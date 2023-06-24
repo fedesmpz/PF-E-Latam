@@ -12,8 +12,7 @@ const Sidebar = () => {
   return (
     <div
     className={`${styles.sidebar} ${isOpen ? styles.open : ''}`}
-    style={{ width: isOpen ? '20%' : '5%' }}
-  >
+    >
     <button className={styles['toggle-btn']} onClick={toggleSidebar}>
       <span></span>
       <span></span>
