@@ -29,7 +29,7 @@ const DashboardAdmin = () => {
     const concatenatedObjects = array.reduce((accumulator, currentArray) => {
         return accumulator.concat(currentArray);
     }, []);
-    console.log("lalala"+concatenatedObjects)
+    
     let currentProducts = concatenatedObjects;
     const [currentPage, setCurrentPage] = useState(1);
     const [productsPerPage] = useState(50);
@@ -96,13 +96,13 @@ const DashboardAdmin = () => {
                 </a>
               </li>
               <li className={styles['li']}>
-                <a className={styles['a']} href="#">
+                <a className={styles['a']} href="/DashboardAdmin/Products">
                   <FaShoppingBag className={styles['icon']} />
                   <span className={`${styles['text']} ${isOpen ? '' : styles.hidden}`}>Productos</span>
                 </a>
               </li>
               <li className={styles['li']}>
-                <a className={styles['a']} href="#">
+                <a className={styles['a']} href="/DashboardAdmin/Users">
                   <FaUsers className={styles['icon']} />
                   <span className={`${styles['text']} ${isOpen ? '' : styles.hidden}`}>Usuarios</span>
                 </a>
