@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { productSlice } from "../slice/productSlice";
-import  userSlice  from "../slice/userSlice";
+import { userSlice }  from "../slice/userSlice";
 import thunk from "redux-thunk";
 import { ratingReviewSlice } from "../slice/ratingReviewSlice"
 

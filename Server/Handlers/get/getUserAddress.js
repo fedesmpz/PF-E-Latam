@@ -24,10 +24,11 @@ const getUserAddressHandler = async (req, res) => {
         proximity
       }
     });
-    res.status(200).json(response.data.features.map((feature) => ({
+    const matchingAddress = response.data.features.map((feature) => ({
       place_name: feature.place_name,
       geometry: feature.geometry.coordinates
-    })));
+    }))
+    res.status(200).json(matchingAddress);
   } catch (error) {
     console.error(error);
     res.status(400).json({ error: 'Failed to retrieve user address' });
