@@ -9,29 +9,44 @@ import { GoogleAuthProvider,
   sendEmailVerification,
    } from 'firebase/auth'
 import { auth } from '../../utils/firebase'
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchUser } from "@/redux/slice/userSlice";
 
 function Example() {
   const [show, setShow] = useState(false);
   const [selectedCountry, setSelectedCountry] = useState('');
-
+  const dispatch = useDispatch();
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const [form, setForm] = useState({
     email: '',
     password: '',
   });
+  const userData = useSelector((state) => state.userData);
 
   const login = async (form) => {
     try{ 
       //envia el formulario
       const response = await axios.post('http://localhost:8000/users/login', form)
+      if (!response.data.verified){
+        alert("El usuario no está verificado")
+        handleClose()
+        return 
+      }
       //si no hay error, genera el token
       const token = await axios.post('http://localhost:8000/users/getToken', response.data)
       //si no hay error guarda el token
       localStorage.setItem("token", JSON.stringify(token.data))
-
+      if (response.data == 'Firebase: Error (auth/wrong-password).'){
+        alert("La contraseña es incorrecta")
+      }
+      if (response.data == 'Firebase: Error (auth/user-not-found).'){
+        alert("El usuario no existe")
+      }
  //***** DATOS PARA GUARDAR EN ESTADOS *****     
       console.log(response.data);
+      dispatch(fetchUser(response.data))
+      console.log(userData);
       //access:true
       //email:"fede.mpz@gmail.com"
       //isAdmin:false
@@ -134,30 +149,6 @@ function Example() {
         </Modal.Header>
         <Modal.Body>
           <Form>
-            {/* <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-
-              <label htmlFor="email">
-              E-Mail
-              <input
-                type="text"
-                name="email"
-                value={form.email}
-                onChange={handleChange}
-                placeholder='Ej: ashketchum@pokemon.com'
-              />
-            </label>
-
-              <label htmlFor="password">
-              Contraseña
-              <input
-                type="password"
-                name="password"
-                value={form.password}
-                onChange={handleChange}
-                placeholder='Contraseña'
-              />
-            </label>
-            </Form.Group> */}
             <Form.Group  className="mb-3" controlId="formHorizontalPassword">
         <Form.Label column sm={3}>
           E-Mail
@@ -178,9 +169,6 @@ function Example() {
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          {/* <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button> */}
 
           <Button variant="primary" onClick={handleSubmit}>
             Iniciar
@@ -188,7 +176,6 @@ function Example() {
 
           <Button variant="primary" onClick={loginGoogle}>
             Inicia con Google
-            {/* <img src="https://1000marche.net/wp-content/uploads/2020/03/Google-logo-500x281.png" width="100" height="" alt="Google" /> */}
           </Button>
 
         </Modal.Footer>
