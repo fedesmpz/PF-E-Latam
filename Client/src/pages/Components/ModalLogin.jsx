@@ -10,7 +10,7 @@ import { GoogleAuthProvider,
    } from 'firebase/auth'
 import { auth } from '../../utils/firebase'
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchUser } from "@/redux/slice/userSlice";
+//import { fetchUser } from "@/redux/slice/userSlice";
 
 function Example() {
   const [show, setShow] = useState(false);
@@ -22,7 +22,7 @@ function Example() {
     email: '',
     password: '',
   });
-  const userData = useSelector((state) => state.userData);
+ // const userData = useSelector((state) => state.userData);
 
   const login = async (form) => {
     try{ 
@@ -47,8 +47,8 @@ function Example() {
       }
  //***** DATOS PARA GUARDAR EN ESTADOS *****     
       console.log(response.data);
-      dispatch(fetchUser(response.data))
-      console.log(userData);
+      //dispatch(fetchUser(response.data))
+      //console.log(userData);
       //access:true
       //email:"fede.mpz@gmail.com"
       //isAdmin:false
