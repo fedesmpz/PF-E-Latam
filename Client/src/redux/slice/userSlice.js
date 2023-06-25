@@ -57,7 +57,10 @@ export const userSlice = createSlice({
     },
     getUserAddress: (state, action) => {
       state.userAddress = action.payload
-    }
+    },
+    cleanUserAddress:(state)=>{
+      state.userAddress = []
+    },
   },
 });
 
@@ -74,7 +77,8 @@ export const {
   updateUserStart,
   updateUserSuccess,
   updateUserFailure,
-  getUserAddress
+  getUserAddress,
+  cleanUserAddress
 } = userSlice.actions;
 
 export default userSlice.reducer;
