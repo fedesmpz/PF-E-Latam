@@ -115,3 +115,12 @@ export const updateUser = (userId, userData) => async (dispatch) => {
   }
 };
 
+export const getUsers = () => async (dispatch) => {
+  await axios.get('http://localhost:8000/users')
+  .then((response) => {
+    dispatch(response.data)
+  })
+  .catch((error) => console.log(error))
+  console.log(response.data);
+}
+
