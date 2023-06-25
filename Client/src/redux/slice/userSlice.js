@@ -74,6 +74,8 @@ export const {
   updateUserFailure,
 } = userSlice.actions;
 
+export default userSlice.reducer;
+
 export const fetchUsers = (user) => async (dispatch) => {
   try {
     dispatch(getUsersStart(user));
@@ -113,4 +115,3 @@ export const updateUser = (userId, userData) => async (dispatch) => {
   }
 };
 
-export default userSlice.reducer;
