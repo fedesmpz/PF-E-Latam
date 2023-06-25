@@ -36,7 +36,7 @@ const CreateProduct = () => {
     })
 
     useEffect(() => {
-        const isValid = ((Object.keys(errors).length === Object.keys(newProduct).length - 3) || (Object.keys(errors).length === Object.keys(newProduct).length - 2)) && Object.values(errors).every((error) => error === "");
+        const isValid = ((Object.keys(errors).length === Object.keys(newProduct).length - 4) || (Object.keys(errors).length === Object.keys(newProduct).length - 3) || (Object.keys(errors).length === Object.keys(newProduct).length - 2)) && Object.values(errors).every((error) => error === "");
         setIsFormValid(isValid);
     }, [errors, newProduct]);
     
