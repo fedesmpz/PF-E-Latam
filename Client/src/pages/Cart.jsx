@@ -4,7 +4,7 @@ import { CartContext, CartProvider } from "./CartContext";
 import { useRouter } from "next/router";
 
 const Cart = () => {
-    const { cart, removeFromCart } = useContext(CartContext);
+    const { cart, addToCart, removeFromCart, removeToCart } = useContext(CartContext);
     const [productCounts, setProductCounts] = useState({});
     const [cartIsEmpty, setCartIsEmpty] = useState(true);
     const router = useRouter();
@@ -13,6 +13,11 @@ const Cart = () => {
         const savedCart = JSON.parse(localStorage.getItem("cart"));
         if (savedCart && savedCart.length > 0) {
             setCartIsEmpty(false);
+            const counts = {};
+            savedCart.forEach((product) => {
+                counts[product.id] = product.quantity;
+            });
+            setProductCounts(counts);
         }
     }, []);
 
@@ -35,10 +40,14 @@ const Cart = () => {
     };
 
     const handleIncrement = (productId) => {
-        setProductCounts((prevCounts) => ({
-            ...prevCounts,
-            [productId]: (prevCounts[productId] || 0) + 1
-        }));
+        setProductCounts((prevCounts) => {
+            const newCounts = {
+                ...prevCounts,
+                [productId]: (prevCounts[productId] || 0) + 1
+            };
+            addToCart({ id: productId, quantity: newCounts[productId] });
+            return newCounts;
+        });
     };
 
     const handleDecrement = (productId) => {
@@ -49,6 +58,9 @@ const Cart = () => {
             };
             if (newCounts[productId] <= 0) {
                 delete newCounts[productId];
+                removeFromCart(productId);
+            } else {
+                removeToCart({ id: productId, quantity: newCounts[productId] });
             }
             return newCounts;
         });
