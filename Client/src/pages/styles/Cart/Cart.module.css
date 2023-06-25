@@ -32,12 +32,14 @@
   font-weight: bold;
   margin-bottom: 5px;
 }
-.productPriceDiscount{
+
+.productPriceDiscount {
   font-size: 16px;
   text-decoration: line-through;
-  opacity:.9;
-  font-style: italic
+  opacity: 0.9;
+  font-style: italic;
 }
+
 .productPrice {
   font-size: 16px;
 }

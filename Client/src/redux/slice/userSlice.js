@@ -100,7 +100,7 @@ export const fetchUsers = (user) => async (dispatch) => {
 export const registerUser = (userData) => async (dispatch) => {
   try {
     dispatch(registerUserStart());
-    await axios.post('http://localhost:8000/register', userData);
+    await axios.post('https://pf-elatam.onrender.com/register', userData);
     dispatch(registerUserSuccess());
   } catch (error) {
     dispatch(registerUserFailure(error.message));
@@ -110,7 +110,7 @@ export const registerUser = (userData) => async (dispatch) => {
 export const deleteUser = (userId) => async (dispatch) => {
   try {
     dispatch(deleteUserStart());
-    await axios.delete(`http://localhost:8000/delete/${userId}`);
+    await axios.delete(`https://pf-elatam.onrender.com/delete/${userId}`);
     dispatch(deleteUserSuccess());
   } catch (error) {
     dispatch(deleteUserFailure(error.message));
@@ -120,7 +120,7 @@ export const deleteUser = (userId) => async (dispatch) => {
 export const updateUser = (userId, userData) => async (dispatch) => {
   try {
     dispatch(updateUserStart());
-    await axios.put(`http://localhost:8000/update/${userId}`, userData);
+    await axios.put(`https://pf-elatam.onrender.com/update/${userId}`, userData);
     dispatch(updateUserSuccess());
   } catch (error) {
     dispatch(updateUserFailure(error.message));
@@ -139,7 +139,7 @@ export const getGeocoding = (addressId, countryName) => (dispatch) => {
 };
 
 export const getUsers = () => async (dispatch) => {
-  await axios.get('http://localhost:8000/users')
+  await axios.get('https://pf-elatam.onrender.com/users')
   .then((response) => {
     dispatch(response.data)
   })

@@ -45,7 +45,7 @@ export const ratingReviewSlice = createSlice({
     'reviews/getAllReviewsForProduct',
     async (productId) => {
       try {
-        const response = await axios.get(`http://localhost:8000/reviews/product/${productId}`);
+        const response = await axios.get(`https://pf-elatam.onrender.com/reviews/product/${productId}`);
         return response.data;
       } catch (error) {
         throw error;
@@ -57,7 +57,7 @@ export const ratingReviewSlice = createSlice({
     'reviews/getReviewById',
     async (reviewID) => {
       try {
-        const response = await axios.get(`http://localhost:8000/reviews/${reviewID}`);
+        const response = await axios.get(`https://pf-elatam.onrender.com/reviews/${reviewID}`);
         return response.data;
       } catch (error) {
         console.log(error);
@@ -70,7 +70,7 @@ export const ratingReviewSlice = createSlice({
     'reviews/postReview',
     async (opinion) => {
       try {
-        const response = await axios.post('http://localhost:8000/reviews', opinion);
+        const response = await axios.post('https://pf-elatam.onrender.com/reviews', opinion);
         return response.data;
       } catch (error) {
         console.log(error);
@@ -83,7 +83,7 @@ export const ratingReviewSlice = createSlice({
     'reviews/deleteReview',
     async (reviewId) => {
       try {
-        const response = await axios.delete(`http://localhost:8000/reviews/delete/${reviewId}`);
+        const response = await axios.delete(`https://pf-elatam.onrender.com/reviews/delete/${reviewId}`);
         return response.data;
 
       } catch (error) {
@@ -97,7 +97,7 @@ export const ratingReviewSlice = createSlice({
     'reviews/updateReview',
     async ({ reviewID, reviewData }) => {
       try {
-        const response = await axios.put(`http://localhost:8000/reviews/update/${reviewID}`, reviewData);
+        const response = await axios.put(`https://pf-elatam.onrender.com/reviews/update/${reviewID}`, reviewData);
         return response.data;
 
       } catch (error) {
