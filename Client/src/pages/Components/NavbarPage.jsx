@@ -20,7 +20,7 @@ const NavbarPage = () => {
   return (
     <header className={styles.header}>
       <nav className={styles.navv}>
-      <Link className={Style.logo} href="/">
+        <Link className={Style.logo} href="/">
           <div className={Style.logoContainer}>
             <Image
               className={Style.logoE}
@@ -49,7 +49,7 @@ const NavbarPage = () => {
           <div></div>
         </div>
         <div
-          className={classnames(styles["nav__menu-list"],{
+          className={classnames(styles["nav__menu-list"], {
             [styles.active]: navActive,
           })}
         >
@@ -68,8 +68,8 @@ const NavbarPage = () => {
               />
             </div>
           ))}
-          <ModalSignIn/>
-          <ModalLogin/>
+          <ModalSignIn />
+          <ModalLogin />
         </div>
       </nav>
     </header>

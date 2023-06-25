@@ -8,7 +8,9 @@ export const productSlice = createSlice({
     categories: [],
     country: "ARG",
     detail: {},
+    editDetail: {},
     newProductMessage: null,
+    editProductMessage: null,
     allProducts: [],
     orderByName: 'asc',
     orderByPrice: 'mayormenor',
@@ -38,6 +40,14 @@ export const productSlice = createSlice({
     setAllProductsByCountriesCategoryId: (state, action) => {
       state.detail = action.payload;
     },
+
+    setEditDetail: (state, action) => {
+      state.editDetail = action.payload
+    },
+
+    cleanEditDetail:(state)=>{
+      state.editDetail= {}
+    },
     
     setSearchProduct: (state, action) => {
         state.products = action.payload;
@@ -50,6 +60,10 @@ export const productSlice = createSlice({
 
     setNewProductMessage: (state, action) => {
       state.newProductMessage = action.payload;
+    },
+
+    setEditProductMessage: (state, action) => {
+      state.editProductMessage = action.payload;
     },
 
     cleanDetail:(state)=>{
@@ -126,12 +140,14 @@ export const productSlice = createSlice({
   
     },
 
-    setEditProduct:(state, action) => {
-      const editedProduct = action.payload;
-      const index = state.findIndex(product => product.id === editedProduct.id);
-      if (index !== -1) {
-        state[index] = editedProduct;
-      }
+    setEditedProduct:(state, action) => {
+      state.editDetail = action.payload
+      state.detail = action.payload
+      
+      // const index = state.products.findIndex(product => product.id === action.payload.id);
+      // if (index !== -1) {
+      //   state[index] = editedProduct;
+      // }
     }
     
   },
@@ -142,16 +158,20 @@ export const {
   setAllProductsByCountries,
   setProductsCountry,
   setAllProductsByCountriesCategoryId,
+  setEditDetail,
   setSearchProduct,
   setAllProducts,
   setNewProduct,
+  setEditedProduct,
   setOrderByName,
   setOrderByPrice,
   setCategory,
   filterByCategory,
   cleanDetail,
+  cleanEditDetail,
   setFilterByCategory,
   setNewProductMessage,
+  setEditProductMessage,
   setHideProduct,
   setDeleteProduct,
 } = productSlice.actions;
@@ -162,7 +182,7 @@ export const axiosAllProductByCountryCategory = () => (dispatch, getState) => {
   const countryId = getState().products.country;
   const category = getState().products.categories;
   axios
-    .get(`http://localhost:8000/products/${countryId}/${category}`)
+    .get(`https://pf-elatam.onrender.com/products/${countryId}/${category}`)
     .then((response) => {
       dispatch(setProductByCountryCategory(response.data.data));
     })
@@ -171,7 +191,7 @@ export const axiosAllProductByCountryCategory = () => (dispatch, getState) => {
 
 export const axiosAllProductsByCountries = (id) => (dispatch) => {
     axios
-        .get(`http://localhost:8000/products/${id}`)
+        .get(`https://pf-elatam.onrender.com/products/${id}`)
         .then((response) => {
             dispatch(setProductsCountry(id))
             dispatch(setAllProductsByCountries(response.data))
@@ -183,9 +203,9 @@ export const axiosAllProductsByCountries = (id) => (dispatch) => {
 
 export const axiosAllProducts = () => (dispatch) => {
     const urls = [
-        'http://localhost:8000/products/ARG',
-        'http://localhost:8000/products/COL',
-        'http://localhost:8000/products/MEX'
+        'https://pf-elatam.onrender.com/products/ARG',
+        'https://pf-elatam.onrender.com/products/COL',
+        'https://pf-elatam.onrender.com/products/MEX'
     ];
     const requests = urls.map(url => axios.get(url));
     Promise.all(requests)
@@ -201,19 +221,27 @@ export const axiosAllProducts = () => (dispatch) => {
 
 export const axiosAllProductByCountryCategoryId = (id, countryId, categories) => (dispatch) => {
     axios
-        .get(`http://localhost:8000/products/${countryId}/${categories}/${id}`)
+        .get(`https://pf-elatam.onrender.com/products/${countryId}/${categories}/${id}`)
         .then((response) => {
-            dispatch(setAllProductsByCountriesCategoryId(response.data))
+            dispatch(setAllProductsByCountriesCategoryId(response.data));
         })
         .catch((error) => console.log(error));
 };
 
+export const ProductByIdForEditForm = (id, countryId, categories) => (dispatch) => {
+  axios
+      .get(`https://pf-elatam.onrender.com/products/${countryId}/${categories}/${id}`)
+      .then((response) => {
+          dispatch(setEditDetail(response.data))
+      })
+      .catch((error) => console.log(error));
+};
+
 export const axiosSearchProduct = (title, country) => (dispatch) => {
     return axios
-      .get(`http://localhost:8000/products/search/?title=${title}&country=${country}`)
+      .get(`https://pf-elatam.onrender.com/products/search/?title=${title}&country=${country}`)
       .then((response) => {
         dispatch(setSearchProduct(response.data));
-        console.log(response.data)
       })
       .catch((error) => {
  
@@ -224,44 +252,42 @@ export const axiosSearchProduct = (title, country) => (dispatch) => {
 
   export const postProduct = (payload) => (dispatch) => {
     axios
-      .post("http://localhost:8000/products/new", payload)
+      .post("https://pf-elatam.onrender.com/products/new", payload)
       .then((response) => {
             dispatch(setNewProductMessage(response.data));
             dispatch(setNewProduct(response.data));
       })
       .catch((error) => {
-        console.log(error.response?.data?.error)
         dispatch(setNewProductMessage(error.response?.data?.error));
       });
   };
 
-  export const editProduct = (id) => (dispatch) => {
+  export const editProduct = (id, payload) => (dispatch) => {
     axios
-      .put(`http://localhost:8000/products/edit/${id}`)
+      .put(`https://pf-elatam.onrender.com/products/edit/${id}`, payload)
       .then((response) => {
-            dispatch(setEditProduct(response.data));
+            dispatch(setEditProductMessage(response.data));
+            // dispatch(setEditedProduct(payload));
       })
       .catch((error) => {
-        dispatch(setNewProductMessage(error.response?.data?.error));
+        dispatch(setEditProductMessage(error.response?.data?.error));
       });
   };
 
   export const hideProduct = (id) => (dispatch) => {
     axios
-      .put(`http://localhost:8000/products/hide/${id}`)
+      .put(`https://pf-elatam.onrender.com/products/hide/${id}`)
       .then((response) => {
             dispatch(setHideProduct(response.data));
-            console.log(response.data)
       })
       .catch((error) => console.log(error));
   };
 
   export const deleteProduct=(id)=>(dispatch)=>{
     axios
-    .delete(`http://localhost:8000/products/delete/${id}`)
+    .delete(`https://pf-elatam.onrender.com/products/delete/${id}`)
     .then((response)=>{
       dispatch(setDeleteProduct(response.data))
-      console.log(response)
     })
     .catch((error)=>console.log(error))
   }

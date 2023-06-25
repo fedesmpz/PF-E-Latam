@@ -1,19 +1,27 @@
 import { createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
+
 const initialState = {
   users: [],
   loading: false,
   error: null,
+  userData: {}
 };
 
-const userSlice = createSlice({
+
+export const userSlice = createSlice({
   name: 'user',
-  initialState,
+  initialState: {
+    users: [],
+    loading: false,
+    error: null,
+    userData: {},
+    userAddress: []
+  },
   reducers: {
-    getUsersStart(state) {
-      state.loading = true;
-      state.error = null;
+    getUsersStart(state, action) {
+      state.userData = action;
     },
     getUsersSuccess(state, action) {
       state.users = action.payload;
@@ -56,6 +64,9 @@ const userSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
+    getUserAddress: (state, action) => {
+      state.userAddress = action.payload
+    }
   },
 });
 
@@ -72,13 +83,15 @@ export const {
   updateUserStart,
   updateUserSuccess,
   updateUserFailure,
+  getUserAddress
 } = userSlice.actions;
 
-export const fetchUsers = () => async (dispatch) => {
+export default userSlice.reducer;
+
+export const fetchUsers = (user) => async (dispatch) => {
   try {
-    dispatch(getUsersStart());
-    const response = await axios.get('http://localhost:8000/:id');
-    dispatch(getUsersSuccess(response.data));
+    dispatch(getUsersStart(user));
+
   } catch (error) {
     dispatch(getUsersFailure(error.message));
   }
@@ -87,7 +100,7 @@ export const fetchUsers = () => async (dispatch) => {
 export const registerUser = (userData) => async (dispatch) => {
   try {
     dispatch(registerUserStart());
-    await axios.post('http://localhost:8000/register', userData);
+    await axios.post('https://pf-elatam.onrender.com/register', userData);
     dispatch(registerUserSuccess());
   } catch (error) {
     dispatch(registerUserFailure(error.message));
@@ -97,7 +110,7 @@ export const registerUser = (userData) => async (dispatch) => {
 export const deleteUser = (userId) => async (dispatch) => {
   try {
     dispatch(deleteUserStart());
-    await axios.delete(`http://localhost:8000/delete/${userId}`);
+    await axios.delete(`https://pf-elatam.onrender.com/delete/${userId}`);
     dispatch(deleteUserSuccess());
   } catch (error) {
     dispatch(deleteUserFailure(error.message));
@@ -107,11 +120,30 @@ export const deleteUser = (userId) => async (dispatch) => {
 export const updateUser = (userId, userData) => async (dispatch) => {
   try {
     dispatch(updateUserStart());
-    await axios.put(`http://localhost:8000/update/${userId}`, userData);
+    await axios.put(`https://pf-elatam.onrender.com/update/${userId}`, userData);
     dispatch(updateUserSuccess());
   } catch (error) {
     dispatch(updateUserFailure(error.message));
   }
 };
 
-export default userSlice.reducer;
+export const getGeocoding = (addressId, countryName) => (dispatch) => {
+  axios
+      .get(`http://localhost:8000/users/address/${countryName}/${addressId}`)
+      .then((response) => {
+        dispatch(getUserAddress(response.data))
+      })
+      .catch((error) => {
+        throw error;
+      });
+};
+
+export const getUsers = () => async (dispatch) => {
+  await axios.get('https://pf-elatam.onrender.com/users')
+  .then((response) => {
+    dispatch(response.data)
+  })
+  .catch((error) => console.log(error))
+  console.log(response.data);
+}
+

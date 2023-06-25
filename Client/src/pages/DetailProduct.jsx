@@ -7,7 +7,9 @@ import styles from "../pages/Components/Styles/ProductDetail.module.css";
 import Link from "next/link";
 import NavBar from "./Components/NavBar";
 import ReviewRating from "./Components/ReviewRating";
-import { addProduct } from "@/redux/slice/cartSlice";
+/* import { addProduct, addProductNoRepeat } from "@/redux/slice/cartSlice"; */
+import { useContext } from "react";
+import { CartContext, CartProvider } from "./CartContext";
 
 const DetailProduct = () => {
   const dispatch = useDispatch();
@@ -18,12 +20,12 @@ const DetailProduct = () => {
   const productDetail = useSelector((state) => state.products.detail);
   const hideMessage = useSelector((state) => state.products.hideProductMessage)
   const deletedMessage = useSelector((state) => state.products.deleteProductMessage)
-  const cart = useSelector(state => state.carts.cart)
   const [isVisible, setIsVisible] = useState(productDetail?.catalog_listing);
   const [showModal, setShowModal] = useState(false);
   const [showModalDeleted, setShowModalDeleted] = useState(false)
   const [modalHide, setModalHide] = useState(false);
   const [showModalAdded, setShowModalAdded] = useState(false)
+  const { addToCart } = useContext(CartContext);
 
   let attributes = productDetail.attributes;
   let renderedAttributes
@@ -41,24 +43,6 @@ const DetailProduct = () => {
   else {
     renderedAttributes = attributes
   }
-
-  useEffect(() => {
-    const savedCart = JSON.parse(localStorage.getItem("cart"));
-    if (savedCart && savedCart.length > 0 && cart.length === 0) {
-      dispatch(addProduct(savedCart));
-    } else if (!savedCart || savedCart.length === 0) {
-      localStorage.clear();
-    }
-  }, []);
-
-  useEffect(() => {
-    if (cart.length > 0) {
-      localStorage.setItem("cart", JSON.stringify(cart));
-    } else {
-      localStorage.clear();
-    }
-  }, [cart, productDetail]);
-
 
   useEffect(() => {
     setIsVisible(productDetail?.catalog_listing)
@@ -79,11 +63,10 @@ const DetailProduct = () => {
     await dispatch(deleteProduct(id));
     setShowModal(false);
     setShowModalDeleted(true)
-
   };
 
   const handlerAddCart = () => {
-    dispatch(addProduct(productDetail))
+    addToCart(productDetail);
     setShowModalAdded(true)
   };
 
@@ -106,7 +89,7 @@ const DetailProduct = () => {
   }
 
   const handlerEdit = async () => {
-    router.push(`/EditProduct?id=${id}`)
+    router.push(`/EditProduct?countryId=${countryId}&categories=${categories}&id=${id}`)
   }
 
   let admin = true // HARIAMOS LA VALIDACION DEL TOKEN 
@@ -234,7 +217,9 @@ const DetailProduct = () => {
 const DetailProductWithProvider = () => {
   return (
     <Providers>
-      <DetailProduct />
+      <CartProvider>
+        <DetailProduct />
+      </CartProvider>
     </Providers>
   );
 };

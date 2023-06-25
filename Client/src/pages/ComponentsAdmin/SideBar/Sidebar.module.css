@@ -12,12 +12,17 @@
   @media (max-width: 768px) {
     .close {
       width: max-content;
-      backdrop-filter: blur(5px);
       height: 100%;
     }
-  
+    
     .open {
-      width: max-content;
+      width: 50%;
+      height: 100%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(5px);
     }
   
     .text {
@@ -25,6 +30,7 @@
       font-weight: bold;
     }
   }
+  
   
   @media (min-width: 769px) and (max-width: 1024px) {
     .sidebar {

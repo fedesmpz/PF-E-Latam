@@ -8,7 +8,11 @@ const { updateUserHandler } = require("../Handlers/put/updateUser")
 const { googleLoginHandler, googleExist } = require("../Handlers/post/googleLogin")
 const { loginHandler } = require("../Handlers/post/loginHandler")
 const { getToken, validateToken } = require("../Handlers/post/tokenHandler")
+const { getUserAddressHandler } = require("../Handlers/get/getUserAddress")
+const { getAllUsersHandler } = require("../Handlers/get/getAllUsers")
 
+router.get("/address/:countryName/:addressId", getUserAddressHandler)
+router.get("/", getAllUsersHandler)
 router.get("/:id", getUserByIdHandler)
 router.post("/register",registerHandler)
 

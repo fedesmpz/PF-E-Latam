@@ -3,6 +3,7 @@ const {Cart} = require("../../db.js");
 const { conn } = require("../../db.js");
 const { getAuth,
     createUserWithEmailAndPassword,
+    sendEmailVerification,
     signInWithEmailAndPassword,
     GoogleAuthProvider } = require ("firebase/auth");
 const { auth } = require('../../Utilities/firebase.js')
@@ -15,6 +16,7 @@ const registerUser= async(name, surname, email, password, country, city, address
     
     try {
         const userCredentials = await createUserWithEmailAndPassword(auth, email, password)
+        sendEmailVerification(userCredentials.user)
         const userRegistered = await User.findOne({
             where:{ email:email}
         });
