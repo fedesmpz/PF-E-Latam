@@ -34,13 +34,13 @@ const Sidebar = () => {
                 </a>
               </li>
         <li className={styles['li']}>
-          <a className={styles['a']} href="#">
+          <a className={styles['a']} href="/DashboardAdmin/Products">
             <FaShoppingBag className={styles['icon']} />
             <span className={`${styles['text']} ${isOpen ? '' : styles.hidden}`}>Productos</span>
           </a>
         </li>
         <li className={styles['li']}>
-          <a className={styles['a']} href="#">
+          <a className={styles['a']} href="/DashboardAdmin/Users">
             <FaUsers className={styles['icon']} />
             <span className={`${styles['text']} ${isOpen ? '' : styles.hidden}`}>Usuarios</span>
           </a>
