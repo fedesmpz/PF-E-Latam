@@ -1,4 +1,6 @@
+'use client'
 import React, { useRef, useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import Providers from "@/redux/provider/Provider";
@@ -6,10 +8,14 @@ import styles from './styles/Purchase/Purchase.module.css';
 import NavBar from './Components/NavBar';
 import SubFooter from './Components/SubFooter';
 import FooterLanding from './Components/FooterLanding';
+import { getGeocoding } from '../redux/slice/userSlice';
 import mapboxgl from 'mapbox-gl';
 mapboxgl.accessToken = process.env.MAPBOX_ACCESS_TOKEN
 
 const PaymentComponent = () => {
+
+  const dispatch = useDispatch()
+
   const mapContainer = useRef(null);
   const map = useRef(null);
   const [lng, setLng] = useState(-70.9);
@@ -23,11 +29,16 @@ const PaymentComponent = () => {
     city: "",
     country: ""
   });
+
+  const userAddress = useSelector(state => state.user.userAddress)
+  console.log(userAddress)
   
   const [paymentForm, setPaymentForm] = useState({
     name: "",
 
   })
+
+  const purchaseConfirmation = JSON.parse(localStorage?.getItem("cart"));
 
   const handleTabChange = (index) => {
     setCurrentTab(index);
@@ -46,6 +57,19 @@ const PaymentComponent = () => {
       setCurrentTab(currentTab - 1);
     }
   };
+
+  const handleDeliveryChange = (event) => {
+     const prop = event.target.name;
+     const value = event.target.value;
+     setDeliveryForm({
+      ...deliveryForm,
+      [prop]: value
+     })
+  }
+
+  const handleAddressSearch = () => {
+    dispatch(getGeocoding(deliveryForm.address, deliveryForm.country))
+  }
 
   const handleDeliverySubmit = (event) => {
     event.preventDefault();
@@ -83,7 +107,17 @@ return (
 
       <TabPanel className={styles.tabPanel}>
         <h2>Confirmar compra</h2>
-        <p>Aca iria el carrito con todos los productos cargados</p>
+        {
+          purchaseConfirmation && purchaseConfirmation.map((product) => {
+            return (
+              <div>
+                <h2>{product.title}</h2>
+                <h3>$ {product.currency_id} {product.original_price}</h3>
+                <p>{product.quantity}</p>
+              </div>
+            )
+          })
+        }
         <div className={styles.buttonsContainer}>
           <button className={styles.continueButton} onClick={handleContinue}>
             Continuar
@@ -102,9 +136,10 @@ return (
                 id="address"
                 name="address"
                 value={deliveryForm.address}
-                onChange={setDeliveryForm}
+                onChange={handleDeliveryChange}
               />
             </div>
+            <button onClick={handleAddressSearch}>Buscar</button>
   
             <div>
               <label htmlFor="postalCode" className={styles.label}>Postal Code:</label>
@@ -113,7 +148,7 @@ return (
                 id="postalCode"
                 name="postalCode"
                 value={deliveryForm.postalCode}
-                onChange={setDeliveryForm}
+                onChange={handleDeliveryChange}
               />
             </div>
     
@@ -122,8 +157,9 @@ return (
               <input
                 type="text"
                 id="city"
+                name="city"
                 value={deliveryForm.city}
-                onChange={setDeliveryForm}
+                onChange={handleDeliveryChange}
               />
             </div>
     
@@ -132,8 +168,9 @@ return (
               <input
                 type="text"
                 id="country"
+                name="country"
                 value={deliveryForm.country}
-                onChange={setDeliveryForm}
+                onChange={handleDeliveryChange}
               />
             </div>
             {/* <div>

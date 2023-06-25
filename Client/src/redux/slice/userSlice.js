@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
+
 const initialState = {
   users: [],
   loading: false,
@@ -8,9 +9,16 @@ const initialState = {
   userData: {}
 };
 
+
 export const userSlice = createSlice({
   name: 'user',
-  initialState,
+  initialState: {
+    users: [],
+    loading: false,
+    error: null,
+    userData: {},
+    userAddress: []
+  },
   reducers: {
     getUsersStart(state, action) {
       state.userData = action;
@@ -56,6 +64,9 @@ export const userSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
+    getUserAddress: (state, action) => {
+      state.userAddress = action.payload
+    }
   },
 });
 
@@ -72,6 +83,7 @@ export const {
   updateUserStart,
   updateUserSuccess,
   updateUserFailure,
+  getUserAddress
 } = userSlice.actions;
 
 export default userSlice.reducer;
@@ -114,4 +126,24 @@ export const updateUser = (userId, userData) => async (dispatch) => {
     dispatch(updateUserFailure(error.message));
   }
 };
+
+export const getGeocoding = (addressId, countryName) => (dispatch) => {
+  axios
+      .get(`http://localhost:8000/users/address/${countryName}/${addressId}`)
+      .then((response) => {
+        dispatch(getUserAddress(response.data))
+      })
+      .catch((error) => {
+        throw error;
+      });
+};
+
+export const getUsers = () => async (dispatch) => {
+  await axios.get('http://localhost:8000/users')
+  .then((response) => {
+    dispatch(response.data)
+  })
+  .catch((error) => console.log(error))
+  console.log(response.data);
+}
 

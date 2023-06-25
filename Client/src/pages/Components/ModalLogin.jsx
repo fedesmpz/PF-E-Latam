@@ -90,7 +90,7 @@ function Example() {
       //no existe en nnuestra DB, hay que verificar el usuario
       sendEmailVerification(result.user)
       //RESOLVER TEMA PAIS
-      setPopUp(true)
+      // setPopUp(true)
       const data = { name : result.user.displayName || 'AAAA',
                      email: result.user.email,
                      country: 'Argentina'
