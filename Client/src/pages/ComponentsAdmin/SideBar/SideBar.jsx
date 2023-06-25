@@ -11,7 +11,7 @@ const Sidebar = () => {
 
   return (
     <div
-    className={`${styles.sidebar} ${isOpen ? styles.open : ''}`}
+    className={`${styles.sidebar} ${isOpen ? styles.open : styles.close}`}
     >
     <button className={styles['toggle-btn']} onClick={toggleSidebar}>
       <span></span>
