@@ -9,7 +9,7 @@ import Head from "next/head";
 import Providers from "@/redux/provider/Provider"
 import NavBar from "./Components/NavBar"
 import SubFooter from "./Components/SubFooter"
-import style from "./Styles/CreateProduct/CreateProduct.module.css"
+import style from "./styles/CreateProduct/CreateProduct.module.css"
 
 const CreateProduct = () => {
     

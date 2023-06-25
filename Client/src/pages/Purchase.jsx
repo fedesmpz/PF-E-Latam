@@ -8,19 +8,13 @@ import styles from './styles/Purchase/Purchase.module.css';
 import NavBar from './Components/NavBar';
 import SubFooter from './Components/SubFooter';
 import FooterLanding from './Components/FooterLanding';
-import { getGeocoding } from '../redux/slice/userSlice';
+import { getGeocoding, cleanUserAddress } from '../redux/slice/userSlice';
 import mapboxgl from 'mapbox-gl';
 mapboxgl.accessToken = process.env.MAPBOX_ACCESS_TOKEN
 
 const PaymentComponent = () => {
 
   const dispatch = useDispatch()
-
-  const mapContainer = useRef(null);
-  const map = useRef(null);
-  const [lng, setLng] = useState(-70.9);
-  const [lat, setLat] = useState(42.35);
-  const [zoom, setZoom] = useState(9);
 
   const [currentTab, setCurrentTab] = useState(0);
   const [deliveryForm, setDeliveryForm] = useState({
@@ -30,8 +24,11 @@ const PaymentComponent = () => {
     country: ""
   });
 
-  const userAddress = useSelector(state => state.user.userAddress)
-  console.log(userAddress)
+  const matchingAddress = useSelector(state => state.user.userAddress)
+
+  useEffect(() => {
+    // return () => dispatch(cleanUserAddress())
+  }, [matchingAddress])
   
   const [paymentForm, setPaymentForm] = useState({
     name: "",
@@ -67,8 +64,10 @@ const PaymentComponent = () => {
      })
   }
 
-  const handleAddressSearch = () => {
-    dispatch(getGeocoding(deliveryForm.address, deliveryForm.country))
+  const handleAddressSearch = (event) => {
+    event.preventDefault()
+    dispatch(getGeocoding(deliveryForm.address, deliveryForm.country));
+    handleContinue();
   }
 
   const handleDeliverySubmit = (event) => {
@@ -83,16 +82,6 @@ const PaymentComponent = () => {
     // Handle form submission or validation here
   }
 
-  // useEffect(() => {
-  //   if (map?.current) return; // initialize map only once
-  //   map.current = new mapboxgl.Map({
-  //     container:  mapContainer.current,
-  //     style: 'mapbox://styles/mapbox/streets-v12',
-  //     center: [lng, lat],
-  //     zoom: zoom
-  //   });
-  // });
-
 return (
   <div className={styles.componentContainer}>
     <NavBar></NavBar>
@@ -101,6 +90,7 @@ return (
       <TabList>
         <Tab className={styles.tab}>Confirmar compra</Tab>
         <Tab className={styles.tab}>Forma de entrega</Tab>
+        <Tab className={styles.tab}>Confirmar direccion de entrega</Tab>
         <Tab className={styles.tab}>Forma de pago</Tab>
         <Tab className={styles.tab}>Confirmacion de pago</Tab>
       </TabList>
@@ -139,10 +129,9 @@ return (
                 onChange={handleDeliveryChange}
               />
             </div>
-            <button onClick={handleAddressSearch}>Buscar</button>
-  
+                     
             <div>
-              <label htmlFor="postalCode" className={styles.label}>Postal Code:</label>
+              <label htmlFor="postalCode" className={styles.label}>Postal Code</label>
               <input
                 type="text"
                 id="postalCode"
@@ -153,7 +142,7 @@ return (
             </div>
     
             <div>
-              <label htmlFor="city" className={styles.label}>City:</label>
+              <label htmlFor="city" className={styles.label}>City</label>
               <input
                 type="text"
                 id="city"
@@ -164,7 +153,7 @@ return (
             </div>
     
             <div>
-              <label htmlFor="country" className={styles.label}>Country:</label>
+              <label htmlFor="country" className={styles.label}>Country</label>
               <input
                 type="text"
                 id="country"
@@ -180,18 +169,41 @@ return (
               <button className={styles.backButton} onClick={handleBack}>
                 Atras
               </button>
-              <button type="submit" className={styles.continueButton}>Guardar y Continuar</button>
-            </div>
+              <button  className={styles.continueButton} onClick={handleAddressSearch}>Buscar</button>
+              {/* <button type="submit" className={styles.continueButton}>Guardar y Continuar</button> */}
+            </div>   
           </form>
         </div>
       </TabPanel>
 
       <TabPanel className={styles.tabPanel}>
-        <h2>Forma de pago</h2>
-        <p>@Demian conecta Stripe ACA</p>
-        <p>Aca iria un componente de Stripe</p>
+        <h2>Confirmar direccion de entrega</h2>
         <div className={styles.container}>
-          <form onSubmit={handlePaymentSubmit}>
+          <form>
+            <div>
+                  <label htmlFor="addressOptions" className={styles.label}>Select address</label>
+                  <select 
+                    name="address"
+                    value={deliveryForm.address}
+                    onChange={handleDeliveryChange}>
+                    {matchingAddress.length && matchingAddress.map((add) => {
+                        return (
+                          <option value={add.place_name}>{add.place_name}</option>
+                        )
+                      })
+                    }
+                  </select>
+            </div>
+            <div className={styles.buttonsContainer}>
+              <button className={styles.backButton} onClick={handleBack}>
+                Atras
+              </button>
+              <button  className={styles.continueButton} onClick={handleContinue} disabled >Guardar y Continuar</button>
+              {/* <button type="submit" className={styles.continueButton}>Guardar y Continuar</button> */}
+            </div>   
+          </form>
+
+          {/* <form onSubmit={handlePaymentSubmit}>
             <div>
               <label htmlFor="name" className={styles.label}>Titular:</label>
               <input
@@ -222,10 +234,23 @@ return (
               </button>
               <button type="submit" className={styles.continueButton}>Continuar</button>
             </div>
-          </form>
+          </form> */}
         </div>
 
         
+      </TabPanel>
+
+      <TabPanel className={styles.tabPanel}>
+        <h2>Forma de pago</h2>
+        <p>Aca un resumen q carge toda la data recolectada, carrito envio y pago. Que salte un modal que diga: Confirmar pago</p>
+        <div className={styles.buttonsContainer}>
+          <button className={styles.backButton} onClick={handleBack}>
+            Atras
+          </button>
+          <button className={styles.continueButton} onClick={handleContinue}>
+            Confirmar pago
+          </button>
+        </div>
       </TabPanel>
 
       <TabPanel className={styles.tabPanel}>

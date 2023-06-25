@@ -8,7 +8,7 @@ import Link from "next/link";
 import validation from "../utils/formValidation";
 import NavBar from "./Components/NavBar"
 import SubFooter from "./Components/SubFooter";
-import style from "./Styles/EditProduct/EditProduct.module.css"
+import style from "./styles/EditProduct/EditProduct.module.css"
 
 const EditProduct = () => {
     const router = useRouter();
