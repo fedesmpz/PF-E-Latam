@@ -1,61 +1,108 @@
-'use client'
-import Providers from "@/redux/provider/Provider";
-import { useEffect, useState } from "react"
-import { useDispatch, useSelector } from "react-redux";
-import style from "./styles/Cart/Cart.module.css"
-import { removeProduct } from "@/redux/slice/cartSlice";
-import { useRouter } from "next/router"
-
+import { useContext, useState, useEffect, useCallback } from "react";
+import style from "./styles/Cart/Cart.module.css";
+import { CartContext, CartProvider } from "./CartContext";
+import { useRouter } from "next/router";
 
 const Cart = () => {
-
+    const { cart, removeFromCart } = useContext(CartContext);
+    const [productCounts, setProductCounts] = useState({});
+    const [cartIsEmpty, setCartIsEmpty] = useState(true);
     const router = useRouter();
-    const dispatch = useDispatch();
-    /* const cart = useSelector(state => state.carts.cart) */
-    const [cart, setCart] = useState([])
+
+    const loadCartData = useCallback(() => {
+        const savedCart = JSON.parse(localStorage.getItem("cart"));
+        if (savedCart && savedCart.length > 0) {
+            setCartIsEmpty(false);
+        }
+    }, []);
 
     useEffect(() => {
-        const cartLS = JSON.parse(localStorage.getItem("cart"))
-        setCart(cartLS)
-        console.log(cart);
-    }, [])
+        loadCartData();
+    }, [loadCartData]);
 
-    const handleEliminate = (id) => {
-        const updatedCart = cart.filter((product) => product.id !== id);
-        setCart(updatedCart);
-        localStorage.setItem("cart", JSON.stringify(updatedCart));
-        dispatch(removeProduct(id));
-        router.push("/Cart");
+    useEffect(() => {
+        if (!cartIsEmpty) {
+            localStorage.setItem("cart", JSON.stringify(cart));
+        }
+    }, [cart, cartIsEmpty]);
+
+    const handleRemove = (productId) => {
+        removeFromCart(productId);
     };
 
+    const handlerPurchase = async () => {
+        router.push("/Purchase");
+    };
+
+    const handleIncrement = (productId) => {
+        setProductCounts((prevCounts) => ({
+            ...prevCounts,
+            [productId]: (prevCounts[productId] || 0) + 1
+        }));
+    };
+
+    const handleDecrement = (productId) => {
+        setProductCounts((prevCounts) => {
+            const newCounts = {
+                ...prevCounts,
+                [productId]: (prevCounts[productId] || 0) - 1
+            };
+            if (newCounts[productId] <= 0) {
+                delete newCounts[productId];
+            }
+            return newCounts;
+        });
+    };
 
     return (
         <div className={style.cartContainer}>
             <div className={style.cartProducts}>
-                {cart?.map((product) => {
-                    return (
-                        product?.title && (
-                            <div className={style.productContainer} key={product.id}>
-                                <div className={style.productImage}>
-                                    <img src={product.thumbnail} alt="product_image" />
-                                </div>
-                                <div className={style.productInfo}>
-                                    <h1 className={style.productTitle}>{product.title}</h1>
-                                    <p className={style.productPrice}>${product.original_price}</p>
-                                </div>
-                                <div className={style.productActions}>
-                                    <button
-                                        className={style.deleteButton}
-                                        onClick={() => handleEliminate(product.id)}
-                                    >
-                                        Eliminar
-                                    </button>
-                                    <button className={style.buyButton}>Comprar ahora</button>
-                                </div>
+                {cart.map((product) => (
+                    <div className={style.productContainer} key={product.id}>
+                        <div className={style.productImage}>
+                            <img src={product.thumbnail} alt="product_image" />
+                        </div>
+                        <div className={style.productInfo}>
+                            <h1 className={style.productTitle}>{product.title}</h1>
+                            <p className={style.productPrice}>${product.original_price}</p>
+                            {product.shipping ? (
+                                <p>
+                                    Envío: <strong>gratis</strong>
+                                </p>
+                            ) : (
+                                <p>
+                                    Envío: <strong>${product.currency_id}1500</strong>
+                                </p>
+                            )}
+                        </div>
+                        <div className={style.productActions}>
+                            <div className={style.quantityContainer}>
+                                <button
+                                    className={style.quantityButton}
+                                    onClick={() => handleDecrement(product.id)}
+                                >
+                                    -
+                                </button>
+                                <span className={style.quantity}>
+                                    {productCounts[product.id] || 1}
+                                </span>
+                                <button
+                                    className={style.quantityButton}
+                                    onClick={() => handleIncrement(product.id)}
+                                >
+                                    +
+                                </button>
                             </div>
-                        )
-                    );
-                })}
+                            <button
+                                className={style.deleteButton}
+                                onClick={() => handleRemove(product.id)}
+                            >
+                                Eliminar
+                            </button>
+                            <button className={style.buyButton}>Comprar ahora</button>
+                        </div>
+                    </div>
+                ))}
             </div>
 
             <div className={style.resumeContainer}>
@@ -68,7 +115,12 @@ const Cart = () => {
                         <span className={style.resumePrice}>precio</span>
                     </div>
                     <div className={style.resumeActions}>
-                        <button className={style.continueButton}>Continuar compra</button>
+                        <button
+                            className={style.continueButton}
+                            onClick={handlerPurchase}
+                        >
+                            Continuar compra
+                        </button>
                     </div>
                 </div>
             </div>
@@ -76,13 +128,12 @@ const Cart = () => {
     );
 };
 
-const CartComponent = () => {
+const CartWithProvider = () => {
     return (
-        <Providers>
+        <CartProvider>
             <Cart />
-        </Providers>
-    )
+        </CartProvider>
+    );
+};
 
-}
-
-export default CartComponent;
+export default CartWithProvider;
