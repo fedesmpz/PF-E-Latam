@@ -2,7 +2,7 @@
 
 const validateToken = async (user) =>{
     const tokenString = localStorage.getItem("token");
-    const response = await axios.post('http://localhost:8000/users/validateToken', user, 
+    const response = await axios.post('https://pf-elatam.onrender.com/users/validateToken', user, 
     {headers: {
         authorization: tokenString,
     }})
