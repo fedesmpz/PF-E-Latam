@@ -128,3 +128,13 @@ export const getGeocoding = (addressId, countryName) => (dispatch) => {
         throw error;
       });
 };
+
+export const getUsers = () => async (dispatch) => {
+  await axios.get('http://localhost:8000/users')
+  .then((response) => {
+    dispatch(response.data)
+  })
+  .catch((error) => console.log(error))
+  console.log(response.data);
+}
+
