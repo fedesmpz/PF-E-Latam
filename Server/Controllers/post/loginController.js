@@ -23,6 +23,7 @@ const loginController= async( email, password )=>{
                 email: emailCredential,
                 access: true,
                 token: token,
+                verified: userCredentials.user.emailVerified,
                 isAdmin: adminCredential, 
                 isSuperAdmin: superAdminCredential
             };
