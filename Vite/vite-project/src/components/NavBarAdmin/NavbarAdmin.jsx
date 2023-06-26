@@ -18,16 +18,16 @@ const NavbarPage = () => {
 
      
       
-      <Link className={Style.logo} href="/">
+      <Link className={Style.logo} to="/">
           <div className={Style.logoContainer}>
-            <Image
+            <img
               className={Style.logoE}
               src="/assets/e-world.png"
               width={100}
               height={100}
               alt="Animación1"
             />
-            <Image
+            <img
               className={Style.logoLam}
               src="/assets/latam-store.png"
               width={100}

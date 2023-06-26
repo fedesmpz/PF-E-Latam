@@ -19,7 +19,7 @@ const NavbarPage = () => {
   return (
     <header className={styles.header}>
       <nav className={styles.navv}>
-        <Link className={Style.logo} href="/">
+        <Link className={Style.logo} to="/">
           <div className={Style.logoContainer}>
             <img
               className={Style.logoE}
