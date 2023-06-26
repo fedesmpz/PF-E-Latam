@@ -10,7 +10,7 @@ import SubFooter from "../SubFooter/SubFooter"
 import style from "./CreateProduct.module.css"
 
 const CreateProduct = () => {
-    
+
     const dispatch = useDispatch();
     const [isFormValid, setIsFormValid] = useState(false)
     let [errors, setErrors] = useState({})
@@ -37,7 +37,7 @@ const CreateProduct = () => {
         const isValid = ((Object.keys(errors).length === Object.keys(newProduct).length - 4) || (Object.keys(errors).length === Object.keys(newProduct).length - 3) || (Object.keys(errors).length === Object.keys(newProduct).length - 2)) && Object.values(errors).every((error) => error === "");
         setIsFormValid(isValid);
     }, [errors, newProduct]);
-    
+
     const handleCloseMessage = () => {
         dispatch(setNewProductMessage(""))
     };
@@ -67,7 +67,7 @@ const CreateProduct = () => {
 
     const transformFile = (file) => {
         const reader = new FileReader()
-        if(file) {
+        if (file) {
             reader.readAsDataURL(file)
             reader.onloadend = () => {
                 setProductThumbnail(reader.result);
@@ -136,16 +136,16 @@ const CreateProduct = () => {
                     </button>
                 </Link>
                 <div>
-                {message && (
-                    <div className={style.successMessageContainer}>
-                    <p className={style.successMessage}>{message}<button onClick={handleCloseMessage} className={style.closeButton}>
-                        X
-                    </button></p>
-                    </div>
-                )}
+                    {message && (
+                        <div className={style.successMessageContainer}>
+                            <p className={style.successMessage}>{message}<button onClick={handleCloseMessage} className={style.closeButton}>
+                                X
+                            </button></p>
+                        </div>
+                    )}
                 </div>
             </div>
-           
+
             <div className={style.containerForm}>
                 <form encType="multipart/form-data" onSubmit={handleSubmit}>
 
@@ -195,7 +195,7 @@ const CreateProduct = () => {
                     <div>
                         <label htmlFor="sale_price" className={style.label}>Quiere colocar este producto en oferta?</label>
                         <select name="sale_price" id="sale_price" value={newProduct.sale_price} onChange={handleChange}>
-                            <option value="">---</option>
+                            <option value="-">---</option>
                             <option value={true}>Sí</option>
                             <option value={false}>No</option>
                         </select>
@@ -213,7 +213,7 @@ const CreateProduct = () => {
                     <div>
                         <label htmlFor="shipping" className={style.label}>Este producto posee envío gratis?</label>
                         <select name="shipping" id="shipping" value={newProduct.shipping} onChange={handleChange}>
-                            <option value="">---</option>
+                            <option value="-">---</option>
                             <option value={true} >Sí</option>
                             <option value={false} >No</option>
                         </select>
@@ -223,7 +223,7 @@ const CreateProduct = () => {
                     <div>
                         <label htmlFor="categories" className={style.label}>Elija una categoría para el producto</label>
                         <select onChange={handleChange} name="categories" id="categories" className={style.selectField}>
-                            <option value="">---</option>
+                            <option value="-">---</option>
                             <option value="computacion"> Computación </option>
                             <option value="celulares"> Celulares </option>
                             <option value="electronica"> Electrónica </option>
@@ -247,32 +247,32 @@ const CreateProduct = () => {
                 <div className={style.secondColumn}>
                     <h2 className={style.PreviewofProduct}>PREVISUALIZACION DEL PRODUCTO</h2>
                     <div className={style.firstRow}>
-                    <div className={style.thumbnailContainer}>
-                    {!productThumbnail && 
-                    <p className={style.previewTitleThumbnail}>La vista previa de la imagen aparecera aqui</p>}
-                    {productThumbnail && <img className={style.thumbnail} src={productThumbnail} alt="product_thumbnail"></img>}
-                    </div>
-                    <div>
-                        <h2 className={style.previewValue}>{newProduct.title ? newProduct.title : `Titulo del producto`}</h2>
-                        <h3 className={style.previewValue}>{newProduct.official_store_name ? newProduct.official_store_name : `Marca del producto`}</h3>
-                        <span className={style.previewLines}><h3 className={style.previewLabel}>Pais</h3><h3 className={style.previewValue}>{newProduct.country}</h3></span>
-                        <span className={style.previewLines}><h3 className={style.previewLabel}>Precio</h3>
-                        <h3 className={style.previewValue}>$ {newProduct.currency_id} {newProduct.original_price}</h3></span>
-                        <span className={style.previewLines}><h3 className={style.previewLabel}>Stock disponible</h3><h3 className={style.previewValue}> {newProduct.available_quantity}</h3></span>
-                    </div>
+                        <div className={style.thumbnailContainer}>
+                            {!productThumbnail &&
+                                <p className={style.previewTitleThumbnail}>La vista previa de la imagen aparecera aqui</p>}
+                            {productThumbnail && <img className={style.thumbnail} src={productThumbnail} alt="product_thumbnail"></img>}
+                        </div>
+                        <div>
+                            <h2 className={style.previewValue}>{newProduct.title ? newProduct.title : `Titulo del producto`}</h2>
+                            <h3 className={style.previewValue}>{newProduct.official_store_name ? newProduct.official_store_name : `Marca del producto`}</h3>
+                            <span className={style.previewLines}><h3 className={style.previewLabel}>Pais</h3><h3 className={style.previewValue}>{newProduct.country}</h3></span>
+                            <span className={style.previewLines}><h3 className={style.previewLabel}>Precio</h3>
+                                <h3 className={style.previewValue}>$ {newProduct.currency_id} {newProduct.original_price}</h3></span>
+                            <span className={style.previewLines}><h3 className={style.previewLabel}>Stock disponible</h3><h3 className={style.previewValue}> {newProduct.available_quantity}</h3></span>
+                        </div>
                     </div>
 
                     <div className={style.previewData}>
                         <span className={style.previewLines}><h3 className={style.previewLabel}>Producto en oferta?</h3>
-                        <p className={style.previewValue}>{newProduct.sale_price ? newProduct.sale_price : `-`}</p></span>
+                            <p className={style.previewValue}>{newProduct.sale_price ? newProduct.sale_price : `-`}</p></span>
                         <span className={style.previewLines}> <h3 className={style.previewLabel}>Precio de oferta</h3>
-                        <p className={style.previewValue}>{newProduct.price}</p></span>
+                            <p className={style.previewValue}>{newProduct.price}</p></span>
                         <span className={style.previewLines}><h3 className={style.previewLabel}>Envio gratis</h3>
-                        <p className={style.previewValue}>{newProduct.shipping ? newProduct.shipping : `-`}</p></span>
+                            <p className={style.previewValue}>{newProduct.shipping ? newProduct.shipping : `-`}</p></span>
                         <span className={style.previewLines}><h3 className={style.previewLabel}>Categoria</h3>
-                        <h3 className={style.previewValue}>{newProduct.categories ? newProduct.categories : `-` }</h3></span>  
+                            <h3 className={style.previewValue}>{newProduct.categories ? newProduct.categories : `-`}</h3></span>
                         <h3 className={style.previewLabel}>Descripcion</h3>
-                        <p className={style.previewValue}>{newProduct.attributes ? newProduct.attributes : `Describe el producto brindando información clara y detallada sobre el artículo para ayudar a los clientes a comprender sus características, beneficios y especificaciones; tambien intenta incluir su propósito, función y uso. Enumera las características específicas del producto, como tamaño, dimensiones, materiales, color, capacidad, peso, etc. Si el producto tiene características técnicas, como velocidad, capacidad de almacenamiento o conectividad, asegúrate de incluirlas aquí.`}</p>                  
+                        <p className={style.previewValue}>{newProduct.attributes ? newProduct.attributes : `Describe el producto brindando información clara y detallada sobre el artículo para ayudar a los clientes a comprender sus características, beneficios y especificaciones; tambien intenta incluir su propósito, función y uso. Enumera las características específicas del producto, como tamaño, dimensiones, materiales, color, capacidad, peso, etc. Si el producto tiene características técnicas, como velocidad, capacidad de almacenamiento o conectividad, asegúrate de incluirlas aquí.`}</p>
                     </div>
                 </div>
 

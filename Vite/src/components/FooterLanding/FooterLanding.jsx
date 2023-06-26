@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import styles from "../FooterLanding/FooterLanding.module.css";
+import styles from "./FooterLanding.module.css";
 import ModalComoComprar from "../ModalComoComprar/ModalComoComprar"
 import ModalInfoSends from "../ModalInfoSends/ModalInfoSends"
 import ModalPolitics from "../ModalPolitics/ModalPolitics";
@@ -16,14 +16,14 @@ const FooterLanding = () => {
                             <div className={styles2.logoContainer}>
                                 <img
                                     className={styles2.logoE}
-                                    src="/assets/e-world.png"
+                                    src="assets/e-world.png"
                                     width={100}
                                     height={100}
                                     alt="Animación1"
                                 />
                                 <img
                                     className={styles2.logoLam}
-                                    src="/assets/latam-store.png"
+                                    src="assets/latam-store.png"
                                     width={100}
                                     height={100}
                                     alt="Animación2"

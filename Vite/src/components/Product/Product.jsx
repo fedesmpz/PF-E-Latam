@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import Styles from "./Product.module.css"
 
-const Product = ({ id, title, thumbnail, original_price, currency_id, price, sale_price, categories,catalog_listing }) => {
+const Product = ({ id, title, thumbnail, original_price, currency_id, price, sale_price, categories, catalog_listing }) => {
 
     let countryId;
 
@@ -23,8 +23,8 @@ const Product = ({ id, title, thumbnail, original_price, currency_id, price, sal
     };
     return (
         <div>
-           <Link className={Styles.link} to={`/DetailProduct?countryId=${countryId}&categories=${categories}&id=${id}`}>
-           <div className={`${!catalog_listing ? Styles.unlistedCard : Styles.card}`}>
+            <Link className={Styles.link} to={`/DetailProduct?countryId=${countryId}&categories=${categories}&id=${id}`}>
+                <div className={`${!catalog_listing ? Styles.unlistedCard : Styles.card}`}>
                     <img src={thumbnail} alt={title} />
                     <div className={Styles.cardDetails}>
                         <h2 className={`${Styles.title} ${Styles.thinTitle}`}>{shortenTitle(title)}</h2>
