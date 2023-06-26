@@ -4,7 +4,7 @@ import CardGroup from 'react-bootstrap/CardGroup';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Styles from "./Styles/CarouselProducts.module.css"
+import Styles from "../CarouselProducts/CarouselProducts.module.css"
 
 const CommentsUsers = () => {
   return (

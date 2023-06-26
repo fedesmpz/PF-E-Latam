@@ -1,13 +1,13 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
-import NavbarPage from "./Components/NavbarPage"
-import CarouselProducts from "./Components/CarouselProducts"
-import CarouselHero from "./Components/CarouselImg"
-import FooterLanding from "./Components/FooterLanding"
-import CommentsUsers from "./Components/CommentsUsers"
-import styles from "./styles/Landing/Landing.module.css"
-import ModalSignin from "./Components/ModalSingIn"
-import LoaderLanding from "./Components/LoaderLanding"
+import NavbarPage from "../NavBarPage/NavbarPage"
+import CarouselProducts from "../CarouselProducts/CarouselProducts"
+import CarouselHero from "../CarouselImg/CarouselImg"
+import FooterLanding from "../FooterLanding/FooterLanding"
+import CommentsUsers from "../CommentsUsers/CommentsUsers"
+import styles from "../Landing/Landing.module.css"
+// import ModalSignin from "../ModalSingIn/ModalSingIn"
+import LoaderLanding from "../LoaderLanding/LoaderLanding"
 
 const Landing = () => {
   const [isLoading, setIsLoading] = useState(true);
