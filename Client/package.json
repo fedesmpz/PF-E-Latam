@@ -17,7 +17,6 @@
     "chart.js": "^4.3.0",
     "classnames": "^2.3.2",
     "eslint": "8.42.0",
-    "eslint-config-next": "13.4.5",
     "faker": "^5.5.3",
     "firebase": "^9.22.2",
     "firebase-admin": "^11.9.0",
@@ -25,6 +24,7 @@
     "flag-icon-css": "^4.1.7",
     "mapbox-gl": "^2.15.0",
     "next": "13.4.5",
+    "node-fetch": "^3.3.1",
     "postcss": "^8.4.24",
     "react": "18.2.0",
     "react-bootstrap": "^2.7.4",
@@ -42,6 +42,7 @@
     "tailwindcss-animated": "^1.0.1"
   },
   "devDependencies": {
-    "@types/bootstrap": "^5.2.6"
+    "@types/bootstrap": "^5.2.6",
+    "eslint-config-next": "^13.4.7"
   }
 }
