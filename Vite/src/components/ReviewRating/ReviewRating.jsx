@@ -1,15 +1,16 @@
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useParams } from 'react-router-dom';
-import { cleanDetailReviews, postReview,getAllReviewsForProduct,deleteReview} from '../../redux/slice/ratingReviewSlice';
+import { useLocation } from 'react-router-dom';
+import { cleanDetailReviews, postReview, getAllReviewsForProduct, deleteReview } from '../../redux/slice/ratingReviewSlice';
 import styles from "./ReviewAndRating.module.css"
 import 'starability/starability-css/starability-slot.css';
 
 const ReviewRating = () => {
   const dispatch = useDispatch();
   const reviews = useSelector((state) => state.reviews.reviews);
-  
-  const { id } = useParams()
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const id = searchParams.get('id');
   const productId = id;
   const [showModal, setShowModal] = useState(false);
   const [showModalDeleted, setShowModalDeleted] = useState(false)
@@ -84,11 +85,11 @@ const ReviewRating = () => {
     setShowModal(true);
   };
 
-  const handlerConfirm = async() => {
+  const handlerConfirm = async () => {
     await dispatch(deleteReview(deleteReviewId));
     setShowModal(false);
     setShowModalDeleted(true)
-  }; 
+  };
   const handlerCancel = async () => {
     setDeleteReviewId(null);
     setShowModal(false);
@@ -101,74 +102,74 @@ const ReviewRating = () => {
 
   return (
     <div className={styles.container}>
-       <div className={styles.container}>
-          <div className={styles.secondContainer}>
-    <h1>Valoración: {promedio}</h1>
+      <div className={styles.container}>
+        <div className={styles.secondContainer}>
+          <h1>Valoración: {promedio}</h1>
 
-      {reviews.map((review) => (
-        <div key={review.id}>
-          <h3 className={styles.puntaje}>Puntaje: {review.rating}</h3>
-          <p className={styles.parrafo}>{review.review_description}</p>
-          <button onClick={() => handlerDelete(review.id)}className={styles.buttonDelete}>Eliminar</button>
-        </div>
-      ))}
-        
-        {showModal && (
-        <div className={styles.modal}>
-          <div className={styles.modalContent}>
-            <h2>Confirmación de Eliminación</h2>
-            <p>¿Estás seguro de que quieres eliminar esta reseña?</p>
-            <div className={styles.modalButtons}>
-              <button onClick={ handlerConfirm}>Eliminar</button>
-              <button onClick={handlerCancel}>Cancelar</button>
+          {reviews.map((review) => (
+            <div key={review.id}>
+              <h3 className={styles.puntaje}>Puntaje: {review.rating}</h3>
+              <p className={styles.parrafo}>{review.review_description}</p>
+              <button onClick={() => handlerDelete(review.id)} className={styles.buttonDelete}>Eliminar</button>
             </div>
-          </div>
-        </div>
-      )}
-        { showModalDeleted && (
-                <div className={styles.modal}>
-                  <div className={styles.modalContent}>
-                    <p>{deletedMessage}</p>
-                    <div className={styles.modalButtons}>
-                      <button onClick={handlerDeleted}>x</button>
-                    </div>
-                  </div>
+          ))}
+
+          {showModal && (
+            <div className={styles.modal}>
+              <div className={styles.modalContent}>
+                <h2>Confirmación de Eliminación</h2>
+                <p>¿Estás seguro de que quieres eliminar esta reseña?</p>
+                <div className={styles.modalButtons}>
+                  <button onClick={handlerConfirm}>Eliminar</button>
+                  <button onClick={handlerCancel}>Cancelar</button>
                 </div>
-              )
-
-              } 
-             
+              </div>
             </div>
-  </div>
-        <form onSubmit={handlerSubmit}>
+          )}
+          {showModalDeleted && (
+            <div className={styles.modal}>
+              <div className={styles.modalContent}>
+                <p>{deletedMessage}</p>
+                <div className={styles.modalButtons}>
+                  <button onClick={handlerDeleted}>x</button>
+                </div>
+              </div>
+            </div>
+          )
+
+          }
+
+        </div>
+      </div>
+      <form onSubmit={handlerSubmit}>
         <div className={styles.container}>
           <div className={styles.secondContainerCalificaicon}>
-        <fieldset className="starability-slot">
-    <legend>Califica este producto:</legend>
-    <input type="radio" id="first-rate1" name="rating"  value="1" checked={opinion.rating === "1"} onChange={handlerChangeRating} />
-    <label htmlFor="first-rate1" title="Terrible">1 star</label>
-      <input type="radio" id="first-rate2"  name="rating" value="2" checked={opinion.rating === "2"} onChange={handlerChangeRating} />
-    <label htmlFor="first-rate2" title="Not good">2 stars</label>
-    <input type="radio" id="first-rate3" name="rating" value="3" checked={opinion.rating === "3"}onChange={handlerChangeRating} />
-    <label htmlFor="first-rate3" title="Average">3 stars</label> 
-    <input type="radio" id="first-rate4" name="rating" value="4" checked={opinion.rating === "4"} onChange={handlerChangeRating} />
-    <label htmlFor="first-rate4" title="Very good">4 stars</label>
-    <input type="radio" id="first-rate5" name="rating" value="5" checked={opinion.rating === "5"} onChange={handlerChangeRating} />
-    <label htmlFor="first-rate5" title="Amazing">5 stars</label>
-  </fieldset>
-          {error.rating && <p>{error.rating}</p>}
-          <label htmlFor="review_description"> </label>
-          <textarea name="review_description" value={opinion.review_description} onChange={handlerChange} className={styles.textarea}/>
-          {error.review_description && <p>{error.review_description}</p>}
-         </div>
+            <fieldset className="starability-slot">
+              <legend>Califica este producto:</legend>
+              <input type="radio" id="first-rate1" name="rating" value="1" checked={opinion.rating === "1"} onChange={handlerChangeRating} />
+              <label htmlFor="first-rate1" title="Terrible">1 star</label>
+              <input type="radio" id="first-rate2" name="rating" value="2" checked={opinion.rating === "2"} onChange={handlerChangeRating} />
+              <label htmlFor="first-rate2" title="Not good">2 stars</label>
+              <input type="radio" id="first-rate3" name="rating" value="3" checked={opinion.rating === "3"} onChange={handlerChangeRating} />
+              <label htmlFor="first-rate3" title="Average">3 stars</label>
+              <input type="radio" id="first-rate4" name="rating" value="4" checked={opinion.rating === "4"} onChange={handlerChangeRating} />
+              <label htmlFor="first-rate4" title="Very good">4 stars</label>
+              <input type="radio" id="first-rate5" name="rating" value="5" checked={opinion.rating === "5"} onChange={handlerChangeRating} />
+              <label htmlFor="first-rate5" title="Amazing">5 stars</label>
+            </fieldset>
+            {error.rating && <p>{error.rating}</p>}
+            <label htmlFor="review_description"> </label>
+            <textarea name="review_description" value={opinion.review_description} onChange={handlerChange} className={styles.textarea} />
+            {error.review_description && <p>{error.review_description}</p>}
+          </div>
           <button type="submit" disabled={!opinion.rating || !opinion.review_description} className={styles.buttonAgregar}> Agregar </button>
-        
-        </div>
-        </form>
 
-      </div>
-  
- 
+        </div>
+      </form>
+
+    </div>
+
+
   )
 };
 

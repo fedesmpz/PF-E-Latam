@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import styles from "./StylesProducts/TableProducts.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import Select from 'react-select'
-import Styles from "../../Components/Styles/NavBar.module.css";
+import Styles from "../../NavBarPage/NavBarPage.module.css";
 import { axiosAllProductsByCountries, axiosSearchProduct } from "../../../redux/slice/productSlice";
 
 const TablePrducts = ({ productsPerPage, products, paginado, currentPage }) => {
@@ -93,76 +93,76 @@ const TablePrducts = ({ productsPerPage, products, paginado, currentPage }) => {
     setCountry(selectedValue);
     dispatch(axiosAllProductsByCountries(selectedValue));
   }
-  
+
   return (
     <nav className={styles.navContainer}>
-    <Select
-      options={options}
-      value={options.find(option => option.value === country)}
-      onChange={handleFilterByCountry}
-      isSearchable={false}
-      getOptionLabel={option => (
-        <div>
-          <img src={option.img} alt={option.label} className={styles.flagIcon} />
-          {option.label}
-        </div>
-      )}
-      getOptionValue={option => option.value}
+      <Select
+        options={options}
+        value={options.find(option => option.value === country)}
+        onChange={handleFilterByCountry}
+        isSearchable={false}
+        getOptionLabel={option => (
+          <div>
+            <img src={option.img} alt={option.label} className={styles.flagIcon} />
+            {option.label}
+          </div>
+        )}
+        getOptionValue={option => option.value}
       />
 
-    {showModal && (
-      <div className={Styles.modal}>
-        <div className={Styles.modalContent}>
-          <h2>Error de búsqueda</h2>
-          <p>Por favor, ingresa algún dato válido antes de realizar la búsqueda.</p>
-          <button className={Styles.closeButton} onClick={handleCloseModal}>Cerrar</button>
+      {showModal && (
+        <div className={Styles.modal}>
+          <div className={Styles.modalContent}>
+            <h2>Error de búsqueda</h2>
+            <p>Por favor, ingresa algún dato válido antes de realizar la búsqueda.</p>
+            <button className={Styles.closeButton} onClick={handleCloseModal}>Cerrar</button>
+          </div>
         </div>
-      </div>
-    )}
+      )}
 
-    { 
-      <div className={Styles.searchBar}>
-        <input type="search" placeholder="Busca tu producto" value={title} onChange={handleSearch} />
-        <button onClick={handlerClick} className={Styles.buttonBusqueda}>Buscar</button>
-      </div>
-    }
+      {
+        <div className={Styles.searchBar}>
+          <input type="search" placeholder="Busca tu producto" value={title} onChange={handleSearch} />
+          <button onClick={handlerClick} className={Styles.buttonBusqueda}>Buscar</button>
+        </div>
+      }
 
-    <ul className={styles.pagination}>
-      <li>
-        <button
-          className={
-            activePage === 1 ? `${styles.pageButton} ${styles.disabledButton}` : styles.pageButton
-          }
-          onClick={goToPreviousPage}
-          disabled={activePage === 1}
-        >
-          &lt;
-        </button>
-      </li>
-      {pageNumbers.map((n) => (
-        <li key={n}>
+      <ul className={styles.pagination}>
+        <li>
           <button
             className={
-              activePage === n ? `${styles.pageButton} ${styles.activePageButton}` : styles.pageButton
+              activePage === 1 ? `${styles.pageButton} ${styles.disabledButton}` : styles.pageButton
             }
-            onClick={() => handlePageClick(n)}
+            onClick={goToPreviousPage}
+            disabled={activePage === 1}
           >
-            {n}
+            &lt;
           </button>
         </li>
-      ))}
-      <li>
-        <button
-          className={
-            activePage === pageNumbers.length ? `${styles.pageButton} ${styles.disabledButton}` : styles.pageButton
-          }
-          onClick={goToNextPage}
-          disabled={activePage === pageNumbers.length}
-        >
-          &gt;
-        </button>
-      </li>
-    </ul>
+        {pageNumbers.map((n) => (
+          <li key={n}>
+            <button
+              className={
+                activePage === n ? `${styles.pageButton} ${styles.activePageButton}` : styles.pageButton
+              }
+              onClick={() => handlePageClick(n)}
+            >
+              {n}
+            </button>
+          </li>
+        ))}
+        <li>
+          <button
+            className={
+              activePage === pageNumbers.length ? `${styles.pageButton} ${styles.disabledButton}` : styles.pageButton
+            }
+            onClick={goToNextPage}
+            disabled={activePage === pageNumbers.length}
+          >
+            &gt;
+          </button>
+        </li>
+      </ul>
     </nav>
   );
 };

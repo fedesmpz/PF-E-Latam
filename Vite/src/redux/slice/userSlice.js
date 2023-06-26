@@ -1,15 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-
-const initialState = {
-  users: [],
-  loading: false,
-  error: null,
-  userData: {}
-};
-
-
 export const userSlice = createSlice({
   name: 'user',
   initialState: {

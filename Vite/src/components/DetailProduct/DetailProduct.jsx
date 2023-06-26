@@ -1,7 +1,7 @@
 import { axiosAllProductByCountryCategoryId, cleanDetail, deleteProduct, hideProduct } from "../../redux/slice/productSlice";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom"; 
+import { useNavigate, useParams, useLocation } from "react-router-dom";
 import styles from "../DetailProduct/ProductDetail.module.css";
 import { Link } from "react-router-dom";
 import NavBar from "../NavBar/NavBar";
@@ -10,11 +10,14 @@ import { useContext } from "react";
 import { CartContext } from "../../utils/CartContext";
 
 const DetailProduct = () => {
-  const dispatch = useDispatch(); 
+
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const countryId = searchParams.get('countryId');
+  const categories = searchParams.get('categories');
+  const id = searchParams.get('id');
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { id } = router.query;
-  const { categories } = router.query;
-  const { countryId } = router.query;
   const productDetail = useSelector((state) => state.products.detail);
   const hideMessage = useSelector((state) => state.products.hideProductMessage)
   const deletedMessage = useSelector((state) => state.products.deleteProductMessage)
@@ -41,7 +44,6 @@ const DetailProduct = () => {
   else {
     renderedAttributes = attributes
   }
-
   useEffect(() => {
     setIsVisible(productDetail?.catalog_listing)
     dispatch(axiosAllProductByCountryCategoryId(id, countryId, categories));
@@ -87,7 +89,7 @@ const DetailProduct = () => {
   }
 
   const handlerEdit = async () => {
-    router.push(`/EditProduct?countryId=${countryId}&categories=${categories}&id=${id}`)
+    navigate(`/EditProduct?countryId=${countryId}&categories=${categories}&id=${id}`)
   }
 
   let admin = true // HARIAMOS LA VALIDACION DEL TOKEN 

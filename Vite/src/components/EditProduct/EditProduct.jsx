@@ -1,8 +1,7 @@
-'use client'
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ProductByIdForEditForm, editProduct, cleanEditDetail, setEditProductMessage, setEditedProduct } from "../../redux/slice/productSlice";
-import { useNavigation } from "react-router-dom";
+import { useNavigation, useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
 import validation from "../../utils/formValidation";
 import NavBar from "../NavBar/NavBar"
@@ -10,8 +9,11 @@ import SubFooter from "../SubFooter/SubFooter";
 import style from "./EditProduct.module.css"
 
 const EditProduct = () => {
-    const navigate = useNavigation();
-    const { id, countryId, categories } = router.query;
+    const location = useLocation();
+    const searchParams = new URLSearchParams(location.search);
+    const countryId = searchParams.get('countryId');
+    const categories = searchParams.get('categories');
+    const id = searchParams.get('id');
     const dispatch = useDispatch();
     const [isFormValid, setIsFormValid] = useState(false);
     let [errors, setErrors] = useState({});
@@ -39,15 +41,15 @@ const EditProduct = () => {
     }
 
     const handleChange = (event) => {
-      const prop = event.target.name;
-      const value = event.target.value
+        const prop = event.target.name;
+        const value = event.target.value
 
-      setLocalEditDetail({
-        ...localEditDetail,
-        [prop]: value
-      });
+        setLocalEditDetail({
+            ...localEditDetail,
+            [prop]: value
+        });
 
-      validation(prop, value, errors, setErrors)
+        validation(prop, value, errors, setErrors)
 
     }
 
@@ -60,7 +62,7 @@ const EditProduct = () => {
 
     const transformFile = (file) => {
         const reader = new FileReader()
-        if(file) {
+        if (file) {
             reader.readAsDataURL(file)
             reader.onloadend = () => {
                 setProductThumbnail(reader.result);
@@ -94,8 +96,8 @@ const EditProduct = () => {
     }
 
     useEffect(() => {
-      dispatch(ProductByIdForEditForm( id, countryId, categories));
-      return () => dispatch(cleanEditDetail());
+        dispatch(ProductByIdForEditForm(id, countryId, categories));
+        return () => dispatch(cleanEditDetail());
     }, [dispatch, id, countryId, categories])
 
     useEffect(() => {
@@ -229,46 +231,46 @@ const EditProduct = () => {
                     </div>
                 </form>
                 <>
-                {message && showModalEdited && (
-                <div className={style.modal}>
-                  <div className={style.modalContent}>
-                    <p>{message}</p>
-                    <div className={style.modalButtons}>
-                      <button onClick={handleCloseModal}>x</button>
-                    </div>
-                  </div>
-                </div>)
-                }
+                    {message && showModalEdited && (
+                        <div className={style.modal}>
+                            <div className={style.modalContent}>
+                                <p>{message}</p>
+                                <div className={style.modalButtons}>
+                                    <button onClick={handleCloseModal}>x</button>
+                                </div>
+                            </div>
+                        </div>)
+                    }
                 </>
                 <div className={style.secondColumn}>
                     <h2 className={style.PreviewofProduct}>PREVISUALIZACION DEL PRODUCTO</h2>
                     <div className={style.firstRow}>
-                    <div className={style.thumbnailContainer}>
-                    {!productThumbnail && 
-                    <p className={style.previewTitleThumbnail}>La vista previa de la imagen aparecera aqui</p>}
-                    {productThumbnail && <img src={productThumbnail} className={style.thumbnail}  alt="product_thumbnail"></img>}
-                    </div>
-                    <div>
-                        <h2 className={style.previewValue}>{localEditDetail.title ? localEditDetail.title : `Titulo del producto`}</h2>
-                        <h3 className={style.previewValue}>{localEditDetail.official_store_name ? localEditDetail.official_store_name : `Marca del producto`}</h3>
-                        <span className={style.previewLines}><h3 className={style.previewLabel}>Pais</h3><h3 className={style.previewValue}>{localEditDetail.country}</h3></span>
-                        <span className={style.previewLines}><h3 className={style.previewLabel}>Precio</h3>
-                        <h3 className={style.previewValue}>$ {editDetail.currency_id} {editDetail.original_price}</h3></span>
-                        <span className={style.previewLines}><h3 className={style.previewLabel}>Stock disponible</h3><h3 className={style.previewValue}> {localEditDetail.available_quantity}</h3></span>
-                    </div>
+                        <div className={style.thumbnailContainer}>
+                            {!productThumbnail &&
+                                <p className={style.previewTitleThumbnail}>La vista previa de la imagen aparecera aqui</p>}
+                            {productThumbnail && <img src={productThumbnail} className={style.thumbnail} alt="product_thumbnail"></img>}
+                        </div>
+                        <div>
+                            <h2 className={style.previewValue}>{localEditDetail.title ? localEditDetail.title : `Titulo del producto`}</h2>
+                            <h3 className={style.previewValue}>{localEditDetail.official_store_name ? localEditDetail.official_store_name : `Marca del producto`}</h3>
+                            <span className={style.previewLines}><h3 className={style.previewLabel}>Pais</h3><h3 className={style.previewValue}>{localEditDetail.country}</h3></span>
+                            <span className={style.previewLines}><h3 className={style.previewLabel}>Precio</h3>
+                                <h3 className={style.previewValue}>$ {editDetail.currency_id} {editDetail.original_price}</h3></span>
+                            <span className={style.previewLines}><h3 className={style.previewLabel}>Stock disponible</h3><h3 className={style.previewValue}> {localEditDetail.available_quantity}</h3></span>
+                        </div>
                     </div>
 
                     <div className={style.previewData}>
                         <span className={style.previewLines}><h3 className={style.previewLabel}>Producto en oferta?</h3>
-                        <p className={style.previewValue}>{localEditDetail.sale_price ? localEditDetail.sale_price : `-`}</p></span>
+                            <p className={style.previewValue}>{localEditDetail.sale_price ? localEditDetail.sale_price : `-`}</p></span>
                         <span className={style.previewLines}> <h3 className={style.previewLabel}>Precio de oferta</h3>
-                        <p className={style.previewValue}>{localEditDetail.price}</p></span>
+                            <p className={style.previewValue}>{localEditDetail.price}</p></span>
                         <span className={style.previewLines}><h3 className={style.previewLabel}>Envio gratis</h3>
-                        <p className={style.previewValue}>{localEditDetail.shipping ? localEditDetail.shipping : `-`}</p></span>
+                            <p className={style.previewValue}>{localEditDetail.shipping ? localEditDetail.shipping : `-`}</p></span>
                         <span className={style.previewLines}><h3 className={style.previewLabel}>Categoria</h3>
-                        <h3 className={style.previewValue}>{localEditDetail.categories ? localEditDetail.categories : `-` }</h3></span>  
+                            <h3 className={style.previewValue}>{localEditDetail.categories ? localEditDetail.categories : `-`}</h3></span>
                         <h3 className={style.previewLabel}>Descripcion</h3>
-                        <p className={style.previewValue}>{localEditDetail.attributes ? localEditDetail.attributes : `Describe el producto brindando información clara y detallada sobre el artículo para ayudar a los clientes a comprender sus características, beneficios y especificaciones; tambien intenta incluir su propósito, función y uso. Enumera las características específicas del producto, como tamaño, dimensiones, materiales, color, capacidad, peso, etc. Si el producto tiene características técnicas, como velocidad, capacidad de almacenamiento o conectividad, asegúrate de incluirlas aquí.`}</p>                  
+                        <p className={style.previewValue}>{localEditDetail.attributes ? localEditDetail.attributes : `Describe el producto brindando información clara y detallada sobre el artículo para ayudar a los clientes a comprender sus características, beneficios y especificaciones; tambien intenta incluir su propósito, función y uso. Enumera las características específicas del producto, como tamaño, dimensiones, materiales, color, capacidad, peso, etc. Si el producto tiene características técnicas, como velocidad, capacidad de almacenamiento o conectividad, asegúrate de incluirlas aquí.`}</p>
                     </div>
                 </div>
 
@@ -278,4 +280,4 @@ const EditProduct = () => {
     )
 }
 
-  export default EditProduct;
+export default EditProduct;
