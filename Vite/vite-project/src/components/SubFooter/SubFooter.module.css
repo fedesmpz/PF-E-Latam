@@ -1,0 +1,12 @@
+.containerSubFooter {
+    color:#4BBF68;
+    margin: 10px 30px 10px 30px;
+    display: flex;
+    justify-content: space-between;
+}
+.about {
+    font-style:italic;
+    font-size: 20px;
+    margin-left: 45%;
+    margin-bottom: 5%;
+}

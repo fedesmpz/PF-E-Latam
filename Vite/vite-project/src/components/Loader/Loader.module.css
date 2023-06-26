@@ -1,0 +1,37 @@
+.container{
+    display: grid; 
+    grid-template-columns: auto;
+    position: relative;
+    width: 100px;
+    height: 100px;
+  }
+  
+  .logoe {
+    position: relative;
+    width: 113%;
+    height: 113%;
+    top: 230%;
+    left: 480%;
+    animation: spin 5s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  .container2 {
+    display: grid;
+    grid-template-columns: auto;
+    position: relative;
+    width: 100px;
+    height: 100px;
+  }
+  
+  .logolam {
+    position: relative;
+    width: 170%;
+    height: 160%;
+    top: 230%;
+    left: 500%;
+  }
