@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom" 
 import styles from "./SubFooter.module.css"
 // import About from "../About"
 

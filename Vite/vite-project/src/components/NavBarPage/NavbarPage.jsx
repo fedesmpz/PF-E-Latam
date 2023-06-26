@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
 import React, { useState } from "react";
 import classnames from "classnames";
-import NavItem from "./NavItem";
-import ModalLogin from "./ModalLogin"
-import ModalSignIn from "./ModalSingIn"
-import styles from "./Styles/NavbarPage.module.css";
-import Style from "./Styles/NavBar.module.css";
+import NavItem from "../NavItem/NavItem";
+import ModalLogin from "../ModalLogin/ModalLogin"
+import ModalSignIn from "../ModalSignIn/ModalSingIn"
+import styles from "../NavBarPage/NavBarPage.module.css";
+import Style from "../NavBar/NavBar.module.css";
 
 const MENU_LIST = [
   { text: "Home", href: "/Home" },
@@ -21,14 +21,14 @@ const NavbarPage = () => {
       <nav className={styles.navv}>
         <Link className={Style.logo} href="/">
           <div className={Style.logoContainer}>
-            <Image
+            <img
               className={Style.logoE}
               src="/assets/e-world.png"
               width={100}
               height={100}
               alt="Animación1"
             />
-            <Image
+            <img
               className={Style.logoLam}
               src="/assets/latam-store.png"
               width={100}

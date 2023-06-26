@@ -1,9 +1,9 @@
 import Carousel from 'react-bootstrap/Carousel';
-import Products from './Products';
+import Products from '../Products/Products';
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { axiosAllProducts } from "../../redux/slice/productSlice"
-import Styles from "./Styles/CarouselProducts.module.css"
+import Styles from "../CarouselProducts/CarouselProducts.module.css"
 
 const ControlledCarousel = () => {
   const [index, setIndex] = useState(0);

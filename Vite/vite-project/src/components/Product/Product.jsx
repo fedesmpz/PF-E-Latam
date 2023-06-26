@@ -23,7 +23,7 @@ const Product = ({ id, title, thumbnail, original_price, currency_id, price, sal
     };
     return (
         <div>
-           <Link className={Styles.link} href={`/DetailProduct?countryId=${countryId}&categories=${categories}&id=${id}`}>
+           <Link className={Styles.link} to={`/DetailProduct?countryId=${countryId}&categories=${categories}&id=${id}`}>
            <div className={`${!catalog_listing ? Styles.unlistedCard : Styles.card}`}>
                     <img src={thumbnail} alt={title} />
                     <div className={Styles.cardDetails}>
