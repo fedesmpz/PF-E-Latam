@@ -1,7 +1,7 @@
 import { useContext, useState, useEffect, useCallback } from "react";
-import style from "./styles/Cart/Cart.module.css";
-import { CartContext, CartProvider } from "./CartContext";
-// import { useRouter } from "next/router";
+import style from "./Cart.module.css";
+import { CartContext } from "../../utils/CartContext";
+import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
     const { cart, addToCart, removeFromCart, removeToCart } = useContext(
@@ -9,7 +9,7 @@ const Cart = () => {
     );
     const [productCounts, setProductCounts] = useState({});
     const [cartIsEmpty, setCartIsEmpty] = useState(true);
-    const router = useRouter();
+    const navigate = useNavigate();
 
     const loadCartData = useCallback(() => {
         const savedCart = JSON.parse(localStorage.getItem("cart"));
@@ -38,7 +38,7 @@ const Cart = () => {
     };
 
     const handlerPurchase = async () => {
-        router.push("/Purchase");
+        navigate("/Purchase");
     };
 
     const handleIncrement = (productId) => {
@@ -57,7 +57,7 @@ const Cart = () => {
             const newCounts = {
                 ...prevCounts,
                 [productId]: (prevCounts[productId] || 0) - 1
-            };
+            }
             if (newCounts[productId] <= 0) {
                 delete newCounts[productId];
                 removeFromCart(productId);

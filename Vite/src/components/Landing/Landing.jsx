@@ -5,7 +5,7 @@ import CarouselProducts from "../CarouselProducts/CarouselProducts"
 import CarouselHero from "../CarouselImg/CarouselImg"
 import FooterLanding from "../FooterLanding/FooterLanding"
 import CommentsUsers from "../CommentsUsers/CommentsUsers"
-import styles from "../Landing/Landing.module.css"
+import styles from "./Landing.module.css"
 // import ModalSignin from "../ModalSingIn/ModalSingIn"
 import LoaderLanding from "../LoaderLanding/LoaderLanding"
 

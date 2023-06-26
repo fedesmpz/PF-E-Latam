@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { cleanDetailReviews, postReview,getAllReviewsForProduct,deleteReview} from '@/redux/slice/ratingReviewSlice';
-import styles from "./Styles/ReviewAndRating.module.css"
+import { cleanDetailReviews, postReview,getAllReviewsForProduct,deleteReview} from '../../redux/slice/ratingReviewSlice';
+import styles from "./ReviewAndRating.module.css"
 import 'starability/starability-css/starability-slot.css';
 
 const ReviewRating = () => {

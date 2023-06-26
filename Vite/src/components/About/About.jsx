@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom"
-import Providers from "@/redux/provider/Provider"
-import style from "./styles/About/About.module.css"
+import style from "./About.module.css"
 
 
 const About = () => {
