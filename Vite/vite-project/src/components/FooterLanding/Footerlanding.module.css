@@ -1,0 +1,91 @@
+.sec-footer-cta {
+  /* margin-top: 4rem; */
+  background-color: #4E55D9;
+  width: 100%;
+  padding: 5rem;
+  padding-bottom: 1rem;
+  display: flex;
+  flex-direction: row;
+  color: #ddd;
+}
+.sec-footer-cta .footer-cta {
+  width: 100%;
+  margin: 1rem;
+}
+.sec-footer-cta .footer-text {
+  width: 100%;
+}
+.sec-footer-cta .footer-text .cta-title {
+  font-size: 1.2rem;
+}
+.sec-footer-cta .footer-text .cta-description {
+  font-size: 0.9rem;
+}
+/* Media Query para pantallas pequeñas */
+@media (max-width: 768px) {
+  .sec-footer-cta {
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 980px) {
+  .sec-footer-cta {
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 2rem;
+  }
+
+  .sec-footer-cta .footer-cta {
+    width: 50%;
+  }
+}
+
+.sec-footer-cta .footer-cta {
+  width: 100%;
+  margin: 1rem;
+}
+
+.sec-footer-cta .footer-text {
+  width: 100%;
+}
+
+.sec-footer-cta .footer-text .cta-title {
+  font-size: 1.2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.sec-footer-cta .footer-text .cta-description {
+  font-size: 0.9rem;
+}
+
+.link {
+  padding-left: 0;
+  color: white;
+  text-decoration: none;
+  border-bottom: none;
+}
+
+.link:hover {
+  color: #4BBF68; /* Puedes ajustar el color a tu preferencia */
+}
+
+.icon {
+  margin: 0.5rem;
+  color: white;
+  font-size: 3rem; /* Ajusta el tamaño del icono según tus necesidades */
+}
+
+
+/* Media Query para pantallas muy pequeñas */
+@media (max-width: 480px) {
+  .sec-footer-cta .footer-text .cta-title {
+    font-size: 1rem;
+  }
+
+  .sec-footer-cta .footer-text .cta-description {
+    font-size: 0.8rem;
+  }
+}

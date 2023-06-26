@@ -3,10 +3,9 @@ import { useState, useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { postProduct } from "@/redux/slice/productSlice"
 import { setNewProductMessage } from "../redux/slice/productSlice"
-import Link from "next/link"
+import { Link } from "react-router-dom"
 import validation from "../utils/formValidation"
 import Head from "next/head";
-import Providers from "@/redux/provider/Provider"
 import NavBar from "./Components/NavBar"
 import SubFooter from "./Components/SubFooter"
 import style from "./styles/CreateProduct/CreateProduct.module.css"
@@ -287,13 +286,6 @@ const CreateProduct = () => {
     )
 }
 
-const CreateProductWithProvider = () => {
-    return (
-        <Providers>
-            <CreateProduct />
-        </Providers>
-    );
-};
 
 
-export default CreateProductWithProvider;
+export default CreateProduct;

@@ -1,0 +1,10 @@
+.videoContainer {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-content: center;    
+    /* O ajusta la altura según tus necesidades */
+}
+.video {
+    width: 20%; /* O ajusta el tamaño según tus necesidades */
+}

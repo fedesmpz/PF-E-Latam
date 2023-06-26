@@ -1,0 +1,359 @@
+.container{
+  font-family: "Montserrat", sans-serif;
+  padding: none;
+  margin: none;
+}
+.container_top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0px 50px 0px 30px;
+  padding: 15px;
+}
+
+button.backButton {
+    display: flex;
+    align-items: center;
+    background: none;
+    border: none;
+    color: black;
+    cursor: pointer;
+    font-size: 1.2rem;
+}
+  
+  button.backButton svg {
+    fill: #000000;
+    height: 2em;
+    margin-right: 0.5em;
+    width: 2em;
+}
+  
+  button.backButton:hover svg {
+    fill: rgb(165, 182, 199);
+    cursor: pointer;
+}
+
+
+.containerForm {
+  background-color:#8491D9;
+  border-radius: 5px;
+  margin: 10px 50px 5px 50px;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 70px;
+}
+
+.label {
+  display: flex;
+  padding: 10px;
+  font-weight: bold;
+  justify-content: flex-start;
+  color: whitesmoke
+}
+
+.containerForm form input[type="text"],
+.containerForm form input[type="file"],
+.containerForm form input[type="number"],
+.containerForm form select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  box-sizing: border-box; 
+  font-size: 16px;
+  background-color: whitesmoke;
+}
+
+.containerForm form textarea {
+  display: grid;
+  align-items: center;
+  padding: 10px;
+  min-width: 100%;
+  padding: 10px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  box-sizing: border-box; 
+  font-size: 16px;
+  resize: vertical;
+  background-color: whitesmoke;
+}
+
+.containerForm form input[type="file"] {
+  border: 1px solid whitesmoke;
+  background-color: whitesmoke;
+  outline: none;
+}
+
+.containerForm form input[type="text"]:focus,
+.containerForm form input[type="number"]:focus,
+.containerForm form select:focus {
+  border: none;
+}
+
+.priceCont {
+  display: flex;
+  border-radius: 4px;
+}
+
+.priceTag {
+  display: flex;
+  width: 60px;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(219, 219, 219);
+  border-radius: 4px 0px 0px 4px ; 
+  color: grey;
+  font-weight: bold;
+}
+
+.priceInput {
+  border-radius: 0px 4px 4px 0px !important;
+}
+
+.checkDiv {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+
+
+.containerForm form p {
+  margin-top: 5px;
+  color: red;
+  font-size: 14px;
+  margin-bottom: 0;
+  height: 16px;
+  overflow: hidden;
+}
+
+.containerForm form option {
+  font-size: 16px;
+}
+
+.containerForm form select:focus {
+  outline: none;
+  border-color: none;
+}
+
+.containerForm form select::-ms-expand {
+  display: none;
+}
+
+.containerForm form select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-size: 20px;
+  padding-right: 30px;
+}
+
+.successMessage {
+  display: inline;
+  color: #ffffff;
+  font-size: larger;
+  font-weight: bolder;
+  margin: 5px;
+}
+
+.successMessage::first-letter {
+  text-transform: uppercase;
+}
+
+.successMessage button {
+  padding: 5px;
+  margin-left: 30px;
+  border: none;
+  background-color: transparent;
+  color: rgb(255, 255, 255);
+  font-size: large;
+}
+
+.successMessage button:hover {
+  color: rgb(225, 52, 52);
+}
+
+.successMessageContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  max-width: fit-content;
+  background-color: grey;
+  margin: auto;
+  padding: 5px 25px;
+  border-radius: 5px;
+}
+
+.container_submit {
+  display: grid;
+  margin-top: 15px;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.containerForm form button.submitDisabledButton {
+  border-radius: 5px;
+  font-size: 18px;
+  background-color:  #7ED994;
+  padding: 10px 20px;
+  color: #fff;
+  border: none;
+  cursor:not-allowed;
+  transition: background-color 0.3s ease;
+}
+
+.containerForm form button.submitButton {
+  border-radius: 5px;
+  font-size: 18px;
+  background-color:  #4BBF68;
+  padding: 10px 20px;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.containerForm form button.submitButton:hover {
+  border-radius: 5px;
+  font-size: 18px;
+  background-color:  #3ca957;
+  padding: 10px 20px;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.thumbnailContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid white;
+  width: fit-content;
+  min-width: 400px;
+  max-width: 400px;
+  background-color: white;
+}
+
+.thumbnail {
+  min-height: 400px;
+  max-height: 400px;
+  object-fit: contain;
+}
+
+.secondColumn {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid white ;
+  border-radius: 5px;
+  background-color: white;
+  
+}
+
+.firstRow {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-around;
+  align-items:center;
+  padding: 20px 20px 0px 20px;
+}
+
+.PreviewofProduct {
+  display: flex;
+  justify-content: center;
+  background-color: #8491D9;
+  width: fit-content;
+  margin: 20px auto 10px auto;
+  border-radius: 5px;
+  color: white;
+  padding: 10px;
+}
+
+.previewTitleThumbnail {
+  padding: 130px 0px;
+}
+
+.previewData {
+  display: flex;
+  flex-direction: column;
+  padding: 20px 20px 0px 20px;
+}
+
+.previewLines {
+  display: flex;
+  justify-content: space-between;
+}
+
+.previewLabel {
+  font-weight: bold;
+  justify-content: flex-start;
+  color:  rgb(101, 101, 101)
+}
+
+.previewValue {
+  display: flex;
+  justify-content: center;
+  max-width: 1000px;
+  color: black;
+}
+
+.previewValue::first-letter {
+  text-transform: uppercase;
+}
+
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modalContent {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 400px;
+  text-align: center;
+}
+
+.modalContent h2 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.modalContent p {
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.modalButtons {
+  display: flex;
+  justify-content: center;
+}
+
+.modalButtons button {
+  margin: 0 10px;
+  padding: 8px 16px;
+  font-size: 14px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.modalButtons button:first-child {
+  background-color: #e74c3c;
+  color: #fff;
+}
+
+.modalButtons button:last-child {
+  background-color: #ccc;
+  color: #333;
+}
