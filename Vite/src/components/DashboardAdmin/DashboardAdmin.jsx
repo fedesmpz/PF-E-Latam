@@ -1,8 +1,8 @@
-import StylesAdmin from "./styles/DashboardAdmin/DashboardAdmin.module.css";
-import SalesCard from "./ComponentsAdmin/Statistics/SalesCard";
-import SalesStats from "./ComponentsAdmin/Statistics/SalesStats";
-import LastOrders from "./ComponentsAdmin/Orders/LastOrders";
-import Sidebar from "./ComponentsAdmin/SideBar/SideBar";
+import StylesAdmin from "./DashboardAdmin.module.css";
+import SalesCard from "../ComponentsAdmin/Statistics/SalesCard";
+import SalesStats from "../ComponentsAdmin/Statistics/SalesStats";
+import LastOrders from "../ComponentsAdmin/Orders/LastOrders";
+import Sidebar from "../ComponentsAdmin/SideBar/SideBar"
 import { useState } from "react";
 
 const DashboardAdmin = () => {

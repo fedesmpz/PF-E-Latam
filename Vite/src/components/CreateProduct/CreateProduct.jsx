@@ -1,14 +1,13 @@
 'use client'
 import { useState, useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { postProduct } from "@/redux/slice/productSlice"
-import { setNewProductMessage } from "../redux/slice/productSlice"
+import { postProduct } from "../../redux/slice/productSlice"
+import { setNewProductMessage } from "../../redux/slice/productSlice"
 import { Link } from "react-router-dom"
-import validation from "../utils/formValidation"
-import Head from "next/head";
-import NavBar from "./Components/NavBar"
-import SubFooter from "./Components/SubFooter"
-import style from "./styles/CreateProduct/CreateProduct.module.css"
+import validation from "../../utils/formValidation"
+import NavBar from "../NavBar/NavBar"
+import SubFooter from "../SubFooter/SubFooter"
+import style from "./CreateProduct.module.css"
 
 const CreateProduct = () => {
     
@@ -125,9 +124,6 @@ const CreateProduct = () => {
     return (
         <div className={style.container}>
 
-            <Head>
-                <title>/admin/create</title>
-            </Head>
 
             <NavBar></NavBar>
             <div className={style.container_top}>

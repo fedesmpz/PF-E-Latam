@@ -1,10 +1,10 @@
-import style from "./Loader/Loader.module.css";
+import style from "./Loader.module.css";
 
 const Loader = () => {
   return (
     <div className="d-flex items-center justify-center">
       <div className={style.container}>
-        <Image
+        <img
           className={style.logoe}
           src="/assets/e-world.png"
           width={100}
@@ -13,7 +13,7 @@ const Loader = () => {
         />
       </div>
       <div className={style.container2}>
-        <Image
+        <img
           className={style.logolam}
           src="/assets/latam-store.png"
           width={100}

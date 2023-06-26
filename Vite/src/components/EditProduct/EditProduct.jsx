@@ -1,13 +1,13 @@
 'use client'
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { ProductByIdForEditForm, editProduct, cleanEditDetail, setEditProductMessage, setEditedProduct } from "../redux/slice/productSlice";
+import { ProductByIdForEditForm, editProduct, cleanEditDetail, setEditProductMessage, setEditedProduct } from "../../redux/slice/productSlice";
 import { useRouter } from "next/router";
 import { Link } from "react-router-dom";
-import validation from "../utils/formValidation";
+import validation from "../../utils/formValidation";
 import NavBar from "./Components/NavBar"
 import SubFooter from "./Components/SubFooter";
-import style from "./styles/EditProduct/EditProduct.module.css"
+import style from "./EditProduct.module.css"
 
 const EditProduct = () => {
     const router = useRouter();

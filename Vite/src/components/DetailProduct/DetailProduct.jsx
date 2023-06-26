@@ -1,17 +1,16 @@
-import { axiosAllProductByCountryCategoryId, cleanDetail, deleteProduct, hideProduct } from "@/redux/slice/productSlice";
+import { axiosAllProductByCountryCategoryId, cleanDetail, deleteProduct, hideProduct } from "../../redux/slice/productSlice";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom"; 
-import styles from "../pages/Components/Styles/ProductDetail.module.css";
+import styles from "../DetailProduct/ProductDetail.module.css";
 import { Link } from "react-router-dom";
-import NavBar from "./Components/NavBar";
-import ReviewRating from "./Components/ReviewRating";
-/* import { addProduct, addProductNoRepeat } from "@/redux/slice/cartSlice"; */
+import NavBar from "../NavBar/NavBar";
+import ReviewRating from "../ReviewRating/ReviewRating"
 import { useContext } from "react";
-import { CartContext, CartProvider } from "./CartContext";
+import { CartContext } from "../../utils/CartContext";
 
 const DetailProduct = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch(); 
   const navigate = useNavigate();
   const { id } = router.query;
   const { categories } = router.query;
