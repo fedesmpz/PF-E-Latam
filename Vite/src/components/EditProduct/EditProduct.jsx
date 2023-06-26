@@ -2,15 +2,15 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ProductByIdForEditForm, editProduct, cleanEditDetail, setEditProductMessage, setEditedProduct } from "../../redux/slice/productSlice";
-import { useRouter } from "next/router";
+import { useNavigation } from "react-router-dom";
 import { Link } from "react-router-dom";
 import validation from "../../utils/formValidation";
-import NavBar from "./Components/NavBar"
-import SubFooter from "./Components/SubFooter";
+import NavBar from "../NavBar/NavBar"
+import SubFooter from "../SubFooter/SubFooter";
 import style from "./EditProduct.module.css"
 
 const EditProduct = () => {
-    const router = useRouter();
+    const navigate = useNavigation();
     const { id, countryId, categories } = router.query;
     const dispatch = useDispatch();
     const [isFormValid, setIsFormValid] = useState(false);

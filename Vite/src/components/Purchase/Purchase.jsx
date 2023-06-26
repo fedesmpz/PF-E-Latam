@@ -2,12 +2,13 @@ import React, { useRef, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
-import styles from './styles/Purchase/Purchase.module.css';
-import NavBar from './Components/NavBar';
-import SubFooter from './Components/SubFooter';
-import FooterLanding from './Components/FooterLanding';
-import { getGeocoding, cleanUserAddress } from '../redux/slice/userSlice';
+import styles from './Purchase.module.css';
+import NavBar from '../NavBar/NavBar';
+import SubFooter from '../SubFooter/SubFooter';
+import FooterLanding from '../FooterLanding/FooterLanding';
+import { getGeocoding, cleanUserAddress } from '../../redux/slice/userSlice';
 import mapboxgl from 'mapbox-gl';
+
 mapboxgl.accessToken = process.env.MAPBOX_ACCESS_TOKEN
 
 const PaymentComponent = () => {
