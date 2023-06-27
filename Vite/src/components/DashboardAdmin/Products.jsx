@@ -46,10 +46,7 @@ const Products = () => {
       <div className={StylesAdmin.containerHomeAdmin} style={{ marginLeft: isOpen ? '120px' : (!isOpen && '60px') }}>
         <div className={StylesAdmin.containerSuperior}>
         </div>
-
-
         <div className={StylesAdmin.containerProducts}>
-
           <TableProducts
             key="paginado"
             productsPerPage={productsPerPage}
