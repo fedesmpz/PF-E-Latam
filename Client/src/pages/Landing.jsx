@@ -1,12 +1,11 @@
-import Link from "next/link"
+import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
-import Providers from "@/redux/provider/Provider"
 import NavbarPage from "./Components/NavbarPage"
 import CarouselProducts from "./Components/CarouselProducts"
 import CarouselHero from "./Components/CarouselImg"
 import FooterLanding from "./Components/FooterLanding"
 import CommentsUsers from "./Components/CommentsUsers"
-import styles from "./Styles/Landing/Landing.module.css"
+import styles from "./styles/Landing/Landing.module.css"
 import ModalSignin from "./Components/ModalSingIn"
 import LoaderLanding from "./Components/LoaderLanding"
 
@@ -149,13 +148,5 @@ const Landing = () => {
     )
 }
 
-const LandingWithProvider = () => {
-    return (
-        <Providers>
-            <Landing/>
-        </Providers>
-    );
-};
 
-
-export default LandingWithProvider;
+export default Landing;

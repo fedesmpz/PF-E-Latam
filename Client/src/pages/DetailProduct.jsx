@@ -2,9 +2,8 @@ import { axiosAllProductByCountryCategoryId, cleanDetail, deleteProduct, hidePro
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useRouter } from "next/router";
-import Providers from "@/redux/provider/Provider";
 import styles from "../pages/Components/Styles/ProductDetail.module.css";
-import Link from "next/link";
+import { Link } from "react-router-dom";
 import NavBar from "./Components/NavBar";
 import ReviewRating from "./Components/ReviewRating";
 /* import { addProduct, addProductNoRepeat } from "@/redux/slice/cartSlice"; */
@@ -214,14 +213,5 @@ const DetailProduct = () => {
   );
 };
 
-const DetailProductWithProvider = () => {
-  return (
-    <Providers>
-      <CartProvider>
-        <DetailProduct />
-      </CartProvider>
-    </Providers>
-  );
-};
 
-export default DetailProductWithProvider;
+export default DetailProduct;

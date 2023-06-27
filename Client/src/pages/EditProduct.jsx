@@ -3,12 +3,11 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ProductByIdForEditForm, editProduct, cleanEditDetail, setEditProductMessage, setEditedProduct } from "../redux/slice/productSlice";
 import { useRouter } from "next/router";
-import Providers from "@/redux/provider/Provider";
-import Link from "next/link";
+import { Link } from "react-router-dom";
 import validation from "../utils/formValidation";
 import NavBar from "./Components/NavBar"
 import SubFooter from "./Components/SubFooter";
-import style from "./Styles/EditProduct/EditProduct.module.css"
+import style from "./styles/EditProduct/EditProduct.module.css"
 
 const EditProduct = () => {
     const router = useRouter();
@@ -279,13 +278,4 @@ const EditProduct = () => {
     )
 }
 
-const EditProductWithProvider = () => {
-    return (
-      <Providers>
-        <EditProduct />
-      </Providers>
-    );
-  };
-  
-  export default EditProductWithProvider;
-  
+  export default EditProduct;

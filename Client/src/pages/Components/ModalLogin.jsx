@@ -10,7 +10,7 @@ import { GoogleAuthProvider,
    } from 'firebase/auth'
 import { auth } from '../../utils/firebase'
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchUser } from "@/redux/slice/userSlice";
+//import { fetchUser } from "@/redux/slice/userSlice";
 
 function Example() {
   const [show, setShow] = useState(false);
@@ -22,19 +22,21 @@ function Example() {
     email: '',
     password: '',
   });
-  const userData = useSelector((state) => state.userData);
+ // const userData = useSelector((state) => state.userData);
 
   const login = async (form) => {
     try{ 
       //envia el formulario
-      const response = await axios.post('http://localhost:8000/users/login', form)
+      //const response = await axios.post('http://localhost:8000/users/login', form)
+      const response = await axios.post('https://pf-elatam.onrender.com/users/login', form)
       if (!response.data.verified){
         alert("El usuario no está verificado")
         handleClose()
         return 
       }
       //si no hay error, genera el token
-      const token = await axios.post('http://localhost:8000/users/getToken', response.data)
+      //const token = await axios.post('http://localhost:8000/users/getToken', response.data)
+      const token = await axios.post('https://pf-elatam.onrender.com/getToken', response.data)
       //si no hay error guarda el token
       localStorage.setItem("token", JSON.stringify(token.data))
       if (response.data == 'Firebase: Error (auth/wrong-password).'){
@@ -45,8 +47,8 @@ function Example() {
       }
  //***** DATOS PARA GUARDAR EN ESTADOS *****     
       console.log(response.data);
-      dispatch(fetchUser(response.data))
-      console.log(userData);
+      //dispatch(fetchUser(response.data))
+      //console.log(userData);
       //access:true
       //email:"fede.mpz@gmail.com"
       //isAdmin:false
@@ -66,7 +68,8 @@ function Example() {
     
     //validar si existe o no con axios a users/googleExist, llega false o datos del usuario
     const dataEmail = { email : result.user.email }
-    const response = await axios.post('http://localhost:8000/users/googleExist', dataEmail);
+    //const response = await axios.post('http://localhost:8000/users/googleExist', dataEmail);
+    const response = await axios.post('https://pf-elatam.onrender.com/users/googleExist', dataEmail);
     const user = {
       name: result.user.displayName,
       email: result.user.email,
@@ -77,7 +80,8 @@ function Example() {
 
     if (response.data.exist){
       //SE GUARDA EL TOKEN EN LOCALSTORAGE
-      const token = await axios.post('http://localhost:8000/users/getToken', user)
+      //const token = await axios.post('http://localhost:8000/users/getToken', user)
+      const token = await axios.post('https://pf-elatam.onrender.com/users/getToken', user)
       localStorage.setItem("token", JSON.stringify(token.data))
 //***** DATOS PARA GUARDAR EN ESTADOS *****
       console.log(user); //user es lo que se guarda en el estado, el token ya se guarda en localStorage
@@ -93,8 +97,10 @@ function Example() {
                     }
       
       //SE CREA EN NUESTRA DB EL USUARIO Y SE GENERA EL TOKEN          
-      const response = await axios.post('http://localhost:8000/users/googleLogin', data);
-      const token = await axios.post('http://localhost:8000/users/getToken', user)
+      //const response = await axios.post('http://localhost:8000/users/googleLogin', data);
+      const response = await axios.post('https://pf-elatam.onrender.com/users/googleLogin', data);
+      //const token = await axios.post('http://localhost:8000/users/getToken', user)
+      const token = await axios.post('https://pf-elatam.onrender.com/users/getToken', user)
       //SE GUARDA EL TOKEN
       localStorage.setItem("token", JSON.stringify(token.data))
       const user = {

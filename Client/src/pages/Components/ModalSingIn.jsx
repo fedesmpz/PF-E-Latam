@@ -52,7 +52,8 @@ function Example() {
 
   const register = async (user) => {
     try{ 
-      const response = await axios.post('http://localhost:8000/users/register', user)
+      //const response = await axios.post('http://localhost:8000/users/register', user)
+      const response = await axios.post('https://pf-elatam.onrender.com/users/register', user)
       if (response.data.message == 'Firebase: Error (auth/email-already-in-use).') {
         alert("El usuario ya existe")
       }else if (response.data.message == 'Firebase: Error (auth/invalid-email).'){

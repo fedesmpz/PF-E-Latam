@@ -4,7 +4,9 @@ import { CartContext, CartProvider } from "./CartContext";
 import { useRouter } from "next/router";
 
 const Cart = () => {
-    const { cart, addToCart, removeFromCart, removeToCart } = useContext(CartContext);
+    const { cart, addToCart, removeFromCart, removeToCart } = useContext(
+        CartContext
+    );
     const [productCounts, setProductCounts] = useState({});
     const [cartIsEmpty, setCartIsEmpty] = useState(true);
     const router = useRouter();
@@ -76,16 +78,23 @@ const Cart = () => {
                         </div>
                         <div className={style.productInfo}>
                             <h1 className={style.productTitle}>{product.title}</h1>
-                            <p className={style.productPrice}>${product.original_price}</p>
-                            {product.shipping ? (
+                            {product.sale_price ? (
+                                <div>
+                                    <p className={style.productPriceDiscount}>
+                                        ${product.original_price}
+                                    </p>
+                                    <p className={style.productPrice}>${product.price}</p>
+                                </div>
+                            ) : (
+                                <p className={style.productPrice}>
+                                    ${product.original_price}
+                                </p>
+                            )}
+                            <div>
                                 <p>
                                     Envío: <strong>gratis</strong>
                                 </p>
-                            ) : (
-                                <p>
-                                    Envío: <strong>${product.currency_id}1500</strong>
-                                </p>
-                            )}
+                            </div>
                         </div>
                         <div className={style.productActions}>
                             <div className={style.quantityContainer}>
@@ -111,7 +120,7 @@ const Cart = () => {
                             >
                                 Eliminar
                             </button>
-                            <button className={style.buyButton}>Comprar ahora</button>
+                            {/* <button className={style.buyButton}>Comprar ahora</button> */}
                         </div>
                     </div>
                 ))}
