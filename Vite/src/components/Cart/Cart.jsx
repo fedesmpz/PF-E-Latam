@@ -10,6 +10,8 @@ const Cart = () => {
     const [productCounts, setProductCounts] = useState({});
     const [cartIsEmpty, setCartIsEmpty] = useState(true);
     const navigate = useNavigate();
+    let [count, setCount] = useState(0);
+    let [total, setTotal] = useState(0);
 
     const loadCartData = useCallback(() => {
         const savedCart = JSON.parse(localStorage.getItem("cart"));
@@ -23,11 +25,34 @@ const Cart = () => {
         }
     }, []);
 
+    const totalPrice = () => {
+        let totalAux = 0;
+        if (cart.length > 0) {
+            cart.forEach((product) => {
+                product.sale_price
+                    ? setTotal((totalAux += product.price * product.quantity))
+                    : setTotal((totalAux += product.original_price * product.quantity));
+            });
+        }
+        setTotal(totalAux)
+    };
+    const totalProducts = () => {
+        let countAux = 0
+        if (cart.length > 0) {
+            cart.forEach((product) => {
+                setCount((countAux += product.quantity));
+            });
+        }
+        setCount(countAux);
+    };
+
     useEffect(() => {
         loadCartData();
     }, [loadCartData]);
 
     useEffect(() => {
+        totalProducts();
+        totalPrice();
         if (!cartIsEmpty) {
             localStorage.setItem("cart", JSON.stringify(cart));
         }
@@ -45,7 +70,7 @@ const Cart = () => {
         setProductCounts((prevCounts) => {
             const newCounts = {
                 ...prevCounts,
-                [productId]: (prevCounts[productId] || 0) + 1
+                [productId]: (prevCounts[productId] || 0) + 1,
             };
             addToCart({ id: productId, quantity: newCounts[productId] });
             return newCounts;
@@ -56,8 +81,8 @@ const Cart = () => {
         setProductCounts((prevCounts) => {
             const newCounts = {
                 ...prevCounts,
-                [productId]: (prevCounts[productId] || 0) - 1
-            }
+                [productId]: (prevCounts[productId] || 0) - 1,
+            };
             if (newCounts[productId] <= 0) {
                 delete newCounts[productId];
                 removeFromCart(productId);
@@ -81,18 +106,29 @@ const Cart = () => {
                             {product.sale_price ? (
                                 <div>
                                     <p className={style.productPriceDiscount}>
-                                        ${product.original_price}
+                                        ${product.quantity * product.original_price}
                                     </p>
-                                    <p className={style.productPrice}>${product.price}</p>
+                                    <p className={style.productPrice}>
+                                        ${product.quantity * product.price}
+                                    </p>
                                 </div>
                             ) : (
                                 <p className={style.productPrice}>
-                                    ${product.original_price}
+                                    ${product.quantity * product.original_price}
                                 </p>
                             )}
                             <div>
                                 <p>
-                                    Envío: <strong>gratis</strong>
+                                    {product.shipping ? (
+                                        <p>
+                                            Envío: <strong>gratis</strong>
+                                        </p>
+                                    ) : (
+                                        <p>
+                                            Envío:{" "}
+                                            <strong>se sumará en el total de la compra</strong>
+                                        </p>
+                                    )}
                                 </p>
                             </div>
                         </div>
@@ -104,9 +140,11 @@ const Cart = () => {
                                 >
                                     -
                                 </button>
+
                                 <span className={style.quantity}>
                                     {productCounts[product.id] || 1}
                                 </span>
+
                                 <button
                                     className={style.quantityButton}
                                     onClick={() => handleIncrement(product.id)}
@@ -132,8 +170,9 @@ const Cart = () => {
                 </div>
                 <div className={style.resumeContent}>
                     <div className={style.resumeDetails}>
-                        <p className={style.resumeText}>productos</p>
+                        <p className={style.resumeText}>{`productos (${count})`}</p>
                         <span className={style.resumePrice}>precio</span>
+                        <p>${total}</p>
                     </div>
                     <div className={style.resumeActions}>
                         <button
