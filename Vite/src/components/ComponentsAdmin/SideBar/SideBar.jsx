@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { FaShoppingBag, FaUsers, FaChartLine, FaClipboardList, FaHome, FaLaptopCode } from 'react-icons/fa';
 import styles from './Sidebar.module.css';
+import { Link } from 'react-router-dom';
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -33,10 +34,11 @@ const Sidebar = () => {
                 </a>
               </li>
         <li className={styles['li']}>
-          <a className={styles['a']} href="/DashboardAdmin/Products">
+          <Link to="/DashboardAdmin/Products"></Link>
+          {/* <a className={styles['a']} href="/DashboardAdmin/Products"> */}
             <FaShoppingBag className={styles['icon']} />
             <span className={`${styles['text']} ${isOpen ? '' : styles.hidden}`}>Productos</span>
-          </a>
+          {/* </a> */}
         </li>
         <li className={styles['li']}>
           <a className={styles['a']} href="/DashboardAdmin/Users">
