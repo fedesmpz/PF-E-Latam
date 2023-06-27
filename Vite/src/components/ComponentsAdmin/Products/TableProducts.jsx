@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import styles from "./StylesProducts/TableProducts.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import Select from 'react-select'
-import Styles from "../../NavbarPage/NavbarPage.module.css";
+import Styles from "../../NavBarPage/NavbarPage.module.css"
 import { axiosAllProductsByCountries, axiosSearchProduct } from "../../../redux/slice/productSlice";
 
 const TablePrducts = ({ productsPerPage, products, paginado, currentPage }) => {
