@@ -20,6 +20,7 @@
 .productImage img {
   width: 100px;
   height: 100px;
+  margin-right: 15px;
 }
 
 .productInfo {
@@ -55,12 +56,22 @@
   background-color: #dc3545;
   color: #fff;
   cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.deleteButton:hover {
+  background-color: #c82333;
 }
 
 .buyButton {
   background-color: #007bff;
   color: #fff;
   cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.buyButton:hover {
+  background-color: #0056b3;
 }
 
 .resumeContainer {
@@ -111,13 +122,22 @@
 
 .quantityContainer {
   display: flex;
+  justify-content: center;
   align-items: center;
+  border: 1px solid #ccc; 
+  border-radius: 4px; 
 }
 
 .quantityButton {
   padding: 4px;
   font-size: 16px;
   cursor: pointer;
+  transition: background-color 0.3s;
+  border: none;
+}
+
+.quantityButton:hover {
+  background-color: #b9bcc0;
 }
 
 .quantity {
