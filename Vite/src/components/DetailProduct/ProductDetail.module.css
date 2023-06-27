@@ -150,6 +150,7 @@ button.backButton:hover svg {
   border: 2px solid transparent;
   border-radius: 8px;
   width: 100px;
+  transition: background-color 0.3s;
   background-color:rgb(19, 171, 42);
 }
 .buttonOcultar:hover {
@@ -169,6 +170,7 @@ button.backButton:hover svg {
   border-radius: 8px;
   padding: 10px;
   width: 100px;
+  transition: background-color 0.3s;
   background-color:rgb(230, 35, 9);
 }
 .buttonAddCart {
@@ -181,6 +183,7 @@ button.backButton:hover svg {
   border-radius: 8px;
   padding: 10px;
   width: 100px;
+  transition: background-color 0.3s;
   background-color:rgb(42, 57, 220)
 }
 .buttonAddCart:hover {
@@ -200,6 +203,7 @@ button.backButton:hover svg {
   border-radius: 8px;
   padding: 10px;
   width: 100px;
+  transition: background-color 0.3s;
   background-color:rgb(238, 170, 10);
 }
 
