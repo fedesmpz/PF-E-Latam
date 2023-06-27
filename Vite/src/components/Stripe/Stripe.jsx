@@ -1,8 +1,30 @@
-import {withRouter} from 'react-router-dom';
-import { CardElement } from '@stripe/react-stripe-js';
+import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 
 const Stripe = () => {
-    return <CardElement/>
+    const elements = useElements();
+    const stripe = useStripe();
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        const {error, paymentMethod} = await stripe.createPaymentMethod({
+            type:'card',
+            card: elements.getElement(CardElement)
+        })
+        if(!error) {
+            console.log(paymentMethod)
+        }
+    }
+    
+    return(
+        <>
+            <h1>Card</h1>
+            <form onSubmit={handleSubmit}>
+                <CardElement/>
+                <button>Pay</button>
+            </form>
+        </>
+    )
 }
 
-export default withRouter(Stripe)
+export default Stripe;
