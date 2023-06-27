@@ -1,7 +1,0 @@
-{
-  "extends": [
-    "next",
-    "airbnb/base",
-    "next/core-web-vitals"
-  ]
-}
