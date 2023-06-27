@@ -18,8 +18,8 @@ export const userSlice = createSlice({
     getAllUsersStart(state, action) {
       state.users = action.payload
     },
-    getUsersStart(state, action) {
-      state.userData = action;
+    getUsersStart: (state, action) => {
+      state.userData = action.payload;
     },
     getUsersSuccess(state, action) {
       state.users = action.payload;
@@ -94,7 +94,7 @@ export default userSlice.reducer;
 
 export const fetchUsers = (user) => async (dispatch) => {
   try {
-    dispatch(getUsersStart(user));
+    await dispatch(getUsersStart(user));
 
   } catch (error) {
     dispatch(getUsersFailure(error.message));

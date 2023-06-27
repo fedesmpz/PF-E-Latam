@@ -17,11 +17,11 @@ const Home = () => {
     const dispatch = useDispatch();
     const productsCountry = useSelector((state) => state.products.country);
     const [isLoading, setIsLoading] = useState(true);
-
+    const userData = useSelector((state) => state.user.userData);
 
     useEffect(() => {
         setIsLoading(true);
-
+        console.log(userData);
         const timer = setTimeout(() => {
             setIsLoading(false);
         }, 2500);
