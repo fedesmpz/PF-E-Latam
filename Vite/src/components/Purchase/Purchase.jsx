@@ -4,6 +4,7 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import styles from './Purchase.module.css';
 import { getGeocoding, cleanUserAddress } from '../../redux/slice/userSlice';
+import Stripe from '../Stripe/Stripe';
 import mapboxgl from 'mapbox-gl';
 
 /* mapboxgl.accessToken = process.env.MAPBOX_ACCESS_TOKEN */
@@ -12,7 +13,6 @@ import { Link } from 'react-router-dom';
 const PaymentComponent = () => {
 
   const dispatch = useDispatch()
-
   const [currentTab, setCurrentTab] = useState(0);
   let [total, setTotal] = useState(0);
   const [deliveryForm, setDeliveryForm] = useState({
@@ -255,6 +255,7 @@ const PaymentComponent = () => {
 
           <TabPanel className={styles.tabPanel}>
             <h2>Forma de pago</h2>
+            <Stripe/>
             <p>Aca un resumen q carge toda la data recolectada, carrito envio y pago. Que salte un modal que diga: Confirmar pago</p>
             <div className={styles.buttonsContainer}>
               <button className={styles.back_Button} onClick={handleBack}>
