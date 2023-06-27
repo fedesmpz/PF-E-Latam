@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import style from "../Footerlanding/Footerlanding.module.css"
+import style from "../FooterLanding/Footerlanding.module.css"
 
 function ModalComoComprar() {
     const [show, setShow] = useState(false);
