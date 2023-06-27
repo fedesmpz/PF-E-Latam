@@ -13,12 +13,12 @@ import Products from './components/DashboardAdmin/Products';
 import Statistics from './components/DashboardAdmin/Statistics';
 import Sales from './components/Sales/Sales';
 import Users from './components/DashboardAdmin/Users';
-// import Componente from './components/componente';
-// import UserDetails from './components/ComponentsAdmin/Users/UserDetails';
+
 
 function App() {
   return (
     <Routes>
+
       <Route path="/" element={<Landing />} />
       <Route path="/Home" element={<Home />} />
       <Route path= "/CreateProduct" element ={<CreateProduct/>}/>
