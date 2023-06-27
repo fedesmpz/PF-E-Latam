@@ -29,13 +29,13 @@ const ControlledCarousel = () => {
   return (
     <section className="sec-more-selled">
       <div className={Styles.centerContainer}>
-        <Carousel activeIndex={index} onSelect={handleSelect} data-bs-theme="dark" indicators={false} controls={false}>
+        <Carousel className={Styles.carousel} activeIndex={index} onSelect={handleSelect} data-bs-theme="dark" indicators={false} controls={false}>
           {[...Array(totalItems)].map((_, idx) => {
             const indexOfLastProduct = (idx + 1) * productsPerPage;
             const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
             const currentProducts = allProducts.slice(indexOfFirstProduct, indexOfLastProduct);
             return (
-              <Carousel.Item key={idx}>
+              <Carousel.Item className={Styles.carouselItem} key={idx}>
                 <Products currentProducts={currentProducts} />
               </Carousel.Item>
             );

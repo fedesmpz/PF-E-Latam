@@ -1,12 +1,36 @@
 .cartContainer {
   display: flex;
   flex-direction: column;
+}
+
+button.backButton {
+  display: flex;
   align-items: center;
-  padding: 20px;
+  background: none;
+  border: none;
+  color: black;
+  cursor: pointer;
+  font-size: 1.2rem;
+  padding: 15px;
+  margin-left: 30px;
+}
+
+button.backButton svg {
+  fill: #000000;
+  height: 2em;
+  margin-right: 0.5em;
+  width: 2em;
+}
+
+button.backButton:hover svg {
+  fill: rgb(165, 182, 199);
+  cursor: pointer;
 }
 
 .cartProducts {
   width: 100%;
+  padding: 10px 50px 5px 50px;
+  
 }
 
 .productContainer {
@@ -43,47 +67,40 @@
 
 .productPrice {
   font-size: 16px;
+  font-weight: bolder;
+  color: #4BBF68;
 }
 
-.productActions button {
+.productPricesContainer {
+  display: inline;
+}
+
+.productActions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* .productActions button {
   margin-left: 10px;
   padding: 8px 12px;
   border-radius: 4px;
   font-size: 14px;
-}
-
-.deleteButton {
-  background-color: #dc3545;
-  color: #fff;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.deleteButton:hover {
-  background-color: #c82333;
-}
-
-.buyButton {
-  background-color: #007bff;
-  color: #fff;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.buyButton:hover {
-  background-color: #0056b3;
-}
+} */
 
 .resumeContainer {
-  width: 100%;
-  margin-top: 20px;
-  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  margin: 20px 50px 0px 50px;
+  padding: 10px 20px 10px 20px;
   border: 1px solid #ccc;
   border-radius: 4px;
 }
 
 .resumeHeader {
-  margin-bottom: 10px;
+  margin-left: 50px;
+  color: #4BBF68;
 }
 
 .resumeTitle {
@@ -95,11 +112,12 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 10px;
+  margin: 10px;
 }
 
 .resumeText {
   font-size: 16px;
+  font-weight: bold;
 }
 
 .resumePrice {
@@ -107,17 +125,29 @@
   font-weight: bold;
 }
 
-.resumeActions button {
-  padding: 10px 20px;
-  background-color: #007bff;
-  color: #fff;
-  font-size: 18px;
-  font-weight: bold;
-  border-radius: 4px;
+.resumeActions {
+  display: flex;
+  width: 95%;
+  flex-direction: column;
+  align-items: flex-end;
 }
 
 .continueButton {
+  background: none;
+  color: white;
   cursor: pointer;
+  font-size: 1.2rem;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  margin-top: 25px;
+  padding: 10px;
+  width: 200px;
+  transition: background-color 0.3s;
+  background-color:rgb(42, 57, 220);
+}
+
+.continueButton:hover {
+  background-color: rgb(29, 40, 158);
 }
 
 .quantityContainer {
@@ -126,14 +156,17 @@
   align-items: center;
   border: 1px solid #ccc; 
   border-radius: 4px; 
+  margin-bottom: 10px;
 }
 
 .quantityButton {
-  padding: 4px;
+  padding: 8px 12px;
+  border-radius: 4px;
   font-size: 16px;
   cursor: pointer;
   transition: background-color 0.3s;
   border: none;
+  margin: 10px;
 }
 
 .quantityButton:hover {
@@ -141,7 +174,50 @@
 }
 
 .quantity {
-  margin: 0 10px;
+  margin-left: 0 10px;
   font-size: 16px;
   font-weight: bold;
+}
+
+.deleteButton {
+  justify-content: center;
+  background: none;
+  color: white;
+  cursor: pointer;
+  font-size: 1.2rem;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  /* padding: 10px; */
+  width: 46px;
+  transition: 0.05s;
+} 
+
+.deleteButton img {
+  max-height: 68px;
+}
+
+.deleteButton:hover {
+  scale: 1.1;
+}
+
+.buyButton {
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+}
+
+.buyButton:hover {
+  background-color: #034e9f;
+}
+
+.titleProducts {
+  display: flex;
+  justify-content: center;
+  font-weight: bolder;
+}
+
+.productsContainer {
+  background-color: white;
+  height: 600px;
+  padding: 20px;
 }

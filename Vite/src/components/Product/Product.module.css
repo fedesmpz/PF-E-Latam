@@ -27,6 +27,7 @@
     max-height: 450px;
     /* height: 900px; */
     /* min-height: 400px; */
+    transition: 0.05s;
     max-height: 400px;
     margin: 10px;
     border: 2px solid rgb(223, 223, 223);
@@ -45,6 +46,7 @@
 .card:hover {
     transform: scale(1.1);
     z-index: 1;
+    transition: 0.04s;
     position: relative;
     display: flex;
     flex-direction: column;
