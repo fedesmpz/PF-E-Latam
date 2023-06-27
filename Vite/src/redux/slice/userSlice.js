@@ -11,6 +11,9 @@ export const userSlice = createSlice({
     userAddress: []
   },
   reducers: {
+    getAllUsersStart(state, action) {
+      state.users = action.payload
+    },
     getUsersStart(state, action) {
       state.userData = action;
     },
@@ -65,6 +68,7 @@ export const userSlice = createSlice({
 });
 
 export const {
+  getAllUsersStart,
   getUsersStart,
   getUsersSuccess,
   getUsersFailure,
@@ -78,7 +82,7 @@ export const {
   updateUserSuccess,
   updateUserFailure,
   getUserAddress,
-  cleanUserAddress
+  cleanUserAddress,
 } = userSlice.actions;
 
 export default userSlice.reducer;
@@ -133,12 +137,11 @@ export const getGeocoding = (addressId, countryName) => (dispatch) => {
       });
 };
 
-export const getUsers = () => async (dispatch) => {
-  await axios.get('https://pf-elatam.onrender.com/users')
+export const getUsers = () => (dispatch) => {
+  axios.get('https://pf-elatam.onrender.com/users')
   .then((response) => {
-    dispatch(response.data)
+    dispatch(getAllUsersStart(response.data))
   })
   .catch((error) => console.log(error))
-  console.log(response.data);
 }
 
