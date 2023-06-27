@@ -30,8 +30,8 @@ const Product = ({ id, title, thumbnail, original_price, currency_id, price, sal
                         <h2 className={`${Styles.title} ${Styles.thinTitle}`}>{shortenTitle(title)}</h2>
                         {sale_price ? (
                             <>
-                                <p className={Styles.text}>Precio<s>{original_price}{currency_id}</s></p>
-                                <p className={Styles.text}>Oferta: {price}{currency_id}</p>
+                                <p className={Styles.original_price}>$ {currency_id} {original_price}</p>
+                                <p className={Styles.sale_price}>$ {currency_id} {price}</p>
                             </>
                         ) : (
                             <p className={Styles.price}>$ {currency_id} {original_price}</p>
