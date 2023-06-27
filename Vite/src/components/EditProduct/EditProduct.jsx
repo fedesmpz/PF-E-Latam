@@ -91,7 +91,7 @@ const EditProduct = () => {
             setLocalEditDetail({})
             setErrors({})
         }
-        // router.push(`/DetailProduct?countryId=${countryId}&categories=${categories}&id=${id}`)
+        router.push()
 
     }
 
@@ -110,11 +110,15 @@ const EditProduct = () => {
         setIsFormValid(isValid);
     }, [errors, localEditDetail]);
 
+    useEffect(() => {
+
+    }, [editDetail])
+
     return (
         <div className={style.container}>
             <NavBar></NavBar>
             <div className={style.container_top}>
-                <Link to="/Home">
+                <Link to={`/DetailProduct?countryId=${countryId}&categories=${categories}&id=${id}`}>
                     <button className={style.backButton}>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
                             <path fill="none" d="M0 0h24v24H0z" />
