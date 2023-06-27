@@ -133,7 +133,7 @@ export const updateUser = (userId, userData) => async (dispatch) => {
 
 export const getGeocoding = (addressId, countryName) => (dispatch) => {
   axios
-      .get(`http://localhost:8000/users/address/${countryName}/${addressId}`)
+      .get(`https://pf-elatam.onrender.com/users/address/${countryName}/${addressId}`)
       .then((response) => {
         dispatch(getUserAddress(response.data))
       })
