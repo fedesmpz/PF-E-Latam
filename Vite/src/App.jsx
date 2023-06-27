@@ -11,7 +11,7 @@ import EditProduct from './components/EditProduct/EditProduct';
 import PaymentComponent from './components/Purchase/Purchase'
 import Products from './components/DashboardAdmin/Products';
 import Statistics from './components/DashboardAdmin/Statistics';
-import Sales from './components/DashboardAdmin/Sales';
+import Sales from './components/Sales/Sales';
 import Users from './components/DashboardAdmin/Users';
 // import UserDetails from './components/ComponentsAdmin/Users/UserDetails';
 
