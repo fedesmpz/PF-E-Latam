@@ -10,7 +10,7 @@ const Statistics = () => {
       <Sidebar />
       <SalesCard />
       <SalesStats />
-      {/* <LineChart /> */}
+      <LineChart />
     </div>
   )
 }
