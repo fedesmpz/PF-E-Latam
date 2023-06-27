@@ -11,6 +11,7 @@ import EditProduct from './components/EditProduct/EditProduct';
 import PaymentComponent from './components/Purchase/Purchase'
 import Products from './components/DashboardAdmin/Products';
 import Statistics from './components/DashboardAdmin/Statistics';
+import Sales from './components/DashboardAdmin/Sales';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
       <Route exact path= "/purchase" element={<PaymentComponent/>}/>
       <Route exact path="/DashBoardAdmin/Products" element={<Products />} />
       <Route exact path="/DashboardAdmin/Statistics" element={<Statistics />} />
+      <Route exact path="/DashboardAdmin/Sales" element={<Sales />} />
     </Routes>
   );
 }

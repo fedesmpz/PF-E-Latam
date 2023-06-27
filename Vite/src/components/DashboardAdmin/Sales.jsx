@@ -1,7 +1,7 @@
 import React from 'react'
 import Sidebar from '../ComponentsAdmin/SideBar/SideBar'
 import AllOrders from '../ComponentsAdmin/Orders/AllOrders'
-import StylesAdmin from "../styles/DashboardAdmin/DashboardAdmin.module.css"
+import StylesAdmin from "./DashboardAdmin.module.css"
 import { useState } from 'react'
 
 const Sales = () => {
