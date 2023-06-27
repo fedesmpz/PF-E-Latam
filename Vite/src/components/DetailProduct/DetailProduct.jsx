@@ -121,8 +121,8 @@ const DetailProduct = () => {
               {productDetail.currency_id} ${productDetail.original_price}
             </h2>
             <ul className={styles.attributeList}>{renderedAttributes}</ul>
-            <p className={styles.hiddenProductTag}>
-              {productDetail.catalog_listing === true ? '' : `Producto oculto`}
+            <p className={`${styles.hiddenProductTag} ${isVisible ? styles.hideTag : ''}`}>
+              {isVisible === true ? '' : `Producto oculto`}
             </p>
           </div>
           <div className={styles.buttonsContainer}>

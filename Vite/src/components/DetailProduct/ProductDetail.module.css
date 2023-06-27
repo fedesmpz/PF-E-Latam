@@ -214,6 +214,18 @@ button.backButton:hover svg {
   background-color:rgb(201, 144, 12);
 }
 
+.hiddenProductTag {
+  background-color: #333;
+  color: white;
+  font-weight: bolder;
+  width: fit-content;
+  padding: 5px 10px;
+  border-radius: 3px;
+}
+
+.hideTag {
+  display: none;
+}
 
 .modal {
   position: fixed;
