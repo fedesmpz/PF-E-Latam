@@ -16,6 +16,9 @@
     background-color: white;
 }
 
+.hiddenCard {
+    background-color: #333;
+}
 
 .card:hover {
     transform: scale(1.1);
@@ -35,7 +38,7 @@
     background-color: white;
 }
 
-  
+
 .card img {
     width: 100%;
     height: 60%;
@@ -93,55 +96,21 @@
     border-radius: 4px;
     text-transform: capitalize;
 }
-.unlistedCard {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 420px;
-    height: 450px;
-    margin: 10px;
-    border: 2px solid rgb(223, 223, 223);
-    border-radius: 5px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-    background-color: #ffffff; /* color de fondo distinto */
-    opacity: 0.7; /* semitransparente */
-    position: relative;
-}
 
-.unlistedCard:before {
-    content: "Producto oculto"; 
-    position: absolute;
-  top:1px;
-    left: 49px;
-    font-size: 25px;
-    color: rgb(50, 94, 0);
-    font-weight: bold;
-    writing-mode: vertical-rl; /* orientación vertical del texto */
-    transform: rotate(220deg);
-}
-  
-.unlistedCard:hover {
-    transform: scale(1.1);
+.hiddenProductTag {
     z-index: 1;
     position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    width: 420px;
-    min-height: 450px;
-    max-height: fit-content;
-    margin: 10px;
-    border: 2px solid rgb(255, 249, 249);
-    border-radius: 5px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-    background-color: #ffffff; /* color de fondo distinto al pasar el cursor */
-    opacity: 1; /* al pasar el cursor se vuelve completamente opaco */
+    font-weight: bolder;
+    width: fit-content;
+    border-radius: 3px;
+    background-color: red;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 3px;
+    transform-origin: top left;
+    bottom: 220px;
 }
-
-.unlistedCard img {
-    width: 100%;
-    height: 60%;
-    object-fit: contain;
+  
+  .hideTag {
+    display: none;
 }

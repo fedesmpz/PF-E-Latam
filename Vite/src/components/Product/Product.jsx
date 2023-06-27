@@ -24,7 +24,7 @@ const Product = ({ id, title, thumbnail, original_price, currency_id, price, sal
     return (
         <div>
             <Link className={Styles.link} to={`/DetailProduct?countryId=${countryId}&categories=${categories}&id=${id}`}>
-                <div className={`${!catalog_listing ? Styles.unlistedCard : Styles.card}`}>
+                <div className={Styles.card}>
                     <img src={thumbnail} alt={title} />
                     <div className={Styles.cardDetails}>
                         <h2 className={`${Styles.title} ${Styles.thinTitle}`}>{shortenTitle(title)}</h2>
@@ -37,6 +37,9 @@ const Product = ({ id, title, thumbnail, original_price, currency_id, price, sal
                             <p className={Styles.price}>$ {currency_id} {original_price}</p>
                         )}
                         <span className={Styles.category}>{categories}</span>
+                        <p className={`${!catalog_listing ? Styles.hiddenProductTag : Styles.hideTag}`}>
+                            {!catalog_listing ? 'Producto oculto' : ''}
+                        </p>
                     </div>
                 </div>
             </Link>
