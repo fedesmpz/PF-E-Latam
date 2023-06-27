@@ -5,13 +5,9 @@ import { axiosAllProductsByCountries } from "../../redux/slice/productSlice";
 import Paginado from "../../components/Paginado/Paginado"
 import Products from "../../components/Products/Products.jsx";
 import Filter from "../../components/Filter/Filter.jsx";
-import SubFooter from "../../components/SubFooter/SubFooter.jsx";
-import NavBar from "../../components/NavBar/NavBar.jsx"
 import style from "../../components/Home/Home.module.css"
 import LoaderLanding from "../../components/LoaderLanding/LoaderLanding.jsx"
 import "bootstrap/dist/css/bootstrap.css"
-import FooterLanding from "../../components/FooterLanding/FooterLanding.jsx";
-// import Componente from "../componente";
 
 const Home = () => {
     const dispatch = useDispatch();
@@ -69,8 +65,6 @@ const Home = () => {
 
     return (
         <div className={style.body}>
-            {/* <Componente/> */}
-            <NavBar />
             <Filter
                 setCurrentPage={setCurrentPage}
                 setOrden={setOrden}
@@ -85,8 +79,6 @@ const Home = () => {
                     paginado={paginado}
                     currentProducts={paginatedProducts}
                 />
-                <SubFooter />
-                <FooterLanding />
             </div>
         </div>
     );

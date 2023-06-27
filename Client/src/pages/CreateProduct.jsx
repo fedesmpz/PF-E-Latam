@@ -6,7 +6,6 @@ import { setNewProductMessage } from "../redux/slice/productSlice"
 import { Link } from "react-router-dom"
 import validation from "../utils/formValidation"
 import Head from "next/head";
-import NavBar from "./Components/NavBar"
 import SubFooter from "./Components/SubFooter"
 import style from "./styles/CreateProduct/CreateProduct.module.css"
 
@@ -128,8 +127,6 @@ const CreateProduct = () => {
             <Head>
                 <title>/admin/create</title>
             </Head>
-
-            <NavBar></NavBar>
             <div className={style.container_top}>
                 <Link href="/Home">
                     <button className={style.backButton}>
