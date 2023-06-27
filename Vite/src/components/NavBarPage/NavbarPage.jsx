@@ -4,7 +4,7 @@ import classnames from "classnames";
 import NavItem from "../NavItem/NavItem";
 import ModalLogin from "../ModalLogin/ModalLogin"
 import ModalSignIn from "../ModalSignIn/ModalSingIn"
-import styles from "./NavBarPage.module.css";
+import styles from "./NavbarPage.module.css";
 import Style from "../NavBar/NavBar.module.css";
 
 const MENU_LIST = [
