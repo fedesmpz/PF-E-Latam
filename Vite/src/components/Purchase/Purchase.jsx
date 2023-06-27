@@ -197,7 +197,7 @@ const PaymentComponent = () => {
                   <button className={styles.backButton} onClick={handleBack}>
                     Atras
                   </button>
-                  <button className={styles.continueButton} onClick={handleContinue} disabled >Guardar y Continuar</button>
+                  <button className={styles.continueButton} onClick={handleContinue} >Guardar y Continuar</button>
                   {/* <button type="submit" className={styles.continueButton}>Guardar y Continuar</button> */}
                 </div>
               </form>

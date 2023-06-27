@@ -3,18 +3,26 @@ import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import { Provider } from "react-redux";
 import store from "../src/redux/store/store.js";
-import { HashRouter } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import { CartProvider } from './utils/CartContext.jsx';
+import {loadStripe} from '@stripe/stripe-js'
+import { Elements } from '@stripe/react-stripe-js';
 
+(async () => {
+  const {publishableKey} = await fetch ('/config').then(r => r.json())
+  const stripePromise = loadStripe(publishableKey)
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <Provider store={store}>
-    <HashRouter>
+    <BrowserRouter>
       <React.StrictMode>
         <CartProvider>
-          <App />
+          <Elements stripe={stripePromise}>
+            <App />
+          </Elements>
         </CartProvider>
       </React.StrictMode>,
-    </HashRouter>
+    </BrowserRouter>
   </Provider>
 )
+})

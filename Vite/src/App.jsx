@@ -13,12 +13,10 @@ import Products from './components/DashboardAdmin/Products';
 import Statistics from './components/DashboardAdmin/Statistics';
 import Sales from './components/Sales/Sales';
 import Users from './components/DashboardAdmin/Users';
-
-
-function App() {
-  return (
-    <Routes>
-
+  
+  function App() {
+    return (
+      <Routes>
       <Route path="/" element={<Landing />} />
       <Route path="/Home" element={<Home />} />
       <Route path= "/CreateProduct" element ={<CreateProduct/>}/>
@@ -35,5 +33,6 @@ function App() {
     </Routes>
   );
 }
+
 
 export default App;
