@@ -3,7 +3,7 @@ import Products from '../Products/Products';
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { axiosAllProducts } from "../../redux/slice/productSlice"
-import Styles from "../CarouselProducts/CarouselProducts.module.css"
+import Styles from "./CarouselProducts.module.css"
 
 const ControlledCarousel = () => {
   const [index, setIndex] = useState(0);
@@ -36,7 +36,7 @@ const ControlledCarousel = () => {
             const currentProducts = allProducts.slice(indexOfFirstProduct, indexOfLastProduct);
             return (
               <Carousel.Item key={idx}>
-                <Products currentProducts={currentProducts}/>
+                <Products currentProducts={currentProducts} />
               </Carousel.Item>
             );
           })}

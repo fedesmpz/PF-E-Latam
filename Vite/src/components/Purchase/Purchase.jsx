@@ -9,7 +9,7 @@ import FooterLanding from '../FooterLanding/FooterLanding';
 import { getGeocoding, cleanUserAddress } from '../../redux/slice/userSlice';
 import mapboxgl from 'mapbox-gl';
 
-mapboxgl.accessToken = process.env.MAPBOX_ACCESS_TOKEN
+/* mapboxgl.accessToken = process.env.MAPBOX_ACCESS_TOKEN */
 
 const PaymentComponent = () => {
 
@@ -28,7 +28,7 @@ const PaymentComponent = () => {
   useEffect(() => {
     // return () => dispatch(cleanUserAddress())
   }, [matchingAddress])
-  
+
   const [paymentForm, setPaymentForm] = useState({
     name: "",
 
@@ -55,12 +55,12 @@ const PaymentComponent = () => {
   };
 
   const handleDeliveryChange = (event) => {
-     const prop = event.target.name;
-     const value = event.target.value;
-     setDeliveryForm({
+    const prop = event.target.name;
+    const value = event.target.value;
+    setDeliveryForm({
       ...deliveryForm,
       [prop]: value
-     })
+    })
   }
 
   const handleAddressSearch = (event) => {
@@ -81,128 +81,128 @@ const PaymentComponent = () => {
     // Handle form submission or validation here
   }
 
-return (
-  <div className={styles.componentContainer}>
-    <NavBar></NavBar>
-  <div className={styles.purchaseContainer}>
-    <Tabs className={styles.tabsContainer} selectedIndex={currentTab} onSelect={handleTabChange}>
-      <TabList>
-        <Tab className={styles.tab}>Confirmar compra</Tab>
-        <Tab className={styles.tab}>Forma de entrega</Tab>
-        <Tab className={styles.tab}>Confirmar direccion de entrega</Tab>
-        <Tab className={styles.tab}>Forma de pago</Tab>
-        <Tab className={styles.tab}>Confirmacion de pago</Tab>
-      </TabList>
+  return (
+    <div className={styles.componentContainer}>
+      <NavBar></NavBar>
+      <div className={styles.purchaseContainer}>
+        <Tabs className={styles.tabsContainer} selectedIndex={currentTab} onSelect={handleTabChange}>
+          <TabList>
+            <Tab className={styles.tab}>Confirmar compra</Tab>
+            <Tab className={styles.tab}>Forma de entrega</Tab>
+            <Tab className={styles.tab}>Confirmar direccion de entrega</Tab>
+            <Tab className={styles.tab}>Forma de pago</Tab>
+            <Tab className={styles.tab}>Confirmacion de pago</Tab>
+          </TabList>
 
-      <TabPanel className={styles.tabPanel}>
-        <h2>Confirmar compra</h2>
-        {
-          purchaseConfirmation && purchaseConfirmation.map((product) => {
-            return (
-              <div>
-                <h2>{product.title}</h2>
-                <h3>$ {product.currency_id} {product.original_price}</h3>
-                <p>{product.quantity}</p>
-              </div>
-            )
-          })
-        }
-        <div className={styles.buttonsContainer}>
-          <button className={styles.continueButton} onClick={handleContinue}>
-            Continuar
-          </button>
-        </div>
-      </TabPanel>
+          <TabPanel className={styles.tabPanel}>
+            <h2>Confirmar compra</h2>
+            {
+              purchaseConfirmation && purchaseConfirmation.map((product) => {
+                return (
+                  <div>
+                    <h2>{product.title}</h2>
+                    <h3>$ {product.currency_id} {product.original_price}</h3>
+                    <p>{product.quantity}</p>
+                  </div>
+                )
+              })
+            }
+            <div className={styles.buttonsContainer}>
+              <button className={styles.continueButton} onClick={handleContinue}>
+                Continuar
+              </button>
+            </div>
+          </TabPanel>
 
-      <TabPanel className={styles.tabPanel}>
-        <h2>Forma de entrega</h2>
-        <div className={styles.container}>
-          <form onSubmit={handleDeliverySubmit}>
-            <div>
-              <label htmlFor="address" className={styles.label}>Direccion</label>
-              <input
-                type="text"
-                id="address"
-                name="address"
-                value={deliveryForm.address}
-                onChange={handleDeliveryChange}
-              />
-            </div>
-                     
-            <div>
-              <label htmlFor="postalCode" className={styles.label}>Postal Code</label>
-              <input
-                type="text"
-                id="postalCode"
-                name="postalCode"
-                value={deliveryForm.postalCode}
-                onChange={handleDeliveryChange}
-              />
-            </div>
-    
-            <div>
-              <label htmlFor="city" className={styles.label}>City</label>
-              <input
-                type="text"
-                id="city"
-                name="city"
-                value={deliveryForm.city}
-                onChange={handleDeliveryChange}
-              />
-            </div>
-    
-            <div>
-              <label htmlFor="country" className={styles.label}>Country</label>
-              <input
-                type="text"
-                id="country"
-                name="country"
-                value={deliveryForm.country}
-                onChange={handleDeliveryChange}
-              />
-            </div>
-            {/* <div>
+          <TabPanel className={styles.tabPanel}>
+            <h2>Forma de entrega</h2>
+            <div className={styles.container}>
+              <form onSubmit={handleDeliverySubmit}>
+                <div>
+                  <label htmlFor="address" className={styles.label}>Direccion</label>
+                  <input
+                    type="text"
+                    id="address"
+                    name="address"
+                    value={deliveryForm.address}
+                    onChange={handleDeliveryChange}
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="postalCode" className={styles.label}>Postal Code</label>
+                  <input
+                    type="text"
+                    id="postalCode"
+                    name="postalCode"
+                    value={deliveryForm.postalCode}
+                    onChange={handleDeliveryChange}
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="city" className={styles.label}>City</label>
+                  <input
+                    type="text"
+                    id="city"
+                    name="city"
+                    value={deliveryForm.city}
+                    onChange={handleDeliveryChange}
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="country" className={styles.label}>Country</label>
+                  <input
+                    type="text"
+                    id="country"
+                    name="country"
+                    value={deliveryForm.country}
+                    onChange={handleDeliveryChange}
+                  />
+                </div>
+                {/* <div>
               <div ref={mapContainer} id="map-container" className="map-container" />
             </div> */}
-            <div className={styles.buttonsContainer}>
-              <button className={styles.backButton} onClick={handleBack}>
-                Atras
-              </button>
-              <button  className={styles.continueButton} onClick={handleAddressSearch}>Buscar</button>
-              {/* <button type="submit" className={styles.continueButton}>Guardar y Continuar</button> */}
-            </div>   
-          </form>
-        </div>
-      </TabPanel>
+                <div className={styles.buttonsContainer}>
+                  <button className={styles.backButton} onClick={handleBack}>
+                    Atras
+                  </button>
+                  <button className={styles.continueButton} onClick={handleAddressSearch}>Buscar</button>
+                  {/* <button type="submit" className={styles.continueButton}>Guardar y Continuar</button> */}
+                </div>
+              </form>
+            </div>
+          </TabPanel>
 
-      <TabPanel className={styles.tabPanel}>
-        <h2>Confirmar direccion de entrega</h2>
-        <div className={styles.container}>
-          <form>
-            <div>
+          <TabPanel className={styles.tabPanel}>
+            <h2>Confirmar direccion de entrega</h2>
+            <div className={styles.container}>
+              <form>
+                <div>
                   <label htmlFor="addressOptions" className={styles.label}>Select address</label>
-                  <select 
+                  <select
                     name="address"
                     value={deliveryForm.address}
                     onChange={handleDeliveryChange}>
                     {matchingAddress.length && matchingAddress.map((add) => {
-                        return (
-                          <option value={add.place_name}>{add.place_name}</option>
-                        )
-                      })
+                      return (
+                        <option value={add.place_name}>{add.place_name}</option>
+                      )
+                    })
                     }
                   </select>
-            </div>
-            <div className={styles.buttonsContainer}>
-              <button className={styles.backButton} onClick={handleBack}>
-                Atras
-              </button>
-              <button  className={styles.continueButton} onClick={handleContinue} disabled >Guardar y Continuar</button>
-              {/* <button type="submit" className={styles.continueButton}>Guardar y Continuar</button> */}
-            </div>   
-          </form>
+                </div>
+                <div className={styles.buttonsContainer}>
+                  <button className={styles.backButton} onClick={handleBack}>
+                    Atras
+                  </button>
+                  <button className={styles.continueButton} onClick={handleContinue} disabled >Guardar y Continuar</button>
+                  {/* <button type="submit" className={styles.continueButton}>Guardar y Continuar</button> */}
+                </div>
+              </form>
 
-          {/* <form onSubmit={handlePaymentSubmit}>
+              {/* <form onSubmit={handlePaymentSubmit}>
             <div>
               <label htmlFor="name" className={styles.label}>Titular:</label>
               <input
@@ -234,42 +234,42 @@ return (
               <button type="submit" className={styles.continueButton}>Continuar</button>
             </div>
           </form> */}
-        </div>
+            </div>
 
-        
-      </TabPanel>
 
-      <TabPanel className={styles.tabPanel}>
-        <h2>Forma de pago</h2>
-        <p>Aca un resumen q carge toda la data recolectada, carrito envio y pago. Que salte un modal que diga: Confirmar pago</p>
-        <div className={styles.buttonsContainer}>
-          <button className={styles.backButton} onClick={handleBack}>
-            Atras
-          </button>
-          <button className={styles.continueButton} onClick={handleContinue}>
-            Confirmar pago
-          </button>
-        </div>
-      </TabPanel>
+          </TabPanel>
 
-      <TabPanel className={styles.tabPanel}>
-        <h2>Confirmacion de pago</h2>
-        <p>Aca un resumen q carge toda la data recolectada, carrito envio y pago. Que salte un modal que diga: Confirmar pago</p>
-        <div className={styles.buttonsContainer}>
-          <button className={styles.backButton} onClick={handleBack}>
-            Atras
-          </button>
-          <button className={styles.continueButton} onClick={handleContinue}>
-            Confirmar pago
-          </button>
-        </div>
-      </TabPanel>
-    </Tabs>
-  </div>
-  <SubFooter></SubFooter>
-  <FooterLanding></FooterLanding>
-  </div>
-);
+          <TabPanel className={styles.tabPanel}>
+            <h2>Forma de pago</h2>
+            <p>Aca un resumen q carge toda la data recolectada, carrito envio y pago. Que salte un modal que diga: Confirmar pago</p>
+            <div className={styles.buttonsContainer}>
+              <button className={styles.backButton} onClick={handleBack}>
+                Atras
+              </button>
+              <button className={styles.continueButton} onClick={handleContinue}>
+                Confirmar pago
+              </button>
+            </div>
+          </TabPanel>
+
+          <TabPanel className={styles.tabPanel}>
+            <h2>Confirmacion de pago</h2>
+            <p>Aca un resumen q carge toda la data recolectada, carrito envio y pago. Que salte un modal que diga: Confirmar pago</p>
+            <div className={styles.buttonsContainer}>
+              <button className={styles.backButton} onClick={handleBack}>
+                Atras
+              </button>
+              <button className={styles.continueButton} onClick={handleContinue}>
+                Confirmar pago
+              </button>
+            </div>
+          </TabPanel>
+        </Tabs>
+      </div>
+      <SubFooter></SubFooter>
+      <FooterLanding></FooterLanding>
+    </div>
+  );
 };
 
 export default PaymentComponent;

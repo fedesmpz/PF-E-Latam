@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom";
 import React, { useState } from "react";
 import styles from "./Styles/NavbarPage.module.css";
-import Style from "./Styles/NavBar.module.css";
+import Style from "../NavBar/NavBar.module.css";
 
 
 const NavbarPage = () => {
 
-  
+
 
   return (
     <header className={styles.header}>
@@ -16,20 +16,20 @@ const NavbarPage = () => {
 
 
 
-     
-      
-      <Link className={Style.logo} to="/">
+
+
+        <Link className={Style.logo} to="/">
           <div className={Style.logoContainer}>
             <img
               className={Style.logoE}
-              src="/assets/e-world.png"
+              src="assets/e-world.png"
               width={100}
               height={100}
               alt="Animación1"
             />
             <img
               className={Style.logoLam}
-              src="/assets/latam-store.png"
+              src="assets/latam-store.png"
               width={100}
               height={100}
               alt="Animación2"
