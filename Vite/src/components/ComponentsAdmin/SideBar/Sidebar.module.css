@@ -113,20 +113,7 @@
   
   .li {
     padding: 0.5rem;
-  }
-  
-  .a {
-    border-radius: 0.5rem;
-    width: max-content;
-    padding: 1rem;
-    display: flex;
-    align-items: center;
     text-decoration: none;
-    color: #fff;
-  }
-  
-  .a:hover {
-    background-color: #448EED;
   }
   
   .icon {
@@ -143,5 +130,17 @@
     display: none;
   }
   
- 
-  
+.menuItem {
+  text-decoration: none;
+  color: white;
+  border-radius: 0.5rem;
+  width: max-content;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+}
+
+.menuItem:hover {
+  text-decoration: none;
+  background-color: #448EED;
+}
