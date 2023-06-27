@@ -12,7 +12,8 @@ import PaymentComponent from './components/Purchase/Purchase'
 import Products from './components/DashboardAdmin/Products';
 import Statistics from './components/DashboardAdmin/Statistics';
 import Sales from './components/DashboardAdmin/Sales';
-import Users from './components/DashboardAdmin/Users'
+import Users from './components/DashboardAdmin/Users';
+// import UserDetails from './components/ComponentsAdmin/Users/UserDetails';
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
       <Route exact path="/DashboardAdmin/Statistics" element={<Statistics />} />
       <Route exact path="/DashboardAdmin/Sales" element={<Sales />} />
       <Route exact path="/DashboardAdmin/Users" element={<Users />} />
+      {/* <Route exact path="/DashboardAdmin/UserDetails/:id" element={<UserDetails />} /> */}
     </Routes>
   );
 }

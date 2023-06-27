@@ -8,9 +8,13 @@ export const userSlice = createSlice({
     loading: false,
     error: null,
     userData: {},
-    userAddress: []
+    userAddress: [],
+    userById: {}
   },
   reducers: {
+    getUserByIdStart(state, action) {
+      state.userById = action.payload
+    },
     getAllUsersStart(state, action) {
       state.users = action.payload
     },
@@ -68,6 +72,7 @@ export const userSlice = createSlice({
 });
 
 export const {
+  getUserByIdStart,
   getAllUsersStart,
   getUsersStart,
   getUsersSuccess,
@@ -145,3 +150,14 @@ export const getUsers = () => (dispatch) => {
   .catch((error) => console.log(error))
 }
 
+export const getUserById = (id) => (dispatch) => {
+  axios
+  .get(`https://pf-elatam.onrender.com/users/${id}`)
+  .then((response) => {
+    console.log(response);
+    dispatch(getUserByIdStart(response.data));
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
