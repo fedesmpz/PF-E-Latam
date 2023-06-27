@@ -1,3 +1,7 @@
 {
-  "extends": ["next/babel","next/core-web-vitals"]
+  "extends": [
+    "next",
+    "airbnb/base",
+    "next/core-web-vitals"
+  ]
 }

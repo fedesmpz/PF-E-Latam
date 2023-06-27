@@ -1,5 +1,5 @@
 import React from 'react'
-import { dataTotal } from './Data';
+import { dataTotal } from '../../../utils/Data';
 import { FaShoppingBag } from 'react-icons/fa'
 import Styles from './LastOrders.module.css'
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import { data } from './Data';
+import { data } from '../../../utils/Data';
 import { FaShoppingBag } from 'react-icons/fa'
 import Styles from './LastOrders.module.css'
 
