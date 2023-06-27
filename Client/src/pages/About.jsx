@@ -1,5 +1,4 @@
-import Link from "next/link"
-import Providers from "@/redux/provider/Provider"
+import { Link } from "react-router-dom"
 import style from "./styles/About/About.module.css"
 
 

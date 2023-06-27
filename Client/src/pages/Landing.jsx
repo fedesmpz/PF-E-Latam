@@ -1,6 +1,5 @@
-import Link from "next/link"
+import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
-import Providers from "@/redux/provider/Provider"
 import NavbarPage from "./Components/NavbarPage"
 import CarouselProducts from "./Components/CarouselProducts"
 import CarouselHero from "./Components/CarouselImg"
@@ -149,13 +148,5 @@ const Landing = () => {
     )
 }
 
-const LandingWithProvider = () => {
-    return (
-        <Providers>
-            <Landing/>
-        </Providers>
-    );
-};
 
-
-export default LandingWithProvider;
+export default Landing;

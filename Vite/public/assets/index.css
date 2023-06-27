@@ -1,0 +1,38 @@
+.container{
+  display: grid;
+  grid-template-columns: auto;
+  position: relative;
+  width: 100px;
+  height: 100px;
+}
+
+.container img {
+  position: relative;
+  width: 115%;
+  height: 115%;
+  top: 230%;
+  left: 490%;
+  animation: spin 5s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.container2 {
+  display: grid;
+  grid-template-columns: auto;
+  position: relative;
+  width: 100px;
+  height: 100px;
+}
+
+.container2 img {
+  position: relative;
+  width: 170%;
+  height: 160%;
+  top: 140%;
+  left: 620%;
+  /* animation: spin 5s linear infinite; */
+}
