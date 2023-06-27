@@ -1,6 +1,7 @@
 import React from 'react'
 import Sidebar from '../ComponentsAdmin/SideBar/SideBar'
 import AllOrders from '../ComponentsAdmin/Orders/AllOrders'
+import ProcessOrders from '../ComponentsAdmin/Orders/ProcessOrders'
 import StylesAdmin from "./DashboardAdmin.module.css"
 import { useState } from 'react'
 
@@ -13,6 +14,7 @@ const Sales = () => {
         <div className={StylesAdmin.containerSuperior}>
         <h1></h1>
         </div>
+        <ProcessOrders />
         <AllOrders />
     </div>
     </div>
