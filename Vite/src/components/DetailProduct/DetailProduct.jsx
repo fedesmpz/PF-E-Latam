@@ -122,7 +122,7 @@ const DetailProduct = () => {
             </h2>
             <ul className={styles.attributeList}>{renderedAttributes}</ul>
             <p className={styles.hiddenProductTag}>
-              {productDetail.catalog_listing === true ? '' : `Producto oculto`}
+              {isVisible === true ? '' : `Producto oculto`}
             </p>
           </div>
           <div className={styles.buttonsContainer}>
