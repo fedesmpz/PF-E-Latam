@@ -36,7 +36,7 @@ function Example() {
       }
       //si no hay error, genera el token
       //const token = await axios.post('http://localhost:8000/users/getToken', response.data)
-      const token = await axios.post('https://pf-elatam.onrender.com/getToken', response.data)
+      const token = await axios.post('https://pf-elatam.onrender.com/users/getToken', response.data)
       //si no hay error guarda el token
       localStorage.setItem("token", JSON.stringify(token.data))
       if (response.data == 'Firebase: Error (auth/wrong-password).'){

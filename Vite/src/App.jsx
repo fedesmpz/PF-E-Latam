@@ -13,6 +13,7 @@ import Products from './components/DashboardAdmin/Products';
 import Statistics from './components/DashboardAdmin/Statistics';
 import Sales from './components/DashboardAdmin/Sales';
 import Users from './components/DashboardAdmin/Users';
+import Componente from './components/componente';
 // import UserDetails from './components/ComponentsAdmin/Users/UserDetails';
 
 function App() {
@@ -27,10 +28,11 @@ function App() {
       <Route exact path= "/EditProduct" element={<EditProduct/>}/>
       <Route exact path= "/About" element={<About/>}/>
       <Route exact path= "/purchase" element={<PaymentComponent/>}/>
-      <Route exact path="/DashBoardAdmin/Products" element={<Products />} />
-      <Route exact path="/DashboardAdmin/Statistics" element={<Statistics />} />
-      <Route exact path="/DashboardAdmin/Sales" element={<Sales />} />
-      <Route exact path="/DashboardAdmin/Users" element={<Users />} />
+      {/* <Route exact path= "/DashBoardAdmin/Products" element={<Products/>}/> */}
+      <Route exact path= "/DashBoardAdmin/Products" element={<Componente/>}/>
+      <Route exact path= "/DashboardAdmin/Statistics" element={<Statistics/>}/>
+      <Route exact path= "/DashboardAdmin/Sales" element={<Sales/>}/>
+      <Route exact path= "/DashboardAdmin/Users" element={<Users/>}/>
       {/* <Route exact path="/DashboardAdmin/UserDetails/:id" element={<UserDetails />} /> */}
     </Routes>
   );
