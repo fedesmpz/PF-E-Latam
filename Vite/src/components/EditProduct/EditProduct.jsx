@@ -4,8 +4,6 @@ import { ProductByIdForEditForm, editProduct, cleanEditDetail, setEditProductMes
 import { useNavigation, useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
 import validation from "../../utils/formValidation";
-import NavBar from "../NavBar/NavBar"
-import SubFooter from "../SubFooter/SubFooter";
 import style from "./EditProduct.module.css"
 
 const EditProduct = () => {
@@ -116,7 +114,6 @@ const EditProduct = () => {
 
     return (
         <div className={style.container}>
-            <NavBar></NavBar>
             <div className={style.container_top}>
                 <Link to={`/DetailProduct?countryId=${countryId}&categories=${categories}&id=${id}`}>
                     <button className={style.backButton}>
@@ -279,7 +276,6 @@ const EditProduct = () => {
                 </div>
 
             </div>
-            <SubFooter></SubFooter>
         </div>
     )
 }
