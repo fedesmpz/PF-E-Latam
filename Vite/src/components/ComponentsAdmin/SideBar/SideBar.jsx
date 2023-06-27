@@ -21,43 +21,44 @@ const Sidebar = () => {
     </button>
     <nav className={styles['nav']}>
       <ul className={styles['ul']}>
-      <li className={styles['li']}>
-                <a className={styles['a']} href="/Home">
-                  <FaHome className={styles['icon']} />
-                  <span className={`${styles['text']} ${isOpen ? '' : styles.hidden}`}>Home</span>
-                </a>
-              </li>
-              <li className={styles['li']}>
-                <a className={styles['a']} href="/DashboardAdmin">
-                  <FaLaptopCode className={styles['icon']} />
-                  <span className={`${styles['text']} ${isOpen ? '' : styles.hidden}`}>Dashboard</span>
-                </a>
-              </li>
         <li className={styles['li']}>
-          <Link to="/DashboardAdmin/Products"></Link>
-          {/* <a className={styles['a']} href="/DashboardAdmin/Products"> */}
-            <FaShoppingBag className={styles['icon']} />
-            <span className={`${styles['text']} ${isOpen ? '' : styles.hidden}`}>Productos</span>
-          {/* </a> */}
+                    <Link  className={styles.menuItem} to="/Home">
+                      <FaHome className={styles['icon']} />
+                      <span className={`${styles['text']} ${isOpen ? '' : styles.hidden}`}>Home</span>
+                    </Link>
         </li>
         <li className={styles['li']}>
-          <a className={styles['a']} href="/DashboardAdmin/Users">
-            <FaUsers className={styles['icon']} />
-            <span className={`${styles['text']} ${isOpen ? '' : styles.hidden}`}>Usuarios</span>
-          </a>
+                    <Link className={styles.menuItem} to="/DashboardAdmin">
+                      <FaLaptopCode className={styles['icon']} />
+                      <span className={`${styles['text']} ${isOpen ? '' : styles.hidden}`}>Dashboard</span>
+                    </Link>
         </li>
         <li className={styles['li']}>
-          <a className={styles['a']} href="/DashboardAdmin/Statistics">
-            <FaChartLine className={styles['icon']} />
-            <span className={`${styles['text']} ${isOpen ? '' : styles.hidden}`}>Estadisticas</span>
-          </a>
+                <Link className={styles.menuItem} to="/DashboardAdmin/Products">
+                  <FaShoppingBag className={styles['icon']} />
+                  <span className={`${styles['text']} ${isOpen ? '' : styles.hidden}`}>Productos</span>
+                </Link>
         </li>
         <li className={styles['li']}>
-                <a className={styles['a']} href="/DashboardAdmin/Sales">
+                <Link className={styles.menuItem} to="/DashboardAdmin/Users">
+                  <FaUsers className={styles['icon']} />
+                  <span className={`${styles['text']} ${isOpen ? '' : styles.hidden}`}>Usuarios</span>
+                </Link>
+              
+          
+        </li>
+        <li className={styles['li']}>
+              <Link className={styles.menuItem} to="/DashboardAdmin/Statistics">
+                <FaChartLine className={styles['icon']} />
+                <span className={`${styles['text']} ${isOpen ? '' : styles.hidden}`}>Estadisticas</span>
+              </Link>
+        </li>
+        <li className={styles['li']}>
+              <Link className={styles.menuItem} to="/DashboardAdmin/Sales">
                   <FaClipboardList className={styles['icon']} />
                   <span className={`${styles['text']} ${isOpen ? '' : styles.hidden}`}>Ventas</span>
-                </a>
-              </li>
+              </Link>     
+        </li>
       </ul>
     </nav>
   </div>
