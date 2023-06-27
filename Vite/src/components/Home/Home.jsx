@@ -11,7 +11,7 @@ import style from "../../components/Home/Home.module.css"
 import LoaderLanding from "../../components/LoaderLanding/LoaderLanding.jsx"
 import "bootstrap/dist/css/bootstrap.css"
 import FooterLanding from "../../components/FooterLanding/FooterLanding.jsx";
-import Componente from "../componente";
+// import Componente from "../componente";
 
 const Home = () => {
     const dispatch = useDispatch();
@@ -69,7 +69,7 @@ const Home = () => {
 
     return (
         <div className={style.body}>
-            <Componente/>
+            {/* <Componente/> */}
             <NavBar />
             <Filter
                 setCurrentPage={setCurrentPage}
