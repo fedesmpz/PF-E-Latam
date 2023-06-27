@@ -4,7 +4,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, useParams, useLocation } from "react-router-dom";
 import styles from "../DetailProduct/ProductDetail.module.css";
 import { Link } from "react-router-dom";
-import NavBar from "../NavBar/NavBar";
 import ReviewRating from "../ReviewRating/ReviewRating"
 import { useContext } from "react";
 import { CartContext } from "../../utils/CartContext";
@@ -95,13 +94,8 @@ const DetailProduct = () => {
   let admin = true // HARIAMOS LA VALIDACION DEL TOKEN 
 
   return (
-
     <div className={styles.fondo}>
-
       <>
-
-        <NavBar></NavBar>
-
         <Link to="/Home">
           <button className={styles.backButton}>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">

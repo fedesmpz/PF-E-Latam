@@ -5,7 +5,6 @@ import { ProductByIdForEditForm, editProduct, cleanEditDetail, setEditProductMes
 import { useRouter } from "next/router";
 import { Link } from "react-router-dom";
 import validation from "../utils/formValidation";
-import NavBar from "./Components/NavBar"
 import SubFooter from "./Components/SubFooter";
 import style from "./styles/EditProduct/EditProduct.module.css"
 
@@ -110,7 +109,6 @@ const EditProduct = () => {
 
     return (
         <div className={style.container}>
-            <NavBar></NavBar>
             <div className={style.container_top}>
                 <Link href="/Home">
                     <button className={style.backButton}>

@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import styles from './Purchase.module.css';
-import NavBar from '../NavBar/NavBar';
 import SubFooter from '../SubFooter/SubFooter';
 import FooterLanding from '../FooterLanding/FooterLanding';
 import { getGeocoding, cleanUserAddress } from '../../redux/slice/userSlice';
@@ -83,7 +82,6 @@ const PaymentComponent = () => {
 
   return (
     <div className={styles.componentContainer}>
-      <NavBar></NavBar>
       <div className={styles.purchaseContainer}>
         <Tabs className={styles.tabsContainer} selectedIndex={currentTab} onSelect={handleTabChange}>
           <TabList>
