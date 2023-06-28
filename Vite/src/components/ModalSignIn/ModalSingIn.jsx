@@ -5,7 +5,9 @@ import Modal from 'react-bootstrap/Modal';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import validate from '../../utils/registerValidation';
+//import { useDispatch, useSelector } from "react-redux";
 import axios from 'axios';
+//import { fetchUsers } from "../../redux/slice/userSlice";
 
 function Example() {
 
@@ -18,15 +20,9 @@ function Example() {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const [error, setError] = useState({
-    // name: '*',
-    // surname: 'Campo Obligatorio',
-    // email: 'Campo Obligatorio',
-    // password: 'Campo Obligatorio',
-    // address: 'Campo Obligatorio',
-    // city: 'Campo Obligatorio',
-    // country: 'Campo Obligatorio'
-  });
+  //const dispatch = useDispatch();
+  //const userData = useSelector((state) => state.user.userData);
+  const [error, setError] = useState({});
   const [success, setSuccess] = useState('');
   const [form, setForm] = useState({
     name: '',
@@ -62,6 +58,7 @@ function Example() {
         alert("El usuario fue creado con éxito y se envió un correo de validación")
       }
       //DATA DE USUARIO
+      
       console.log(response.data);
     }catch(error){
         console.log(error.message);

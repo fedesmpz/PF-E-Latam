@@ -100,12 +100,13 @@ button.backButton:hover svg {
 
 .resumeHeader {
   margin-left: 50px;
-  color: #4BBF68;
+  
 }
 
 .resumeTitle {
   font-size: 24px;
   font-weight: bold;
+  color: #4BBF68;
 }
 
 .resumeDetails {

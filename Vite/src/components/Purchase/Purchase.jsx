@@ -3,18 +3,18 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import styles from './Purchase.module.css';
-import SubFooter from '../SubFooter/SubFooter';
-import FooterLanding from '../FooterLanding/FooterLanding';
 import { getGeocoding, cleanUserAddress } from '../../redux/slice/userSlice';
+import Stripe from '../Stripe/Stripe';
 import mapboxgl from 'mapbox-gl';
 
 /* mapboxgl.accessToken = process.env.MAPBOX_ACCESS_TOKEN */
+import { Link } from 'react-router-dom';
 
 const PaymentComponent = () => {
 
   const dispatch = useDispatch()
-
   const [currentTab, setCurrentTab] = useState(0);
+  let [total, setTotal] = useState(0);
   const [deliveryForm, setDeliveryForm] = useState({
     address: "",
     postalCode: "",
@@ -34,6 +34,19 @@ const PaymentComponent = () => {
   })
 
   const purchaseConfirmation = JSON.parse(localStorage?.getItem("cart"));
+
+  const totalPrice = () => {
+    let totalAux = 0;
+    if (purchaseConfirmation?.length > 0) {
+      purchaseConfirmation?.forEach((product) => {
+            product.sale_price
+                ? setTotal((totalAux += product.price * product.quantity))
+                : setTotal((totalAux += product.original_price * product.quantity));
+        });
+    }
+    setTotal(totalAux)
+    console.log(total)
+  };
 
   const handleTabChange = (index) => {
     setCurrentTab(index);
@@ -80,40 +93,74 @@ const PaymentComponent = () => {
     // Handle form submission or validation here
   }
 
+  useEffect(() => {
+    totalPrice()
+  }, [])
+
   return (
     <div className={styles.componentContainer}>
       <div className={styles.purchaseContainer}>
+            <Link to="/Cart">
+                <button className={styles.backButton}>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                    <path fill="none" d="M0 0h24v24H0z" />
+                    <path d="M20.59 12H5.41l4.29-4.29a1 1 0 1 0-1.42-1.42l-6 6a1 1 0 0 0 0 1.42l6 6a1 1 0 0 0 1.42-1.42L5.41 12h15.18z" />
+                    </svg>
+                </button>
+            </Link>
         <Tabs className={styles.tabsContainer} selectedIndex={currentTab} onSelect={handleTabChange}>
-          <TabList>
-            <Tab className={styles.tab}>Confirmar compra</Tab>
-            <Tab className={styles.tab}>Forma de entrega</Tab>
-            <Tab className={styles.tab}>Confirmar direccion de entrega</Tab>
-            <Tab className={styles.tab}>Forma de pago</Tab>
-            <Tab className={styles.tab}>Confirmacion de pago</Tab>
+          <TabList className={styles.circularTabs}>
+            <span className={styles.tabSpan}>
+            <Tab className={styles.tab} selectedClassName={styles.activeTab}>1</Tab>
+            <p className={styles.tabText}>Confirmar compra</p>
+            </span>
+            <p className={styles.tabLine}></p>
+            <span className={styles.tabSpan}>
+            <Tab className={styles.tab} selectedClassName={styles.activeTab}>2</Tab>
+            <p className={styles.tabText}>Forma de entrega</p>
+            </span>
+            <p className={styles.tabLine}></p>
+            <span className={styles.tabSpan}>
+            <Tab className={styles.tab} selectedClassName={styles.activeTab}>3</Tab>
+            <p className={styles.tabText}>Confirmar entrega</p>
+            </span>
+            <p className={styles.tabLine}></p>
+            <span className={styles.tabSpan}>
+            <Tab className={styles.tab} selectedClassName={styles.activeTab}>4</Tab>
+            <p className={styles.tabText}>Forma de pago</p>
+            </span>
           </TabList>
 
-          <TabPanel className={styles.tabPanel}>
-            <h2>Confirmar compra</h2>
-            {
-              purchaseConfirmation && purchaseConfirmation.map((product) => {
-                return (
-                  <div>
-                    <h2>{product.title}</h2>
-                    <h3>$ {product.currency_id} {product.original_price}</h3>
-                    <p>{product.quantity}</p>
-                  </div>
-                )
-              })
-            }
-            <div className={styles.buttonsContainer}>
-              <button className={styles.continueButton} onClick={handleContinue}>
-                Continuar
-              </button>
+          <TabPanel>
+            <div className={styles.panelContainer}>
+              <h1 className={styles.tabTitle}>Confirmar compra</h1>
+              {
+                purchaseConfirmation && purchaseConfirmation.map((product) => {
+                  return (
+                    <div className={styles.resumeContainer}>
+                      <h1 className={styles.productTitle}>{`(${product.quantity}) ${product.title}`}</h1>
+                      <h1 className={styles.productPrice}>$ {product.original_price * product.quantity}</h1>
+                    </div>
+                  )
+                })
+              }
+              <div className={styles.totalContainer}>
+                <h1 className={styles.resumePrice}>$ {total}</h1>
+              </div>
+              <div className={styles.firstButtonsContainer}>
+                <button className={styles.firstContinueButton} onClick={handleContinue}>
+                  Continuar
+                </button>
+              </div>
+            </div>
+            <div className={styles.bannerContainer}>
+            <img src="images/imagenes_hero/1.png"></img>
             </div>
           </TabPanel>
 
-          <TabPanel className={styles.tabPanel}>
-            <h2>Forma de entrega</h2>
+          <TabPanel>
+          <div className={styles.panelContainer}>
+          <h1 className={styles.tabTitle}>Forma de entrega</h1>
             <div className={styles.container}>
               <form onSubmit={handleDeliverySubmit}>
                 <div>
@@ -128,7 +175,7 @@ const PaymentComponent = () => {
                 </div>
 
                 <div>
-                  <label htmlFor="postalCode" className={styles.label}>Postal Code</label>
+                  <label htmlFor="postalCode" className={styles.label}>Codigo Postal</label>
                   <input
                     type="text"
                     id="postalCode"
@@ -139,7 +186,7 @@ const PaymentComponent = () => {
                 </div>
 
                 <div>
-                  <label htmlFor="city" className={styles.label}>City</label>
+                  <label htmlFor="city" className={styles.label}>Ciudad</label>
                   <input
                     type="text"
                     id="city"
@@ -150,7 +197,7 @@ const PaymentComponent = () => {
                 </div>
 
                 <div>
-                  <label htmlFor="country" className={styles.label}>Country</label>
+                  <label htmlFor="country" className={styles.label}>Pais</label>
                   <input
                     type="text"
                     id="country"
@@ -163,98 +210,55 @@ const PaymentComponent = () => {
               <div ref={mapContainer} id="map-container" className="map-container" />
             </div> */}
                 <div className={styles.buttonsContainer}>
-                  <button className={styles.backButton} onClick={handleBack}>
+                  <button className={styles.back_Button} onClick={handleBack}>
                     Atras
                   </button>
                   <button className={styles.continueButton} onClick={handleAddressSearch}>Buscar</button>
-                  {/* <button type="submit" className={styles.continueButton}>Guardar y Continuar</button> */}
                 </div>
               </form>
             </div>
+          </div>
+          <div className={styles.bannerContainer}>
+            <img src="images/imagenes_hero/1.png"></img>
+          </div>
           </TabPanel>
 
           <TabPanel className={styles.tabPanel}>
-            <h2>Confirmar direccion de entrega</h2>
-            <div className={styles.container}>
-              <form>
-                <div>
-                  <label htmlFor="addressOptions" className={styles.label}>Select address</label>
-                  <select
-                    name="address"
-                    value={deliveryForm.address}
-                    onChange={handleDeliveryChange}>
-                    {matchingAddress.length && matchingAddress.map((add) => {
-                      return (
-                        <option value={add.place_name}>{add.place_name}</option>
-                      )
-                    })
-                    }
-                  </select>
-                </div>
-                <div className={styles.buttonsContainer}>
-                  <button className={styles.backButton} onClick={handleBack}>
-                    Atras
-                  </button>
-                  <button className={styles.continueButton} onClick={handleContinue} disabled >Guardar y Continuar</button>
-                  {/* <button type="submit" className={styles.continueButton}>Guardar y Continuar</button> */}
-                </div>
-              </form>
-
-              {/* <form onSubmit={handlePaymentSubmit}>
-            <div>
-              <label htmlFor="name" className={styles.label}>Titular:</label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                value={paymentForm.name}
-                onChange={setPaymentForm}
-              />
+          <div className={styles.panelContainer}>
+            <h2 className={styles.tabTitle}>Confirmar domicilio</h2>
+              <div className={styles.container}>
+                <form>
+                  <div>
+                    <label htmlFor="addressOptions" className={styles.label}>Seleccionar</label>
+                    <select
+                      name="address"
+                      value={deliveryForm.address}
+                      onChange={handleDeliveryChange}>
+                      {matchingAddress.length && matchingAddress.map((add) => {
+                        return (
+                          <option value={add.place_name}>{add.place_name}</option>
+                        )
+                      })
+                      }
+                    </select>
+                  </div>
+                  <div className={styles.buttonsContainer}>
+                    <button className={styles.back_Button} onClick={handleBack}>
+                      Atras
+                    </button>
+                    <button className={styles.continueButton} onClick={handleContinue}>Guardar y Continuar</button>
+                  </div>
+                </form>
+              </div>
             </div>
-
-            <div>
-              <label htmlFor="brand" className={styles.label}>Marca:</label>
-              <select
-                id="brand"
-                name="brand"
-                value={paymentForm.brand}
-                onChange={setPaymentForm}
-              >
-                  <option>Visa</option>
-                  <option>Mastercard</option>
-                  <option>AmEx</option>
-              </select>
-            </div>
-            <div className={styles.buttonsContainer}>
-              <button className={styles.backButton} onClick={handleBack}>
-                Atras
-              </button>
-              <button type="submit" className={styles.continueButton}>Continuar</button>
-            </div>
-          </form> */}
-            </div>
-
-
           </TabPanel>
 
           <TabPanel className={styles.tabPanel}>
             <h2>Forma de pago</h2>
+            <Stripe/>
             <p>Aca un resumen q carge toda la data recolectada, carrito envio y pago. Que salte un modal que diga: Confirmar pago</p>
             <div className={styles.buttonsContainer}>
-              <button className={styles.backButton} onClick={handleBack}>
-                Atras
-              </button>
-              <button className={styles.continueButton} onClick={handleContinue}>
-                Confirmar pago
-              </button>
-            </div>
-          </TabPanel>
-
-          <TabPanel className={styles.tabPanel}>
-            <h2>Confirmacion de pago</h2>
-            <p>Aca un resumen q carge toda la data recolectada, carrito envio y pago. Que salte un modal que diga: Confirmar pago</p>
-            <div className={styles.buttonsContainer}>
-              <button className={styles.backButton} onClick={handleBack}>
+              <button className={styles.back_Button} onClick={handleBack}>
                 Atras
               </button>
               <button className={styles.continueButton} onClick={handleContinue}>
@@ -264,8 +268,6 @@ const PaymentComponent = () => {
           </TabPanel>
         </Tabs>
       </div>
-      <SubFooter></SubFooter>
-      <FooterLanding></FooterLanding>
     </div>
   );
 };
