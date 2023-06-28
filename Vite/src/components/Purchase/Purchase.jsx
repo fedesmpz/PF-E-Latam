@@ -5,9 +5,7 @@ import 'react-tabs/style/react-tabs.css';
 import styles from './Purchase.module.css';
 import { getGeocoding, cleanUserAddress } from '../../redux/slice/userSlice';
 import Stripe from '../Stripe/Stripe';
-import mapboxgl from 'mapbox-gl';
-
-/* mapboxgl.accessToken = process.env.MAPBOX_ACCESS_TOKEN */
+// import mapboxgl from 'mapbox-gl';
 import { Link } from 'react-router-dom';
 
 const PaymentComponent = () => {
@@ -28,12 +26,9 @@ const PaymentComponent = () => {
     // return () => dispatch(cleanUserAddress())
   }, [matchingAddress])
 
-  const [paymentForm, setPaymentForm] = useState({
-    name: "",
-
-  })
 
   const purchaseConfirmation = JSON.parse(localStorage?.getItem("cart"));
+  console.log(purchaseConfirmation)
 
   const totalPrice = () => {
     let totalAux = 0;
