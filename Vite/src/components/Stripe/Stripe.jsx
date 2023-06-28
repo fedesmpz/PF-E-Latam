@@ -9,6 +9,7 @@ const Stripe = ({ sale, total }) => {
     const dispatch = useDispatch();
     const elements = useElements();
     const stripe = useStripe();
+
     const [info, setInfo] = useState({
         description: "",
         amount: total,
@@ -36,6 +37,11 @@ const Stripe = ({ sale, total }) => {
         const { error, paymentMethod } = await stripe.createPaymentMethod({
             type: 'card',
             card: elements.getElement(CardElement),
+            billing_details: {
+                address: {
+                    country: "AR"
+                }
+            }
         })
 
 

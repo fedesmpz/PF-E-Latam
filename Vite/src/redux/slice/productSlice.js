@@ -316,9 +316,9 @@ export const axiosSearchProduct = (title, country) => (dispatch) => {
     axios
       .post(`http://localhost:8000/checkout`, payload)
       .then((response) => {
+        console.log(payload);
         dispatch(setNewSaleMessage(response.data))
         dispatch(setpayProduct(response.data));
-       
       })
       .catch((error) => dispatch(setNewSaleMessage(error.response?.data.error)));
   };
@@ -333,4 +333,3 @@ export const axiosSearchProduct = (title, country) => (dispatch) => {
       console.log(error);
     }
   };
-
