@@ -16,6 +16,8 @@ export const productSlice = createSlice({
     orderByPrice: 'mayormenor',
     hideProductMessage: null,
     deleteProductMessage: null,
+    sale: null,
+    newSaleMessage: null,
   },
   
   reducers: {
@@ -150,11 +152,18 @@ export const productSlice = createSlice({
       // }
     },
 
+    setpayProduct:(state, action) => {
+      state.sale = action.payload
+    },
+
+    setNewSaleMessage:(state, action) => {
+      state.newSaleMessage = action.payload
+    },
+
     getProductsByCatalogListing: (state, action) => {
       const filteredProducts = state.allProducts.filter(product => product.catalog_listing === true);
       state.products = filteredProducts;
-    }
-    
+    },
   },
 });
 
@@ -179,6 +188,8 @@ export const {
   setEditProductMessage,
   setHideProduct,
   setDeleteProduct,
+  setpayProduct,
+  setNewSaleMessage,
   getProductsByCatalogListing,
 } = productSlice.actions;
 
@@ -296,6 +307,16 @@ export const axiosSearchProduct = (title, country) => (dispatch) => {
       dispatch(setDeleteProduct(response.data))
     })
     .catch((error)=>console.log(error))
+  }
+
+  export const payProduct = (payload) => (dispatch) => {
+    axios
+      .post(`https://pf-elatam.onrender.com/checkout`, payload)
+      .then((response) => {
+        dispatch(setNewSaleMessage(response.data))
+        dispatch(setpayProduct(response.data));
+      })
+      .catch((error) => dispatch(setNewSaleMessage(error.response?.data.error)));
   };
 
   export const fetchProductsByCatalogListing = () => async (dispatch) => {
@@ -308,3 +329,4 @@ export const axiosSearchProduct = (title, country) => (dispatch) => {
       console.log(error);
     }
   };
+
