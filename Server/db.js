@@ -3,6 +3,7 @@ const { Sequelize } = require('sequelize');
 const fs = require('fs');
 const path = require('path');
 const { DB_DEP } = process.env;
+const { DataTypes } = require('sequelize');
 
 const sequelize = new Sequelize(
    DB_DEP,
@@ -40,32 +41,16 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
-const { Order, Cart, Product, PromotionCode, ReviewRating, Sales, User } = sequelize.models;
-
+const { Order, Cart, Product, PromotionCode, ReviewRating, Sales, User, ProductCart } = sequelize.models;
 
 //muchos a muchos
 Product.belongsToMany(User, {through: 'product_user'})
 User.belongsToMany(Product, {through: 'product_user'})
 PromotionCode.belongsToMany(User, {through: 'product_promotionCode'})
 User.belongsToMany(PromotionCode, {through: 'product_promotionCode'})
-Cart.belongsToMany(Product, { through: 'product_cart' });
-// Cart.belongsToMany(Product, {
-//    through: {
-//      model: 'product_cart',
-//      unique: false,
-//      // Add the quantity attribute to the through table
-//      // If you've already added the column to the table, you can omit the defaultValue option
-//      defaults: {
-//        quantity: {
-//          type: DataTypes.INTEGER,
-//          allowNull: false,
-//          defaultValue: 1, // Set a default value if needed
-//        },
-//      },
-//    },
-//    foreignKey: 'cartId',
-//  });
-Product.belongsToMany(Cart, { through: 'product_cart' });
+
+Cart.belongsToMany(Product, { through: 'product_Cart', foreignKey: 'cartId' });
+Product.belongsToMany(Cart, { through: 'product_Cart', foreignKey: 'productId' });
 
 //uno a muchos
 Product.hasMany(ReviewRating, { foreignKey: 'productId' });
@@ -79,4 +64,23 @@ module.exports = {
    ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
    conn: sequelize, // para importart la conexión { conn } = require('./db.js');
 };
+
+
+// Cart.belongsToMany(Product, { through: 'product_cart' });
+
+// Cart.belongsToMany(Product, {
+//    through: {
+//      model: 'product_cart',
+//      unique: false,
+//      defaults: {
+//        quantity: {
+//          type: DataTypes.INTEGER,
+//          allowNull: false,
+//        },
+//      },
+//    },
+//    foreignKey: 'cartId',
+//  });
+// Product.belongsToMany(Cart, { through: 'product_cart' });
+
 
