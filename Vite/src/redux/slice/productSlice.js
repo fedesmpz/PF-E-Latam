@@ -167,8 +167,6 @@ export const productSlice = createSlice({
     setNewSaleMessage:(state, action) => {
       state.newSaleMessage = action.payload
     },
-
-
   },
 });
 
@@ -314,10 +312,6 @@ export const axiosSearchProduct = (title, country) => (dispatch) => {
     .catch((error)=>console.log(error))
   };
 
-<<<<<<< HEAD
-  export const axiosProductsByCatalogListing = (id) => async (dispatch) => {
-=======
-
   export const payProduct = (payload) => (dispatch) => {
     axios
       .post(`https://pf-elatam.onrender.com/checkout`, payload)
@@ -328,8 +322,7 @@ export const axiosSearchProduct = (title, country) => (dispatch) => {
       .catch((error) => dispatch(setNewSaleMessage(error.response?.data.error)));
   };
 
-  export const fetchProductsByCatalogListing = () => async (dispatch) => {
->>>>>>> 953e4189ceb05eab4be7d7f95d80f816aebb32e6
+  export const axiosProductsByCatalogListing = (id) => async (dispatch) => {
     try {
       const response = await axios.get(`https://pf-elatam.onrender.com/products/${id}`);
       const allProducts = response.data;
@@ -338,9 +331,5 @@ export const axiosSearchProduct = (title, country) => (dispatch) => {
     } catch (error) {
       console.log(error);
     }
-<<<<<<< HEAD
-  };
-=======
   };
 
->>>>>>> 953e4189ceb05eab4be7d7f95d80f816aebb32e6
