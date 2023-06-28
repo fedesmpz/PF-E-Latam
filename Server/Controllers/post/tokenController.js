@@ -6,11 +6,8 @@ const { SECRET_KEY } = process.env;
 const getTokenController= async(user)=>{
 
     try {
-        const emailCredential = user.email
-        const adminCredential = user.admin
-        const superAdminCredential = user.superAdmin
 
-        const token = jwt.sign({ emailCredential, adminCredential, superAdminCredential }, SECRET_KEY, { expiresIn: '100h' });
+        const token = jwt.sign(user, SECRET_KEY, { expiresIn: '100h' })
         return token
     } catch (error) {
         return error.message;
@@ -25,10 +22,9 @@ const validateTokenController= async(token, user)=>{
     
       try {
           const tokenDecode = jwt.verify(token, SECRET_KEY);
-          console.log(tokenDecode);
-          if (tokenDecode.emailCredential != user.email) return { validate: false }
-          if (tokenDecode.adminCredential != user.isAdmin) return { validate: false }
-          if (tokenDecode.superAdminCredential != user.isSuperAdmin) return { validate: false }
+          if (tokenDecode.email != user.email) return { validate: false }
+          if (tokenDecode.isAdmin != user.isAdmin) return { validate: false }
+          if (tokenDecode.isSuperAdmin != user.isSuperAdmin) return { validate: false }
           return { validate: true };
         } catch (error) {
           return { validate: false };
