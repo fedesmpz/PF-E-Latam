@@ -307,7 +307,8 @@ export const axiosSearchProduct = (title, country) => (dispatch) => {
       dispatch(setDeleteProduct(response.data))
     })
     .catch((error)=>console.log(error))
-  }
+  };
+
 
   export const payProduct = (payload) => (dispatch) => {
     axios
