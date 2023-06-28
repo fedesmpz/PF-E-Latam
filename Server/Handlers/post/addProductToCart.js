@@ -4,6 +4,7 @@ const addProductToCartHandler = async(req, res) => {
     try {
         const { id } = req.params;
         const { productId, quantity } = req.body;
+        console.log( productId, quantity)
         const cart = await addProductToCart(id, productId, quantity)
         res.status(200).json(cart)
     } catch(error) {

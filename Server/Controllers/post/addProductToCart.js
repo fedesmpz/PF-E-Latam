@@ -1,8 +1,7 @@
-const { Cart, Product, conn } = require("../../db");
+const { Cart, Product, ProductCart, conn } = require("../../db");
 
 const addProductToCart = async(id, productId, quantity) => {
     try {
-        // const updateCartProductQuery = `UPDATE product_cart SET quantity = ${quantity} WHERE cartId = '${id}' AND productId = '${productId}';`;
         const cart = await Cart.findByPk(id, {
             include: Product
         })
@@ -16,16 +15,20 @@ const addProductToCart = async(id, productId, quantity) => {
         if(cart.currency_id !== product.currency_id) {
             throw new Error(`No puede añadir al carrito productos de ${product.country}, si esta comprando en ${cart.currency_id} Para comprar en ${product.country}, cambie la configuración de país en su perfil de usuario`)
         }
-        await cart.addProduct(product);
-        await cart.update({ current_state: "Pending"});
-        // conn.query(updateCartProductQuery, {
-        //     // replacements: { quantity, cartId, productId },
-        //     type: conn.QueryTypes.UPDATE
-        //   })
+        await cart.addProduct(product, {
+            through: {
+              quantity: quantity,
+            },
+        });
+        await cart.update({ current_state: "Pending", total_price: `${product.original_price * quantity}` });
         return `${product.title} añadido correctamente al carrito`
     } catch(error) {
         throw error
     }
+}
+
+module.exports = {
+    addProductToCart
 }
 
 // const addProductToCart = async (id, productId, productQuantity) => {
@@ -57,7 +60,3 @@ const addProductToCart = async(id, productId, quantity) => {
 //       throw error;
 //     }
 //   };
-
-module.exports = {
-    addProductToCart
-}
