@@ -167,8 +167,6 @@ export const productSlice = createSlice({
     setNewSaleMessage:(state, action) => {
       state.newSaleMessage = action.payload
     },
-
-
   },
 });
 
@@ -312,6 +310,17 @@ export const axiosSearchProduct = (title, country) => (dispatch) => {
       dispatch(setDeleteProduct(response.data))
     })
     .catch((error)=>console.log(error))
+  };
+
+  export const payProduct = (payload) => (dispatch) => {
+    axios
+      .post(`http://localhost:8000/checkout`, payload)
+      .then((response) => {
+        dispatch(setNewSaleMessage(response.data))
+        dispatch(setpayProduct(response.data));
+       
+      })
+      .catch((error) => dispatch(setNewSaleMessage(error.response?.data.error)));
   };
 
   export const axiosProductsByCatalogListing = (id) => async (dispatch) => {
