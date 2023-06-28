@@ -127,17 +127,17 @@ const DetailProduct = () => {
             </p>
           </div>
           <div className={styles.buttonsContainer}>
-            {!userData.isAdmin ? (
+            {(!userData.isAdmin) ? (
               <button className={styles.buttonAddCart} onClick={handlerAddCart}>Agregar</button>
             ) : 
+            ( <>
+              <button className={`${styles.buttonOcultar} ${isVisible ? styles.mostrar : styles.ocultar}`} onClick={handlerClick} >{isVisible ? "Ocultar" : 'Mostrar'}</button>
+              <button className={styles.buttonEdit} onClick={handlerEdit} >Editar</button>
+              <button className={styles.buttonDelete} onClick={handlerDelete}>Eliminar</button>
+              </>
+            )}
             <>
-            <button className={`${styles.buttonOcultar} ${isVisible ? styles.mostrar : styles.ocultar}`} onClick={handlerClick} >{isVisible ? "Ocultar" : 'Mostrar'}</button>
-            <button className={styles.buttonEdit} onClick={handlerEdit} >Editar</button>
-            <button className={styles.buttonDelete} onClick={handlerDelete}>Eliminar</button>
-            </>
-            }
-            <>
-              {showModal && userData.isAdmin && (
+              {showModal && userData.access && userData.isAdmin && (
                 <div className={styles.modal}>
                   <div className={styles.modalContent}>
                     <h2>Confirmación de Eliminación</h2>
@@ -165,7 +165,7 @@ const DetailProduct = () => {
               }
             </>
             <>
-              {userData.isAdmin && showModalDeleted && (
+              {userData.access && userData.isAdmin && showModalDeleted && (
                 <div className={styles.modal}>
                   <div className={styles.modalContent}>
                     <p>{productDetail.title}</p>
@@ -180,7 +180,7 @@ const DetailProduct = () => {
               }
             </>
             <>
-              {userData.isAdmin && modalHide && (
+              {userData.access && userData.isAdmin && modalHide && (
                 <div className={styles.modal}>
                   <div className={styles.modalContent}>
                     <p>{productDetail.title}</p>
