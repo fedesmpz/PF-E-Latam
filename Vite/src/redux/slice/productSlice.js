@@ -158,6 +158,12 @@ export const productSlice = createSlice({
 
     setNewSaleMessage:(state, action) => {
       state.newSaleMessage = action.payload
+    },
+
+    getProductsByCatalogListing: (state, action) => {
+      const filteredProducts = state.allProducts.filter(product => product.catalog_listing === true);
+      state.products = filteredProducts;
+
     }
   },
 });
@@ -184,7 +190,8 @@ export const {
   setHideProduct,
   setDeleteProduct,
   setpayProduct,
-  setNewSaleMessage
+  setNewSaleMessage,
+  getProductsByCatalogListing,
 } = productSlice.actions;
 
 export default productSlice.reducer;
@@ -301,7 +308,7 @@ export const axiosSearchProduct = (title, country) => (dispatch) => {
       dispatch(setDeleteProduct(response.data))
     })
     .catch((error)=>console.log(error))
-  }
+  };
 
   export const payProduct = (payload) => (dispatch) => {
     axios
@@ -312,3 +319,15 @@ export const axiosSearchProduct = (title, country) => (dispatch) => {
       })
       .catch((error) => dispatch(setNewSaleMessage(error.response?.data.error)));
   };
+
+  export const fetchProductsByCatalogListing = () => async (dispatch) => {
+    try {
+      const response = await axios.get('https://pf-elatam.onrender.com/products');
+      const allProducts = response.data;
+      const filteredProducts = allProducts.filter(product => product.catalog_listing === true);
+      dispatch(getProductsByCatalogListing(filteredProducts));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
