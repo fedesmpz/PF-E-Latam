@@ -16,6 +16,8 @@ export const productSlice = createSlice({
     orderByPrice: 'mayormenor',
     hideProductMessage: null,
     deleteProductMessage: null,
+    sale: null,
+    newSaleMessage: null,
   },
   
   reducers: {
@@ -158,7 +160,15 @@ export const productSlice = createSlice({
       // }
     },
 
-    
+    setpayProduct:(state, action) => {
+      state.sale = action.payload
+    },
+
+    setNewSaleMessage:(state, action) => {
+      state.newSaleMessage = action.payload
+    },
+
+
   },
 });
 
@@ -183,6 +193,8 @@ export const {
   setEditProductMessage,
   setHideProduct,
   setDeleteProduct,
+  setpayProduct,
+  setNewSaleMessage,
   getProductsByCatalogListing,
 } = productSlice.actions;
 
@@ -302,7 +314,22 @@ export const axiosSearchProduct = (title, country) => (dispatch) => {
     .catch((error)=>console.log(error))
   };
 
+<<<<<<< HEAD
   export const axiosProductsByCatalogListing = (id) => async (dispatch) => {
+=======
+
+  export const payProduct = (payload) => (dispatch) => {
+    axios
+      .post(`https://pf-elatam.onrender.com/checkout`, payload)
+      .then((response) => {
+        dispatch(setNewSaleMessage(response.data))
+        dispatch(setpayProduct(response.data));
+      })
+      .catch((error) => dispatch(setNewSaleMessage(error.response?.data.error)));
+  };
+
+  export const fetchProductsByCatalogListing = () => async (dispatch) => {
+>>>>>>> 953e4189ceb05eab4be7d7f95d80f816aebb32e6
     try {
       const response = await axios.get(`https://pf-elatam.onrender.com/products/${id}`);
       const allProducts = response.data;
@@ -311,4 +338,9 @@ export const axiosSearchProduct = (title, country) => (dispatch) => {
     } catch (error) {
       console.log(error);
     }
+<<<<<<< HEAD
   };
+=======
+  };
+
+>>>>>>> 953e4189ceb05eab4be7d7f95d80f816aebb32e6
