@@ -3,7 +3,7 @@ const { addProductToCart } = require("../../Controllers/post/addProductToCart")
 const addProductsToCartHandler = async(req, res) => {
     try {
         const { cartId } = req.params;
-        const { products } = req.body;
+        let products = req.body;
         let cart;
         for (const product of products) {
             const { id, quantity } = product;
