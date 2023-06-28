@@ -92,6 +92,29 @@ export const {
 
 export default userSlice.reducer;
 
+export const loginUserLocal = () => async (dispatch) => {
+  try {
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (Object.keys(user).length === 0) {
+        return false;
+    }
+    const tokenString = JSON.parse(localStorage.getItem("token"));
+    const response = await axios.post('https://pf-elatam.onrender.com/users/validateToken', user,
+    {headers: {
+        authorization: tokenString,
+    }})
+    const resp = response.data.validate
+    if(resp){
+      await dispatch(getUsersStart(user));
+    }
+
+  } catch (error) {
+    dispatch(getUsersFailure(error.message));
+  }
+};
+
+
+
 export const fetchUsers = (user) => async (dispatch) => {
   try {
     await dispatch(getUsersStart(user));
