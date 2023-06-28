@@ -16,13 +16,22 @@ const Home = () => {
     const productsCountry = useSelector((state) => state.products.country);
     const [isLoading, setIsLoading] = useState(true);
     const userData = useSelector((state) => state.user.userData);
-
+    
     //SE DESPACHA EL ESTADO DEL LOCALSTORAGE Y SE VALIDA
     useEffect(()=>{
         dispatch(loginUserLocal())
         
     },[])
     
+    useEffect(() => {
+        if (!userData.isAdmin && !userData.isSuperAdmin) {
+            dispatch(axiosProductsByCatalogListing(productsCountry));
+        } else if (!userData.access){
+            dispatch(axiosProductsByCatalogListing(productsCountry));
+        } else {
+            dispatch(axiosAllProductsByCountries(productsCountry));
+        }
+      }, [dispatch, productsCountry, userData]);
 
     useEffect(() => {
         setIsLoading(true);
@@ -38,13 +47,6 @@ const Home = () => {
         };
     }, []);
 
-    useEffect(() => {
-        if (userData.isAdmin || userData.isSuperAdmin) {
-          dispatch(axiosAllProductsByCountries(productsCountry));
-        } else {
-          dispatch(axiosProductsByCatalogListing(productsCountry));
-        }
-      }, [dispatch, productsCountry, userData]);
 
 
     const access = userData.access
