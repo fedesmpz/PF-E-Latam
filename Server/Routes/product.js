@@ -10,6 +10,7 @@ const { deleteProductHandler } = require("../Handlers/delete/deleteProduct")
 const { logicDeleteHandler } = require("../Handlers/put/logicDeleteProduct")
 const { editProductHandler } = require("../Handlers/put/updateProduct")
 const {searchProductHandler}= require ("../Handlers/get/searchProduct")
+const {postProductPayment} = require ("../Handlers/post/paymentProduct")
 
 router.get("/", getApiInfoHandler);
 router.get("/search",searchProductHandler)
