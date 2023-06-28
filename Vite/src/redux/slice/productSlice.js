@@ -163,8 +163,7 @@ export const productSlice = createSlice({
     getProductsByCatalogListing: (state, action) => {
       const filteredProducts = state.allProducts.filter(product => product.catalog_listing === true);
       state.products = filteredProducts;
-
-    }
+    },
   },
 });
 
@@ -308,6 +307,7 @@ export const axiosSearchProduct = (title, country) => (dispatch) => {
       dispatch(setDeleteProduct(response.data))
     })
     .catch((error)=>console.log(error))
+
   };
 
   export const payProduct = (payload) => (dispatch) => {
