@@ -51,9 +51,10 @@ function Example() {
         alert("El usuario no existe")
       }
  //***** DATOS PARA GUARDAR EN ESTADOS ***** 
-      await dispatch(fetchUsers(response.data))
+      //await dispatch(fetchUsers(response.data))
+      localStorage.setItem("user", JSON.stringify(response.data))
       //console.log(userData);
-      if(userData.access){
+      if(response.data.access){
         navigate('./home')
       }
         
@@ -85,9 +86,14 @@ function Example() {
       //const token = await axios.post('http://localhost:8000/users/getToken', user)
       const token = await axios.post('https://pf-elatam.onrender.com/users/getToken', user)
       localStorage.setItem("token", JSON.stringify(token.data))
+      localStorage.setItem("user", JSON.stringify(user))
+      if(user.access){
+        navigate('./home')
+      }
 //***** DATOS PARA GUARDAR EN ESTADOS *****
-      await dispatch(fetchUsers(user))
-      console.log(userData); //user es lo que se guarda en el estado, el token ya se guarda en localStorage
+      //await dispatch(fetchUsers(user))
+      //console.log(userData); //user es lo que se guarda en el estado, el token ya se guarda en localStorage
+
 
     }else{
       //no existe en nnuestra DB, hay que verificar el usuario
@@ -106,16 +112,18 @@ function Example() {
       const token = await axios.post('https://pf-elatam.onrender.com/users/getToken', user)
       //SE GUARDA EL TOKEN
       localStorage.setItem("token", JSON.stringify(token.data))
+      
       const userLogued = {
         name: result.user.displayName,
         email: result.user.email,
         access: response.data.access,
         isAdmin: response.data.isAdmin,
         isSuperAdmin: response.data.isSuperAdmin
-        }
-        await dispatch(fetchUsers(userLogued))
-//***** DATOS PARA GUARDAR EN ESTADOS *****
-      console.log(userData);//user es lo que se guarda en el estado, el token ya se guarda en localStorage
+      }
+      //await dispatch(fetchUsers(userLogued))
+      //***** DATOS PARA GUARDAR EN ESTADOS *****
+      localStorage.setItem("user", JSON.stringify(userLogued))
+      //console.log(userData);//user es lo que se guarda en el estado, el token ya se guarda en localStorage
     }
   }
 
