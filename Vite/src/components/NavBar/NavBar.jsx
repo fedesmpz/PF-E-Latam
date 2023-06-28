@@ -5,6 +5,7 @@ import Styles from "../NavBar/NavBar.module.css";
 import { axiosAllProductsByCountries, axiosSearchProduct } from "../../redux/slice/productSlice";
 import Select from 'react-select'
 import { CartContext } from "../../utils/CartContext";
+import { loginUserLocal } from '../../redux/slice/userSlice';
 
 
 
@@ -15,11 +16,16 @@ const NavBar = () => {
   const location = useLocation();
   const dispatch = useDispatch();
   const productsCountry = useSelector((state) => state.products.country);
+  const userData = useSelector((state) =>  state.user.userData);
   const [title, setTitle] = useState('');
   const [country, setCountry] = useState('ARG');
   const [showModal, setShowModal] = useState(false);
   const [productsInCart, setProductsInCart] = useState(6);
   const [notifications, setNotifications] = useState(false);
+
+  useEffect(() => {
+    dispatch(loginUserLocal())
+  }, [])
 
   const options = [
     { value: 'ARG', /* label: ' Argentina' */ img: 'https://flagcdn.com/w20/ar.png' },
@@ -139,25 +145,34 @@ const NavBar = () => {
       </div>
 
       <div className={Styles.rightContainer}>
-        <div className={Styles.cartContainer}>
-          {notifications &&
-            <div className={Styles.productsNumber}>
-              <span>{productsInCart}</span>
-            </div>
-          }
-          <Link className={Styles.cartButton} to="/Cart" >
-            <img
-              className={Styles.iconCarrito}
-              src="/assets/CarritoVioleta.png"
-              width={100}
-              height={100}
-              alt="cart_icon"
-            />
-          </Link>
-        </div>
-        <Link className={Styles.button} to="/CreateProduct">New</Link>
-        <button className={Styles.button}>Login</button>
-        <Link className={Styles.button} to="/DashboardAdmin">Admin</Link>
+        {!userData.isAdmin && (
+                  <div className={Styles.cartContainer}>
+                  {notifications &&
+                    <div className={Styles.productsNumber}>
+                      <span>{productsInCart}</span>
+                    </div>
+                  }
+                  <Link className={Styles.cartButton} to="/Cart" >
+                    <img
+                      className={Styles.iconCarrito}
+                      src="/assets/CarritoVioleta.png"
+                      width={100}
+                      height={100}
+                      alt="cart_icon"
+                    />
+                  </Link>
+                </div>
+        )}
+        {userData.access === true && userData.isAdmin &&
+           <>
+              <Link className={Styles.button} to="/CreateProduct">New</Link>
+              <Link className={Styles.button} to="/DashboardAdmin">Admin</Link>
+           </>
+        }
+        {userData.access === true ? 
+          (<button className={Styles.button}>Logout</button>):
+          (<button className={Styles.button}>Login</button>)
+        }
       </div>
     </div>
   );
