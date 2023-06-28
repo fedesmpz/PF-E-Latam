@@ -4,10 +4,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, useParams, useLocation } from "react-router-dom";
 import styles from "../DetailProduct/ProductDetail.module.css";
 import { Link } from "react-router-dom";
-import NavBar from "../NavBar/NavBar";
 import ReviewRating from "../ReviewRating/ReviewRating"
 import { useContext } from "react";
 import { CartContext } from "../../utils/CartContext";
+import { loginUserLocal } from "../../redux/slice/userSlice";
 
 const DetailProduct = () => {
 
@@ -27,6 +27,11 @@ const DetailProduct = () => {
   const [modalHide, setModalHide] = useState(false);
   const [showModalAdded, setShowModalAdded] = useState(false)
   const { addToCart } = useContext(CartContext);
+  const userData = useSelector((state) =>  state.user.userData);
+
+  useEffect(() => {
+    dispatch(loginUserLocal())
+  }, [])
 
   let attributes = productDetail.attributes;
   let renderedAttributes
@@ -92,16 +97,12 @@ const DetailProduct = () => {
     navigate(`/EditProduct?countryId=${countryId}&categories=${categories}&id=${id}`)
   }
 
-  let admin = true // HARIAMOS LA VALIDACION DEL TOKEN 
+
+
 
   return (
-
     <div className={styles.fondo}>
-
       <>
-
-        <NavBar></NavBar>
-
         <Link to="/Home">
           <button className={styles.backButton}>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
@@ -126,16 +127,17 @@ const DetailProduct = () => {
             </p>
           </div>
           <div className={styles.buttonsContainer}>
-            <button className={styles.buttonAddCart} onClick={handlerAddCart}>Agregar</button>
-            {admin && (
-              <>
-                <button className={`${styles.buttonOcultar} ${isVisible ? styles.mostrar : styles.ocultar}`} onClick={handlerClick} >{isVisible ? "Ocultar" : 'Mostrar'}</button>
-                <button className={styles.buttonEdit} onClick={handlerEdit} >Editar</button>
-                <button className={styles.buttonDelete} onClick={handlerDelete}>Eliminar</button>
-
-              </>)}
+            {(!userData.isAdmin) ? (
+              <button className={styles.buttonAddCart} onClick={handlerAddCart}>Agregar</button>
+            ) : 
+            ( <>
+              <button className={`${styles.buttonOcultar} ${isVisible ? styles.mostrar : styles.ocultar}`} onClick={handlerClick} >{isVisible ? "Ocultar" : 'Mostrar'}</button>
+              <button className={styles.buttonEdit} onClick={handlerEdit} >Editar</button>
+              <button className={styles.buttonDelete} onClick={handlerDelete}>Eliminar</button>
+              </>
+            )}
             <>
-              {showModal && admin && (
+              {showModal && userData.access && userData.isAdmin && (
                 <div className={styles.modal}>
                   <div className={styles.modalContent}>
                     <h2>Confirmación de Eliminación</h2>
@@ -163,7 +165,7 @@ const DetailProduct = () => {
               }
             </>
             <>
-              {admin && showModalDeleted && (
+              {userData.access && userData.isAdmin && showModalDeleted && (
                 <div className={styles.modal}>
                   <div className={styles.modalContent}>
                     <p>{productDetail.title}</p>
@@ -178,7 +180,7 @@ const DetailProduct = () => {
               }
             </>
             <>
-              {admin && modalHide && (
+              {userData.access && userData.isAdmin && modalHide && (
                 <div className={styles.modal}>
                   <div className={styles.modalContent}>
                     <p>{productDetail.title}</p>
@@ -203,7 +205,7 @@ const DetailProduct = () => {
             <h3 className={styles.storeName}>
               Store Oficial: {productDetail.official_store_name ? productDetail.official_store_name : "No disponible"}
             </h3>
-            {/* <h3>{productDetail.shipping}</h3> */}
+            <h3>{productDetail.shipping}</h3>
             <h3>País: {productDetail.country}</h3>
           </div>
         </div>
