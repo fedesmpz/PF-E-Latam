@@ -30,6 +30,14 @@ export const productSlice = createSlice({
       state.allProducts = action.payload;
     },
 
+    // getProductsByCatalogListing: (state, action) => {
+    //   const filteredProducts = state.products.filter(product => product.catalog_listing === true);
+    //   state.products = filteredProducts;
+    // },
+    getProductsByCatalogListing: (state, action) => {
+      state.products = action.payload;
+    },
+
     setProductsCountry: (state, action) => {
       state.country = action.payload;
     },
@@ -160,10 +168,7 @@ export const productSlice = createSlice({
       state.newSaleMessage = action.payload
     },
 
-    getProductsByCatalogListing: (state, action) => {
-      const filteredProducts = state.allProducts.filter(product => product.catalog_listing === true);
-      state.products = filteredProducts;
-    },
+
   },
 });
 
@@ -309,6 +314,9 @@ export const axiosSearchProduct = (title, country) => (dispatch) => {
     .catch((error)=>console.log(error))
   };
 
+<<<<<<< HEAD
+  export const axiosProductsByCatalogListing = (id) => async (dispatch) => {
+=======
 
   export const payProduct = (payload) => (dispatch) => {
     axios
@@ -321,13 +329,18 @@ export const axiosSearchProduct = (title, country) => (dispatch) => {
   };
 
   export const fetchProductsByCatalogListing = () => async (dispatch) => {
+>>>>>>> 953e4189ceb05eab4be7d7f95d80f816aebb32e6
     try {
-      const response = await axios.get('https://pf-elatam.onrender.com/products');
+      const response = await axios.get(`https://pf-elatam.onrender.com/products/${id}`);
       const allProducts = response.data;
-      const filteredProducts = allProducts.filter(product => product.catalog_listing === true);
+      const filteredProducts = allProducts?.filter((product) => product.catalog_listing === true);
       dispatch(getProductsByCatalogListing(filteredProducts));
     } catch (error) {
       console.log(error);
     }
+<<<<<<< HEAD
+  };
+=======
   };
 
+>>>>>>> 953e4189ceb05eab4be7d7f95d80f816aebb32e6

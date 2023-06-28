@@ -1,7 +1,7 @@
 'use client'
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { axiosAllProductsByCountries } from "../../redux/slice/productSlice";
+import { axiosProductsByCatalogListing, axiosAllProductsByCountries } from "../../redux/slice/productSlice";
 import { loginUserLocal } from "../../redux/slice/userSlice"
 import Paginado from "../../components/Paginado/Paginado"
 import Products from "../../components/Products/Products.jsx";
@@ -10,15 +10,23 @@ import style from "../../components/Home/Home.module.css"
 import LoaderLanding from "../../components/LoaderLanding/LoaderLanding.jsx"
 import "bootstrap/dist/css/bootstrap.css"
 
+
 const Home = () => {
     const dispatch = useDispatch();
     const productsCountry = useSelector((state) => state.products.country);
     const [isLoading, setIsLoading] = useState(true);
     const userData = useSelector((state) => state.user.userData);
 
+    //SE DESPACHA EL ESTADO DEL LOCALSTORAGE Y SE VALIDA
+    useEffect(()=>{
+        dispatch(loginUserLocal())
+        
+    },[])
+    
+
     useEffect(() => {
         setIsLoading(true);
-        //console.log(userData);
+        console.log(userData);
        
         dispatch(loginUserLocal())
         const timer = setTimeout(() => {
@@ -31,8 +39,12 @@ const Home = () => {
     }, []);
 
     useEffect(() => {
-        dispatch(axiosAllProductsByCountries(productsCountry));
-    }, [dispatch, productsCountry]);
+        if (userData.isAdmin || userData.isSuperAdmin) {
+          dispatch(axiosAllProductsByCountries(productsCountry));
+        } else {
+          dispatch(axiosProductsByCatalogListing(productsCountry));
+        }
+      }, [dispatch, productsCountry, userData]);
 
 
     const access = userData.access
@@ -40,7 +52,6 @@ const Home = () => {
     const superAdmin = userData.isSuperAdmin
     const verified = userData.verified
 
-    console.log(userData);
 
     const array = useSelector((state) => state.products.products);
 
