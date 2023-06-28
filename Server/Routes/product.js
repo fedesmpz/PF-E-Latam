@@ -14,7 +14,6 @@ const {searchProductHandler}= require ("../Handlers/get/searchProduct")
 router.get("/", getApiInfoHandler);
 router.get("/search",searchProductHandler)
 router.post("/new", postProductHandler)
-router.post("/payment", postProductPayment)
 router.get("/:countryId", getByCountryHandler);
 router.get("/:countryId/:category", getByCategoryHandler);
 router.get("/:countryId/:category/:id", getProductByIdHandler)
