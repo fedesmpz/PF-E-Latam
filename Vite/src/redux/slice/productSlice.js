@@ -16,6 +16,8 @@ export const productSlice = createSlice({
     orderByPrice: 'mayormenor',
     hideProductMessage: null,
     deleteProductMessage: null,
+    sale: null,
+    newSaleMessage: null,
   },
   
   reducers: {
@@ -148,8 +150,15 @@ export const productSlice = createSlice({
       // if (index !== -1) {
       //   state[index] = editedProduct;
       // }
+    },
+
+    setpayProduct:(state, action) => {
+      state.sale = action.payload
+    },
+
+    setNewSaleMessage:(state, action) => {
+      state.newSaleMessage = action.payload
     }
-    
   },
 });
 
@@ -174,6 +183,8 @@ export const {
   setEditProductMessage,
   setHideProduct,
   setDeleteProduct,
+  setpayProduct,
+  setNewSaleMessage
 } = productSlice.actions;
 
 export default productSlice.reducer;
@@ -291,3 +302,13 @@ export const axiosSearchProduct = (title, country) => (dispatch) => {
     })
     .catch((error)=>console.log(error))
   }
+
+  export const payProduct = (payload) => (dispatch) => {
+    axios
+      .post(`https://pf-elatam.onrender.com/checkout`, payload)
+      .then((response) => {
+        dispatch(setNewSaleMessage(response.data))
+        dispatch(setpayProduct(response.data));
+      })
+      .catch((error) => dispatch(setNewSaleMessage(error.response?.data.error)));
+  };
