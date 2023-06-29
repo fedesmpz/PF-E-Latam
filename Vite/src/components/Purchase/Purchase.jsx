@@ -132,6 +132,14 @@ const PaymentComponent = () => {
     setShowModal(false)
   }
 
+  const handleShippingData = (e) => {
+    const { name, value } = e.target;
+    setDeliveryForm((prevData) => ({
+      ...prevData,
+      [name]: value
+    }));
+  };
+
   useEffect(() => {
     // return () => dispatch(cleanUserAddress())
   }, [matchingAddress])
@@ -202,6 +210,8 @@ const PaymentComponent = () => {
                 )}
               </>
             </div>
+              <div>
+              </div>
             <div className={styles.bannerContainer}>
               <img src="images/imagenes_hero/1.png"></img>
             </div>
@@ -216,21 +226,21 @@ const PaymentComponent = () => {
                     <label htmlFor="address" className={styles.label}>Direccion</label>
                     <input
                       type="text"
-                      id="address"
                       name="address"
                       value={deliveryForm.address}
-                      onChange={handleDeliveryChange}
-                    />
+                      onChange={handleShippingData}
+                      placeholder="Ingrese la ciudad"
+                    />  
                   </div>
 
                   <div>
                     <label htmlFor="postalCode" className={styles.label}>Codigo Postal</label>
                     <input
                       type="text"
-                      id="postalCode"
                       name="postalCode"
                       value={deliveryForm.postalCode}
-                      onChange={handleDeliveryChange}
+                      onChange={handleShippingData}
+                      placeholder="Ingrese el país"
                     />
                   </div>
 
@@ -238,10 +248,10 @@ const PaymentComponent = () => {
                     <label htmlFor="city" className={styles.label}>Ciudad</label>
                     <input
                       type="text"
-                      id="city"
                       name="city"
                       value={deliveryForm.city}
-                      onChange={handleDeliveryChange}
+                      onChange={handleShippingData}
+                      placeholder="Ingrese la dirección"
                     />
                   </div>
 
@@ -249,10 +259,10 @@ const PaymentComponent = () => {
                     <label htmlFor="country" className={styles.label}>Pais</label>
                     <input
                       type="text"
-                      id="country"
                       name="country"
                       value={deliveryForm.country}
-                      onChange={handleDeliveryChange}
+                      onChange={handleShippingData}
+                      placeholder="Ingrese el código postal"
                     />
                   </div>
                   <div className={styles.buttonsContainer}>
@@ -263,6 +273,18 @@ const PaymentComponent = () => {
                   </div>
                 </form>
               </div>
+            </div>
+            <div>
+            {
+                purchaseConfirmation && purchaseConfirmation.map((product) => {
+                  return (
+                    <div className={styles.resumeContainer} key={product.id}>
+                      <h1 className={styles.productTitle}>{`(${product.quantity}) ${product.title}`}</h1>
+                      <h1 className={styles.productPrice}>$ {product.original_price * product.quantity}</h1>
+                    </div>
+                  )
+                })
+              } 
             </div>
             <div className={styles.bannerContainer}>
               <img src="images/imagenes_hero/1.png"></img>
@@ -297,12 +319,38 @@ const PaymentComponent = () => {
                 </form>
               </div>
             </div>
+            <div>
+            {
+                purchaseConfirmation && purchaseConfirmation.map((product) => {
+                  return (
+                    <div className={styles.resumeContainer} key={product.id}>
+                      <h1 className={styles.productTitle}>{`(${product.quantity}) ${product.title}`}</h1>
+                      <h1 className={styles.productPrice}>$ {product.original_price * product.quantity}</h1>
+                    </div>
+                  )
+                })
+              }
+            </div>
           </TabPanel>
 
           <TabPanel className={styles.tabPanel}>
-            <h2>Forma de pago</h2>
-            <Stripe sale={purchaseConfirmation} total={total} shipping={deliveryForm} />
-            <p>Aca un resumen q carge toda la data recolectada, carrito envio y pago. Que salte un modal que diga: Confirmar pago</p>
+              <h2>Forma de pago</h2>
+              <Stripe sale={purchaseConfirmation} total={total} />
+              <p>Ciudad: {deliveryForm.city}</p>
+              <p>País: {deliveryForm.country}</p>
+              <p>Dirección: {deliveryForm.address}</p>
+              <p>Código postal: {deliveryForm.postalCode}</p>
+              <div>
+                {purchaseConfirmation && purchaseConfirmation.map((product) => {
+                  return (
+                    <div className={styles.resumeContainer} key={product.id}>
+                      <h1 className={styles.productTitle}>{`(${product.quantity}) ${product.title}`}</h1>
+                      <h1 className={styles.productPrice}>$ {product.original_price * product.quantity}</h1>
+                    </div>
+                  );
+                })}
+              </div>
+
             <div className={styles.buttonsContainer}>
               <button className={styles.back_Button} onClick={handleBack}>
                 Atras

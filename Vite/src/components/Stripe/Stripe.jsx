@@ -47,9 +47,7 @@ const Stripe = ({ sale, total, shipping }) => {
         return () => dispatch(cleanDetail())
     }, [])
 
-    const email = userInfo?.email;
-
-
+    const email = userEmail?.email;
     const handleSubmit = async (e) => {
         e.preventDefault();
         setShowModal(true);
