@@ -1,5 +1,5 @@
 import Styles from "./StylesSeller/AllProductsSellers.modules.css";
-import Style from "./StylesSeller/AllProductsSellers.modules.css";
+import Style from "./StylesSeller/AllProductsSellers.modules.css"
 import { BiArchive } from "react-icons/bi";
 import { TbShoppingCartPlus, TbTruckDelivery } from "react-icons/tb";
 

@@ -42,7 +42,6 @@ const Stripe = ({ sale, total }) => {
     }, [])
 
     const email = userEmail?.email;
-    console.log(email, products_id);
     const handleSubmit = async (e) => {
         e.preventDefault();
 
