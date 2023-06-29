@@ -10,6 +10,7 @@ export const cartSlice = createSlice({
       current_state: null,
       promotion_active: false,
       successMessage: null,
+      errorMessage: null,
       products: []
     },
     reducers: {
@@ -30,7 +31,10 @@ export const cartSlice = createSlice({
         },
         setSuccessMessage(state, action) {
             state.successMessage = action.payload
-        }
+        },
+        setErrorMessage(state, action) {
+          state.errorMessage = action.payload
+      }
     }
 });
 
@@ -38,6 +42,7 @@ export const {
     loadCart,
     setCurrentCartId,
     setSuccessMessage,
+    setErrorMessage,
     setCurrency,
     setState,
     setTotal
@@ -49,21 +54,32 @@ export const loadProductsToCart = (cartData, cartId) => async (dispatch) => {
     try {
       const response = await axios.post(`http://localhost:8000/carts/${cartId}/products`, cartData);
       dispatch(setSuccessMessage(response.data));
+      console.log("Esta es la carga a la db", response.data)
     } catch (error) {
-      dispatch(setSuccessMessage(error.message));
+      dispatch(setErrorMessage(error.message));
     }
 };
 
 export const getProductsFromCart = (cartId) => async (dispatch) => {
     try {
       const response = await axios.get(`http://localhost:8000/carts/${cartId}`);
-      console.log("esta es la cartData", response.data)
-      dispatch(setCurrentCartId(response.data.id))
+      console.log("esta es la cartData", response.data);
       dispatch(loadCart(response.data.products));
+      dispatch(setCurrentCartId(response.data.id))
       dispatch(setCurrency(response.data.currency_id));
       dispatch(setState(response.data.current_state));
       dispatch(setTotal(response.data.total_price));
     } catch (error) {
-      dispatch(setSuccessMessage(error.message));
+      dispatch(setErrorMessage(error.message));
     }
+};
+
+export const deleteProductsFromCart = (cartId) => async (dispatch) => {
+  try {
+    const response = await axios.delete(`http://localhost:8000/carts/${cartId}/products`);
+    console.log("esta es la respuesta de eliminar", response.data);
+    dispatch(setSuccessMessage(response.data));
+  } catch (error) {
+    dispatch(setErrorMessage(error.message));
+  }
 };
