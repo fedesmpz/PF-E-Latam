@@ -79,18 +79,19 @@ const googleExistController= async(user)=>{
         if (!existingUser) {
             return {exist: false};
         }else{
+          const cart = await Cart.findOne({ where: { userId: existingUser.id } });
             return {
                     exist: true, 
                     access: true,
                     isAdmin: existingUser.admin, 
-                    isSuperAdmin: existingUser.superAdmin
+                    isSuperAdmin: existingUser.superAdmin,
+                    cartId: cart.id
                     };
         }
     } catch (error) {
         return error.message;
     }
 }
-
 
 module.exports={
     googleLoginController,

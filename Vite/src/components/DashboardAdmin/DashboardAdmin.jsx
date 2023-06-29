@@ -4,19 +4,19 @@ import SalesStats from "../ComponentsAdmin/Statistics/SalesStats";
 import LastOrders from "../ComponentsAdmin/Orders/LastOrders";
 import Sidebar from "../ComponentsAdmin/SideBar/SideBar"
 import { useState } from "react";
+import TopCards from "../ComponentsAdmin/Statistics/TopCards";
+import LastAddedProducts from '../ComponentsAdmin/Products/LastAddedProducts'
+import NavbarAdmin from '../NavBarAdmin/NavbarAdmin'
 
 const DashboardAdmin = () => {
   const [isOpen, setIsOpen] = useState(false);
-
-  //lógica para el circulo estadístico
-  // const [isOpen, setIsOpen] = useState(false);
-  // const toggleMenu = () => {
-  //     setIsOpen(!isOpen);
-  // }
   const [showSalesCard, setShowSalesCard] = useState(false);
   const handleSalesClick = () => {
     setShowSalesCard(true);
   };
+  const totalUsers = 2486;
+  const totalAdmins = 5;
+  const totalProducts = 14500;
   const totalSales = 100;
   const todaySales = 12;
   const monthSales = 71;
@@ -38,10 +38,16 @@ const DashboardAdmin = () => {
         className={StylesAdmin.containerHomeAdmin}
         style={{ marginLeft: isOpen ? "120px" : !isOpen && "60px" }}
       >
+      <NavbarAdmin />
         <div className={StylesAdmin.containerSuperior}>
-          <h1></h1>
+          <TopCards 
+          totalUsers={totalUsers}
+          totalAdmins={totalAdmins}
+          totalProducts={totalProducts}
+          totalSales={totalSales}
+          />
         </div>
-
+        <LastAddedProducts />
         <SalesCard
           totalSales={totalSales}
           todaySales={todaySales}

@@ -28,6 +28,7 @@ function App() {
   const userData = useSelector((state) => state.user.userData);
   const dispatch = useDispatch();
   //SE DESPACHA EL ESTADO DEL LOCALSTORAGE Y SE VALIDA
+
   useEffect(()=>{
       dispatch(loginUserLocal())
       
@@ -41,16 +42,22 @@ function App() {
   const cartId = userData.cartId
 
 
+
   return (
     <div>
-      {
-        location.pathname !== "/" && <NavBar/>
-      }
+        {/* RUTA DE MUESTRA */}
+        {
+          location.pathname !== "/" && !location.pathname.includes("DashboardAdmin") && <NavBar />
+        }
+ 
       <Routes>
         {/* RUTA DE MUESTRA */}
+        <Route path="/About" element={access && admin ? <About /> : <Navigate to="/Home" />} />
+
         <Route path="/" element={<Landing />} />
         <Route path="/About" element={<About />} />
         <Route path="/Home" element={<Home />} />
+
         <Route path="/CreateProduct" element={access && admin ? <CreateProduct /> : <Navigate to="/Home" />} />
         <Route path="/DetailProduct" element={<DetailProduct />} />
         <Route path="/DashBoardAdmin" element={access && admin ? <DashBoardAdmin /> : <Navigate to="/Home" />} />
@@ -63,14 +70,14 @@ function App() {
         <Route path="/DashboardAdmin/Users" element={access && superAdmin ? <Users /> : <Navigate to="/Home" />} />
       </Routes>
       {
-        location.pathname !== "/" && 
-          <div>
-            <SubFooter/>
-            <FooterLanding/>
-          </div>
+        location.pathname !== "/" && !location.pathname.includes("DashboardAdmin") &&
+        <div>
+          <SubFooter />
+          <FooterLanding />
+        </div>
+
       }
     </div>
-
   );
 }
 

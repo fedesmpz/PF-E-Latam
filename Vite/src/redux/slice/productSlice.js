@@ -16,6 +16,8 @@ export const productSlice = createSlice({
     orderByPrice: 'mayormenor',
     hideProductMessage: null,
     deleteProductMessage: null,
+    sale: null,
+    newSaleMessage: null,
   },
   
   reducers: {
@@ -26,6 +28,14 @@ export const productSlice = createSlice({
     setAllProductsByCountries: (state, action) => {
       state.products = action.payload;
       state.allProducts = action.payload;
+    },
+
+    // getProductsByCatalogListing: (state, action) => {
+    //   const filteredProducts = state.products.filter(product => product.catalog_listing === true);
+    //   state.products = filteredProducts;
+    // },
+    getProductsByCatalogListing: (state, action) => {
+      state.products = action.payload;
     },
 
     setProductsCountry: (state, action) => {
@@ -148,8 +158,15 @@ export const productSlice = createSlice({
       // if (index !== -1) {
       //   state[index] = editedProduct;
       // }
-    }
-    
+    },
+
+    setpayProduct:(state, action) => {
+      state.sale = action.payload
+    },
+
+    setNewSaleMessage:(state, action) => {
+      state.newSaleMessage = action.payload
+    },
   },
 });
 
@@ -174,6 +191,9 @@ export const {
   setEditProductMessage,
   setHideProduct,
   setDeleteProduct,
+  setpayProduct,
+  setNewSaleMessage,
+  getProductsByCatalogListing,
 } = productSlice.actions;
 
 export default productSlice.reducer;
@@ -290,4 +310,26 @@ export const axiosSearchProduct = (title, country) => (dispatch) => {
       dispatch(setDeleteProduct(response.data))
     })
     .catch((error)=>console.log(error))
-  }
+  };
+
+  export const payProduct = (payload) => (dispatch) => {
+    axios
+      .post(`http://localhost:8000/checkout`, payload)
+      .then((response) => {
+        console.log(payload);
+        dispatch(setNewSaleMessage(response.data))
+        dispatch(setpayProduct(response.data));
+      })
+      .catch((error) => dispatch(setNewSaleMessage(error.response?.data.error)));
+  };
+
+  export const axiosProductsByCatalogListing = (id) => async (dispatch) => {
+    try {
+      const response = await axios.get(`https://pf-elatam.onrender.com/products/${id}`);
+      const allProducts = response.data;
+      const filteredProducts = allProducts?.filter((product) => product.catalog_listing === true);
+      dispatch(getProductsByCatalogListing(filteredProducts));
+    } catch (error) {
+      console.log(error);
+    }
+  };
