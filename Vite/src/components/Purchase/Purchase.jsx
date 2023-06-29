@@ -154,7 +154,7 @@ const PaymentComponent = () => {
               {
                 purchaseConfirmation && purchaseConfirmation.map((product) => {
                   return (
-                    <div className={styles.resumeContainer}>
+                    <div className={styles.resumeContainer} key={product.id}>
                       <h1 className={styles.productTitle}>{`(${product.quantity}) ${product.title}`}</h1>
                       <h1 className={styles.productPrice}>$ {product.original_price * product.quantity}</h1>
                     </div>
