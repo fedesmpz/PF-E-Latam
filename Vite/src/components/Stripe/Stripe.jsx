@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { payProduct } from '../../redux/slice/productSlice';
 import { useEffect } from 'react';
-import Style from "./Stripe.module.css"
+import styles from "./Stripe.module.css";
 
 const Stripe = ({ sale, total }) => {
 
@@ -11,7 +11,7 @@ const Stripe = ({ sale, total }) => {
     const elements = useElements();
     const stripe = useStripe();
     const [products_id, setProducts_id] = useState([]);
-    const [userEmail, setUserEmail] = useState()
+    const [userInfo, setUserInfo] = useState()
     const [info, setInfo] = useState({
         description: "",
         amount: total,
@@ -39,11 +39,12 @@ const Stripe = ({ sale, total }) => {
     useEffect(() => {
         const userInfo = JSON.parse(localStorage.getItem("user"));
         filterInfo();
-        setUserEmail(userInfo)
+        setUserInfo(userInfo)
     }, [])
 
-    const email = userEmail?.email;
+    const email = userInfo?.email;
     console.log(email, products_id);
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -64,13 +65,26 @@ const Stripe = ({ sale, total }) => {
     }
 
     return (
-        <>
-            <h1>Card</h1>
-            <form onSubmit={handleSubmit}>
-                <CardElement />
-                <button>Pay</button>
-            </form>
-        </>
+        <div className={styles.container}>
+            <div className={styles.container_card}>
+                <h1 className={styles.title}>Card</h1>
+                <form className={styles.form} onSubmit={handleSubmit}>
+                    <CardElement />
+                    <button className={styles.button}>Pay</button>
+                </form>
+            </div >
+            <div className={styles.container_resume}>
+                <div>
+                    <h2>Resumen</h2>
+                    <div className={styles.resume_container} >
+                        <p className={styles.resume_info} >Email: {`${userInfo?.email}`}</p>
+                        <p className={styles.resume_info} >City: {`${userInfo?.city}`}</p>
+                        <p className={styles.resume_info} >Country: {`${userInfo?.country}`}</p>
+                        <p className={styles.resume_info} >Dirección: {`${userInfo?.address}`}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     )
 }
 
