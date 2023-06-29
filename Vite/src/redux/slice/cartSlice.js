@@ -50,10 +50,10 @@ export const {
 
 export default cartSlice.reducer;
 
-export const loadProductsToCart = (cartData, cartId) => async (dispatch) => {
+export const loadProductsToCart = (productsData, cartId) => async (dispatch) => {
     try {
-      const response = await axios.post(`https://pf-elatam.onrender.com/carts/${cartId}/products`, cartData);
-      dispatch(setSuccessMessage(response.data));    
+      const response = await axios.post(`https://pf-elatam.onrender.com/carts/${cartId}/products`, productsData);
+      dispatch(setSuccessMessage(response.data));
     } catch (error) {
       dispatch(setErrorMessage(error.message));
     }

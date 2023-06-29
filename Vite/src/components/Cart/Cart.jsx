@@ -1,10 +1,11 @@
 import { useContext, useState, useEffect, useCallback } from "react";
 import style from "./Cart.module.css";
 import { CartContext } from "../../utils/CartContext";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useLocation } from "react-router-dom";
 import CarouselProducts from "../CarouselProducts/CarouselProducts"
 import { useSelector } from "react-redux";
 import { loginUserLocal } from "../../redux/slice/userSlice";
+import ModalLogin from "../ModalLogin/ModalLogin"
 
 const Cart = () => {
     const { cart, addToCart, removeFromCart, removeToCart } = useContext(
@@ -14,12 +15,11 @@ const Cart = () => {
     const [cartIsEmpty, setCartIsEmpty] = useState(true);
     const userData = useSelector((state) => state.user.userData)
     const navigate = useNavigate();
+    const location = useLocation();
     let [count, setCount] = useState(0);
     let [total, setTotal] = useState(0);
 
-    // useEffect(() => {
-    //     dispatch(loginUserLocal())
-    //   }, [])
+    const [showModal, setShowModal] = useState(false)
 
     const loadCartData = useCallback(() => {
         const savedCart = JSON.parse(localStorage.getItem("cart"));
@@ -59,6 +59,11 @@ const Cart = () => {
     }, [loadCartData]);
 
     useEffect(() => {
+        // window.location.reload()
+        setShowModal(false);
+    }, [userData.access])
+
+    useEffect(() => {
         totalProducts();
         totalPrice();
         if (!cartIsEmpty) {
@@ -72,6 +77,7 @@ const Cart = () => {
 
     const handlerPurchase = async () => {
         userData.access && navigate(`/Purchase?cartId=${userData.cartId}`);
+        !userData.access && setShowModal(true)
     };
 
     const handleIncrement = (productId) => {
@@ -100,6 +106,11 @@ const Cart = () => {
             return newCounts;
         });
     };
+
+    const handleModal = (event) => {
+        event.preventDefault();
+        setShowModal(false)
+    }
 
     return (
         <div className={style.cartContainer}>
@@ -182,6 +193,20 @@ const Cart = () => {
                         </div>
                     </div>
                 ))}
+                <>
+              {showModal && (
+                <div className={style.modal}>
+                  <div className={style.modalContent}>
+                    <div className={style.closeModal} onClick={handleModal}>X</div>
+                    <h2>Hola!</h2>
+                    <p>Para comprar, ingresá a tu cuenta</p>
+                    <div>
+                        <ModalLogin/>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </>
                 <div className={style.resumeContent}>
                     <div className={style.resumeDetails}>
                         <p className={style.resumeText}>{`(${count}) Productos`}</p>

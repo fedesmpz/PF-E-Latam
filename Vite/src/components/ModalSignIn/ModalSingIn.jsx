@@ -5,7 +5,7 @@ import Modal from 'react-bootstrap/Modal';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import validate from '../../utils/registerValidation';
-//import { useDispatch, useSelector } from "react-redux";
+import Styles from "./ModalSignIn.module.css"
 import axios from 'axios';
 //import { fetchUsers } from "../../redux/slice/userSlice";
 
@@ -20,8 +20,6 @@ function Example() {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  //const dispatch = useDispatch();
-  //const userData = useSelector((state) => state.user.userData);
   const [error, setError] = useState({});
   const [success, setSuccess] = useState('');
   const [form, setForm] = useState({
@@ -48,7 +46,6 @@ function Example() {
 
   const register = async (user) => {
     try{ 
-      //const response = await axios.post('http://localhost:8000/users/register', user)
       const response = await axios.post('https://pf-elatam.onrender.com/users/register', user)
       if (response.data.message == 'Firebase: Error (auth/email-already-in-use).') {
         alert("El usuario ya existe")
@@ -57,9 +54,6 @@ function Example() {
       }else{
         alert("El usuario fue creado con éxito y se envió un correo de validación")
       }
-      //DATA DE USUARIO
-      
-      console.log(response.data);
     }catch(error){
         console.log(error.message);
     }
@@ -108,8 +102,8 @@ function Example() {
         </Form.Label>
         <Col sm={9}>
           <Form.Control type="text" name="name" value={form.name} onChange={handleChange}/>
+        {error.name ? (<p className={Styles.error}>{error.name}</p>):(<p className={Styles.noError}>Nombre correcto</p>)}
         </Col>
-        {error.name && <p>{error.name}</p>}
       </Form.Group>
 
       <Form.Group as={Row} className="mb-3" controlId="formHorizontalEmail">
@@ -118,8 +112,8 @@ function Example() {
         </Form.Label>
         <Col sm={9}>
           <Form.Control type="text" name="surname" value={form.surname} onChange={handleChange} />
+        {error.surname ? (<p className={Styles.error}>{error.surname}</p>):(<p className={Styles.noError}>Apellido correcto</p>)}
         </Col>
-        {error.surname && <p>{error.surname}</p>}
       </Form.Group>
 
       <Form.Group as={Row} className="mb-3" controlId="formHorizontalEmail">
@@ -128,8 +122,8 @@ function Example() {
         </Form.Label>
         <Col sm={9}>
           <Form.Control type="text" name="address" value={form.address} onChange={handleChange}/>
+        {error.address ? (<p className={Styles.error}>{error.address}</p>):(<p className={Styles.noError}>Dirección correcta</p>)}
         </Col>
-        {error.address && <p>{error.address}</p>}
       </Form.Group>
 
       <Form.Group as={Row} className="mb-3" controlId="formHorizontalEmail">
@@ -138,8 +132,8 @@ function Example() {
         </Form.Label>
         <Col sm={9}>
           <Form.Control type="text" name="city" value={form.city} onChange={handleChange}/>
+        {error.city ? (<p className={Styles.error}>{error.city}</p>):(<p className={Styles.noError}>Ciudad correcta</p>)}
         </Col>
-        {error.city && <p>{error.city}</p>}
       </Form.Group>
 
       <Form.Group as={Row} className="mb-3" controlId="formHorizontalPassword">
@@ -148,8 +142,8 @@ function Example() {
         </Form.Label>
         <Col sm={9}>
           <Form.Control type="email" name="email" value={form.email} onChange={handleChange}/>
+        {error.email ? (<p className={Styles.error}>{error.email}</p>):(<p className={Styles.noError}>E-Mail correcto</p>)}
         </Col>
-        {error.email && <p>{error.email}</p>}
       </Form.Group>
 
       <Form.Group as={Row} className="mb-3" controlId="formHorizontalPassword">
@@ -158,8 +152,8 @@ function Example() {
         </Form.Label>
         <Col sm={9}>
           <Form.Control type="password" name="password" value={form.password} onChange={handleChange}/>
+        {error.password ? (<p className={Styles.error}>{error.password}</p>):(<p className={Styles.noError}>Contraseña correcta</p>)}
         </Col>
-        {error.password && <p>{error.password}</p>}
       </Form.Group>
 
 
@@ -170,7 +164,8 @@ function Example() {
             <h5>País</h5>
           </Form.Label>
           <Col sm={9}>
-          <select name="country" value={form.country} onChange={handleChange}>
+            <div>
+            <select name="country" value={form.country} onChange={handleChange}>
               <option value="">Selecciona un país</option>
               {countries.map((country) => (
                 <option key={country.value} value={country.value} onChange={handleChange}>
@@ -178,8 +173,10 @@ function Example() {
                 </option>
               ))}
             </select>
+            {error.country ? (<p className={Styles.error}>{error.country}</p>):(<p className={Styles.noError}>Campo correcto</p>)}
+            </div>
+  
             </Col>
-            {error.country && <span>{error.country}</span>}
         </Form.Group>
       </fieldset>
 
