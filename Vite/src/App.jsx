@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
+import { Routes, Route, useLocation, Navigate, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { loginUserLocal } from "../src/redux/slice/userSlice"
 import Home from './components/Home/Home';
@@ -22,52 +22,63 @@ import FooterLanding from './components/FooterLanding/FooterLanding';
 
 function App() {
   const location = useLocation();
+  const navigate = useNavigate()
 
   //SE GUARDA EL ESTADO
   const userData = useSelector((state) => state.user.userData);
   const dispatch = useDispatch();
   //SE DESPACHA EL ESTADO DEL LOCALSTORAGE Y SE VALIDA
-  useEffect(() => {
-    dispatch(loginUserLocal())
 
-  }, [])
+  useEffect(()=>{
+      dispatch(loginUserLocal())
+      
+  },[])
+  
+  const access = userData.access //si el tiene acceso
+  const admin = userData.isAdmin //si admin es true o false
+  const superAdmin = userData.isSuperAdmin //si superadmin es true o false
+  const verified = userData.verified //si el mail esta verificado guarda true o false
+  const emailUser = userData.email //email del usuario
+  const cartId = userData.cartId //id del cart
+  
 
-  const access = userData.access
-  const admin = userData.isAdmin
-  const superAdmin = userData.isSuperAdmin
-  const verified = userData.verified
 
 
   return (
     <div>
-      {
-        location.pathname !== "/" && <NavBar />
-      }
+        {/* RUTA DE MUESTRA */}
+        {
+          location.pathname !== "/" && !location.pathname.includes("DashboardAdmin") && <NavBar />
+        }
+ 
       <Routes>
         {/* RUTA DE MUESTRA */}
         <Route path="/About" element={access && admin ? <About /> : <Navigate to="/Home" />} />
+
         <Route path="/" element={<Landing />} />
+        <Route path="/About" element={<About />} />
         <Route path="/Home" element={<Home />} />
-        <Route path="/CreateProduct" element={<CreateProduct />} />
+
+        <Route path="/CreateProduct" element={access && admin ? <CreateProduct /> : <Navigate to="/Home" />} />
         <Route path="/DetailProduct" element={<DetailProduct />} />
-        <Route path="/DashBoardAdmin" element={<DashBoardAdmin />} />
+        <Route path="/DashBoardAdmin" element={access && admin ? <DashBoardAdmin /> : <Navigate to="/Home" />} />
         <Route path="/Cart" element={<Cart />} />
-        <Route path="/EditProduct" element={<EditProduct />} />
+        <Route path="/EditProduct" element={access && admin ? <EditProduct /> : <Navigate to="/Home" />} />
         <Route path="/purchase" element={<PaymentComponent />} />
         <Route path="/DashBoardAdmin/Products" element={<Products />} />
-        <Route path="/DashboardAdmin/Statistics" element={<Statistics />} />
-        <Route path="/DashboardAdmin/Sales" element={<Sales />} />
-        <Route path="/DashboardAdmin/Users" element={<Users />} />
+        <Route path="/DashboardAdmin/Statistics" element={access && admin ? <Statistics /> : <Navigate to="/Home" />} />
+        <Route path="/DashboardAdmin/Sales" element={access && admin ? <Sales /> : <Navigate to="/Home" />} />
+        <Route path="/DashboardAdmin/Users" element={access && superAdmin ? <Users /> : <Navigate to="/Home" />} />
       </Routes>
       {
-        location.pathname !== "/" &&
+        location.pathname !== "/" && !location.pathname.includes("DashboardAdmin") &&
         <div>
           <SubFooter />
           <FooterLanding />
         </div>
+
       }
     </div>
-
   );
 }
 
