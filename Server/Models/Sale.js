@@ -14,14 +14,14 @@ module.exports = (sequelize) => {
     },
     pay_method: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     user_id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       allowNull: false,
     },
     products_id: {
-      type: DataTypes.STRING,
+      type: DataTypes.DataTypes.ARRAY(DataTypes.STRING),
       allowNull: false,
     },
   },
