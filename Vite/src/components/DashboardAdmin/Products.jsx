@@ -6,8 +6,9 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { axiosAllProductsByCountries } from "../../redux/slice/productSlice"
 import StylesAdmin from "./DashboardAdmin.module.css"
-// import TableSeller from '../ComponentsAdmin/ProductsSeller/TableSeller'
-// import AllProductsSellers from '../ComponentsAdmin/ProductsSeller/AllProductsSellers'
+import TableSeller from '../ComponentsAdmin/ProductsSeller/TableSeller'
+import AllProductsSellers from '../ComponentsAdmin/ProductsSeller/AllProductsSellers'
+import NavbarAdmin from '../NavBarAdmin/NavbarAdmin'
 
 
 
@@ -45,9 +46,9 @@ const Products = () => {
     <div className={StylesAdmin.containerAdmin} >
       <Sidebar />
       <div className={StylesAdmin.containerHomeAdmin} style={{ marginLeft: isOpen ? '120px' : (!isOpen && '60px') }}>
-        <div className={StylesAdmin.containerSuperior}>
-        </div>
-        <div className={StylesAdmin.containerProducts}>
+      <NavbarAdmin/>
+        
+        {/* <div className={StylesAdmin.containerProducts}>
           <TableProducts
             key="paginado"
             productsPerPage={productsPerPage}
@@ -56,8 +57,8 @@ const Products = () => {
             currentProducts={paginatedProducts}
           />
           <AllProductsAdmin currentProducts={paginatedProducts} />
-        </div>
-        {/* <div className={StylesAdmin.containerProducts}>
+        </div> */}
+        <div className={StylesAdmin.containerProducts}>
           <TableSeller
             key="paginado"
             productsPerPage={productsPerPage}
@@ -65,8 +66,8 @@ const Products = () => {
             paginado={paginado}
             currentProducts={paginatedProducts}
           />
-          <AllProductsSellers currentProducts={paginatedProducts} /> */}
-        {/* </div> */}
+          <AllProductsSellers currentProducts={paginatedProducts} />
+        </div>
       </div>
     </div>
   )

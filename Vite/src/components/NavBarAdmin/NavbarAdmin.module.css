@@ -1,5 +1,6 @@
 .navbar {
   display: flex;
+  width: 100%;
   z-index: 1;
   padding: 10px;
   align-items: center;
