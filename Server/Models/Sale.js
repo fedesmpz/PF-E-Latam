@@ -21,7 +21,7 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
     products_id: {
-      type: DataTypes.DataTypes.ARRAY(DataTypes.STRING),
+      type: DataTypes.ARRAY(DataTypes.STRING),
       allowNull: false,
     },
   },

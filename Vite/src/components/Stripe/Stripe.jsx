@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { payProduct } from '../../redux/slice/productSlice';
 import { useEffect } from 'react';
+import Style from "./Stripe.module.css"
 
 const Stripe = ({ sale, total }) => {
 
