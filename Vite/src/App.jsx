@@ -41,7 +41,7 @@ function App() {
   return (
     <div>
       {
-        location.pathname !== "/" && <NavBar />
+        location.pathname !== "/" && !location.pathname.includes("DashboardAdmin") && <NavBar />
       }
       <Routes>
         {/* RUTA DE MUESTRA */}
@@ -60,7 +60,7 @@ function App() {
         <Route path="/DashboardAdmin/Users" element={<Users />} />
       </Routes>
       {
-        location.pathname !== "/" &&
+        location.pathname !== "/" && !location.pathname.includes("DashboardAdmin") &&
         <div>
           <SubFooter />
           <FooterLanding />
