@@ -5,6 +5,8 @@ import { useNavigate, Link } from "react-router-dom";
 import CarouselProducts from "../CarouselProducts/CarouselProducts"
 import { useSelector } from "react-redux";
 import { loginUserLocal } from "../../redux/slice/userSlice";
+import ModalLogin from "../ModalLogin/ModalLogin"
+import ModalSingIn from "../ModalSignIn/ModalSingIn"
 
 const Cart = () => {
     const { cart, addToCart, removeFromCart, removeToCart } = useContext(
@@ -20,6 +22,8 @@ const Cart = () => {
     // useEffect(() => {
     //     dispatch(loginUserLocal())
     //   }, [])
+
+    const [showModal, setShowModal] = useState(false)
 
     const loadCartData = useCallback(() => {
         const savedCart = JSON.parse(localStorage.getItem("cart"));
@@ -72,6 +76,7 @@ const Cart = () => {
 
     const handlerPurchase = async () => {
         userData.access && navigate(`/Purchase?cartId=${userData.cartId}`);
+        !userData.access && setShowModal(true)
     };
 
     const handleIncrement = (productId) => {
@@ -100,6 +105,11 @@ const Cart = () => {
             return newCounts;
         });
     };
+
+    const handleModal = (event) => {
+        event.preventDefault();
+        setShowModal(false)
+    }
 
     return (
         <div className={style.cartContainer}>
@@ -182,6 +192,21 @@ const Cart = () => {
                         </div>
                     </div>
                 ))}
+                <>
+              {showModal && (
+                <div className={style.modal}>
+                  <div className={style.modalContent}>
+                    <div className={style.closeModal} onClick={handleModal}>X</div>
+                    <h2>Hola!</h2>
+                    <p>Para comprar, ingresá a tu cuenta</p>
+                    <div>
+                        <ModalSingIn/>
+                        <ModalLogin/>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </>
                 <div className={style.resumeContent}>
                     <div className={style.resumeDetails}>
                         <p className={style.resumeText}>{`(${count}) Productos`}</p>
