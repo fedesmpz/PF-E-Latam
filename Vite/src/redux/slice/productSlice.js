@@ -314,7 +314,7 @@ export const axiosSearchProduct = (title, country) => (dispatch) => {
 
   export const payProduct = (payload) => (dispatch) => {
     axios
-      .post(`http://localhost:8000/checkout`, payload)
+      .post(`https://pf-elatam.onrender.com/checkout`, payload)
       .then((response) => {
         dispatch(setNewSaleMessage(response.data))
         dispatch(setpayProduct(response.data));
