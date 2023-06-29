@@ -5,6 +5,8 @@ import Styles from "../NavBar/NavBar.module.css";
 import { axiosAllProductsByCountries, axiosSearchProduct } from "../../redux/slice/productSlice";
 import Select from 'react-select'
 import { CartContext } from "../../utils/CartContext";
+import ModalLogin from "../ModalLogin/ModalLogin"
+import ModalSignIn from "../ModalSignIn/ModalSingIn"
 import { loginUserLocal, logoutUser } from '../../redux/slice/userSlice';
 
 
@@ -23,10 +25,22 @@ const NavBar = () => {
   const [showModal, setShowModal] = useState(false);
   const [productsInCart, setProductsInCart] = useState(6);
   const [notifications, setNotifications] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+ // const localStorage = localStorage.getItem('user')
 
   useEffect(() => {
     dispatch(loginUserLocal())
   }, [])
+
+  useEffect(() => {
+    console.log(userData);
+    
+    if (userData.access) {
+      setIsLoggedIn(true);
+    } else {
+      setIsLoggedIn(false);
+    }
+  }, []);
 
   const options = [
     { value: 'ARG', /* label: ' Argentina' */ img: 'https://flagcdn.com/w20/ar.png' },
@@ -175,10 +189,18 @@ const NavBar = () => {
               <Link className={Styles.button} to="/DashboardAdmin">Admin</Link>
            </>
         }
-        {userData.access? 
-          (<button className={Styles.button} onClick={handlerLogout}>Logout</button>):
-          (<button className={Styles.button}>Login</button>)
-        }
+  {isLoggedIn ? (
+        <button className={Styles.button} onClick={handlerLogout}>Logout</button>
+      ) : (
+        <div className={Styles.cartContainer}>
+          <div>
+            <ModalSignIn/>
+          </div>
+          <div>
+            <ModalLogin/>
+          </div>
+        </div>
+      )}
       </div>
     </div>
   );

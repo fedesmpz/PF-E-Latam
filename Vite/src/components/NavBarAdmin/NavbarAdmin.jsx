@@ -1,3 +1,4 @@
+
 import { Link, useLocation, useNavigate  } from 'react-router-dom';
 import React, { useState, useEffect, useRef, useContext } from 'react';
 import { useDispatch, useSelector } from "react-redux";
@@ -177,9 +178,16 @@ const NavBar = () => {
               <Link className={Styles.button} to="/DashboardAdmin">Admin</Link>
            </>
         }
-        {userData.access ? 
+        {userData.access? 
           (<button className={Styles.button} onClick={handlerLogout}>Logout</button>):
-          (<button className={Styles.button}>Login</button>)
+          (<div className={Styles.cartContainer}>
+            <div>
+              <ModalSignIn/>  
+            </div>
+            <div>
+              <ModalLogin/>
+            </div>
+          </div>)
         }
       </div>
     </div>
