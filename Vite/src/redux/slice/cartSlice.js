@@ -50,11 +50,10 @@ export const {
 
 export default cartSlice.reducer;
 
-export const loadProductsToCart = (cartData, cartId) => async (dispatch) => {
+export const loadProductsToCart = (productsData, cartId) => async (dispatch) => {
     try {
-      const response = await axios.post(`https://pf-elatam.onrender.com/carts/${cartId}/products`, cartData);
+      const response = await axios.post(`https://pf-elatam.onrender.com/carts/${cartId}/products`, productsData);
       dispatch(setSuccessMessage(response.data));
-      console.log("Esta es la carga a la db", response.data)
     } catch (error) {
       dispatch(setErrorMessage(error.message));
     }
@@ -63,7 +62,6 @@ export const loadProductsToCart = (cartData, cartId) => async (dispatch) => {
 export const getProductsFromCart = (cartId) => async (dispatch) => {
     try {
       const response = await axios.get(`https://pf-elatam.onrender.com/carts/${cartId}`);
-      console.log("esta es la cartData", response.data);
       dispatch(loadCart(response.data.products));
       dispatch(setCurrentCartId(response.data.id))
       dispatch(setCurrency(response.data.currency_id));
@@ -77,7 +75,6 @@ export const getProductsFromCart = (cartId) => async (dispatch) => {
 export const deleteProductsFromCart = (cartId) => async (dispatch) => {
   try {
     const response = await axios.delete(`https://pf-elatam.onrender.com/carts/${cartId}/products`);
-    console.log("esta es la respuesta de eliminar", response.data);
     dispatch(setSuccessMessage(response.data));
   } catch (error) {
     dispatch(setErrorMessage(error.message));
