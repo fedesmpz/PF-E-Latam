@@ -21,7 +21,7 @@ const Statistics = () => {
       <NavbarAdmin />
         <div className={StylesAdmin.containerSuperior}>
         </div>
-        <div className={StylesAdmin.containerProducts}>
+        <section className={StylesAdmin.containerProducts}>
       <SalesCard 
       totalSales={totalSales}
       todaySales={todaySales}
@@ -30,7 +30,7 @@ const Statistics = () => {
       <SalesStats />
       <LineChart />
           
-        </div>
+        </section>
         
       </div>
     </div>
