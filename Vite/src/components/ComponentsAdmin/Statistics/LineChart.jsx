@@ -69,7 +69,7 @@ export const data = {
 
 const LineChart = () => {
   return (
-    <div>
+    <div className='w-full h-20 flex items-center '>
       <Line options={options} data={data} />
     </div>
   );
