@@ -1,26 +1,43 @@
 'use client'
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { axiosAllProductsByCountries } from "../../redux/slice/productSlice";
+import { axiosProductsByCatalogListing, axiosAllProductsByCountries } from "../../redux/slice/productSlice";
+import { loginUserLocal } from "../../redux/slice/userSlice"
 import Paginado from "../../components/Paginado/Paginado"
 import Products from "../../components/Products/Products.jsx";
 import Filter from "../../components/Filter/Filter.jsx";
-import SubFooter from "../../components/SubFooter/SubFooter.jsx";
-import NavBar from "../../components/NavBar/NavBar.jsx"
 import style from "../../components/Home/Home.module.css"
 import LoaderLanding from "../../components/LoaderLanding/LoaderLanding.jsx"
 import "bootstrap/dist/css/bootstrap.css"
-import FooterLanding from "../../components/FooterLanding/FooterLanding.jsx";
+
 
 const Home = () => {
     const dispatch = useDispatch();
     const productsCountry = useSelector((state) => state.products.country);
     const [isLoading, setIsLoading] = useState(true);
-
+    const userData = useSelector((state) => state.user.userData);
+    
+    //SE DESPACHA EL ESTADO DEL LOCALSTORAGE Y SE VALIDA
+    useEffect(()=>{
+        dispatch(loginUserLocal())
+        
+    },[])
+    
+    useEffect(() => {
+        if (!userData.isAdmin && !userData.isSuperAdmin) {
+            dispatch(axiosProductsByCatalogListing(productsCountry));
+        } else if (!userData.access){
+            dispatch(axiosProductsByCatalogListing(productsCountry));
+        } else {
+            dispatch(axiosAllProductsByCountries(productsCountry));
+        }
+      }, [dispatch, productsCountry, userData]);
 
     useEffect(() => {
         setIsLoading(true);
-
+        console.log(userData);
+       
+        dispatch(loginUserLocal())
         const timer = setTimeout(() => {
             setIsLoading(false);
         }, 2500);
@@ -30,9 +47,13 @@ const Home = () => {
         };
     }, []);
 
-    useEffect(() => {
-        dispatch(axiosAllProductsByCountries(productsCountry));
-    }, [dispatch, productsCountry]);
+
+
+    const access = userData.access
+    const admin = userData.isAdmin
+    const superAdmin = userData.isSuperAdmin
+    const verified = userData.verified
+
 
     const array = useSelector((state) => state.products.products);
 
@@ -68,7 +89,6 @@ const Home = () => {
 
     return (
         <div className={style.body}>
-            <NavBar />
             <Filter
                 setCurrentPage={setCurrentPage}
                 setOrden={setOrden}
@@ -83,8 +103,6 @@ const Home = () => {
                     paginado={paginado}
                     currentProducts={paginatedProducts}
                 />
-                <SubFooter />
-                <FooterLanding />
             </div>
         </div>
     );

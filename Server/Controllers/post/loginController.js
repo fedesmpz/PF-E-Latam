@@ -53,9 +53,3 @@ const loginController= async( email, password )=>{
 module.exports={
     loginController
 }
-
-
-
-module.exports={
-    loginController
-}

@@ -7,7 +7,9 @@ export const userSlice = createSlice({
     users: [],
     loading: false,
     error: null,
-    userData: {},
+    userData: {
+      access: false
+    },
     userAddress: [],
     userById: {}
   },
@@ -18,8 +20,11 @@ export const userSlice = createSlice({
     getAllUsersStart(state, action) {
       state.users = action.payload
     },
-    getUsersStart(state, action) {
-      state.userData = action;
+    getUsersStart: (state, action) => {
+      state.userData = action.payload;
+    },
+    getUsersLogout: (state) => {
+      state.userData = {access: false};
     },
     getUsersSuccess(state, action) {
       state.users = action.payload;
@@ -75,6 +80,7 @@ export const {
   getUserByIdStart,
   getAllUsersStart,
   getUsersStart,
+  getUsersLogout,
   getUsersSuccess,
   getUsersFailure,
   registerUserStart,
@@ -92,9 +98,45 @@ export const {
 
 export default userSlice.reducer;
 
+export const loginUserLocal = () => async (dispatch) => {
+  try {
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (Object.keys(user).length === 0) {
+        return false;
+    }
+    const tokenString = JSON.parse(localStorage.getItem("token"));
+    const response = await axios.post('https://pf-elatam.onrender.com/users/validateToken', user,
+    {headers: {
+        authorization: tokenString,
+    }})
+    const resp = response.data.validate
+    if(resp){
+      await dispatch(getUsersStart(user));
+    }
+
+  } catch (error) {
+    dispatch(getUsersFailure(error.message));
+  }
+};
+
+
+export const logoutUser = () => async (dispatch) => {
+  try {
+    
+    await dispatch(getUsersLogout());
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+
+  } catch (error) {
+    dispatch(getUsersFailure(error.message));
+  }
+};
+
+
+
 export const fetchUsers = (user) => async (dispatch) => {
   try {
-    dispatch(getUsersStart(user));
+    await dispatch(getUsersStart(user));
 
   } catch (error) {
     dispatch(getUsersFailure(error.message));
@@ -133,7 +175,7 @@ export const updateUser = (userId, userData) => async (dispatch) => {
 
 export const getGeocoding = (addressId, countryName) => (dispatch) => {
   axios
-      .get(`http://localhost:8000/users/address/${countryName}/${addressId}`)
+      .get(`https://pf-elatam.onrender.com/users/address/${countryName}/${addressId}`)
       .then((response) => {
         dispatch(getUserAddress(response.data))
       })

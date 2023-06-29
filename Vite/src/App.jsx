@@ -1,5 +1,7 @@
-import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Routes, Route, useLocation, Navigate, useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { loginUserLocal } from "../src/redux/slice/userSlice"
 import Home from './components/Home/Home';
 import Landing from './components/Landing/Landing';
 import CreateProduct from './components/CreateProduct/CreateProduct';
@@ -11,29 +13,74 @@ import EditProduct from './components/EditProduct/EditProduct';
 import PaymentComponent from './components/Purchase/Purchase'
 import Products from './components/DashboardAdmin/Products';
 import Statistics from './components/DashboardAdmin/Statistics';
-import Sales from './components/DashboardAdmin/Sales';
+import Sales from './components/Sales/Sales';
 import Users from './components/DashboardAdmin/Users';
-// import UserDetails from './components/ComponentsAdmin/Users/UserDetails';
+import NavBar from './components/NavBar/NavBar';
+import SubFooter from './components/SubFooter/SubFooter';
+import FooterLanding from './components/FooterLanding/FooterLanding';
+
 
 function App() {
+  const location = useLocation();
+  const navigate = useNavigate()
+
+  //SE GUARDA EL ESTADO
+  const userData = useSelector((state) => state.user.userData);
+  const dispatch = useDispatch();
+  //SE DESPACHA EL ESTADO DEL LOCALSTORAGE Y SE VALIDA
+
+  useEffect(()=>{
+      dispatch(loginUserLocal())
+      
+  },[])
+  
+  const access = userData.access //si el tiene acceso
+  const admin = userData.isAdmin //si admin es true o false
+  const superAdmin = userData.isSuperAdmin //si superadmin es true o false
+  const verified = userData.verified //si el mail esta verificado guarda true o false
+  const emailUser = userData.email //email del usuario
+  const cartId = userData.cartId //id del cart
+  
+
+
+
   return (
-    <Routes>
-      <Route exact path="/" element={<Landing />} />
-      <Route exact path="/Home" element={<Home />} />
-      <Route exact path= "/CreateProduct" element ={<CreateProduct/>}/>
-      <Route exact path= "/DetailProduct" element ={<DetailProduct/>}/>
-      <Route exact path= "/DashBoardAdmin" element ={<DashBoardAdmin/>}/>
-      <Route exact path= "/Cart" element={<Cart/>}/>
-      <Route exact path= "/EditProduct" element={<EditProduct/>}/>
-      <Route exact path= "/About" element={<About/>}/>
-      <Route exact path= "/purchase" element={<PaymentComponent/>}/>
-      <Route exact path="/DashBoardAdmin/Products" element={<Products />} />
-      <Route exact path="/DashboardAdmin/Statistics" element={<Statistics />} />
-      <Route exact path="/DashboardAdmin/Sales" element={<Sales />} />
-      <Route exact path="/DashboardAdmin/Users" element={<Users />} />
-      {/* <Route exact path="/DashboardAdmin/UserDetails/:id" element={<UserDetails />} /> */}
-    </Routes>
+    <div>
+        {/* RUTA DE MUESTRA */}
+        {
+          location.pathname !== "/" && !location.pathname.includes("DashboardAdmin") && <NavBar />
+        }
+ 
+      <Routes>
+        {/* RUTA DE MUESTRA */}
+        <Route path="/About" element={access && admin ? <About /> : <Navigate to="/Home" />} />
+
+        <Route path="/" element={<Landing />} />
+        <Route path="/About" element={<About />} />
+        <Route path="/Home" element={<Home />} />
+
+        <Route path="/CreateProduct" element={access && admin ? <CreateProduct /> : <Navigate to="/Home" />} />
+        <Route path="/DetailProduct" element={<DetailProduct />} />
+        <Route path="/DashBoardAdmin" element={access && admin ? <DashBoardAdmin /> : <Navigate to="/Home" />} />
+        <Route path="/Cart" element={<Cart />} />
+        <Route path="/EditProduct" element={access && admin ? <EditProduct /> : <Navigate to="/Home" />} />
+        <Route path="/purchase" element={<PaymentComponent />} />
+        <Route path="/DashBoardAdmin/Products" element={<Products />} />
+        <Route path="/DashboardAdmin/Statistics" element={access && admin ? <Statistics /> : <Navigate to="/Home" />} />
+        <Route path="/DashboardAdmin/Sales" element={access && admin ? <Sales /> : <Navigate to="/Home" />} />
+        <Route path="/DashboardAdmin/Users" element={access && superAdmin ? <Users /> : <Navigate to="/Home" />} />
+      </Routes>
+      {
+        location.pathname !== "/" && !location.pathname.includes("DashboardAdmin") &&
+        <div>
+          <SubFooter />
+          <FooterLanding />
+        </div>
+
+      }
+    </div>
   );
 }
+
 
 export default App;

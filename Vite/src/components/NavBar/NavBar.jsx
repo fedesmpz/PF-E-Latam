@@ -1,19 +1,47 @@
-import { Link, useLocation } from 'react-router-dom';
-import React, { useState } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect, useRef, useContext } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import Styles from "../NavBar/NavBar.module.css";
 import { axiosAllProductsByCountries, axiosSearchProduct } from "../../redux/slice/productSlice";
 import Select from 'react-select'
+import { CartContext } from "../../utils/CartContext";
+import ModalLogin from "../ModalLogin/ModalLogin"
+import ModalSignIn from "../ModalSignIn/ModalSingIn"
+import { loginUserLocal, logoutUser } from '../../redux/slice/userSlice';
+
 
 
 const NavBar = () => {
-
+  const { cart } = useContext(
+    CartContext
+  );
   const location = useLocation();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const productsCountry = useSelector((state) => state.products.country);
+  const userData = useSelector((state) =>  state.user.userData);
   const [title, setTitle] = useState('');
   const [country, setCountry] = useState('ARG');
   const [showModal, setShowModal] = useState(false);
+  const [productsInCart, setProductsInCart] = useState(6);
+  const [notifications, setNotifications] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+ // const localStorage = localStorage.getItem('user')
+
+  useEffect(() => {
+    dispatch(loginUserLocal())
+  }, [])
+
+  useEffect(() => {
+    console.log(userData);
+    
+    if (userData.access) {
+      setIsLoggedIn(true);
+    } else {
+      setIsLoggedIn(false);
+    }
+  }, []);
+
   const options = [
     { value: 'ARG', /* label: ' Argentina' */ img: 'https://flagcdn.com/w20/ar.png' },
     { value: 'COL', /* label: ' Colombia' */ img: 'https://flagcdn.com/w20/co.png' },
@@ -23,6 +51,28 @@ const NavBar = () => {
   function handleSearch(event) {
     setTitle(event.target.value);
   }
+
+  const handlerLogout = () => {
+    dispatch(logoutUser())
+    navigate('/')
+  }
+
+  const totalProducts = () => {
+    let countAux = 0
+    if (cart?.length > 0) {
+      cart.forEach((product) => {
+        setProductsInCart((countAux += product.quantity));
+      });
+      setNotifications(true)
+    } else {
+      setNotifications(false)
+    }
+    setProductsInCart(countAux);
+  };
+
+  useEffect(() => {
+    totalProducts();
+  }, [cart])
 
   const handlerClick = async () => {
     if (title.trim() === '') {
@@ -39,7 +89,7 @@ const NavBar = () => {
       }
 
       try {
-        await dispatch(axiosSearchProduct(title, selectedCountry));
+        dispatch(axiosSearchProduct(title, selectedCountry));
         setTitle('');
 
       } catch (error) {
@@ -53,6 +103,7 @@ const NavBar = () => {
     setCountry(selectedValue);
     dispatch(axiosAllProductsByCountries(selectedValue));
   }
+
   const handleCloseModal = () => {
     setShowModal(false);
   };
@@ -95,15 +146,6 @@ const NavBar = () => {
           />
         </div>
 
-        {/* {router.pathname === "/Home" &&
-          <div className={Styles.flags}>
-            <select value={country} onChange={handleFilterByCountry}>
-              <option value="ARG">ARG</option>
-              <option value="COL">COL</option>
-              <option value="MEX">MEX</option>
-            </select>
-          </div>
-        } */}
         {showModal && (
           <div className={Styles.modal}>
             <div className={Styles.modalContent}>
@@ -116,29 +158,49 @@ const NavBar = () => {
 
         {location.pathname === "/Home" &&
           <div className={Styles.searchBar}>
-
             <input type="search" placeholder="¿Qué buscas hoy?" value={title} onChange={handleSearch} />
             <button onClick={handlerClick} className={Styles.buttonBusqueda}>Buscar</button>
-
-
           </div>
         }
       </div>
 
       <div className={Styles.rightContainer}>
-        <Link className={Styles.cartButton} to="/Cart" >
-          <img
-            className={Styles.iconCarrito}
-            src="/assets/CarritoVioleta.png"
-            width={100}
-            height={100}
-            alt="cart_icon"
-          >
-          </img>
-        </Link>
-        <Link className={Styles.button} to="/CreateProduct">New</Link>
-        <button className={Styles.button}>Login</button>
-        <Link className={Styles.button} to="/DashboardAdmin">Admin</Link>
+        {!userData.isAdmin && (
+                  <div className={Styles.cartContainer}>
+                  {notifications &&
+                    <div className={Styles.productsNumber}>
+                      <span>{productsInCart}</span>
+                    </div>
+                  }
+                  <Link className={Styles.cartButton} to="/Cart" >
+                    <img
+                      className={Styles.iconCarrito}
+                      src="/assets/CarritoVioleta.png"
+                      width={100}
+                      height={100}
+                      alt="cart_icon"
+                    />
+                  </Link>
+                </div>
+        )}
+        {userData.access === true && userData.isAdmin &&
+           <>
+              <Link className={Styles.button} to="/CreateProduct">New</Link>
+              <Link className={Styles.button} to="/DashboardAdmin">Admin</Link>
+           </>
+        }
+  {isLoggedIn ? (
+        <button className={Styles.button} onClick={handlerLogout}>Logout</button>
+      ) : (
+        <div className={Styles.cartContainer}>
+          <div>
+            <ModalSignIn/>
+          </div>
+          <div>
+            <ModalLogin/>
+          </div>
+        </div>
+      )}
       </div>
     </div>
   );
