@@ -3,6 +3,8 @@ import style from "./Cart.module.css";
 import { CartContext } from "../../utils/CartContext";
 import { useNavigate, Link } from "react-router-dom";
 import CarouselProducts from "../CarouselProducts/CarouselProducts"
+import { useSelector } from "react-redux";
+import { loginUserLocal } from "../../redux/slice/userSlice";
 
 const Cart = () => {
     const { cart, addToCart, removeFromCart, removeToCart } = useContext(
@@ -10,9 +12,14 @@ const Cart = () => {
     );
     const [productCounts, setProductCounts] = useState({});
     const [cartIsEmpty, setCartIsEmpty] = useState(true);
+    const userData = useSelector((state) => state.user.userData)
     const navigate = useNavigate();
     let [count, setCount] = useState(0);
     let [total, setTotal] = useState(0);
+
+    // useEffect(() => {
+    //     dispatch(loginUserLocal())
+    //   }, [])
 
     const loadCartData = useCallback(() => {
         const savedCart = JSON.parse(localStorage.getItem("cart"));
@@ -64,7 +71,7 @@ const Cart = () => {
     };
 
     const handlerPurchase = async () => {
-        navigate("/Purchase");
+        userData.access && navigate(`/Purchase?cartId=${userData.cartId}`);
     };
 
     const handleIncrement = (productId) => {

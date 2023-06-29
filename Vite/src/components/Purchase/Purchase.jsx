@@ -1,20 +1,46 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import { useNavigate } from 'react-router-dom';
 import 'react-tabs/style/react-tabs.css';
 import styles from './Purchase.module.css';
-import { getGeocoding, cleanUserAddress } from '../../redux/slice/userSlice';
+import { getGeocoding, cleanUserAddress, loginUserLocal } from '../../redux/slice/userSlice';
 import Stripe from '../Stripe/Stripe';
-import mapboxgl from 'mapbox-gl';
-
-/* mapboxgl.accessToken = process.env.MAPBOX_ACCESS_TOKEN */
+// import mapboxgl from 'mapbox-gl';
 import { Link } from 'react-router-dom';
+import { getProductsFromCart, loadProductsToCart, deleteProductsFromCart } from '../../redux/slice/cartSlice';
 
 const PaymentComponent = () => {
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const searchParams = new URLSearchParams(location.search);
+
+  const paramsCartId = searchParams.get("cartId");
+  const cartId = useSelector((state) => state.user.userData.cartId);
+  
+  useEffect(() => {
+    dispatch(loginUserLocal())
+    totalPrice()
+  }, [])
+
+  useEffect(() => {
+    dispatch(getProductsFromCart(cartId))
+  }, [cartId])
+ 
+  if((cartId != undefined) && (paramsCartId != cartId)) {
+    navigate(`/Purchase?cartId=${cartId}`)
+  }
+
+
+  console.log(cartId)
+
   const [currentTab, setCurrentTab] = useState(0);
+
   let [total, setTotal] = useState(0);
+  const purchaseConfirmation = JSON.parse(localStorage?.getItem("cart"));
+  
   const [deliveryForm, setDeliveryForm] = useState({
     address: "",
     postalCode: "",
@@ -22,18 +48,7 @@ const PaymentComponent = () => {
     country: ""
   });
 
-  const matchingAddress = useSelector(state => state.user.userAddress)
-
-  useEffect(() => {
-    // return () => dispatch(cleanUserAddress())
-  }, [matchingAddress])
-
-  const [paymentForm, setPaymentForm] = useState({
-    name: "",
-
-  })
-
-  const purchaseConfirmation = JSON.parse(localStorage?.getItem("cart"));
+  const matchingAddress = useSelector(state => state.user.userAddress);
 
   const totalPrice = () => {
     let totalAux = 0;
@@ -84,18 +99,20 @@ const PaymentComponent = () => {
   const handleDeliverySubmit = (event) => {
     event.preventDefault();
     handleContinue();
-    // Handle form submission or validation here
   }
 
-  const handlePaymentSubmit = (event) => {
+  const handleCart = (event) => {
     event.preventDefault();
     handleContinue();
-    // Handle form submission or validation here
+    dispatch(deleteProductsFromCart(cartId))
+    dispatch(loadProductsToCart(purchaseConfirmation, cartId))
   }
 
   useEffect(() => {
-    totalPrice()
-  }, [])
+    // return () => dispatch(cleanUserAddress())
+  }, [matchingAddress])
+
+
 
   return (
     <div className={styles.componentContainer}>
@@ -148,7 +165,7 @@ const PaymentComponent = () => {
                 <h1 className={styles.resumePrice}>$ {total}</h1>
               </div>
               <div className={styles.firstButtonsContainer}>
-                <button className={styles.firstContinueButton} onClick={handleContinue}>
+                <button className={styles.firstContinueButton} onClick={handleCart}>
                   Continuar
                 </button>
               </div>
