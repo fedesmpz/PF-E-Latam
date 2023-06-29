@@ -6,7 +6,8 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { axiosAllProductsByCountries } from "../../redux/slice/productSlice"
 import StylesAdmin from "./DashboardAdmin.module.css"
-
+// import TableSeller from '../ComponentsAdmin/ProductsSeller/TableSeller'
+// import AllProductsSellers from '../ComponentsAdmin/ProductsSeller/AllProductsSellers'
 
 
 
@@ -56,6 +57,16 @@ const Products = () => {
           />
           <AllProductsAdmin currentProducts={paginatedProducts} />
         </div>
+        {/* <div className={StylesAdmin.containerProducts}>
+          <TableSeller
+            key="paginado"
+            productsPerPage={productsPerPage}
+            products={currentProducts.length}
+            paginado={paginado}
+            currentProducts={paginatedProducts}
+          />
+          <AllProductsSellers currentProducts={paginatedProducts} /> */}
+        {/* </div> */}
       </div>
     </div>
   )
