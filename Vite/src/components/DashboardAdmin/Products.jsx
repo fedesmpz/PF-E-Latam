@@ -57,7 +57,7 @@ const Products = () => {
           />
           <AllProductsAdmin currentProducts={paginatedProducts} />
         </div>
-        <div className={StylesAdmin.containerProducts}>
+        {/* <div className={StylesAdmin.containerProducts}>
           <TableSeller
             key="paginado"
             productsPerPage={productsPerPage}
@@ -65,8 +65,8 @@ const Products = () => {
             paginado={paginado}
             currentProducts={paginatedProducts}
           />
-          <AllProductsSellers currentProducts={paginatedProducts} />
-        </div>
+          <AllProductsSellers currentProducts={paginatedProducts} /> */}
+        {/* </div> */}
       </div>
     </div>
   )
