@@ -25,7 +25,7 @@ const stripeHandler = async (req, res) => {
   const confirmedPaymentIntent = await stripe.paymentIntents.confirm(paymentIntent.id);
    const savedBDD= await stripePost(amount,products_id,email)
 
-    return res.status(200).json("El pago fue exitoso")
+    return res.status(200).json("Muchas gracias por tu compra")
   } catch (error) {
     return res.status(400).json({error:error.message});
   }
