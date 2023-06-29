@@ -210,8 +210,8 @@ const PaymentComponent = () => {
                 )}
               </>
             </div>
-              <div>
-              </div>
+            <div>
+            </div>
             <div className={styles.bannerContainer}>
               <img src="images/imagenes_hero/1.png"></img>
             </div>
@@ -230,7 +230,7 @@ const PaymentComponent = () => {
                       value={deliveryForm.address}
                       onChange={handleShippingData}
                       placeholder="Ingrese la ciudad"
-                    />  
+                    />
                   </div>
 
                   <div>
@@ -275,7 +275,7 @@ const PaymentComponent = () => {
               </div>
             </div>
             <div>
-            {
+              {
                 purchaseConfirmation && purchaseConfirmation.map((product) => {
                   return (
                     <div className={styles.resumeContainer} key={product.id}>
@@ -284,7 +284,7 @@ const PaymentComponent = () => {
                     </div>
                   )
                 })
-              } 
+              }
             </div>
             <div className={styles.bannerContainer}>
               <img src="images/imagenes_hero/1.png"></img>
@@ -320,7 +320,7 @@ const PaymentComponent = () => {
               </div>
             </div>
             <div>
-            {
+              {
                 purchaseConfirmation && purchaseConfirmation.map((product) => {
                   return (
                     <div className={styles.resumeContainer} key={product.id}>
@@ -334,22 +334,22 @@ const PaymentComponent = () => {
           </TabPanel>
 
           <TabPanel className={styles.tabPanel}>
-              <h2>Forma de pago</h2>
-              <Stripe sale={purchaseConfirmation} total={total} />
-              <p>Ciudad: {deliveryForm.city}</p>
-              <p>País: {deliveryForm.country}</p>
-              <p>Dirección: {deliveryForm.address}</p>
-              <p>Código postal: {deliveryForm.postalCode}</p>
-              <div>
-                {purchaseConfirmation && purchaseConfirmation.map((product) => {
-                  return (
-                    <div className={styles.resumeContainer} key={product.id}>
-                      <h1 className={styles.productTitle}>{`(${product.quantity}) ${product.title}`}</h1>
-                      <h1 className={styles.productPrice}>$ {product.original_price * product.quantity}</h1>
-                    </div>
-                  );
-                })}
-              </div>
+            <h2>Forma de pago</h2>
+            <Stripe sale={purchaseConfirmation} total={total} shipping={deliveryForm} />
+            <p>Ciudad: {deliveryForm.city}</p>
+            <p>País: {deliveryForm.country}</p>
+            <p>Dirección: {deliveryForm.address}</p>
+            <p>Código postal: {deliveryForm.postalCode}</p>
+            <div>
+              {purchaseConfirmation && purchaseConfirmation.map((product) => {
+                return (
+                  <div className={styles.resumeContainer} key={product.id}>
+                    <h1 className={styles.productTitle}>{`(${product.quantity}) ${product.title}`}</h1>
+                    <h1 className={styles.productPrice}>$ {product.original_price * product.quantity}</h1>
+                  </div>
+                );
+              })}
+            </div>
 
             <div className={styles.buttonsContainer}>
               <button className={styles.back_Button} onClick={handleBack}>
