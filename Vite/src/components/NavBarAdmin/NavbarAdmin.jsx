@@ -24,10 +24,21 @@ const NavBar = () => {
   const [showModal, setShowModal] = useState(false);
   const [productsInCart, setProductsInCart] = useState(6);
   const [notifications, setNotifications] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(userData.access);
 
   useEffect(() => {
     dispatch(loginUserLocal())
   }, [])
+
+  useEffect(() => {
+
+    if (userData.access) {
+      setIsLoggedIn(true);
+    } else {
+      setIsLoggedIn(false);
+    }
+
+  }, [userData.access]);
 
   const options = [
     { value: 'ARG', /* label: ' Argentina' */ img: 'https://flagcdn.com/w20/ar.png' },
@@ -178,7 +189,7 @@ const NavBar = () => {
               <Link className={Styles.button} to="/DashboardAdmin">Admin</Link>
            </>
         }
-        {userData.access? 
+        {isLoggedIn? 
           (<button className={Styles.button} onClick={handlerLogout}>Logout</button>):
           (<div className={Styles.cartContainer}>
             <div>
