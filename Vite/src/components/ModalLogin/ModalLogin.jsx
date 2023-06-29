@@ -87,7 +87,9 @@ function Example() {
 
       if(response.data.access && location.pathname === '/'){
         navigate('./home')
-      }else if (response.data.access && location.pathname === '/home'){
+      }else if (response.data.access && location.pathname === '/Cart'){
+        navigate(`/Purchase?cartId=${userData.cartId}`)
+      }else if(response.data.access && location.pathname === '*'){
         window.location.reload();
       }
       handleClose()

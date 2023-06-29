@@ -1,12 +1,11 @@
 import { useContext, useState, useEffect, useCallback } from "react";
 import style from "./Cart.module.css";
 import { CartContext } from "../../utils/CartContext";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useLocation } from "react-router-dom";
 import CarouselProducts from "../CarouselProducts/CarouselProducts"
 import { useSelector } from "react-redux";
 import { loginUserLocal } from "../../redux/slice/userSlice";
 import ModalLogin from "../ModalLogin/ModalLogin"
-import ModalSingIn from "../ModalSignIn/ModalSingIn"
 
 const Cart = () => {
     const { cart, addToCart, removeFromCart, removeToCart } = useContext(
@@ -16,12 +15,9 @@ const Cart = () => {
     const [cartIsEmpty, setCartIsEmpty] = useState(true);
     const userData = useSelector((state) => state.user.userData)
     const navigate = useNavigate();
+    const location = useLocation();
     let [count, setCount] = useState(0);
     let [total, setTotal] = useState(0);
-
-    // useEffect(() => {
-    //     dispatch(loginUserLocal())
-    //   }, [])
 
     const [showModal, setShowModal] = useState(false)
 
@@ -61,6 +57,11 @@ const Cart = () => {
     useEffect(() => {
         loadCartData();
     }, [loadCartData]);
+
+    useEffect(() => {
+        // window.location.reload()
+        setShowModal(false);
+    }, [userData.access])
 
     useEffect(() => {
         totalProducts();
@@ -200,7 +201,6 @@ const Cart = () => {
                     <h2>Hola!</h2>
                     <p>Para comprar, ingresá a tu cuenta</p>
                     <div>
-                        <ModalSingIn/>
                         <ModalLogin/>
                     </div>
                   </div>
