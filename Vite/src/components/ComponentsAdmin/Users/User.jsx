@@ -1,5 +1,4 @@
-import Styles from "../Products/StylesProducts/AllProductsAdmin.module.css";
-import { BiArchive } from "react-icons/bi";
+import Styles from "./StylesUsers/User.module.css"
 import { GrUserAdmin } from "react-icons/gr"
 import UserDetailsModal from "./UserDetailsModal";
 const User = ({
@@ -18,7 +17,7 @@ const User = ({
     let isAdmin;
   if (admin === false) {
     isAdmin = "No";
-  } else if (admin === "true") {
+  } else if (admin === true) {
     isAdmin = "Si";
   } else if (admin === null) {
     isAdmin = "No Definido";
@@ -61,7 +60,20 @@ const User = ({
           </span>
         </p>
 
-<UserDetailsModal/>
+<UserDetailsModal
+  key={id}
+            id={id}
+            name={name}
+            profile_picture={profile_picture}
+            surname={surname}
+            email={email}
+            country={country}
+            city={city}
+            address={address}
+            admin={admin}
+            postal_code={postal_code}
+            createdAt={createdAt}
+/>
         {/* <a
           className={Styles["a"]}
           href={``}
