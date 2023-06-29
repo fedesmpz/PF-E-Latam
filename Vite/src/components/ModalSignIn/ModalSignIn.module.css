@@ -1,0 +1,9 @@
+.error {
+    font-size: small;
+    color: red;
+  }
+
+.noError {
+  font-size: small;
+  color: rgb(7, 157, 27);
+}
