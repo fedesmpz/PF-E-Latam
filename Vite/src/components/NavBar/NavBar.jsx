@@ -1,5 +1,5 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import React, { useState, useEffect, useRef, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import Styles from "../NavBar/NavBar.module.css";
 import { axiosAllProductsByCountries, axiosSearchProduct } from "../../redux/slice/productSlice";
@@ -25,22 +25,19 @@ const NavBar = () => {
   const [showModal, setShowModal] = useState(false);
   const [productsInCart, setProductsInCart] = useState(6);
   const [notifications, setNotifications] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
- // const localStorage = localStorage.getItem('user')
+  const [isLoggedIn, setIsLoggedIn] = useState(userData.access);
 
   useEffect(() => {
     dispatch(loginUserLocal())
   }, [])
 
   useEffect(() => {
-    console.log(userData);
-    
     if (userData.access) {
       setIsLoggedIn(true);
     } else {
       setIsLoggedIn(false);
     }
-  }, []);
+  }, [userData.access]);
 
   const options = [
     { value: 'ARG', /* label: ' Argentina' */ img: 'https://flagcdn.com/w20/ar.png' },
@@ -52,8 +49,8 @@ const NavBar = () => {
     setTitle(event.target.value);
   }
 
-  const handlerLogout = () => {
-    dispatch(logoutUser())
+  const handlerLogout = async () => {
+    await dispatch(logoutUser())
     navigate('/')
   }
 
@@ -107,6 +104,7 @@ const NavBar = () => {
   const handleCloseModal = () => {
     setShowModal(false);
   };
+
 
   return (
     <div className={Styles.navbar}>
@@ -189,9 +187,10 @@ const NavBar = () => {
               <Link className={Styles.button} to="/DashboardAdmin">Admin</Link>
            </>
         }
-  {isLoggedIn ? (
-        <button className={Styles.button} onClick={handlerLogout}>Logout</button>
-      ) : (
+      
+        {isLoggedIn ? 
+        (<button className={Styles.button} onClick={handlerLogout}>Logout</button>) : 
+        (
         <div className={Styles.cartContainer}>
           <div>
             <ModalSignIn/>
@@ -200,7 +199,7 @@ const NavBar = () => {
             <ModalLogin/>
           </div>
         </div>
-      )}
+        )}
       </div>
     </div>
   );

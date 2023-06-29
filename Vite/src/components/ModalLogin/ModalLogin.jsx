@@ -11,14 +11,14 @@ import { GoogleAuthProvider,
 import { auth } from '../../utils/firebase'
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchUsers } from "../../redux/slice/userSlice";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 
 function Example() {
 
   const dispatch = useDispatch();
   const userData = useSelector((state) => state.user.userData);
-
+  const location = useLocation()
 
   const [showModal, setShowModal] = useState(false);
   const [selectedOption, setSelectedOption] = useState('');
@@ -73,10 +73,12 @@ function Example() {
       //await dispatch(fetchUsers(response.data))
       localStorage.setItem("user", JSON.stringify(response.data))
       //console.log(userData);
-      if(response.data.access){
+      if(response.data.access && location.pathname === '/'){
         navigate('./home')
+      }else if (response.data.access && location.pathname === '/home'){
+        window.location.reload();
       }
-        
+      handleClose()
     }catch(error){
         console.log(error.message);
     }
@@ -114,10 +116,12 @@ function Example() {
         localStorage.setItem("token", JSON.stringify(token.data))
         localStorage.setItem("user", JSON.stringify(user))
         
-        handleClose()
-        if(user.access){
+        if(response.data.access && location.pathname === '/'){
           navigate('./home')
+        }else{
+          window.location.reload();
         }
+        handleClose()
         
 
     }else{
@@ -154,7 +158,12 @@ function Example() {
       //***** DATOS PARA GUARDAR EN ESTADOS *****
       localStorage.setItem("user", JSON.stringify(userLogued))
 
-      //console.log(userData);//user es lo que se guarda en el estado, el token ya se guarda en localStorage
+      if(response2.data.access && location.pathname === '/'){
+        navigate('./home')
+      }else{
+        window.location.reload();
+      }
+      handleClose()
     }
   }
 

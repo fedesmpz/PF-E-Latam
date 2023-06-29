@@ -6,8 +6,6 @@ import 'react-tabs/style/react-tabs.css';
 import styles from './Purchase.module.css';
 import { getGeocoding, cleanUserAddress, loginUserLocal } from '../../redux/slice/userSlice';
 import Stripe from '../Stripe/Stripe';
-// import mapboxgl from 'mapbox-gl';
-import { Link } from 'react-router-dom';
 import { getProductsFromCart, loadProductsToCart, deleteProductsFromCart } from '../../redux/slice/cartSlice';
 
 const PaymentComponent = () => {
@@ -16,7 +14,6 @@ const PaymentComponent = () => {
   const navigate = useNavigate();
 
   const searchParams = new URLSearchParams(location.search);
-
   const paramsCartId = searchParams.get("cartId");
   const cartId = useSelector((state) => state.user.userData.cartId);
   
@@ -33,22 +30,33 @@ const PaymentComponent = () => {
     navigate(`/Purchase?cartId=${cartId}`)
   }
 
-
-  console.log(cartId)
-
   const [currentTab, setCurrentTab] = useState(0);
+  const [showModal, setShowModal] = useState(false);
 
+  const [productsData, setProductsData] = useState({
+    products: [],
+    total_price: 0
+  }) 
   let [total, setTotal] = useState(0);
   const purchaseConfirmation = JSON.parse(localStorage?.getItem("cart"));
-  
+
+  useEffect(() => {
+    setProductsData({
+      ...productsData,
+      products: [...purchaseConfirmation],
+      total_price: total
+    })
+  }, [total])
+
+  console.log(productsData)
+
+  const matchingAddress = useSelector(state => state.user.userAddress);
   const [deliveryForm, setDeliveryForm] = useState({
     address: "",
     postalCode: "",
     city: "",
     country: ""
   });
-
-  const matchingAddress = useSelector(state => state.user.userAddress);
 
   const totalPrice = () => {
     let totalAux = 0;
@@ -60,7 +68,6 @@ const PaymentComponent = () => {
       });
     }
     setTotal(totalAux)
-    console.log(total)
   };
 
   const handleTabChange = (index) => {
@@ -105,26 +112,33 @@ const PaymentComponent = () => {
     event.preventDefault();
     handleContinue();
     dispatch(deleteProductsFromCart(cartId))
-    dispatch(loadProductsToCart(purchaseConfirmation, cartId))
+    dispatch(loadProductsToCart(productsData, cartId))
+  }
+
+  const handleCancel = (event) => {
+    event.preventDefault();
+    setShowModal(true)
+  }
+
+  const handleDeleteModal = (event) => {
+    event.preventDefault();
+    dispatch(deleteProductsFromCart(cartId));
+    setShowModal(false);
+    navigate('/Cart')
+  }
+
+  const handleContinueModal = (event) => {
+    event.preventDefault();
+    setShowModal(false)
   }
 
   useEffect(() => {
     // return () => dispatch(cleanUserAddress())
   }, [matchingAddress])
 
-
-
   return (
     <div className={styles.componentContainer}>
       <div className={styles.purchaseContainer}>
-        <Link to="/Cart">
-          <button className={styles.backButton}>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-              <path fill="none" d="M0 0h24v24H0z" />
-              <path d="M20.59 12H5.41l4.29-4.29a1 1 0 1 0-1.42-1.42l-6 6a1 1 0 0 0 0 1.42l6 6a1 1 0 0 0 1.42-1.42L5.41 12h15.18z" />
-            </svg>
-          </button>
-        </Link>
         <Tabs className={styles.tabsContainer} selectedIndex={currentTab} onSelect={handleTabChange}>
           <TabList className={styles.circularTabs}>
             <span className={styles.tabSpan}>
@@ -164,11 +178,29 @@ const PaymentComponent = () => {
               <div className={styles.totalContainer}>
                 <h1 className={styles.resumePrice}>$ {total}</h1>
               </div>
-              <div className={styles.firstButtonsContainer}>
-                <button className={styles.firstContinueButton} onClick={handleCart}>
-                  Continuar
+              <div className={styles.buttonsContainer}>
+                <button className={styles.back_Button} onClick={handleCancel}>
+                    Cancelar compra
+                  </button>
+                <button className={styles.continueButton} onClick={handleCart}>
+                  Continuar compra
                 </button>
               </div>
+              <>
+              {showModal && (
+                <div className={styles.modal}>
+                  <div className={styles.modalContent}>
+                    <h2>Cancelación de Compra</h2>
+                    <p>¿Estás seguro de que quieres cancelar la orden?</p>
+                    <p>No te preocupes, tu carrito se mantendra intacto</p>
+                    <div className={styles.modalButtons}>
+                      <button onClick={handleDeleteModal}>Cancelar orden</button>
+                      <button onClick={handleContinueModal}>Continuar orden</button>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </>
             </div>
             <div className={styles.bannerContainer}>
               <img src="images/imagenes_hero/1.png"></img>
@@ -223,9 +255,6 @@ const PaymentComponent = () => {
                       onChange={handleDeliveryChange}
                     />
                   </div>
-                  {/* <div>
-              <div ref={mapContainer} id="map-container" className="map-container" />
-            </div> */}
                   <div className={styles.buttonsContainer}>
                     <button className={styles.back_Button} onClick={handleBack}>
                       Atras
