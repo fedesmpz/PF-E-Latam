@@ -1,11 +1,14 @@
 import { Link } from "react-router-dom";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import classnames from "classnames";
 import NavItem from "../NavItem/NavItem";
 import ModalLogin from "../ModalLogin/ModalLogin"
 import ModalSignIn from "../ModalSignIn/ModalSingIn"
 import styles from "./NavbarPage.module.css";
 import Style from "../NavBar/NavBar.module.css";
+import { loginUserLocal, logoutUser } from '../../redux/slice/userSlice';
+import Button from 'react-bootstrap/Button';
 
 const MENU_LIST = [
   { text: "Home", href: "/Home" },
@@ -15,6 +18,26 @@ const MENU_LIST = [
 const NavbarPage = () => {
   const [navActive, setNavActive] = useState(null);
   const [activeIdx, setActiveIdx] = useState(-1);
+  const userData = useSelector((state) =>  state.user.userData);
+  const [isLoggedIn, setIsLoggedIn] = useState(userData.access);
+  const dispatch = useDispatch();
+
+
+  useEffect(() => {
+    dispatch(loginUserLocal())
+  }, [])
+
+  useEffect(() => {
+    if (userData.access) {
+      setIsLoggedIn(true);
+    } else {
+      setIsLoggedIn(false);
+    }
+  }, [userData.access]);
+
+  const handlerLogout = async () => {
+    await dispatch(logoutUser())
+  }
 
   return (
     <header className={styles.header}>
@@ -67,8 +90,14 @@ const NavbarPage = () => {
               />
             </div>
           ))}
-          <ModalSignIn />
-          <ModalLogin />
+        {isLoggedIn ? 
+        (<Button onClick={handlerLogout}>Logout</Button>) : 
+        (
+          <div>
+            <ModalSignIn/>
+            <ModalLogin/>
+          </div>
+        )}
         </div>
       </nav>
     </header>
