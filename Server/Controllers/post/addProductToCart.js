@@ -22,7 +22,6 @@ const addProductToCart = async(cartId, id, quantity) => {
         });
         await cart.update({ current_state: "Pending", total_price: `${product.original_price * quantity}` });
         return `Productos añadidos correctamente al carrito`
-        // return `${product.title} añadido correctamente al carrito`
     } catch(error) {
         throw error
     }
