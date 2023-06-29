@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
-// import style from "../FooterLanding/Footerlanding.module.css"
+import Styles from "./ModalLogin.module.css"
 import axios from 'axios'
 import { GoogleAuthProvider,
   signInWithPopup,
@@ -21,12 +21,20 @@ function Example() {
   const location = useLocation()
 
   const [showModal, setShowModal] = useState(false);
-  const [selectedOption, setSelectedOption] = useState('');
+  const [textModal, setTextModal] = useState("")
+  const [showModalCountry, setShowModalCountry] = useState(false);
+  const [selectCountry, setSelectCountry] = useState('');
   const [show, setShow] = useState(false);
   const navigate = useNavigate()
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+
+  const countries = [
+    { value: "Argentina", label: "Argentina" },
+    { value: "Colombia", label: "Colombia" },
+    { value: "Mexico", label: "México" },
+  ];
 
   const [form, setForm] = useState({
     email: '',
@@ -39,14 +47,16 @@ function Example() {
 
   const closeModal = () => {
     setShowModal(false);
+    setTextModal('')
   };
 
   const handleSelectChange = (event) => {
     setSelectedOption(event.target.value);
   };
 
-
-
+  useEffect(()=>{
+    setShowModalCountry(false)
+  },[selectCountry])
 
 
 
@@ -54,25 +64,27 @@ function Example() {
     try{ 
 
       const response = await axios.post('https://pf-elatam.onrender.com/users/login', form)
-      if (!response.data.verified){
-        alert("El usuario no está verificado")
+      
+      if (response.data == 'Firebase: Error (auth/wrong-password).'){
+        console.log(textModal);
+        setTextModal("La contraseña es incorrecta")
+        console.log(textModal);
+        setShowModal(true)
+      }else if (response.data == 'Firebase: Error (auth/user-not-found).'){
+        setTextModal("El usuario no existe")
+        setShowModal(true)
+      }else if (!response.data.verified){
+        setTextModal("El usuario no está verificado")
+        setShowModal(true)
         
         handleClose()
         return 
       }
+      
       const token = await axios.post('https://pf-elatam.onrender.com/users/getToken', response.data)
-
-      localStorage.setItem("token", JSON.stringify(token.data))
-      if (response.data == 'Firebase: Error (auth/wrong-password).'){
-        alert("La contraseña es incorrecta")
-      }
-      if (response.data == 'Firebase: Error (auth/user-not-found).'){
-        alert("El usuario no existe")
-      }
- //***** DATOS PARA GUARDAR EN ESTADOS ***** 
-      //await dispatch(fetchUsers(response.data))
       localStorage.setItem("user", JSON.stringify(response.data))
-      //console.log(userData);
+      localStorage.setItem("token", JSON.stringify(token.data))
+
       if(response.data.access && location.pathname === '/'){
         navigate('./home')
       }else if (response.data.access && location.pathname === '/home'){
@@ -125,20 +137,19 @@ function Example() {
         
 
     }else{
-      //no existe en nnuestra DB, hay que verificar el usuario
-      //RESOLVER TEMA PAIS
-      // setPopUp(true)
-      const data = { name : result.user.displayName || 'AAAA',
-                     email: result.user.email,
-                     country: 'Argentina',
-                    }
+      handleClose()
+      setShowModalCountry(true)
+
+
+
+        const data = { name : result.user.displayName || 'AAAA',
+        email: result.user.email,
+        country: selectCountry,
+      }
       
-      //SE CREA EN NUESTRA DB EL USUARIO Y SE GENERA EL TOKEN          
-      //const response = await axios.post('http://localhost:8000/users/googleLogin', data);
       const response2 = await axios.post('https://pf-elatam.onrender.com/users/googleLogin', data);
-      //const token = await axios.post('http://localhost:8000/users/getToken', user)
       const token = await axios.post('https://pf-elatam.onrender.com/users/getToken', response2.data )
-      //SE GUARDA EL TOKEN
+      
       localStorage.setItem("token", JSON.stringify(token.data))
       
       const userLogued = {
@@ -154,16 +165,15 @@ function Example() {
         cartId: response2.data.cartId
         
       }
-      //await dispatch(fetchUsers(userLogued))
-      //***** DATOS PARA GUARDAR EN ESTADOS *****
+      
       localStorage.setItem("user", JSON.stringify(userLogued))
-
+      
       if(response2.data.access && location.pathname === '/'){
         navigate('./home')
       }else{
         window.location.reload();
       }
-      handleClose()
+    
     }
   }
 
@@ -177,7 +187,9 @@ function Example() {
       }));
   };
 
-
+  const handleChangeCountry = (event) =>{
+    setSelectCountry(event.target.value);
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -243,6 +255,40 @@ function Example() {
 
         </Modal.Footer>
       </Modal>
+      {/* <button onClick={openModal}>XXXX</button> */}
+      <>
+        {showModal && (
+          <div className={Styles.modal}>
+            <div className={Styles.modalContent}>
+              <h2>{textModal}</h2>
+              <div className={Styles.modalButtons}>
+                <button onClick={closeModal}>Cerrar</button>
+              </div>
+            </div>
+          </div>
+        )}
+      </>
+      <>
+        {showModalCountry && (
+          <div className={Styles.modal}>
+            <div className={Styles.modalContent}>
+                  <h2>Debes seleccionar un pais</h2>
+
+                <select name="country" value={selectCountry} onChange={handleChangeCountry}>
+                  <option value="">Selecciona un país</option>
+                  {countries.map((country) => (
+                    <option key={country.value} value={country.value} onChange={handleChangeCountry}>
+                      {country.label}
+                    </option>
+                  ))}
+                </select>
+              <div className={Styles.modalButtons}>
+                {/* <button onClick={closeModal}>Cerrar</button> */}
+              </div>
+            </div>
+          </div>
+        )}
+      </>
     </>
   );
 }
