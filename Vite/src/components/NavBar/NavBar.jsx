@@ -1,11 +1,11 @@
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import React, { useState, useEffect, useRef, useContext } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import Styles from "../NavBar/NavBar.module.css";
 import { axiosAllProductsByCountries, axiosSearchProduct } from "../../redux/slice/productSlice";
 import Select from 'react-select'
 import { CartContext } from "../../utils/CartContext";
-import { loginUserLocal } from '../../redux/slice/userSlice';
+import { loginUserLocal, logoutUser } from '../../redux/slice/userSlice';
 
 
 
@@ -15,6 +15,7 @@ const NavBar = () => {
   );
   const location = useLocation();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const productsCountry = useSelector((state) => state.products.country);
   const userData = useSelector((state) =>  state.user.userData);
   const [title, setTitle] = useState('');
@@ -35,6 +36,11 @@ const NavBar = () => {
 
   function handleSearch(event) {
     setTitle(event.target.value);
+  }
+
+  const handlerLogout = () => {
+    dispatch(logoutUser())
+    navigate('/')
   }
 
   const totalProducts = () => {
@@ -169,8 +175,8 @@ const NavBar = () => {
               <Link className={Styles.button} to="/DashboardAdmin">Admin</Link>
            </>
         }
-        {userData.access === true ? 
-          (<button className={Styles.button}>Logout</button>):
+        {userData.access? 
+          (<button className={Styles.button} onClick={handlerLogout}>Logout</button>):
           (<button className={Styles.button}>Login</button>)
         }
       </div>

@@ -7,7 +7,9 @@ export const userSlice = createSlice({
     users: [],
     loading: false,
     error: null,
-    userData: {},
+    userData: {
+      access: false
+    },
     userAddress: [],
     userById: {}
   },
@@ -20,6 +22,9 @@ export const userSlice = createSlice({
     },
     getUsersStart: (state, action) => {
       state.userData = action.payload;
+    },
+    getUsersLogout: (state) => {
+      state.userData = {access: false};
     },
     getUsersSuccess(state, action) {
       state.users = action.payload;
@@ -75,6 +80,7 @@ export const {
   getUserByIdStart,
   getAllUsersStart,
   getUsersStart,
+  getUsersLogout,
   getUsersSuccess,
   getUsersFailure,
   registerUserStart,
@@ -107,6 +113,19 @@ export const loginUserLocal = () => async (dispatch) => {
     if(resp){
       await dispatch(getUsersStart(user));
     }
+
+  } catch (error) {
+    dispatch(getUsersFailure(error.message));
+  }
+};
+
+
+export const logoutUser = () => async (dispatch) => {
+  try {
+    
+    await dispatch(getUsersLogout());
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
 
   } catch (error) {
     dispatch(getUsersFailure(error.message));
