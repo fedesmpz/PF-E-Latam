@@ -6,8 +6,8 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { axiosAllProductsByCountries } from "../../redux/slice/productSlice"
 import StylesAdmin from "./DashboardAdmin.module.css"
-import TableSeller from '../ComponentsAdmin/ProductsSeller/TableSeller'
-import AllProductsSellers from '../ComponentsAdmin/ProductsSeller/AllProductsSellers'
+// import TableSeller from '../ComponentsAdmin/ProductsSeller/TableSeller'
+// import AllProductsSellers from '../ComponentsAdmin/ProductsSeller/AllProductsSellers'
 
 
 
