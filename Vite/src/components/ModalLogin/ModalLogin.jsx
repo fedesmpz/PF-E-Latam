@@ -114,7 +114,7 @@ function Example() {
         localStorage.setItem("token", JSON.stringify(token.data))
         localStorage.setItem("user", JSON.stringify(user))
         
-        
+        handleClose()
         if(user.access){
           navigate('./home')
         }
