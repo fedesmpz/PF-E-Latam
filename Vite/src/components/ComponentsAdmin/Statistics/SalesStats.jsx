@@ -25,7 +25,11 @@ export const data = {
 };
 
 const SalesStats = () => {
-    return <Doughnut data={data} />;
+    return (
+      <div>
+        <Doughnut data={data} />
+      </div>
+    )
   }
 
   export default SalesStats;
