@@ -7,7 +7,9 @@ export const userSlice = createSlice({
     users: [],
     loading: false,
     error: null,
-    userData: {},
+    userData: {
+      access: false
+    },
     userAddress: [],
     userById: {}
   },

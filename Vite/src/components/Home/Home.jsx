@@ -39,9 +39,7 @@ const Home = () => {
     const admin = userData.isAdmin
     const superAdmin = userData.isSuperAdmin
     const verified = userData.verified
-
     console.log(userData);
-
     const array = useSelector((state) => state.products.products);
 
     const concatenatedObjects = array.reduce((accumulator, currentArray) => {

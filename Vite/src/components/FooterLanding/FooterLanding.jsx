@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import styles from "./Footerlanding.module.css";
 import ModalComoComprar from "../ModalComoComprar/ModalComoComprar"
 import ModalInfoSends from "../ModalInfoSends/ModalInfoSends"

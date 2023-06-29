@@ -15,34 +15,53 @@ import { useNavigate } from 'react-router-dom';
 
 
 function Example() {
-  const [show, setShow] = useState(false);
-  const [selectedCountry, setSelectedCountry] = useState('');
+
   const dispatch = useDispatch();
-  const navigate = useNavigate()
   const userData = useSelector((state) => state.user.userData);
+
+
+  const [showModal, setShowModal] = useState(false);
+  const [selectedOption, setSelectedOption] = useState('');
+  const [show, setShow] = useState(false);
+  const navigate = useNavigate()
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+
   const [form, setForm] = useState({
     email: '',
     password: '',
   });
+  
+  const openModal = () => {
+    setShowModal(true);
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
+  };
+
+  const handleSelectChange = (event) => {
+    setSelectedOption(event.target.value);
+  };
+
+  
+
 
 
 
   const login = async (form) => {
     try{ 
-      //envia el formulario
-      //const response = await axios.post('http://localhost:8000/users/login', form)
+
       const response = await axios.post('https://pf-elatam.onrender.com/users/login', form)
       if (!response.data.verified){
         alert("El usuario no está verificado")
+        
         handleClose()
         return 
       }
-      //si no hay error, genera el token
-      //const token = await axios.post('http://localhost:8000/users/getToken', response.data)
       const token = await axios.post('https://pf-elatam.onrender.com/users/getToken', response.data)
-      //si no hay error guarda el token
+
       localStorage.setItem("token", JSON.stringify(token.data))
       if (response.data == 'Firebase: Error (auth/wrong-password).'){
         alert("La contraseña es incorrecta")
@@ -64,14 +83,16 @@ function Example() {
   }
 
 
+
+
+
+
   const loginGoogle = async () => {
     const provider = await new GoogleAuthProvider()
     const result = await signInWithPopup(auth, provider);
-    // const token = result.user.accessToken;
     
-    //validar si existe o no con axios a users/googleExist, llega false o datos del usuario
+
     const dataEmail = { email : result.user.email }
-    //const response = await axios.post('http://localhost:8000/users/googleExist', dataEmail);
     const response = await axios.post('https://pf-elatam.onrender.com/users/googleExist', dataEmail);
     const user = {
       name: result.user.displayName,
@@ -82,17 +103,17 @@ function Example() {
     }
 
     if (response.data.exist){
-      //SE GUARDA EL TOKEN EN LOCALSTORAGE
-      //const token = await axios.post('http://localhost:8000/users/getToken', user)
+
       const token = await axios.post('https://pf-elatam.onrender.com/users/getToken', user)
       localStorage.setItem("token", JSON.stringify(token.data))
       localStorage.setItem("user", JSON.stringify(user))
+      
+     
+
       if(user.access){
         navigate('./home')
       }
 //***** DATOS PARA GUARDAR EN ESTADOS *****
-      //await dispatch(fetchUsers(user))
-      //console.log(userData); //user es lo que se guarda en el estado, el token ya se guarda en localStorage
 
 
     }else{
@@ -123,9 +144,12 @@ function Example() {
       //await dispatch(fetchUsers(userLogued))
       //***** DATOS PARA GUARDAR EN ESTADOS *****
       localStorage.setItem("user", JSON.stringify(userLogued))
+
       //console.log(userData);//user es lo que se guarda en el estado, el token ya se guarda en localStorage
     }
   }
+
+
 
 
   const handleChange = (event) =>{
@@ -134,6 +158,8 @@ function Example() {
         [event.target.name]: event.target.value
       }));
   };
+
+
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -149,11 +175,13 @@ function Example() {
         setSuccess('Error al crear el usuario'+ error.message);
         // return error
       }
-
-
-      
-    
   };
+
+
+
+
+
+
   return (
     <>
       <Button variant="primary" onClick={handleShow}>
