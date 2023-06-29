@@ -8,7 +8,7 @@ import { getGeocoding, cleanUserAddress, loginUserLocal } from '../../redux/slic
 import Stripe from '../Stripe/Stripe';
 // import mapboxgl from 'mapbox-gl';
 import { Link } from 'react-router-dom';
-import { getProductsFromCart, loadProductsToCart } from '../../redux/slice/cartSlice';
+import { getProductsFromCart, loadProductsToCart, deleteProductsFromCart } from '../../redux/slice/cartSlice';
 
 const PaymentComponent = () => {
 
@@ -18,20 +18,23 @@ const PaymentComponent = () => {
   const searchParams = new URLSearchParams(location.search);
 
   const paramsCartId = searchParams.get("cartId");
-  const user = useSelector((state) => state.user.userData);
-
-  // const cartId = useSelector((state) => state.cart.cartId)
-
+  const cartId = useSelector((state) => state.user.userData.cartId);
+  
   useEffect(() => {
     dispatch(loginUserLocal())
+    totalPrice()
   }, [])
 
-  // if(paramsCartId != cartId) {
-  //   navigate(`/Purchase/${cartId}`)
-  // }
+  useEffect(() => {
+    dispatch(getProductsFromCart(cartId))
+  }, [cartId])
+ 
+  if((cartId != undefined) && (paramsCartId != cartId)) {
+    navigate(`/Purchase?cartId=${cartId}`)
+  }
 
 
-  console.log(user)
+  console.log(cartId)
 
   const [currentTab, setCurrentTab] = useState(0);
 
@@ -101,20 +104,15 @@ const PaymentComponent = () => {
   const handleCart = (event) => {
     event.preventDefault();
     handleContinue();
+    dispatch(deleteProductsFromCart(cartId))
     dispatch(loadProductsToCart(purchaseConfirmation, cartId))
   }
-
-  useEffect(() => {
-    totalPrice()
-  }, [])
 
   useEffect(() => {
     // return () => dispatch(cleanUserAddress())
   }, [matchingAddress])
 
-  useEffect(() => {
-    dispatch(getProductsFromCart(cartId))
-  }, [])
+
 
   return (
     <div className={styles.componentContainer}>
