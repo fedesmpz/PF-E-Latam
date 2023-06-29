@@ -12,10 +12,6 @@ module.exports = (sequelize) => {
       type: DataTypes.DECIMAL,
       allowNull: false,
     },
-    pay_method: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
     user_id: {
       type: DataTypes.STRING,
       allowNull: false,
