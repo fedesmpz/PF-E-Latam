@@ -13,8 +13,7 @@ const Stripe = ({ sale, total }) => {
     const [info, setInfo] = useState({
         description: "",
         amount: total,
-        currency: sale[0].currency_id,
-        id: ""
+        currency: sale[0].currency_id
     })
 
     const filterInfo = () => {
@@ -44,17 +43,10 @@ const Stripe = ({ sale, total }) => {
             }
         })
 
-
         if (!error) {
-            console.log(paymentMethod)
-            console.log(sale, total);
-            const { id } = paymentMethod
-            console.log(id);
-            dispatch(payProduct((setInfo({
-                ...info,
-                id: id,
-            }))));
-            console.log(info);
+            const payment_method = paymentMethod.id
+              dispatch(payProduct({...info,payment_method}));
+        
         }
 
     }

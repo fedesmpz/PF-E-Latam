@@ -7,23 +7,22 @@ const stripe = new Stripe("sk_test_51NMEmIAqi82qB8rdhFdmHI7JLwSpPqgGBToNlbB1X57N
 
 const stripeHandler = async (req, res) => {
   try {
-    let { amount, currency, description, id, confirm, payment_method } = req.body;
+    let { amount, currency, description,  payment_method} = req.body;
     amount = amount * 100;
-
+    console.log(amount, currency, description, payment_method)
     const paymentIntent = await stripe.paymentIntents.create({
       amount,
       currency,
       description,
-      payment_method: id,
-      confirm 
+      payment_method
+     
     });
 
-    const confirmedPaymentIntent = await stripe.paymentIntents.confirm(paymentIntent.id);
+  const confirmedPaymentIntent = await stripe.paymentIntents.confirm(paymentIntent.id);
 
-    console.log(confirmedPaymentIntent);
-    return res.status(200).json(confirmedPaymentIntent);
+    return res.status(200).json("El pago fue exitoso");
   } catch (error) {
-    return res.status(400).json({ error: error.message });
+    return res.status(400).json(error);
   }
 };
 
