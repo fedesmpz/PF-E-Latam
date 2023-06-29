@@ -45,7 +45,7 @@ function Example() {
     setSelectedOption(event.target.value);
   };
 
-  
+
 
 
 
@@ -99,47 +99,56 @@ function Example() {
       email: result.user.email,
       access: response.data.access,
       isAdmin: response.data.isAdmin,
-      isSuperAdmin: response.data.isSuperAdmin
+      isSuperAdmin: response.data.isSuperAdmin,
+      verified: result.user.emailVerified,
+      address: response.data.address,
+      city: response.data.city,
+      country: response.data.country,
+      cartId: response.data.cartId
     }
-
+   
     if (response.data.exist){
 
-      const token = await axios.post('https://pf-elatam.onrender.com/users/getToken', user)
-      localStorage.setItem("token", JSON.stringify(token.data))
-      localStorage.setItem("user", JSON.stringify(user))
-      
-     
 
-      if(user.access){
-        navigate('./home')
-      }
-//***** DATOS PARA GUARDAR EN ESTADOS *****
-
+        const token = await axios.post('https://pf-elatam.onrender.com/users/getToken', user)
+        localStorage.setItem("token", JSON.stringify(token.data))
+        localStorage.setItem("user", JSON.stringify(user))
+        
+        
+        if(user.access){
+          navigate('./home')
+        }
+        
 
     }else{
       //no existe en nnuestra DB, hay que verificar el usuario
-      sendEmailVerification(result.user)
       //RESOLVER TEMA PAIS
       // setPopUp(true)
       const data = { name : result.user.displayName || 'AAAA',
                      email: result.user.email,
-                     country: 'Argentina'
+                     country: 'Argentina',
                     }
       
       //SE CREA EN NUESTRA DB EL USUARIO Y SE GENERA EL TOKEN          
       //const response = await axios.post('http://localhost:8000/users/googleLogin', data);
-      const response = await axios.post('https://pf-elatam.onrender.com/users/googleLogin', data);
+      const response2 = await axios.post('https://pf-elatam.onrender.com/users/googleLogin', data);
       //const token = await axios.post('http://localhost:8000/users/getToken', user)
-      const token = await axios.post('https://pf-elatam.onrender.com/users/getToken', user)
+      const token = await axios.post('https://pf-elatam.onrender.com/users/getToken', response2.data )
       //SE GUARDA EL TOKEN
       localStorage.setItem("token", JSON.stringify(token.data))
       
       const userLogued = {
         name: result.user.displayName,
         email: result.user.email,
-        access: response.data.access,
-        isAdmin: response.data.isAdmin,
-        isSuperAdmin: response.data.isSuperAdmin
+        access: response2.data.access,
+        isAdmin: response2.data.isAdmin,
+        isSuperAdmin: response2.data.isSuperAdmin,
+        verified: result.user.emailVerified,
+        address: response2.data.address,
+        city: response2.data.city,
+        country: response2.data.country,
+        cartId: response2.data.cartId
+        
       }
       //await dispatch(fetchUsers(userLogued))
       //***** DATOS PARA GUARDAR EN ESTADOS *****

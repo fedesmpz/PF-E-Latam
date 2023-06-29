@@ -38,8 +38,9 @@ function App() {
   const admin = userData.isAdmin //si admin es true o false
   const superAdmin = userData.isSuperAdmin //si superadmin es true o false
   const verified = userData.verified //si el mail esta verificado guarda true o false
-  const emailUser = userData.email //
-  const cartId = userData.cartId
+  const emailUser = userData.email //email del usuario
+  const cartId = userData.cartId //id del cart
+  
 
 
 

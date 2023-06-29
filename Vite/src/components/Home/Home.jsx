@@ -54,7 +54,6 @@ const Home = () => {
     const superAdmin = userData.isSuperAdmin
     const verified = userData.verified
 
-    console.log(userData);
 
     const array = useSelector((state) => state.products.products);
 
