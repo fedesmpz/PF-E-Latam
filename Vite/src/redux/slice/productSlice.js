@@ -56,7 +56,8 @@ export const productSlice = createSlice({
     },
 
     cleanEditDetail:(state)=>{
-      state.editDetail= {}
+      state.editDetail= {},
+      state.newSaleMessage= null
     },
     
     setSearchProduct: (state, action) => {
@@ -318,10 +319,8 @@ export const axiosSearchProduct = (title, country) => (dispatch) => {
       .then((response) => {
         dispatch(setNewSaleMessage(response.data))
         dispatch(setpayProduct(response.data));
-        console.log(response.data)
       })
-      .catch((error)=>console.log(error))
-      //  .catch((error) => dispatch(setNewSaleMessage(error.response.data.error)));
+      .catch((error) => dispatch(setNewSaleMessage(error.response.data.error)));
 
      
   };

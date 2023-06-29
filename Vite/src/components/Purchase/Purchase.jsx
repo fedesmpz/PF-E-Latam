@@ -16,7 +16,7 @@ const PaymentComponent = () => {
   const searchParams = new URLSearchParams(location.search);
   const paramsCartId = searchParams.get("cartId");
   const cartId = useSelector((state) => state.user.userData.cartId);
-  
+
   useEffect(() => {
     dispatch(loginUserLocal())
     totalPrice()
@@ -25,8 +25,8 @@ const PaymentComponent = () => {
   useEffect(() => {
     dispatch(getProductsFromCart(cartId))
   }, [cartId])
- 
-  if((cartId != undefined) && (paramsCartId != cartId)) {
+
+  if ((cartId != undefined) && (paramsCartId != cartId)) {
     navigate(`/Purchase?cartId=${cartId}`)
   }
 
@@ -36,7 +36,7 @@ const PaymentComponent = () => {
   const [productsData, setProductsData] = useState({
     products: [],
     total_price: 0
-  }) 
+  })
   let [total, setTotal] = useState(0);
   const purchaseConfirmation = JSON.parse(localStorage?.getItem("cart"));
 
@@ -180,27 +180,27 @@ const PaymentComponent = () => {
               </div>
               <div className={styles.buttonsContainer}>
                 <button className={styles.back_Button} onClick={handleCancel}>
-                    Cancelar compra
-                  </button>
+                  Cancelar compra
+                </button>
                 <button className={styles.continueButton} onClick={handleCart}>
                   Continuar compra
                 </button>
               </div>
               <>
-              {showModal && (
-                <div className={styles.modal}>
-                  <div className={styles.modalContent}>
-                    <h2>Cancelación de Compra</h2>
-                    <p>¿Estás seguro de que quieres cancelar la orden?</p>
-                    <p>No te preocupes, tu carrito se mantendra intacto</p>
-                    <div className={styles.modalButtons}>
-                      <button onClick={handleDeleteModal}>Cancelar orden</button>
-                      <button onClick={handleContinueModal}>Continuar orden</button>
+                {showModal && (
+                  <div className={styles.modal}>
+                    <div className={styles.modalContent}>
+                      <h2>Cancelación de Compra</h2>
+                      <p>¿Estás seguro de que quieres cancelar la orden?</p>
+                      <p>No te preocupes, tu carrito se mantendra intacto</p>
+                      <div className={styles.modalButtons}>
+                        <button onClick={handleDeleteModal}>Cancelar orden</button>
+                        <button onClick={handleContinueModal}>Continuar orden</button>
+                      </div>
                     </div>
                   </div>
-                </div>
-              )}
-            </>
+                )}
+              </>
             </div>
             <div className={styles.bannerContainer}>
               <img src="images/imagenes_hero/1.png"></img>
@@ -301,7 +301,7 @@ const PaymentComponent = () => {
 
           <TabPanel className={styles.tabPanel}>
             <h2>Forma de pago</h2>
-            <Stripe sale={purchaseConfirmation} total={total} />
+            <Stripe sale={purchaseConfirmation} total={total} shipping={deliveryForm} />
             <p>Aca un resumen q carge toda la data recolectada, carrito envio y pago. Que salte un modal que diga: Confirmar pago</p>
             <div className={styles.buttonsContainer}>
               <button className={styles.back_Button} onClick={handleBack}>

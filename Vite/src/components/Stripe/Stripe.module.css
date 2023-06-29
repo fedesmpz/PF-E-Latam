@@ -12,7 +12,9 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     padding: 20px;
     border-radius: 4px;
-    width: 400px;
+    width: 600px;
+    height: 500px;
+    margin: 20px;
   }
   
   .title {
@@ -34,19 +36,21 @@
     border-radius: 4px;
     margin-top: 20px;
     cursor: pointer;
+    width: 100%;
   }
   
   .button:hover {
     background-color: #276bb3;
   }
   
-  .container_resume {
+  .resume_container {
     margin-top: 20px;
     background-color: #fff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     padding: 20px;
     border-radius: 4px;
     width: 400px;
+    margin: 20px;
   }
   
   .container_resume h2 {
@@ -55,13 +59,73 @@
     color: #333;
   }
   
-  .resume_container {
-    margin-top: 10px;
-  }
-  
   .resume_info {
     font-size: 14px;
     margin-bottom: 5px;
     color: #555;
   }
   
+
+  
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modalContent {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  width: 400px;
+ height: 150px;
+  max-width: 400px;
+  text-align: center;
+}
+
+.modalContent h2 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.modalContent p {
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.modalButtons {
+  display: flex;
+  justify-content: center;
+}
+
+.modalButtons button {
+  margin-top: 20px;
+margin-left: 30px;
+  padding: 8px 16px;
+  font-size: 14px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.modalButtons button:first-child {
+  background-color: #e74c3c;
+  color: #fff;
+}
+
+.modalButtons button:last-child {
+  background-color: #ccc;
+  color: #333;
+}
+
+.card-element-container {
+  padding: 10px;
+  background-color: #f7f7f7;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
