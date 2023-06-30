@@ -90,7 +90,10 @@ const googleExistController= async(user)=>{
               access: true,
               isAdmin: newUser.admin, 
               isSuperAdmin: newUser.superAdmin,
-              cartId: newCart.id
+              cartId: newCart.id,
+              address: newUser.address,
+              city: newUser.city,
+              country: newUser.country
               };
 
           //return {exist: false};
@@ -101,7 +104,10 @@ const googleExistController= async(user)=>{
                     access: true,
                     isAdmin: existingUser.admin, 
                     isSuperAdmin: existingUser.superAdmin,
-                    cartId: cart.id
+                    cartId: cart.id,
+                    address: existingUser.address,
+                    city: existingUser.city,
+                    country: existingUser.country
                     };
         }
 
