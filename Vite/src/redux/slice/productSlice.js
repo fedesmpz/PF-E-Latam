@@ -78,7 +78,8 @@ export const productSlice = createSlice({
     },
 
     cleanDetail:(state)=>{
-      state.detail= {}
+      state.detail= {},
+      state.newSaleMessage= null
     },
     
     setOrderByName: (state, action) => {
@@ -317,10 +318,12 @@ export const axiosSearchProduct = (title, country) => (dispatch) => {
     axios
       .post(`https://pf-elatam.onrender.com/checkout`, payload)
       .then((response) => {
+        console.log(response.data)
         dispatch(setNewSaleMessage(response.data))
         dispatch(setpayProduct(response.data));
       })
-      .catch((error) => dispatch(setNewSaleMessage(error.response.data.raw.message)));
+      
+      .catch((error) => dispatch(setNewSaleMessage(error.response.data.error)));
 
      
   };
