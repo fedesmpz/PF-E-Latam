@@ -320,7 +320,7 @@ export const axiosSearchProduct = (title, country) => (dispatch) => {
         console.log(response.data)
         dispatch(setNewSaleMessage(response.data))
         dispatch(setpayProduct(response.data));
-      })
+      }) 
       .catch((error) => 
       dispatch(setNewSaleMessage(error.response.data.error)))
   };
