@@ -22,7 +22,7 @@ const Home = () => {
         dispatch(loginUserLocal())
         
     },[])
-    
+    console.log(userData);
     useEffect(() => {
         if (!userData.isAdmin && !userData.isSuperAdmin) {
             dispatch(axiosProductsByCatalogListing(productsCountry));
