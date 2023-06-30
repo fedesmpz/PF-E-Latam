@@ -85,6 +85,7 @@ button.backButton:hover svg {
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 5px;
+  margin-bottom: 20px;
 }
 
 .bannerContainer {
@@ -268,6 +269,28 @@ button.backButton:hover svg {
   border-bottom: 1px solid #ccc;
 }
 
+.userDataContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  width: 70%;
+  margin: 20px 0px 0px 0px;
+  padding: 10px 20px 10px 20px;
+}
+
+.userDataTag {
+  font-size: 18px;
+  font-weight: bolder;
+  margin-bottom: 5px;
+}
+
+.userDataInfo {
+  font-size: 18px;
+  font-weight: lighter;
+  margin-bottom: 5px;
+}
+
 .productTitle {
   font-size: 18px;
   font-weight: bold;
@@ -282,6 +305,15 @@ button.backButton:hover svg {
   color: #4BBF68;
   margin-bottom: none;
 }
+
+/* .productOldPrice {
+  display: flex;
+  justify-content: flex-end;
+  font-size: 16px;
+  font-weight: bolder;
+  color: #4BBF68;
+  margin-bottom: none;
+} */
 
 .totalContainer {
   display: flex;
