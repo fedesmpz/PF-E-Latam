@@ -5,4 +5,5 @@ const {stripeHandler} = require("../Handlers/post/stripePostHandler")
 
 router.post("/", stripeHandler)
 
+
 module.exports=router
