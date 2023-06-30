@@ -1,0 +1,103 @@
+.container {
+    width: 90%;
+    grid-column: span 1;
+    position: relative;
+    height: 70vh;
+    padding: 1rem;
+    border: 1px;
+    border-radius: 0.5rem;
+    background-color: #E6E7EB;
+    overflow: scroll;
+    margin: 0.5rem;
+  }
+  
+  .order {
+    /* background-color: #fefffe;
+    width: 100%;
+    height: max-content;
+    display: flex;
+    align-items: center;
+    border-radius: 0.5rem;
+    margin-top: 0.75rem;
+    margin-bottom: 0.75rem;
+    padding: 0.5rem; */
+    border-radius: 0.3rem;
+    background-color: #fefffe;
+    border: 1px solid #eff0f6;
+    vertical-align: bottom;
+    border-bottom-width: 1px;
+    border-top: 0;
+    padding: 0.75rem 30px;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2)
+  }
+  
+  .order:hover {
+    background-color: #F9FAFC;
+  }
+  
+  .faShop {
+    /* background-color: #1e1427; */
+    border-radius: 0.5rem;
+    padding: 0.75rem;
+  }
+  
+  .textContainer {
+    padding-left: 1rem;
+  }
+  
+  .date {
+    display: flex;
+    position: absolute;
+    right: 1.5rem;
+    font-size: 0.875rem;
+    margin-top: -7rem;
+    border: 1px solid #eff0f6;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2)
+  }
+
+  .ahi {
+    display: flex;
+    align-items: center;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    color: #151414;
+  }
+  
+  .ahi:hover {
+    background-color: rgb(96, 169, 246);
+  }
+  
+  .iconos {
+    font-size: xx-large;
+  }
+  
+  .vemos {
+    /* text-align: center;
+    /* width: 100%; */
+    margin: 0.5rem;
+    font-size: 14px;
+    font-weight: bold;
+
+    /* border: 1px solid #eff0f6; */
+    width: 100%;
+    max-width: 100%;
+    /* vertical-align: top; */
+    white-space: nowrap;
+
+    /* border: 1px solid #eff0f6;
+    vertical-align: bottom;
+    border-bottom-width: 1px;
+    /* border-top: 0; */
+    padding: 0.55rem 20px;
+    /* padding-top: 0.5rem; */
+    padding-bottom: 0.5rem;
+    box-sizing: border-box;
+    font-weight: 500;
+    color: #384b6e;
+    text-transform: capitalize;
+    font-size: .875rem;
+  }
+  

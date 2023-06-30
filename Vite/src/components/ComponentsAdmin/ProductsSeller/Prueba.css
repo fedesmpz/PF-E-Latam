@@ -1,0 +1,139 @@
+.card {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    position: relative;
+    margin-bottom: 1.5rem;
+    width: 100%;
+    border: 0;
+    box-shadow: 0 10px 10px 20px #b0b8d617,
+        10px 10px 15px -5px #b0b8d6;
+    border-radius: 8px;
+}
+
+.cardHeader:first-child {
+    border-radius: 2px 2px 0 0;
+}
+
+.cardHeader {
+    background: transparent;
+    display: flex;
+    min-height: 3.5rem;
+    align-items: center;
+    padding: 0.5rem 1.5rem;
+    margin-bottom: 0;
+    border-bottom: 1px solid #eff0f6;
+}
+
+.cardHeader .cardTitle {
+    margin-bottom: 0;
+}
+
+.cardTitle {
+    line-height: 1.2;
+    text-transform: capitalize;
+    font-weight: 600;
+    letter-spacing: .05rem;
+    font-size: 1.1rem;
+}
+
+.cardsOptions {
+    margin-left: auto;
+    display: flex;
+    order: 100;
+    margin-right: -0.5rem;
+    color: #9aa0ac;
+    align-self: center;
+}
+
+.btn.dropdown {
+    display: inline-block;
+}
+
+.btn {
+    position: relative;
+    vertical-align: middle;
+}
+
+.cardBody {
+    flex: 1 1 auto;
+    margin: 0;
+    padding: 1.5rem;
+    position: relative;
+}
+
+.table {
+    overflow-x: auto!important;
+}
+
+.aqui {
+    display: flex!important;
+}
+
+.busqueda {
+    display: flex;
+    margin-left: auto;
+}
+
+.miniTable {
+    border: 1px solid #eff0f6;
+    width: 100%;
+    max-width: 100%;
+    vertical-align: top;
+    white-space: nowrap;
+}
+
+.border {
+    border: 1px solid #eff0f6;
+    vertical-align: bottom;
+    border-bottom-width: 1px;
+    border-top: 0;
+    padding: 0.75rem 30px;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+th {
+    display: table-cell;
+    text-align: inherit;
+}
+
+.tableTitle {
+    box-sizing: border-box;
+    font-weight: 500;
+    color: #384b6e;
+    text-transform: uppercase;
+    font-size: .875rem;
+}
+
+tbody {
+    display: table-row-group;
+    vertical-align: inherit;
+    border-color: inherit;
+    border-style: solid;
+    border-width: 0;
+    box-sizing: border-box;
+}
+
+.textTD {
+    font-weight: 700!important;
+    box-sizing: border-box;
+}
+
+.mini {
+    border: 1px solid #eff0f6;
+    vertical-align: bottom;
+    border-bottom-width: 1px;
+    border-top: 0;
+    padding: 0.75rem 30px;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+td {
+    display: table-cell;
+    text-align: inherit;
+}
