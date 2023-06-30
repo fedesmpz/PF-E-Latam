@@ -25,11 +25,13 @@ const loginController= async( email, password )=>{
             const user = {
                 userId: existingUser.id,
                 name: userCredentials.user.displayName,
+                surname: existingUser.surname,
                 email: emailFind,
                 access: true,
                 verified: userCredentials.user.emailVerified,
                 isAdmin: adminCredential, 
                 isSuperAdmin: superAdminCredential,
+                postal_code: existingUser.postal_code,
                 address: existingUser.address,
                 city: existingUser.city,
                 country: existingUser.country,
