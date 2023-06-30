@@ -116,7 +116,7 @@ const Stripe = ({ sale, total, shipping }) => {
                     )}
                 </>
                 <>
-                    {showModalConfirm && (
+                {showModalConfirm && saleMessage && (
                         <div className={styles.modal}>
                             <div className={styles.modalContent}>
                                 <h2>{saleMessage}</h2>

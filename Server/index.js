@@ -13,6 +13,7 @@ const userRoutes = require("./Routes/user.js")
 const reviewRoutes = require("./Routes/ratingAndReview.js")
 const cartRoutes = require("./Routes/cart.js")
 const stripeRoutes= require("./Routes/stripe.js")
+const salesRoutes= require("./Routes/sales.js")
 
 
 server.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
@@ -33,6 +34,7 @@ server.use("/users",userRoutes)
 server.use("/reviews",reviewRoutes)
 server.use("/carts", cartRoutes)
 server.use("/checkout", stripeRoutes)
+server.use("/sales", salesRoutes)
 
 
 conn.sync({ force: false }).then(() => { //ADVERTENCIA: NO PONER TRUE GABO POR FAVOR
