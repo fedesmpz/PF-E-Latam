@@ -16,6 +16,7 @@ const PaymentComponent = () => {
   const searchParams = new URLSearchParams(location.search);
   const paramsCartId = searchParams.get("cartId");
   const cartId = useSelector((state) => state.user.userData.cartId);
+  console.log(cartId)
 
   useEffect(() => {
     dispatch(loginUserLocal())
@@ -48,7 +49,6 @@ const PaymentComponent = () => {
     })
   }, [total])
 
-  console.log(productsData)
 
   const matchingAddress = useSelector(state => state.user.userAddress);
   const [deliveryForm, setDeliveryForm] = useState({
@@ -112,6 +112,7 @@ const PaymentComponent = () => {
     event.preventDefault();
     handleContinue();
     dispatch(deleteProductsFromCart(cartId))
+    setTimeout(() => {}, 1500)
     dispatch(loadProductsToCart(productsData, cartId))
   }
 
