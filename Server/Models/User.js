@@ -71,6 +71,10 @@ module.exports = (sequelize) => {
             defaultValue: false,
             allowNull: false
 
+        },
+        firebaseId: {
+            type: DataTypes.STRING,
+            allowNull: true,
         }
     },
         { timestamps: true });
