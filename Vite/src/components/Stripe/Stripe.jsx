@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 import styles from "./Stripe.module.css";
 import { useNavigate } from 'react-router-dom';
 
-const Stripe = ({ sale, total, shipping }) => {
+const Stripe = ({ sale, total, shipping, products }) => {
     const navigate = useNavigate()
     const dispatch = useDispatch();
     const elements = useElements();
@@ -73,36 +73,57 @@ const Stripe = ({ sale, total, shipping }) => {
 
     }
     const handlerReconfirm = async () => {
-       await dispatch(cleanDetail())
+        await dispatch(cleanDetail())
         setShowModal(false);
         setShowModalConfirm(false)
-        if(saleMessage ==="Muchas gracias por tu compra"){
-           navigate("/Home")
+        if (saleMessage === "Muchas gracias por tu compra") {
+            navigate("/Home")
         }
 
-        
+
     }
+
+    const options = {
+        style: {
+            base: {
+                fontSize: '16px',
+                color: '#32325d',
+                fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+                '::placeholder': {
+                    color: '#aab7c4'
+                }
+            },
+            invalid: {
+                color: '#fa755a',
+                iconColor: '#fa755a'
+            }
+        }
+    };
 
     return (
         <div className={styles.container}>
-            <div className={styles.container_resume}>
-                <div>
-                    <h2>Resumen</h2>
-                    <div className={styles.resume_container} >
-                        <p className={styles.resume_info} >Email: {`${userInfo?.email}`}</p>
-                        <p className={styles.resume_info} >City: {`${shipping?.city}`}</p>
-                        <p className={styles.resume_info} >Country: {`${shipping?.country}`}</p>
-                        <p className={styles.resume_info} >Dirección: {`${shipping?.address}`}</p>
-                        <p className={styles.resume_info} >Dirección: {`${shipping?.postalCode}`}</p>
-                    </div>
-                </div>
+            <div className={styles.resume_container} >
+                <h2 className={styles.resume}>Resumen</h2>
+                <p className={styles.resume_info} >Email: <strong>{`${userInfo?.email}`}</strong> </p>
+                <p className={styles.resume_info} >City: <strong>{`${shipping?.city}`}</strong></p>
+                <p className={styles.resume_info} >Country: <strong>{`${shipping?.country}`}</strong></p>
+                <p className={styles.resume_info} >Dirección: <strong>{`${shipping?.address}`}</strong></p>
+                <p className={styles.resume_info} >Código postal: <strong>{`${shipping?.postalCode}`}</strong></p>
+                {products && products.map((product) => {
+                    return (
+                        <div className={styles.resumeContainer} key={product.id}>
+                            <h1 className={styles.productTitle}>{`(${product.quantity}) ${product.title}`}</h1>
+                            <h1 className={styles.productPrice}>$ {product.original_price * product.quantity}</h1>
+                        </div>
+                    );
+                })}
             </div>
             <div className={styles.container_card}>
                 <h1 className={styles.title}>Card</h1>
                 <form className={styles.form} onSubmit={handleSubmit}>
                     <div className={styles.card_element_container}>
                         <div /* className={styles.cardElement} */>
-                            <CardElement />
+                            <CardElement options={options} />
                         </div>
                         <button className={styles.button}>Pay</button>
                     </div>
@@ -121,7 +142,7 @@ const Stripe = ({ sale, total, shipping }) => {
                     )}
                 </>
                 <>
-                {showModalConfirm && saleMessage && (
+                    {showModalConfirm && saleMessage && (
                         <div className={styles.modal}>
                             <div className={styles.modalContent}>
                                 <h2>{saleMessage}</h2>

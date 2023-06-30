@@ -114,7 +114,7 @@ const PaymentComponent = () => {
     event.preventDefault();
     handleContinue();
     await dispatch(deleteProductsFromCart(cartId))
-    setTimeout(() => {}, 1500)
+    setTimeout(() => { }, 1500)
     await dispatch(loadProductsToCart(productsData, cartId))
     await dispatch(getProductsFromCart(cartId))
   }
@@ -334,7 +334,7 @@ const PaymentComponent = () => {
             <div className={styles.panelContainer}>
               <h1 className={styles.tabTitle}>1. Carrito</h1>
               {
-                cartData && cartData.map((product) => {
+                cartData && cartData?.map((product) => {
                   return (
                     <div className={styles.resumeContainer} key={product.id}>
                       <h1 className={styles.productTitle}>{`(${product.product_Cart.quantity}) ${product.title}`}</h1>
@@ -345,7 +345,6 @@ const PaymentComponent = () => {
                     </div>
                   )
                 })
-
               }
               <div className={styles.totalContainer}>
                 <h1 className={styles.resumePrice}>$ {cartTotal}</h1>
@@ -407,23 +406,22 @@ const PaymentComponent = () => {
           </TabPanel>
 
           <TabPanel className={styles.tabPanel}>
-            <h2>Forma de pago</h2>
-            <Stripe sale={purchaseConfirmation} total={total} shipping={deliveryForm} />
-            <p>Ciudad: {deliveryForm.city}</p>
-            <p>País: {deliveryForm.country}</p>
-            <p>Dirección: {deliveryForm.address}</p>
-            <p>Código postal: {deliveryForm.postalCode}</p>
-            <div>
+            <div className={styles.panelContainer}>
+
+              <h2 className={styles.tabTitle} >Completar pago</h2>
+              <Stripe sale={purchaseConfirmation} total={total} shipping={deliveryForm} products={purchaseConfirmation} />
+              {/* <div>
               {purchaseConfirmation && purchaseConfirmation.map((product) => {
                 return (
                   <div className={styles.resumeContainer} key={product.id}>
-                    <h1 className={styles.productTitle}>{`(${product.quantity}) ${product.title}`}</h1>
-                    <h1 className={styles.productPrice}>$ {product.original_price * product.quantity}</h1>
+                  <h1 className={styles.productTitle}>{`(${product.quantity}) ${product.title}`}</h1>
+                  <h1 className={styles.productPrice}>$ {product.original_price * product.quantity}</h1>
                   </div>
-                );
-              })}
-            </div>
+                  );
+                })}
+              </div> */}
 
+            </div>
             <div className={styles.buttonsContainer}>
               <button className={styles.back_Button} onClick={handleBack}>
                 Atras
