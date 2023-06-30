@@ -19,8 +19,6 @@ const PaymentComponent = () => {
   const userData = useSelector((state) => state.user.userData);
   const cartData = useSelector((state) => state.cart.products);
   const cartTotal =  useSelector((state) => state.cart.total_price);
-  // const [localUserData, setLocalUserData] = useState(userData)
-  // console.log(localUserData)
 
   useEffect(() => {
     dispatch(loginUserLocal())
@@ -33,8 +31,7 @@ const PaymentComponent = () => {
 
   const [currentTab, setCurrentTab] = useState(0);
   const [showModal, setShowModal] = useState(false);
-  // const [getProducts, setGetProducts] = useState(false)
-
+  
   const [productsData, setProductsData] = useState({
     products: [],
     total_price: 0
@@ -56,13 +53,18 @@ const PaymentComponent = () => {
 
 
   const matchingAddress = useSelector(state => state.user.userAddress);
-  // const [deliveryForm, setDeliveryForm] = useState({
-  //   address: "",
-  //   postalCode: "",
-  //   city: "",
-  //   country: ""
-  // });
-  const [deliveryForm, setDeliveryForm] = useState(userData);
+
+  const [deliveryForm, setDeliveryForm] = useState({
+    // name: userData.name,
+    // surname: userData.surname,
+    email: userData.email,
+    address: userData.address,
+    postalCode: "",
+    city: userData.city,
+    country: userData.country,
+  });
+
+
   const totalPrice = () => {
     let totalAux = 0;
     if (purchaseConfirmation?.length > 0) {
