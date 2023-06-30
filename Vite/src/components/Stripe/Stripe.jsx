@@ -13,7 +13,6 @@ const Stripe = ({ sale, total, shipping }) => {
     const stripe = useStripe();
     const [products_id, setProducts_id] = useState([]);
     const [userInfo, setUserInfo] = useState()
-
     const [info, setInfo] = useState({
         description: "",
         amount: total,
@@ -47,7 +46,7 @@ const Stripe = ({ sale, total, shipping }) => {
         return () => dispatch(cleanDetail())
     }, [])
 
-    const email = userEmail?.email;
+    const email = userInfo?.email;
     const handleSubmit = async (e) => {
         e.preventDefault();
         setShowModal(true);
