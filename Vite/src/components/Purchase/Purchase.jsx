@@ -16,7 +16,7 @@ const PaymentComponent = () => {
   const searchParams = new URLSearchParams(location.search);
   const paramsCartId = searchParams.get("cartId");
   const cartId = useSelector((state) => state.user.userData.cartId);
-  
+
   useEffect(() => {
     dispatch(loginUserLocal())
     totalPrice()
@@ -25,8 +25,8 @@ const PaymentComponent = () => {
   useEffect(() => {
     dispatch(getProductsFromCart(cartId))
   }, [cartId])
- 
-  if((cartId != undefined) && (paramsCartId != cartId)) {
+
+  if ((cartId != undefined) && (paramsCartId != cartId)) {
     navigate(`/Purchase?cartId=${cartId}`)
   }
 
@@ -36,7 +36,7 @@ const PaymentComponent = () => {
   const [productsData, setProductsData] = useState({
     products: [],
     total_price: 0
-  }) 
+  })
   let [total, setTotal] = useState(0);
   const purchaseConfirmation = JSON.parse(localStorage?.getItem("cart"));
 
@@ -132,6 +132,14 @@ const PaymentComponent = () => {
     setShowModal(false)
   }
 
+  const handleShippingData = (e) => {
+    const { name, value } = e.target;
+    setDeliveryForm((prevData) => ({
+      ...prevData,
+      [name]: value
+    }));
+  };
+
   useEffect(() => {
     // return () => dispatch(cleanUserAddress())
   }, [matchingAddress])
@@ -180,27 +188,29 @@ const PaymentComponent = () => {
               </div>
               <div className={styles.buttonsContainer}>
                 <button className={styles.back_Button} onClick={handleCancel}>
-                    Cancelar compra
-                  </button>
+                  Cancelar compra
+                </button>
                 <button className={styles.continueButton} onClick={handleCart}>
                   Continuar compra
                 </button>
               </div>
               <>
-              {showModal && (
-                <div className={styles.modal}>
-                  <div className={styles.modalContent}>
-                    <h2>Cancelación de Compra</h2>
-                    <p>¿Estás seguro de que quieres cancelar la orden?</p>
-                    <p>No te preocupes, tu carrito se mantendra intacto</p>
-                    <div className={styles.modalButtons}>
-                      <button onClick={handleDeleteModal}>Cancelar orden</button>
-                      <button onClick={handleContinueModal}>Continuar orden</button>
+                {showModal && (
+                  <div className={styles.modal}>
+                    <div className={styles.modalContent}>
+                      <h2>Cancelación de Compra</h2>
+                      <p>¿Estás seguro de que quieres cancelar la orden?</p>
+                      <p>No te preocupes, tu carrito se mantendra intacto</p>
+                      <div className={styles.modalButtons}>
+                        <button onClick={handleDeleteModal}>Cancelar orden</button>
+                        <button onClick={handleContinueModal}>Continuar orden</button>
+                      </div>
                     </div>
                   </div>
-                </div>
-              )}
-            </>
+                )}
+              </>
+            </div>
+            <div>
             </div>
             <div className={styles.bannerContainer}>
               <img src="images/imagenes_hero/1.png"></img>
@@ -216,10 +226,10 @@ const PaymentComponent = () => {
                     <label htmlFor="address" className={styles.label}>Direccion</label>
                     <input
                       type="text"
-                      id="address"
                       name="address"
                       value={deliveryForm.address}
-                      onChange={handleDeliveryChange}
+                      onChange={handleShippingData}
+                      placeholder="Ingrese la ciudad"
                     />
                   </div>
 
@@ -227,10 +237,10 @@ const PaymentComponent = () => {
                     <label htmlFor="postalCode" className={styles.label}>Codigo Postal</label>
                     <input
                       type="text"
-                      id="postalCode"
                       name="postalCode"
                       value={deliveryForm.postalCode}
-                      onChange={handleDeliveryChange}
+                      onChange={handleShippingData}
+                      placeholder="Ingrese el país"
                     />
                   </div>
 
@@ -238,10 +248,10 @@ const PaymentComponent = () => {
                     <label htmlFor="city" className={styles.label}>Ciudad</label>
                     <input
                       type="text"
-                      id="city"
                       name="city"
                       value={deliveryForm.city}
-                      onChange={handleDeliveryChange}
+                      onChange={handleShippingData}
+                      placeholder="Ingrese la dirección"
                     />
                   </div>
 
@@ -249,10 +259,10 @@ const PaymentComponent = () => {
                     <label htmlFor="country" className={styles.label}>Pais</label>
                     <input
                       type="text"
-                      id="country"
                       name="country"
                       value={deliveryForm.country}
-                      onChange={handleDeliveryChange}
+                      onChange={handleShippingData}
+                      placeholder="Ingrese el código postal"
                     />
                   </div>
                   <div className={styles.buttonsContainer}>
@@ -263,6 +273,18 @@ const PaymentComponent = () => {
                   </div>
                 </form>
               </div>
+            </div>
+            <div>
+              {
+                purchaseConfirmation && purchaseConfirmation.map((product) => {
+                  return (
+                    <div className={styles.resumeContainer} key={product.id}>
+                      <h1 className={styles.productTitle}>{`(${product.quantity}) ${product.title}`}</h1>
+                      <h1 className={styles.productPrice}>$ {product.original_price * product.quantity}</h1>
+                    </div>
+                  )
+                })
+              }
             </div>
             <div className={styles.bannerContainer}>
               <img src="images/imagenes_hero/1.png"></img>
@@ -297,12 +319,38 @@ const PaymentComponent = () => {
                 </form>
               </div>
             </div>
+            <div>
+              {
+                purchaseConfirmation && purchaseConfirmation.map((product) => {
+                  return (
+                    <div className={styles.resumeContainer} key={product.id}>
+                      <h1 className={styles.productTitle}>{`(${product.quantity}) ${product.title}`}</h1>
+                      <h1 className={styles.productPrice}>$ {product.original_price * product.quantity}</h1>
+                    </div>
+                  )
+                })
+              }
+            </div>
           </TabPanel>
 
           <TabPanel className={styles.tabPanel}>
             <h2>Forma de pago</h2>
-            <Stripe sale={purchaseConfirmation} total={total} />
-            <p>Aca un resumen q carge toda la data recolectada, carrito envio y pago. Que salte un modal que diga: Confirmar pago</p>
+            <Stripe sale={purchaseConfirmation} total={total} shipping={deliveryForm} />
+            <p>Ciudad: {deliveryForm.city}</p>
+            <p>País: {deliveryForm.country}</p>
+            <p>Dirección: {deliveryForm.address}</p>
+            <p>Código postal: {deliveryForm.postalCode}</p>
+            <div>
+              {purchaseConfirmation && purchaseConfirmation.map((product) => {
+                return (
+                  <div className={styles.resumeContainer} key={product.id}>
+                    <h1 className={styles.productTitle}>{`(${product.quantity}) ${product.title}`}</h1>
+                    <h1 className={styles.productPrice}>$ {product.original_price * product.quantity}</h1>
+                  </div>
+                );
+              })}
+            </div>
+
             <div className={styles.buttonsContainer}>
               <button className={styles.back_Button} onClick={handleBack}>
                 Atras
