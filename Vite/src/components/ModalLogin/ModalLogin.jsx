@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
-// import style from "../FooterLanding/Footerlanding.module.css"
+import Styles from "./ModalLogin.module.css"
 import axios from 'axios'
 import { GoogleAuthProvider,
   signInWithPopup,
@@ -10,36 +10,48 @@ import { GoogleAuthProvider,
    } from 'firebase/auth'
 import { auth } from '../../utils/firebase'
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchUsers } from "../../redux/slice/userSlice";
-import { useNavigate } from 'react-router-dom';
+import { loginUserLocal } from "../../redux/slice/userSlice";
+import { useNavigate, useLocation } from 'react-router-dom';
 
 
 function Example() {
 
   const dispatch = useDispatch();
   const userData = useSelector((state) => state.user.userData);
-
+  const location = useLocation()
 
   const [showModal, setShowModal] = useState(false);
-  const [selectedOption, setSelectedOption] = useState('');
+  const [textModal, setTextModal] = useState("")
+  const [showModalCountry, setShowModalCountry] = useState(false);
+  const [selectCountry, setSelectCountry] = useState('');
   const [show, setShow] = useState(false);
+  const [newEmail, setNewEmail] = useState('');
+  const [newName, setNewName] = useState('');
   const navigate = useNavigate()
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
 
+  const countries = [
+    { value: "Argentina", label: "Argentina" },
+    { value: "Colombia", label: "Colombia" },
+    { value: "Mexico", label: "México" },
+  ];
+
   const [form, setForm] = useState({
     email: '',
     password: '',
   });
-  
-  const openModal = () => {
-    setShowModal(true);
-  };
+
 
   const closeModal = () => {
     setShowModal(false);
+    setTextModal('')
   };
+
+  const closemodalCountry = () => {
+    setShowModalCountry(false);
+  }
 
   const handleSelectChange = (event) => {
     setSelectedOption(event.target.value);
@@ -47,53 +59,57 @@ function Example() {
 
 
 
-
-
-
   const login = async (form) => {
     try{ 
 
       const response = await axios.post('https://pf-elatam.onrender.com/users/login', form)
-      if (!response.data.verified){
-        alert("El usuario no está verificado")
+      
+      if (response.data == 'Firebase: Error (auth/wrong-password).'){
+        console.log(textModal);
+        setTextModal("La contraseña es incorrecta")
+        console.log(textModal);
+        setShowModal(true)
+      }else if (response.data == 'Firebase: Error (auth/user-not-found).'){
+        setTextModal("El usuario no existe")
+        setShowModal(true)
+      }else if (!response.data.verified){
+        setTextModal("El usuario no está verificado")
+        setShowModal(true)
         
         handleClose()
         return 
       }
+      
       const token = await axios.post('https://pf-elatam.onrender.com/users/getToken', response.data)
-
-      localStorage.setItem("token", JSON.stringify(token.data))
-      if (response.data == 'Firebase: Error (auth/wrong-password).'){
-        alert("La contraseña es incorrecta")
-      }
-      if (response.data == 'Firebase: Error (auth/user-not-found).'){
-        alert("El usuario no existe")
-      }
- //***** DATOS PARA GUARDAR EN ESTADOS ***** 
-      //await dispatch(fetchUsers(response.data))
       localStorage.setItem("user", JSON.stringify(response.data))
-      //console.log(userData);
-      if(response.data.access){
+      localStorage.setItem("token", JSON.stringify(token.data))
+
+      if(response.data.access && location.pathname === '/'){
         navigate('./home')
+      }else if (response.data.access && location.pathname === '/Cart'){
+        navigate(`/Purchase?cartId=${userData.cartId}`)
+      }else if (response.data.access){
+        window.location.reload();
       }
-        
+      handleClose()
     }catch(error){
         console.log(error.message);
     }
   }
 
 
-
-
-
-
   const loginGoogle = async () => {
+
+    setShowModalCountry(false)
+
     const provider = await new GoogleAuthProvider()
     const result = await signInWithPopup(auth, provider);
-    
-
-    const dataEmail = { email : result.user.email }
-    const response = await axios.post('https://pf-elatam.onrender.com/users/googleExist', dataEmail);
+    const dataUser = { email : result.user.email,
+                        name : result.user.displayName,
+                        country: selectCountry
+                        }
+    const response = await axios.post('https://pf-elatam.onrender.com/users/googleExist', dataUser);
+   
     const user = {
       name: result.user.displayName,
       email: result.user.email,
@@ -106,69 +122,43 @@ function Example() {
       country: response.data.country,
       cartId: response.data.cartId
     }
-   
-    if (response.data.exist){
 
 
         const token = await axios.post('https://pf-elatam.onrender.com/users/getToken', user)
         localStorage.setItem("token", JSON.stringify(token.data))
         localStorage.setItem("user", JSON.stringify(user))
         
-        handleClose()
-        if(user.access){
+        if(response.data.access && location.pathname === '/'){
           navigate('./home')
+        }else if (response.data.access && location.pathname === '/Cart'){
+          navigate(`/Purchase?cartId=${userData.cartId}`)
+        }else if (response.data.access){
+          window.location.reload();
         }
-        
-
-    }else{
-      //no existe en nnuestra DB, hay que verificar el usuario
-      //RESOLVER TEMA PAIS
-      // setPopUp(true)
-      const data = { name : result.user.displayName || 'AAAA',
-                     email: result.user.email,
-                     country: 'Argentina',
-                    }
-      
-      //SE CREA EN NUESTRA DB EL USUARIO Y SE GENERA EL TOKEN          
-      //const response = await axios.post('http://localhost:8000/users/googleLogin', data);
-      const response2 = await axios.post('https://pf-elatam.onrender.com/users/googleLogin', data);
-      //const token = await axios.post('http://localhost:8000/users/getToken', user)
-      const token = await axios.post('https://pf-elatam.onrender.com/users/getToken', response2.data )
-      //SE GUARDA EL TOKEN
-      localStorage.setItem("token", JSON.stringify(token.data))
-      
-      const userLogued = {
-        name: result.user.displayName,
-        email: result.user.email,
-        access: response2.data.access,
-        isAdmin: response2.data.isAdmin,
-        isSuperAdmin: response2.data.isSuperAdmin,
-        verified: result.user.emailVerified,
-        address: response2.data.address,
-        city: response2.data.city,
-        country: response2.data.country,
-        cartId: response2.data.cartId
-        
-      }
-      //await dispatch(fetchUsers(userLogued))
-      //***** DATOS PARA GUARDAR EN ESTADOS *****
-      localStorage.setItem("user", JSON.stringify(userLogued))
-
-      //console.log(userData);//user es lo que se guarda en el estado, el token ya se guarda en localStorage
-    }
+        handleClose()
+     
   }
 
+  const handleCloseCountry = async () =>{
+    setShowModalCountry(true)
 
+    handleClose()
 
-
+  }
+  
+  
+  
+  
   const handleChange = (event) =>{
     setForm((prevForm) => ({
-        ...prevForm,
-        [event.target.name]: event.target.value
-      }));
+      ...prevForm,
+      [event.target.name]: event.target.value
+    }));
   };
 
-
+  const handleChangeCountry = async (event) =>{
+    setSelectCountry(event.target.value);
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -228,12 +218,52 @@ function Example() {
             Iniciar
           </Button>
 
-          <Button variant="primary" onClick={loginGoogle}>
+          <Button variant="primary" onClick={handleCloseCountry}>
             Inicia con Google
           </Button>
 
         </Modal.Footer>
       </Modal>
+      {/* <button onClick={openModal}>XXXX</button> */}
+      <>
+        {showModal && (
+          <div className={Styles.modal}>
+            <div className={Styles.modalContent}>
+              <h2>{textModal}</h2>
+              <div className={Styles.modalButtons}>
+                <button onClick={closeModal}>Cerrar</button>
+              </div>
+            </div>
+          </div>
+        )}
+      </>
+      <>
+        {showModalCountry && (
+          <div className={Styles.modal}>
+            <div className={Styles.modalContent}>
+                  <h2>Selecciona un país</h2>
+                  <p>Para continuar debes seleccionar un país</p>
+                <select name="country" value={selectCountry} onChange={handleChangeCountry}>
+                  <option value="">Selecciona un país</option>
+                  {countries.map((country) => (
+                    <option key={country.value} value={country.value} onChange={handleChangeCountry}>
+                      {country.label}
+                    </option>
+                  ))}
+                </select>
+
+              <div className={Styles.modalButtons}>
+                <div className={Styles.modalContent}>
+                <button className={Styles.modalContent} onClick={loginGoogle}><h2>Iniciar</h2></button>
+                <button className={Styles.modalContent} onClick={closemodalCountry}><h2>Cerrar</h2></button>
+
+                </div>
+              
+              </div>
+            </div>
+          </div>
+        )}
+      </>
     </>
   );
 }

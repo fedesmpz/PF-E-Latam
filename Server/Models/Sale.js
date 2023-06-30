@@ -12,18 +12,15 @@ module.exports = (sequelize) => {
       type: DataTypes.DECIMAL,
       allowNull: false,
     },
-    pay_method: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
     user_id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       allowNull: false,
     },
     products_id: {
-      type: DataTypes.STRING,
+      type: DataTypes.ARRAY(DataTypes.STRING),
       allowNull: false,
     },
   },
  {timestamp: true});
+ 
 };
