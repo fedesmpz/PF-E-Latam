@@ -23,6 +23,7 @@ const loginController= async( email, password )=>{
             const cartFind = cart.id
             
             const user = {
+                userId: existingUser.id,
                 name: userCredentials.user.displayName,
                 email: emailFind,
                 access: true,
@@ -32,7 +33,8 @@ const loginController= async( email, password )=>{
                 address: existingUser.address,
                 city: existingUser.city,
                 country: existingUser.country,
-                cartId: cartFind
+                cartId: cartFind,
+                firebaseId: existingUser.firebaseId
             };
             const token = jwt.sign(user, SECRET_KEY, { expiresIn: '100h' })
 
