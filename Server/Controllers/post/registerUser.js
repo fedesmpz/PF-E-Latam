@@ -24,7 +24,13 @@ const registerUser= async(name, surname, email, password, country, city, address
             throw new Error('Ya existe un usuario registrado con ese email');
         }
         const newUser = await User.create({
-            name, surname, email, country, city, address
+            name, 
+            surname, 
+            email, 
+            country, 
+            city, 
+            address,
+            firebaseId: userCredentials.user.uid
             },
             { transaction }
         )
