@@ -27,6 +27,11 @@ const stripeHandler = async (req, res) => {
 
     return res.status(200).json("Muchas gracias por tu compra")
   } catch (error) {
+    if(error.message == "Your card was declined."){
+     error.message= "Pago rechazado, verifique sus datos e intente de nuevo"
+    }
+
+    
     return res.status(400).json({error:error.message});
   }
 }

@@ -29,6 +29,9 @@ const loginController= async( email, password )=>{
                 verified: userCredentials.user.emailVerified,
                 isAdmin: adminCredential, 
                 isSuperAdmin: superAdminCredential,
+                address: existingUser.address,
+                city: existingUser.city,
+                country: existingUser.country,
                 cartId: cartFind
             };
             const token = jwt.sign(user, SECRET_KEY, { expiresIn: '100h' })
