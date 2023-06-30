@@ -19,7 +19,8 @@ const PaymentComponent = () => {
   const userData = useSelector((state) => state.user.userData);
   const cartData = useSelector((state) => state.cart.products);
   const cartTotal =  useSelector((state) => state.cart.total_price);
-  console.log(userData)
+  // const [localUserData, setLocalUserData] = useState(userData)
+  // console.log(localUserData)
 
   useEffect(() => {
     dispatch(loginUserLocal())
@@ -55,13 +56,13 @@ const PaymentComponent = () => {
 
 
   const matchingAddress = useSelector(state => state.user.userAddress);
-  const [deliveryForm, setDeliveryForm] = useState({
-    address: "",
-    postalCode: "",
-    city: "",
-    country: ""
-  });
-
+  // const [deliveryForm, setDeliveryForm] = useState({
+  //   address: "",
+  //   postalCode: "",
+  //   city: "",
+  //   country: ""
+  // });
+  const [deliveryForm, setDeliveryForm] = useState(userData);
   const totalPrice = () => {
     let totalAux = 0;
     if (purchaseConfirmation?.length > 0) {
@@ -235,7 +236,7 @@ const PaymentComponent = () => {
                       name="address"
                       value={deliveryForm.address}
                       onChange={handleShippingData}
-                      placeholder="Ingrese la ciudad"
+                      placeholder="Ingrese la dirección"
                     />
                   </div>
 
@@ -246,7 +247,7 @@ const PaymentComponent = () => {
                       name="postalCode"
                       value={deliveryForm.postalCode}
                       onChange={handleShippingData}
-                      placeholder="Ingrese el país"
+                      placeholder="Ingrese el código postal"
                     />
                   </div>
 
@@ -257,7 +258,7 @@ const PaymentComponent = () => {
                       name="city"
                       value={deliveryForm.city}
                       onChange={handleShippingData}
-                      placeholder="Ingrese la dirección"
+                      placeholder="Ingrese la ciudad"
                     />
                   </div>
 
@@ -268,7 +269,7 @@ const PaymentComponent = () => {
                       name="country"
                       value={deliveryForm.country}
                       onChange={handleShippingData}
-                      placeholder="Ingrese el código postal"
+                      placeholder="Ingrese el país"
                     />
                   </div>
                   <div className={styles.buttonsContainer}>
