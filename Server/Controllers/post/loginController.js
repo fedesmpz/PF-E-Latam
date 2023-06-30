@@ -24,7 +24,7 @@ const loginController= async( email, password )=>{
             
             const user = {
                 userId: existingUser.id,
-                name: userCredentials.user.displayName,
+                name: existingUser.name,
                 surname: existingUser.surname,
                 email: emailFind,
                 access: true,
