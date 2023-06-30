@@ -14,25 +14,25 @@ export const cartSlice = createSlice({
       products: []
     },
     reducers: {
-      loadCart(state, action) {
-        state.products = [...state.products, ...action.payload];
+      loadCart: (state, action) => {
+        state.products = [...action.payload];
       },
-      setCurrentCartId(state, action) {
+      setCurrentCartId: (state, action) => {
         state.cartId = action.payload;
       },
-      setCurrency(state, action) {
+      setCurrency: (state, action) => {
         state.currency_id = action.payload;
       },
-      setState(state, action) {
+      setState: (state, action) => {
         state.current_state = action.payload;
       },
-      setTotal(state, action) {
+      setTotal: (state, action) => {
         state.total_price = action.payload;
       },
-      setSuccessMessage(state, action) {
+      setSuccessMessage: (state, action) => {
         state.successMessage = action.payload;
       },
-      setErrorMessage(state, action) {
+      setErrorMessage: (state, action) => {
         state.errorMessage = action.payload;
       },
     },
