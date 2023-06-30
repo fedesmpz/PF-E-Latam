@@ -63,8 +63,37 @@ const googleExistController= async(user)=>{
     
     try {
         const existingUser = await User.findOne({ where: { email: user.email } });
+
         if (!existingUser) {
-            return {exist: false};
+          const newUser = await User.create(
+            {
+              name: user.name,
+              surname: user.surname || 'AAAA',
+              email: user.email,
+              country: user.country,
+              city: user.city || 'AAAA',
+              address: user.address || 'AAAA',
+              birth_date: null,
+              postal_code: '',
+              admin: false,
+              superAdmin: false
+            },)
+            const currency_id = currencyIdValidator(user.country);
+            const newCart = await Cart.create(
+            {
+              currency_id: currency_id,
+              userId: newUser.id
+            },)
+            //const cart = await Cart.findOne({ where: { userId: existingUser.id } });
+            return {
+              exist: true, 
+              access: true,
+              isAdmin: newUser.admin, 
+              isSuperAdmin: newUser.superAdmin,
+              cartId: newCart.id
+              };
+
+          //return {exist: false};
         }else{
           const cart = await Cart.findOne({ where: { userId: existingUser.id } });
             return {
@@ -72,12 +101,12 @@ const googleExistController= async(user)=>{
                     access: true,
                     isAdmin: existingUser.admin, 
                     isSuperAdmin: existingUser.superAdmin,
-                    cartId: cart.id,
-                    address: existingUser.address,
-                    city: existingUser.city,
-                    country: existingUser.country
+                    cartId: cart.id
                     };
         }
+
+
+
     } catch (error) {
         return error.message;
     }
