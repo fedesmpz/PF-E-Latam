@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import Styles from "../../components/Filter/Filter.module.css";
-import { setOrderByName, setOrderByPrice, setFilterByCategory, axiosAllProductByCountryCategory } from '../../redux/slice/productSlice';
+import { setOrderByName, setOrderByPrice, setFilterByCategory, axiosAllProductByCountryCategory, axiosProductsByCatalogListing } from '../../redux/slice/productSlice';
 
-const Filter = ({ setOrden, setCurrentPage }) => {
+const Filter = ({ countryId, setOrden, setCurrentPage }) => {
   const dispatch = useDispatch();
   const categories = useSelector(state => state.products.category);
+  const productsCountry = useSelector((state) => state.products.country);
+  const userData = useSelector((state) => state.user.userData);
+
   function handleSort(event) {
     setCurrentPage(1);
     setOrden(`Ordenado ${event.target.value}`);
@@ -21,18 +24,12 @@ const Filter = ({ setOrden, setCurrentPage }) => {
   function handleCategoryChange(event) {
     setCurrentPage(1);
     setOrden(`Categoría ${event.target.value}`);
-    dispatch(setFilterByCategory(event.target.value));
+    dispatch(axiosAllProductByCountryCategory(countryId, event.target.value));
     dispatch(setOrderByPrice("---"))
     dispatch(setOrderByName("---"))
   }
 
-  useEffect(() => {
-    dispatch(axiosAllProductByCountryCategory());
-  }, [dispatch]);
 
-  const allowedCategories = ["Computación", "Celulares", "Electrónica", "Videojuegos"];
-
-  const filteredCategories = categories && categories.filter(category => allowedCategories.includes(category.name));
 
   return (
     <div className={Styles.filtercontainer}>

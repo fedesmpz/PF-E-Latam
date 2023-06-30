@@ -13,6 +13,8 @@ const getByCategory = async (countryId, category) => {
                 products = await Product.findAll({ where: { country: "Argentina", categories: "electronica" } });
             } else if (category === "videojuegos") {
                 products = await Product.findAll({ where: { country: "Argentina", categories: "videojuegos" } });
+            } else {
+                products = await Product.findAll({ where: {country: "Argentina"}});
             }
 
         } else if (countryId === "COL") {
@@ -24,6 +26,8 @@ const getByCategory = async (countryId, category) => {
                 products = await Product.findAll({ where: { country: "Colombia", categories: "electronica" } });
             } else if (category === "videojuegos") {
                 products = await Product.findAll({ where: { country: "Colombia", categories: "videojuegos" } });
+            } else {
+                products = await Product.findAll({ where: {country: "Colombia"}});
             }
 
         } else if (countryId === "MEX") {
@@ -35,6 +39,8 @@ const getByCategory = async (countryId, category) => {
                 products = await Product.findAll({ where: { country: "Mexico", categories: "electronica" } });
             } else if (category === "videojuegos") {
                 products = await Product.findAll({ where: { country: "Mexico", categories: "videojuegos" } });
+            } else {
+                products = await Product.findAll({ where: {country: "Mexico"}});
             }
         }    
         return products;
