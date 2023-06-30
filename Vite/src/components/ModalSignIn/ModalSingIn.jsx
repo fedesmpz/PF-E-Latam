@@ -17,6 +17,8 @@ function Example() {
     { value: "Mexico", label: "México" },
   ];
   const [show, setShow] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [textModal, setTextModal] = useState("")
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -44,16 +46,25 @@ function Example() {
     setError(validate(form));
   }, [form]);
 
+  const closeModal = () => {
+    setShowModal(false);
+    setTextModal('')
+  };
+
+
   const register = async (user) => {
     try{ 
       const response = await axios.post('https://pf-elatam.onrender.com/users/register', user)
       if (response.data.message == 'Firebase: Error (auth/email-already-in-use).') {
-        alert("El usuario ya existe")
+        setTextModal("El usuario ya existe")
       }else if (response.data.message == 'Firebase: Error (auth/invalid-email).'){
-        alert("Faltan datos en el formulario")
+        setTextModal("Existen errores en el formulario")
       }else{
-        alert("El usuario fue creado con éxito y se envió un correo de validación")
+        setTextModal("El usuario fue creado con éxito y se envió un correo de validación")
       }
+      setShowModal(true)
+      handleClose()
+
     }catch(error){
         console.log(error.message);
     }
@@ -190,6 +201,18 @@ function Example() {
     </Form>
         </Modal.Body>
       </Modal>
+      <>
+        {showModal && (
+          <div className={Styles.modal}>
+            <div className={Styles.modalContent}>
+              <h2>{textModal}</h2>
+              <div className={Styles.modalButtons}>
+                <button onClick={closeModal}>Aceptar</button>
+              </div>
+            </div>
+          </div>
+        )}
+      </>
     </>
   );
 }
