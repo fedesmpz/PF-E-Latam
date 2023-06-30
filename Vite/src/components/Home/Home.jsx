@@ -32,14 +32,12 @@ const Home = () => {
     }, []);
 
     let  currentProducts = null
-    if (!userData?.isAdmin && !userData?.isSuperAdmin) {
+    if (!userData?.isAdmin || !userData?.isSuperAdmin) {
         currentProducts = concatenatedObjects.filter(
             (product) => product.catalog_listing === true
         );
-    } else if (userData?.isAdmin && userData?.isSuperAdmin){
-        currentProducts = concatenatedObjects.filter(
-            (product) => product.catalog_listing === false
-        )
+    } else if (userData?.isAdmin || userData?.isSuperAdmin){
+        currentProducts = concatenatedObjects
     }
 
     const [currentPage, setCurrentPage] = useState(1);
