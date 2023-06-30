@@ -10,7 +10,7 @@ import { GoogleAuthProvider,
    } from 'firebase/auth'
 import { auth } from '../../utils/firebase'
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchUsers } from "../../redux/slice/userSlice";
+import { loginUserLocal } from "../../redux/slice/userSlice";
 import { useNavigate, useLocation } from 'react-router-dom';
 
 
@@ -25,6 +25,8 @@ function Example() {
   const [showModalCountry, setShowModalCountry] = useState(false);
   const [selectCountry, setSelectCountry] = useState('');
   const [show, setShow] = useState(false);
+  const [newEmail, setNewEmail] = useState('');
+  const [newName, setNewName] = useState('');
   const navigate = useNavigate()
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -40,23 +42,20 @@ function Example() {
     email: '',
     password: '',
   });
-  
-  const openModal = () => {
-    setShowModal(true);
-  };
+
 
   const closeModal = () => {
     setShowModal(false);
     setTextModal('')
   };
 
+  const closemodalCountry = () => {
+    setShowModalCountry(false);
+  }
+
   const handleSelectChange = (event) => {
     setSelectedOption(event.target.value);
   };
-
-  useEffect(()=>{
-    setShowModalCountry(false)
-  },[selectCountry])
 
 
 
@@ -89,7 +88,7 @@ function Example() {
         navigate('./home')
       }else if (response.data.access && location.pathname === '/Cart'){
         navigate(`/Purchase?cartId=${userData.cartId}`)
-      }else if(response.data.access && location.pathname === '*'){
+      }else if (response.data.access){
         window.location.reload();
       }
       handleClose()
@@ -99,17 +98,18 @@ function Example() {
   }
 
 
-
-
-
-
   const loginGoogle = async () => {
+
+    setShowModalCountry(false)
+
     const provider = await new GoogleAuthProvider()
     const result = await signInWithPopup(auth, provider);
-    
-
-    const dataEmail = { email : result.user.email }
-    const response = await axios.post('https://pf-elatam.onrender.com/users/googleExist', dataEmail);
+    const dataUser = { email : result.user.email,
+                        name : result.user.displayName,
+                        country: selectCountry
+                        }
+    const response = await axios.post('https://pf-elatam.onrender.com/users/googleExist', dataUser);
+   
     const user = {
       name: result.user.displayName,
       email: result.user.email,
@@ -122,8 +122,6 @@ function Example() {
       country: response.data.country,
       cartId: response.data.cartId
     }
-   
-    if (response.data.exist){
 
 
         const token = await axios.post('https://pf-elatam.onrender.com/users/getToken', user)
@@ -132,64 +130,33 @@ function Example() {
         
         if(response.data.access && location.pathname === '/'){
           navigate('./home')
-        }else{
+        }else if (response.data.access && location.pathname === '/Cart'){
+          navigate(`/Purchase?cartId=${userData.cartId}`)
+        }else if (response.data.access){
           window.location.reload();
         }
         handleClose()
-        
-
-    }else{
-      handleClose()
-      setShowModalCountry(true)
-
-
-
-        const data = { name : result.user.displayName || 'AAAA',
-        email: result.user.email,
-        country: selectCountry,
-      }
-      
-      const response2 = await axios.post('https://pf-elatam.onrender.com/users/googleLogin', data);
-      const token = await axios.post('https://pf-elatam.onrender.com/users/getToken', response2.data )
-      
-      localStorage.setItem("token", JSON.stringify(token.data))
-      
-      const userLogued = {
-        name: result.user.displayName,
-        email: result.user.email,
-        access: response2.data.access,
-        isAdmin: response2.data.isAdmin,
-        isSuperAdmin: response2.data.isSuperAdmin,
-        verified: result.user.emailVerified,
-        address: response2.data.address,
-        city: response2.data.city,
-        country: response2.data.country,
-        cartId: response2.data.cartId
-        
-      }
-      
-      localStorage.setItem("user", JSON.stringify(userLogued))
-      
-      if(response2.data.access && location.pathname === '/'){
-        navigate('./home')
-      }else{
-        window.location.reload();
-      }
-    
-    }
+     
   }
 
+  const handleCloseCountry = async () =>{
+    setShowModalCountry(true)
 
+    handleClose()
 
-
+  }
+  
+  
+  
+  
   const handleChange = (event) =>{
     setForm((prevForm) => ({
-        ...prevForm,
-        [event.target.name]: event.target.value
-      }));
+      ...prevForm,
+      [event.target.name]: event.target.value
+    }));
   };
 
-  const handleChangeCountry = (event) =>{
+  const handleChangeCountry = async (event) =>{
     setSelectCountry(event.target.value);
   };
 
@@ -251,7 +218,7 @@ function Example() {
             Iniciar
           </Button>
 
-          <Button variant="primary" onClick={loginGoogle}>
+          <Button variant="primary" onClick={handleCloseCountry}>
             Inicia con Google
           </Button>
 
@@ -274,8 +241,8 @@ function Example() {
         {showModalCountry && (
           <div className={Styles.modal}>
             <div className={Styles.modalContent}>
-                  <h2>Debes seleccionar un pais</h2>
-
+                  <h2>Selecciona un país</h2>
+                  <p>Para continuar debes seleccionar un país</p>
                 <select name="country" value={selectCountry} onChange={handleChangeCountry}>
                   <option value="">Selecciona un país</option>
                   {countries.map((country) => (
@@ -284,8 +251,14 @@ function Example() {
                     </option>
                   ))}
                 </select>
+
               <div className={Styles.modalButtons}>
-                {/* <button onClick={closeModal}>Cerrar</button> */}
+                <div className={Styles.modalContent}>
+                <button className={Styles.modalContent} onClick={loginGoogle}><h2>Iniciar</h2></button>
+                <button className={Styles.modalContent} onClick={closemodalCountry}><h2>Cerrar</h2></button>
+
+                </div>
+              
               </div>
             </div>
           </div>
