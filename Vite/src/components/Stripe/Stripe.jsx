@@ -73,9 +73,14 @@ const Stripe = ({ sale, total, shipping }) => {
 
     }
     const handlerReconfirm = async () => {
+       await dispatch(cleanDetail())
         setShowModal(false);
         setShowModalConfirm(false)
-        navigate("/Home")
+        if(saleMessage ==="Muchas gracias por tu compra"){
+           navigate("/Home")
+        }
+
+        
     }
 
     return (
