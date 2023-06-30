@@ -16,16 +16,15 @@ const PaymentComponent = () => {
   const searchParams = new URLSearchParams(location.search);
   const paramsCartId = searchParams.get("cartId");
   const cartId = useSelector((state) => state.user.userData.cartId);
-  console.log(cartId)
+  const userData = useSelector((state) => state.user.userData);
+  const cartData = useSelector((state) => state.cart.products);
+  const cartTotal =  useSelector((state) => state.cart.total_price);
+  console.log(userData)
 
   useEffect(() => {
     dispatch(loginUserLocal())
     totalPrice()
   }, [])
-
-  useEffect(() => {
-    dispatch(getProductsFromCart(cartId))
-  }, [cartId])
 
   if ((cartId != undefined) && (paramsCartId != cartId)) {
     navigate(`/Purchase?cartId=${cartId}`)
@@ -33,6 +32,7 @@ const PaymentComponent = () => {
 
   const [currentTab, setCurrentTab] = useState(0);
   const [showModal, setShowModal] = useState(false);
+  // const [getProducts, setGetProducts] = useState(false)
 
   const [productsData, setProductsData] = useState({
     products: [],
@@ -40,6 +40,10 @@ const PaymentComponent = () => {
   })
   let [total, setTotal] = useState(0);
   const purchaseConfirmation = JSON.parse(localStorage?.getItem("cart"));
+
+  useEffect(() => {
+    dispatch(getProductsFromCart(cartId))
+  }, [])
 
   useEffect(() => {
     setProductsData({
@@ -108,12 +112,13 @@ const PaymentComponent = () => {
     handleContinue();
   }
 
-  const handleCart = (event) => {
+  const handleCart = async (event) => {
     event.preventDefault();
     handleContinue();
-    dispatch(deleteProductsFromCart(cartId))
+    await dispatch(deleteProductsFromCart(cartId))
     setTimeout(() => {}, 1500)
-    dispatch(loadProductsToCart(productsData, cartId))
+    await dispatch(loadProductsToCart(productsData, cartId))
+    await dispatch(getProductsFromCart(cartId))
   }
 
   const handleCancel = (event) => {
@@ -275,17 +280,22 @@ const PaymentComponent = () => {
                 </form>
               </div>
             </div>
-            <div>
+            <div className={styles.panelContainer}>
+            <h1 className={styles.tabTitle}>1. Carrito</h1>
               {
-                purchaseConfirmation && purchaseConfirmation.map((product) => {
+                cartData && cartData.map((product) => {
                   return (
                     <div className={styles.resumeContainer} key={product.id}>
-                      <h1 className={styles.productTitle}>{`(${product.quantity}) ${product.title}`}</h1>
-                      <h1 className={styles.productPrice}>$ {product.original_price * product.quantity}</h1>
+                      <h1 className={styles.productTitle}>{`(${product.product_Cart.quantity}) ${product.title}`}</h1>
+                      <h1 className={styles.productPrice}>$ {product.original_price * product.product_Cart.quantity}</h1>
                     </div>
                   )
                 })
+
               }
+              <div className={styles.totalContainer}>
+                <h1 className={styles.resumePrice}>$ {cartTotal}</h1>
+              </div>
             </div>
             <div className={styles.bannerContainer}>
               <img src="images/imagenes_hero/1.png"></img>
@@ -320,9 +330,10 @@ const PaymentComponent = () => {
                 </form>
               </div>
             </div>
-            <div>
+            <div className={styles.panelContainer}>
+              <h1>Carrito</h1>
               {
-                purchaseConfirmation && purchaseConfirmation.map((product) => {
+                cartData && cartData.map((product) => {
                   return (
                     <div className={styles.resumeContainer} key={product.id}>
                       <h1 className={styles.productTitle}>{`(${product.quantity}) ${product.title}`}</h1>
@@ -331,6 +342,7 @@ const PaymentComponent = () => {
                   )
                 })
               }
+              
             </div>
           </TabPanel>
 
