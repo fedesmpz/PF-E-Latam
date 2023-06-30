@@ -79,7 +79,7 @@ export const productSlice = createSlice({
 
     cleanDetail:(state)=>{
       state.detail= {},
-      state.newSaleMessage= null
+      state.newSaleMessage= null 
     },
     
     setOrderByName: (state, action) => {
