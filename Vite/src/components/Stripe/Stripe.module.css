@@ -4,7 +4,7 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #f5f5f5;
+    width: 80vw;
   }
   
   .container_card {
@@ -12,8 +12,8 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     padding: 20px;
     border-radius: 4px;
-    width: 600px;
-    height: 500px;
+    width: 900px;
+    height: 200px;
     margin: 20px;
   }
   
@@ -34,7 +34,7 @@
     padding: 10px 20px;
     border: none;
     border-radius: 4px;
-    margin-top: 20px;
+    margin-top: 40px;
     cursor: pointer;
     width: 100%;
   }
@@ -44,28 +44,42 @@
   }
   
   .resume_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     margin-top: 20px;
     background-color: #fff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow:  2px 2px 2px 2px rgba(0, 0, 0, 0.1);
     padding: 20px;
     border-radius: 4px;
-    width: 400px;
+    width: 900px;
     margin: 20px;
   }
-  
-  .container_resume h2 {
-    font-size: 20px;
-    margin-bottom: 10px;
-    color: #333;
+
+  .resumeContainer {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    margin: 20px 0px 0px 0px;
+    padding: 10px 20px 10px 20px;
+    border-bottom: 1px solid #ccc;
   }
   
   .resume_info {
-    font-size: 14px;
-    margin-bottom: 5px;
+    font-size: 20px;
+    margin: 8px;
     color: #555;
   }
   
-
+  .resume {
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: #333;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
   
 .modal {
   position: fixed;
@@ -128,4 +142,19 @@ margin-left: 30px;
   background-color: #f7f7f7;
   border-radius: 4px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+.productTitle {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.productPrice {
+  display: flex;
+  justify-content: flex-end;
+  font-size: 16px;
+  font-weight: bolder;
+  color: #4BBF68;
+  margin-bottom: none;
 }
