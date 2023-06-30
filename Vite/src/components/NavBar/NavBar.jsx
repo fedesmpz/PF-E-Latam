@@ -86,11 +86,12 @@ const NavBar = () => {
       }
 
       try {
-        dispatch(axiosSearchProduct(title, selectedCountry));
-        setTitle('');
+        await dispatch(axiosSearchProduct(title, selectedCountry));
+        setTitle('')
 
       } catch (error) {
-        setShowModal(true);
+        setShowModal(true)
+        setTitle('');
       }
     }
   };
@@ -148,7 +149,7 @@ const NavBar = () => {
           <div className={Styles.modal}>
             <div className={Styles.modalContent}>
               <h2>Error de búsqueda</h2>
-              <p>Por favor, ingresa algún dato válido antes de realizar la búsqueda.</p>
+              <p>Por favor, ingresa algún dato válido para realizar la búsqueda.</p>
               <button className={Styles.closeButton} onClick={handleCloseModal}>Cerrar</button>
             </div>
           </div>
