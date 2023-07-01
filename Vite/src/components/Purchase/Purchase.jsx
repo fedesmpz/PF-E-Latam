@@ -50,7 +50,7 @@ const PaymentComponent = () => {
       products: [...purchaseConfirmation],
       total_price: total
     })
-  }, [total])
+  }, [total, cartData])
 
   const matchingAddress = useSelector(state => state.user.userAddress);
 
@@ -79,8 +79,6 @@ const PaymentComponent = () => {
   const handleContinue = () => {
     if (currentTab < 3) {
       setCurrentTab(currentTab + 1);
-    } else {
-      // Handle final payment confirmation
     }
   };
 
@@ -101,7 +99,7 @@ const PaymentComponent = () => {
 
   const handleAddressSearch = (event) => {
     event.preventDefault()
-    dispatch(getGeocoding(deliveryForm.address, deliveryForm.country));
+    dispatch(getGeocoding(deliveryForm.address, deliveryForm.country, deliveryForm.city, deliveryForm.locality));
     handleContinue();
   }
 
@@ -162,7 +160,7 @@ const PaymentComponent = () => {
             <p className={styles.tabLine}></p>
             <span className={styles.tabSpan}>
               <Tab className={styles.tab} selectedClassName={styles.activeTab}>4</Tab>
-              <p className={styles.tabText}>Forma de pago</p>
+              <p className={styles.tabText}>Completar pago</p>
             </span>
           </TabList>
 
@@ -287,24 +285,24 @@ const PaymentComponent = () => {
                   </div>
 
                   <div>
-                    <label htmlFor="postalCode" className={styles.label}>Codigo Postal</label>
+                    <label htmlFor="locality" className={styles.label}>Localidad</label>
                     <input
                       type="text"
-                      name="postalCode"
-                      value={deliveryForm.postal_code}
+                      name="locality"
+                      value={deliveryForm.locality}
                       onChange={handleDeliveryChange}
-                      placeholder="Ingrese el código postal"
+                      placeholder="Ingrese la localidad"
                     />
                   </div>
 
                   <div>
-                    <label htmlFor="city" className={styles.label}>Ciudad</label>
+                    <label htmlFor="city" className={styles.label}>Ciudad o distrito</label>
                     <input
                       type="text"
                       name="city"
                       value={deliveryForm.city}
                       onChange={handleDeliveryChange}
-                      placeholder="Ingrese la ciudad"
+                      placeholder="Ingrese la ciudad o distrito"
                     />
                   </div>
 
@@ -316,6 +314,18 @@ const PaymentComponent = () => {
                       <option value="Mexico">Mexico</option>
                     </select>
                   </div>
+
+                  <div>
+                    <label htmlFor="postalCode" className={styles.label}>Codigo Postal</label>
+                    <input
+                      type="text"
+                      name="postalCode"
+                      value={deliveryForm.postal_code}
+                      onChange={handleDeliveryChange}
+                      placeholder="Ingrese el código postal"
+                    />
+                  </div>
+
                   <div className={styles.buttonsContainer}>
                     <button className={styles.back_Button} onClick={handleBack}>
                       Atras
@@ -331,7 +341,8 @@ const PaymentComponent = () => {
           </TabPanel>
 
           <TabPanel className={styles.tabPanel}>
-            <div className={styles.panelContainer}>
+            <div className={styles.megaContainer}>
+            <div className={styles.doublePanelContainer}>
               <h1 className={styles.tabTitle}>1. Carrito</h1>
               {
                 cartData && cartData?.map((product) => {
@@ -376,6 +387,7 @@ const PaymentComponent = () => {
                     </div>
               }
             </div>
+            </div>
             <div className={styles.panelContainer}>
               <h2 className={styles.tabTitle}>3. Confirmar domicilio de envio</h2>
               <div className={styles.container}>
@@ -406,29 +418,63 @@ const PaymentComponent = () => {
           </TabPanel>
 
           <TabPanel className={styles.tabPanel}>
+          <div className={styles.megaContainer}>
+            <div className={styles.doublePanelContainer}>
+              <h1 className={styles.tabTitle}>1. Carrito</h1>
+              {
+                cartData && cartData?.map((product) => {
+                  return (
+                    <div className={styles.resumeContainer} key={product.id}>
+                      <h1 className={styles.productTitle}>{`(${product.product_Cart.quantity}) ${product.title}`}</h1>
+                      <h1 className={styles.productPrice}>
+                        { product.sale_price ? <p> $ {product.product_Cart.quantity * product.price}</p> 
+                                             : <p> $ {product.original_price * product.product_Cart.quantity}</p>}
+                      </h1>
+                    </div>
+                  )
+                })
+              }
+              <div className={styles.totalContainer}>
+                <h1 className={styles.resumePrice}>$ {cartTotal}</h1>
+              </div>
+            </div>
             <div className={styles.panelContainer}>
-
-              <h2 className={styles.tabTitle} >Completar pago</h2>
-              <Stripe sale={purchaseConfirmation} total={total} shipping={deliveryForm} products={purchaseConfirmation} />
-              {/* <div>
-              {purchaseConfirmation && purchaseConfirmation.map((product) => {
-                return (
-                  <div className={styles.resumeContainer} key={product.id}>
-                  <h1 className={styles.productTitle}>{`(${product.quantity}) ${product.title}`}</h1>
-                  <h1 className={styles.productPrice}>$ {product.original_price * product.quantity}</h1>
-                  </div>
-                  );
-                })}
-              </div> */}
-
+              <h1 className={styles.tabTitle}>2. Datos de envio</h1>
+              {
+                userData &&
+                    <div className={styles.userDataContainer} key={userData.id}>
+                        <div>
+                          <h1 className={styles.userDataTag}>Nombre</h1>
+                          <h1 className={styles.userDataTag}>Apellido</h1>
+                          <h1 className={styles.userDataTag}>Email</h1>
+                          <h1 className={styles.userDataTag}>Domicilio</h1>
+                          <h1 className={styles.userDataTag}>Ciudad</h1>
+                          <h1 className={styles.userDataTag}>Pais</h1>
+                          <h1 className={styles.userDataTag}>Código postal</h1>
+                        </div>
+                        <div>
+                          <h1 className={styles.userDataInfo}>{userData.name}</h1>
+                          <h1 className={styles.userDataInfo}>{userData.surname}</h1>
+                          <h1 className={styles.userDataInfo}>{userData.email}</h1>
+                          <h1 className={styles.userDataInfo}>{userData.address}</h1>
+                          <h1 className={styles.userDataInfo}>{userData.city}</h1>
+                          <h1 className={styles.userDataInfo}>{userData.country}</h1>
+                          <h1 className={styles.userDataInfo}>{userData.postal_code}</h1>
+                        </div>
+                    </div>
+              }
+            </div>
+            </div>
+            <div className={styles.panelContainer}>
+              <h2 className={styles.tabTitle} >4. Completar pago</h2>
+              <div>
+                <Stripe sale={purchaseConfirmation} total={total} />
+              </div>
             </div>
             <div className={styles.buttonsContainer}>
-              <button className={styles.back_Button} onClick={handleBack}>
-                Atras
-              </button>
-              <button className={styles.continueButton} onClick={handleContinue}>
-                Confirmar pago
-              </button>
+                <button className={styles.back_Button} onClick={handleBack}>
+                  Atras
+                </button>
             </div>
           </TabPanel>
         </Tabs>

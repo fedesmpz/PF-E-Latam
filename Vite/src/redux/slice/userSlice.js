@@ -173,9 +173,9 @@ export const updateUser = (userId, userData) => async (dispatch) => {
   }
 };
 
-export const getGeocoding = (addressId, countryName) => (dispatch) => {
+export const getGeocoding = (addressId, countryName, city, locality) => (dispatch) => {
   axios
-      .get(`https://pf-elatam.onrender.com/users/address/${countryName}/${addressId}`)
+      .get(`https://pf-elatam.onrender.com/users/address/${countryName}/${city}/${locality}/${addressId}`)
       .then((response) => {
         dispatch(getUserAddress(response.data))
       })

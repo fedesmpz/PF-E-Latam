@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 import styles from "./Stripe.module.css";
 import { useNavigate } from 'react-router-dom';
 
-const Stripe = ({ sale, total, shipping, products }) => {
+const Stripe = ({ sale, total }) => {
     const navigate = useNavigate()
     const dispatch = useDispatch();
     const elements = useElements();
@@ -86,11 +86,12 @@ const Stripe = ({ sale, total, shipping, products }) => {
     const options = {
         style: {
             base: {
-                fontSize: '16px',
-                color: '#32325d',
+                fontSize: '19px',
+                color: '#000000',
+                padding: '0px',
                 fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
                 '::placeholder': {
-                    color: '#aab7c4'
+                    color: '#ccc'
                 }
             },
             invalid: {
@@ -102,32 +103,18 @@ const Stripe = ({ sale, total, shipping, products }) => {
 
     return (
         <div className={styles.container}>
-            <div className={styles.resume_container} >
-                <h2 className={styles.resume}>Resumen</h2>
-                <p className={styles.resume_info} >Email: <strong>{`${userInfo?.email}`}</strong> </p>
-                <p className={styles.resume_info} >City: <strong>{`${shipping?.city}`}</strong></p>
-                <p className={styles.resume_info} >Country: <strong>{`${shipping?.country}`}</strong></p>
-                <p className={styles.resume_info} >Dirección: <strong>{`${shipping?.address}`}</strong></p>
-                <p className={styles.resume_info} >Código postal: <strong>{`${shipping?.postalCode}`}</strong></p>
-                {products && products.map((product) => {
-                    return (
-                        <div className={styles.resumeContainer} key={product.id}>
-                            <h1 className={styles.productTitle}>{`(${product.quantity}) ${product.title}`}</h1>
-                            <h1 className={styles.productPrice}>$ {product.original_price * product.quantity}</h1>
-                        </div>
-                    );
-                })}
-            </div>
             <div className={styles.container_card}>
-                <h1 className={styles.title}>Card</h1>
                 <form className={styles.form} onSubmit={handleSubmit}>
                     <div className={styles.card_element_container}>
                         <div /* className={styles.cardElement} */>
-                            <CardElement options={options} />
+                            <span className={styles.cardLabel}><p>Numero de tarjeta</p><p>Vencimiento | CVC | Codigo Postal </p></span>
+                            <CardElement className={styles.cardElement} options={options} />
                         </div>
-                        <button className={styles.button}>Pay</button>
+                        
                     </div>
+                    <button className={styles.continueButton}>Confirmar pago</button>
                 </form>
+            </div >
                 <>
                     {showModal && (
                         <div className={styles.modal}>
@@ -155,7 +142,7 @@ const Stripe = ({ sale, total, shipping, products }) => {
 
                     }
                 </>
-            </div >
+           
         </div>
     )
 }
