@@ -1,62 +1,69 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import Styles from "../../components/Filter/Filter.module.css";
-import { setOrderByName, setOrderByPrice, setFilterByCategory, axiosAllProductByCountryCategory, axiosProductsByCatalogListing } from '../../redux/slice/productSlice';
+import { setOrderByName, setOrderByPrice, axiosAllProductByCountryCategory } from '../../redux/slice/productSlice';
 
-const Filter = ({ countryId, setOrden, setCurrentPage }) => {
+const Filter = ({ countryId, setCurrentPage }) => {
   const dispatch = useDispatch();
-  const categories = useSelector(state => state.products.category);
-  const productsCountry = useSelector((state) => state.products.country);
-  const userData = useSelector((state) => state.user.userData);
-
+  const [nameOrder, setNameOrder] = useState("");
+  const [priceOrder, setPriceOrder] = useState("");
+  const [category, setCategory] = useState("");
+  console.log(countryId);
   function handleSort(event) {
     setCurrentPage(1);
-    setOrden(`Ordenado ${event.target.value}`);
+    setNameOrder(event.target.value);
     dispatch(setOrderByName(event.target.value));
+    setPriceOrder("---");
   }
 
   function handlePriceChange(event) {
     setCurrentPage(1);
-    setOrden(`Ordenado ${event.target.value}`);
+    setPriceOrder(event.target.value);
     dispatch(setOrderByPrice(event.target.value));
+    setNameOrder("---");
   }
 
   function handleCategoryChange(event) {
     setCurrentPage(1);
-    setOrden(`Categoría ${event.target.value}`);
+    setCategory(event.target.value)
     dispatch(axiosAllProductByCountryCategory(countryId, event.target.value));
     dispatch(setOrderByPrice("---"))
     dispatch(setOrderByName("---"))
+    setNameOrder("---");
+    setPriceOrder("---");
   }
 
-
+  useEffect(() => {
+    setCategory("all")
+    setNameOrder("---")
+    setPriceOrder("---")
+  }, [countryId])
 
   return (
     <div className={Styles.filtercontainer}>
       <label>Precio</label>
-      <select className={Styles.select} onChange={handlePriceChange}>
+      <select className={Styles.select} value={priceOrder} onChange={handlePriceChange}>
         <option value="---">---</option>
         <option value="mayormenor">De mayor a menor</option>
         <option value="menormayor">De menor a mayor</option>
       </select>
 
       <label>Orden</label>
-      <select className={Styles.select} onChange={handleSort}>
+      <select className={Styles.select} value={nameOrder} onChange={handleSort}>
         <option value="---">---</option>
         <option value="asc">A-Z</option>
         <option value="des">Z-A</option>
       </select>
 
       <label>Categoría</label>
-      <select className={Styles.select} onChange={handleCategoryChange}>
+      <select className={Styles.select} value={category} onChange={handleCategoryChange}>
         <option value="all">Todas las categorías</option>
-        <option value="computacion">Computación</option>
+        {countryId !== "COL"
+          && <option value="computacion">Computación</option>
+        }
         <option value="celulares">Celulares</option>
         <option value="electronica">Electrónica</option>
         <option value="videojuegos">Videojuegos</option>
-        {/* {filteredCategories && filteredCategories.map(category => (
-          <option key={category.id} value={category.id}>{category.name}</option>
-        ))} */}
       </select>
     </div>
   );
