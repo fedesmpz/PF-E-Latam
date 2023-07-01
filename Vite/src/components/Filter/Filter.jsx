@@ -63,22 +63,8 @@ const Filter = ({ countryId, setCurrentPage }) => {
 
   return (
     <div className={Styles.filtercontainer}>
-      <label>Precio</label>
-      <select className={Styles.select} value={priceOrder} onChange={handlePriceChange}>
-        <option value="---">---</option>
-        <option value="mayormenor">De mayor a menor</option>
-        <option value="menormayor">De menor a mayor</option>
-      </select>
-
-      <label>Orden</label>
-      <select className={Styles.select} value={nameOrder} onChange={handleSort}>
-        <option value="---">---</option>
-        <option value="asc">A-Z</option>
-        <option value="des">Z-A</option>
-      </select>
-
-      <label>Categoría</label>
-      <select className={Styles.select} value={category} onChange={handleCategoryChange}>
+      <label className={Styles.LabelCat}>Categoría</label>
+      <select className={Styles.select1} onChange={handleCategoryChange}>
         <option value="all">Todas las categorías</option>
         {countryId !== "COL"
           && <option value="computacion">Computación</option>
@@ -88,19 +74,34 @@ const Filter = ({ countryId, setCurrentPage }) => {
         <option value="videojuegos">Videojuegos</option>
       </select>
 
-      <label>Descuento</label>
-      <select className={Styles.select} value={discount} onChange={handleDiscountChange}>
+      <label className={Styles.LabelDes}>Descuento</label>
+      <select className={Styles.select2} value={discount} onChange={handleDiscountChange}>
         <option value="---">---</option>
         <option value="true">con descuento</option>
         <option value="false">sin descuento</option>
       </select>
 
-      <label>Envío</label>
-      <select className={Styles.select} value={shipping} onChange={handleShippingChange}>
+      <label className={Styles.LabelEnv}>Envío</label>
+      <select className={Styles.select3} value={shipping} onChange={handleShippingChange}>
         <option value="---">---</option>
         <option value="true">envío gratis</option>
         <option value="false">envío pago</option>
       </select>
+      
+      <label className={Styles.LabelPre}>Precio</label>
+      <select className={Styles.select4} onChange={handlePriceChange}>
+        <option value="---">---</option>
+        <option value="mayormenor">De mayor a menor</option>
+        <option value="menormayor">De menor a mayor</option>
+      </select>
+
+      <label className={Styles.LabelOrd}>Orden</label>
+      <select className={Styles.select5} onChange={handleSort}>
+        <option value="---">---</option>
+        <option value="asc">A-Z</option>
+        <option value="des">Z-A</option>
+      </select>
+
     </div>
   );
 };
