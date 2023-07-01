@@ -16,6 +16,7 @@ const Home = () => {
     const productsCountry = useSelector((state) => state.products.country);
     const [isLoading, setIsLoading] = useState(true);
     const userData = useSelector((state) => state.user.userData);
+
     //SE DESPACHA EL ESTADO DEL LOCALSTORAGE Y SE VALIDA
     useEffect(()=>{
         dispatch(loginUserLocal())
@@ -46,18 +47,21 @@ const Home = () => {
     }, []);
 
 
+
     const array = useSelector((state) => state.products.products);
+    
 
     const concatenatedObjects = array.reduce((accumulator, currentArray) => {
         return accumulator.concat(currentArray);
     }, []);
 
-    let currentProducts = concatenatedObjects;
-    const [isAdmin, setIsAdmin] = useState(true); //logica para probar si es admin o no ... y si no lo es no le muestra lo de ocultar
-    if (!isAdmin) {
+    let  currentProducts = null
+    if (!userData?.isAdmin || !userData?.isSuperAdmin) {
         currentProducts = concatenatedObjects.filter(
             (product) => product.catalog_listing === true
         );
+    } else if (userData?.isAdmin || userData?.isSuperAdmin){
+        currentProducts = concatenatedObjects
     }
 
     const [currentPage, setCurrentPage] = useState(1);
@@ -74,6 +78,36 @@ const Home = () => {
         setCurrentPage(pageNumber);
     };
 
+    // SE DESPACHA EL ESTADO DEL LOCALSTORAGE Y SE VALIDA
+    useEffect(()=>{
+        dispatch(loginUserLocal())
+        
+    },[])
+
+    useEffect(() => {
+        dispatch(axiosAllProductsByCountries(productsCountry));
+    }, [dispatch, productsCountry]);
+
+        // if (userData?.isAdmin && userData?.isSuperAdmin && userData?.access) {
+            // } else {
+        //     dispatch(axiosProductsByCatalogListing(productsCountry));
+
+    useEffect(() => {
+        setIsLoading(true);
+       
+        dispatch(loginUserLocal())
+        const timer = setTimeout(() => {
+            setIsLoading(false);
+        }, 2500);
+
+        return () => {
+            clearTimeout(timer);
+        };
+    }, []);
+
+
+
+
     if (isLoading) {
         return <LoaderLanding />;
     }
@@ -84,6 +118,9 @@ const Home = () => {
                 setCurrentPage={setCurrentPage}
                 setOrden={setOrden}
                 orden={orden}
+                countryId={productsCountry}
+                
+                
             />
             <div className="paginado">
                 <Products currentProducts={paginatedProducts} />

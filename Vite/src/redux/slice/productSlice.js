@@ -22,7 +22,7 @@ export const productSlice = createSlice({
   
   reducers: {
     setProductByCountryCategory: (state, action) => {
-      state.categories = action.payload;
+      state.products = action.payload;
     },
 
     setAllProductsByCountries: (state, action) => {
@@ -78,7 +78,8 @@ export const productSlice = createSlice({
     },
 
     cleanDetail:(state)=>{
-      state.detail= {}
+      state.detail= {},
+      state.newSaleMessage= null 
     },
     
     setOrderByName: (state, action) => {
@@ -141,6 +142,7 @@ export const productSlice = createSlice({
         state.products = filteredCat;
       }
     },
+
     setHideProduct:(state,action)=>{
       state.hideProductMessage = action.payload;
     
@@ -199,28 +201,26 @@ export const {
 
 export default productSlice.reducer;
 
-export const axiosAllProductByCountryCategory = () => (dispatch, getState) => {
-  const countryId = getState().products.country;
-  const category = getState().products.categories;
+export const axiosAllProductByCountryCategory = (countryId, category) => (dispatch) => {
+  // const countryId = getState().products.country;
+  // const category = getState().products.categories;
   axios
-    .get(`https://pf-elatam.onrender.com/products/${countryId}/${category}`)
-    .then((response) => {
-      dispatch(setProductByCountryCategory(response.data.data));
-    })
+  .get(`https://pf-elatam.onrender.com/products/${countryId}/${category}`)
+  .then((response) => {
+    dispatch(setProductByCountryCategory(response.data));
+  })
     .catch((error) => console.log(error));
 };
 
-export const axiosAllProductsByCountries = (id) => (dispatch) => {
+export const axiosAllProductsByCountries = (countryId) => (dispatch) => {
     axios
-        .get(`https://pf-elatam.onrender.com/products/${id}`)
+        .get(`https://pf-elatam.onrender.com/products/${countryId}`)
         .then((response) => {
-            dispatch(setProductsCountry(id))
-            dispatch(setAllProductsByCountries(response.data))
+          dispatch(setProductsCountry(countryId))
+          dispatch(setAllProductsByCountries(response.data))
         })
         .catch((error) => console.log(error));
 };
-
-
 
 export const axiosAllProducts = () => (dispatch) => {
     const urls = [
@@ -265,8 +265,7 @@ export const axiosSearchProduct = (title, country) => (dispatch) => {
         dispatch(setSearchProduct(response.data));
       })
       .catch((error) => {
- 
-        throw error;
+        throw error
       });
   };
 
@@ -317,12 +316,12 @@ export const axiosSearchProduct = (title, country) => (dispatch) => {
     axios
       .post(`https://pf-elatam.onrender.com/checkout`, payload)
       .then((response) => {
+        console.log(response.data)
         dispatch(setNewSaleMessage(response.data))
         dispatch(setpayProduct(response.data));
-      })
-      .catch((error) => dispatch(setNewSaleMessage(error.response.data.raw.message)));
-
-     
+      }) 
+      .catch((error) => 
+      dispatch(setNewSaleMessage(error.response.data.error)))
   };
 
   export const axiosProductsByCatalogListing = (id) => async (dispatch) => {

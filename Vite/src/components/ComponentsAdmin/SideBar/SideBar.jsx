@@ -14,49 +14,49 @@ const Sidebar = () => {
     <div
     className={`${styles.sidebar} ${isOpen ? styles.open : styles.close}`}
     >
-    <button className={styles['toggle-btn']} onClick={toggleSidebar}>
+    <button className={styles.btnToggle} onClick={toggleSidebar}>
       <span></span>
       <span></span>
       <span></span>
     </button>
-    <nav className={styles['nav']}>
-      <ul className={styles['ul']}>
-        <li className={styles['li']}>
+    <nav className={styles.navi}>
+      <ul className={styles.desorList}>
+        <li className={styles.orderList}>
                     <Link  className={styles.menuItem} to="/Home">
-                      <FaHome className={styles['icon']} />
-                      <span className={`${styles['text']} ${isOpen ? '' : styles.hidden}`}>Home</span>
+                      <FaHome className={styles.icon} />
+                      <span className={`${styles.text} ${isOpen ? '' : styles.hidden}`}>Home</span>
                     </Link>
         </li>
-        <li className={styles['li']}>
+        <li className={styles.orderList}>
                     <Link className={styles.menuItem} to="/DashboardAdmin">
-                      <FaLaptopCode className={styles['icon']} />
-                      <span className={`${styles['text']} ${isOpen ? '' : styles.hidden}`}>Dashboard</span>
+                      <FaLaptopCode className={styles.icon} />
+                      <span className={`${styles.text} ${isOpen ? '' : styles.hidden}`}>Dashboard</span>
                     </Link>
         </li>
-        <li className={styles['li']}>
+        <li className={styles.orderList}>
                 <Link className={styles.menuItem} to="/DashboardAdmin/Products">
-                  <FaShoppingBag className={styles['icon']} />
-                  <span className={`${styles['text']} ${isOpen ? '' : styles.hidden}`}>Productos</span>
+                  <FaShoppingBag className={styles.icon} />
+                  <span className={`${styles.text} ${isOpen ? '' : styles.hidden}`}>Productos</span>
                 </Link>
         </li>
-        <li className={styles['li']}>
+        <li className={styles.orderList}>
                 <Link className={styles.menuItem} to="/DashboardAdmin/Users">
-                  <FaUsers className={styles['icon']} />
-                  <span className={`${styles['text']} ${isOpen ? '' : styles.hidden}`}>Usuarios</span>
+                  <FaUsers className={styles.icon} />
+                  <span className={`${styles.text} ${isOpen ? '' : styles.hidden}`}>Usuarios</span>
                 </Link>
               
           
         </li>
-        <li className={styles['li']}>
+        <li className={styles.orderList}>
               <Link className={styles.menuItem} to="/DashboardAdmin/Statistics">
-                <FaChartLine className={styles['icon']} />
-                <span className={`${styles['text']} ${isOpen ? '' : styles.hidden}`}>Estadisticas</span>
+                <FaChartLine className={styles.icon} />
+                <span className={`${styles.text} ${isOpen ? '' : styles.hidden}`}>Estadisticas</span>
               </Link>
         </li>
-        <li className={styles['li']}>
+        <li className={styles.orderList}>
               <Link className={styles.menuItem} to="/DashboardAdmin/Sales">
-                  <FaClipboardList className={styles['icon']} />
-                  <span className={`${styles['text']} ${isOpen ? '' : styles.hidden}`}>Ventas</span>
+                  <FaClipboardList className={styles.icon} />
+                  <span className={`${styles.text} ${isOpen ? '' : styles.hidden}`}>Ventas</span>
               </Link>     
         </li>
       </ul>
