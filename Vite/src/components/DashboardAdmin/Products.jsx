@@ -49,7 +49,6 @@ const Products = () => {
       <Sidebar />
       <div className={StylesAdmin.containerHomeAdmin} style={{ marginLeft: isOpen ? '120px' : (!isOpen && '60px') }}>
       <NavbarAdmin/>
-      
       <div className={StylesAdmin.statSales}>
           <TableSeller
             key="paginado"
