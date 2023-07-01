@@ -233,6 +233,7 @@ button.backButton:hover svg {
   bottom: 0;
   display: flex;
   justify-content: center;
+  z-index: 4;
   align-items: center;
   background-color: rgba(0, 0, 0, 0.5);
 }
