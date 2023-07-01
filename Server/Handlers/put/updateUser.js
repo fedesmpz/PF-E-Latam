@@ -5,7 +5,7 @@ const updateUserHandler= async(req,res)=>{
     const {name,surname,email,birth_date,profile_picture,country,city,address,postal_code,admin,superAdmin} = req.body
     try {
         const update= await updateUser( id,name,surname,email,birth_date,profile_picture,country,city,address,postal_code,admin,superAdmin)
-        return res.status(200).send("Se actualizaron exitosamente los datos")
+        return res.status(200).json(update)
     } catch (error) {
          res.status(400).json({ error: error.message });
     }
