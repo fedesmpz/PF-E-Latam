@@ -54,7 +54,6 @@ export const loadProductsToCart = (productsData, cartId) => async (dispatch) => 
     try {
       const response = await axios.post(`https://pf-elatam.onrender.com/carts/${cartId}/products`, productsData);
       // const response = await axios.post(`http://localhost:8000/carts/${cartId}/products`, productsData);
-      console.log("Aca se postea", response.data)
       dispatch(setSuccessMessage(response.data));
     } catch (error) {
       dispatch(setErrorMessage(error.message));
@@ -65,7 +64,6 @@ export const getProductsFromCart = (cartId) => async (dispatch) => {
     try {
       const response = await axios.get(`https://pf-elatam.onrender.com/carts/${cartId}`);
       // const response = await axios.get(`http://localhost:8000/carts/${cartId}`);
-      console.log("UN get",response.data)
       dispatch(loadCart(response.data.products));
       dispatch(setCurrentCartId(response.data.id))
       dispatch(setCurrency(response.data.currency_id));
@@ -80,7 +78,6 @@ export const deleteProductsFromCart = (cartId) => async (dispatch) => {
   try {
     // const response = await axios.delete(`http://localhost:8000/carts/${cartId}/products`);
     const response = await axios.delete(`https://pf-elatam.onrender.com/carts/${cartId}/products`);
-    console.log("Aca se borra", response.data)
     dispatch(setSuccessMessage(response.data));
   } catch (error) {
     dispatch(setErrorMessage(error.message));

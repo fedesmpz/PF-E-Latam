@@ -35,6 +35,26 @@
     width: 300px;
 }
 
+.select4 {
+    margin-left: 15%;
+    padding: 5px;
+    margin-bottom: 5px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 300px;
+}
+
+.select5 {
+    margin-left: 15%;
+    padding: 5px;
+    margin-bottom: 5px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 300px;
+}
+
 .LabelCat {
     margin-right: 35%;
     padding: 5px;
@@ -43,15 +63,31 @@
     margin-top: 5%;
 }
 
-.LabelPre {
-    margin-right: 35%;
+.LabelDes {
+    margin-right: 33%;
     padding: 5px;
     margin-bottom: 5px;
     font-size: 16px;
 }
 
+.LabelEnv {
+    margin-right: 41%;
+    padding: 5px;
+    margin-bottom: 5px;
+    font-size: 16px;
+    margin-top: 5%;
+}
+
+.LabelPre {
+    margin-right: 40%;
+    padding: 5px;
+    margin-bottom: 5px;
+    font-size: 16px;
+    margin-top: 5%;
+}
+
 .LabelOrd {
-    margin-right: 35%;
+    margin-right: 40%;
     padding: 5px;
     margin-bottom: 5px;
     font-size: 16px;

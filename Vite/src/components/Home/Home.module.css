@@ -9,7 +9,13 @@
     color: #000;
     margin-right: 10px;
 }
-  
+
+.filter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .paginado {
     display: flex;
     flex-direction: column;

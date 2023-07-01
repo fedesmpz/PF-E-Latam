@@ -19,12 +19,12 @@ const Home = () => {
         return accumulator.concat(currentArray);
     }, []);
 
-    let  currentProducts = null
+    let currentProducts = null
     if (!userData?.isAdmin || !userData?.isSuperAdmin) {
         currentProducts = concatenatedObjects.filter(
             (product) => product.catalog_listing === true
         );
-    } else if (userData?.isAdmin || userData?.isSuperAdmin){
+    } else if (userData?.isAdmin || userData?.isSuperAdmin) {
         currentProducts = concatenatedObjects
     }
 
@@ -36,7 +36,6 @@ const Home = () => {
         indexOfFirstProduct,
         indexOfLastProduct
     );
-    const [orden, setOrden] = useState('');
 
     const paginado = (pageNumber) => {
         setCurrentPage(pageNumber);
@@ -44,8 +43,8 @@ const Home = () => {
 
     useEffect(()=>{
         dispatch(loginUserLocal())
-        
-    },[])
+
+    }, [])
 
     useEffect(() => {
         dispatch(axiosAllProductsByCountries(productsCountry));
@@ -53,7 +52,7 @@ const Home = () => {
 
     useEffect(() => {
         setIsLoading(true);
-       
+
         dispatch(loginUserLocal())
         const timer = setTimeout(() => {
             setIsLoading(false);
@@ -74,8 +73,6 @@ const Home = () => {
           <div className="col-md-3 filter-column">
               <Filter
                 setCurrentPage={setCurrentPage}
-                setOrden={setOrden}
-                orden={orden}
                 countryId={productsCountry}
               />
             </div>

@@ -11,7 +11,7 @@ const { getToken, validateToken } = require("../Handlers/post/tokenHandler")
 const { getUserAddressHandler } = require("../Handlers/get/getUserAddress")
 const { getAllUsersHandler } = require("../Handlers/get/getAllUsers")
 
-router.get("/address/:countryName/:addressId", getUserAddressHandler)
+router.get("/address/:countryName/:city/:locality/:addressId", getUserAddressHandler)
 router.get("/", getAllUsersHandler)
 router.get("/:id", getUserByIdHandler)
 router.post("/register",registerHandler)
