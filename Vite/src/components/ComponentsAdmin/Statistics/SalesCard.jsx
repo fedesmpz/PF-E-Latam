@@ -1,5 +1,5 @@
 import React from 'react';
-import Styles from './SalesCard.module.css';
+import Styles from './styles/SalesCard.module.css';
 
 const SalesCard = ({ totalSales, todaySales, monthSales}) => {
 

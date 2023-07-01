@@ -11,6 +11,7 @@ import {
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 import faker from 'faker';
+import Styles from './styles/SalesStats.module.css'
 
 Chart.register(
   CategoryScale,
@@ -43,7 +44,7 @@ export const options = {
   },
 };
 
-const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+const labels = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo'];
 
 export const data = {
   labels,
@@ -77,7 +78,7 @@ export const data = {
 
 const LineChart = () => {
   return (
-    <div className='w-full h-20 flex items-center '>
+    <div className={Styles.container}>
       <Line options={options} data={data} />
     </div>
   );
