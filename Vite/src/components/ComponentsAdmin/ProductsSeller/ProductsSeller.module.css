@@ -101,3 +101,6 @@
     font-size: .875rem;
   }
   
+  ul {
+    list-style: none;
+  }
