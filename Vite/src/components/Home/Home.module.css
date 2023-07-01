@@ -22,4 +22,6 @@
     text-align: center;
     margin-top: 100px;
 }
-  
+.product-column {
+    margin-left: 0px; /* Ajusta el margen izquierdo según sea necesario */
+  }

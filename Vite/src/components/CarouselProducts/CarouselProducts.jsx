@@ -2,7 +2,7 @@ import Carousel from 'react-bootstrap/Carousel';
 import Products from '../Products/Products';
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { axiosAllProducts } from "../../redux/slice/productSlice"
+import { axiosAllProducts, axiosFilterProductsByCatalogListing   } from "../../redux/slice/productSlice"
 import Styles from "./CarouselProducts.module.css"
 
 const ControlledCarousel = () => {
@@ -10,9 +10,9 @@ const ControlledCarousel = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(axiosAllProducts());
+    dispatch(axiosFilterProductsByCatalogListing ());
   }, [dispatch]);
-
+  
   const array = useSelector((state) => state.products.allProducts);
   const concatenatedObjects = array.reduce((accumulator, currentArray) => {
     return accumulator.concat(currentArray);
