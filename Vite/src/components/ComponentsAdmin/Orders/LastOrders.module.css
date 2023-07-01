@@ -1,5 +1,4 @@
 .container {
-  width: 100%;
   grid-column: span 1;
   position: relative;
   height: 70vh;
@@ -8,7 +7,14 @@
   border: 1px solid;
   border-radius: 0.5rem;
   background-color: #ffffff;
-  overflow: scroll;
+  overflow: scroll; 
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  max-width: auto;
+  margin-left: 1.5rem;
+  margin-top: 1rem;
+  /* height: 90vh; */
 }
 
 .order {
@@ -27,7 +33,7 @@
 }
 
 .faShop {
-  background-color: #1e1427;
+  background-color: #0E5ABC;
   border-radius: 0.5rem;
   padding: 0.75rem;
 }

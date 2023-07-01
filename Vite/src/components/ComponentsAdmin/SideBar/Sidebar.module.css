@@ -65,7 +65,7 @@
     transform: translateX(0);
   }
   
-  .toggle-btn {
+  .btnToggle {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -80,7 +80,7 @@
     transition: background-color 0.3s ease;
   }
   
-  .toggle-btn span {
+  .btnToggle span {
     display: block;
     width: 30px;
     height: 2px;
@@ -89,29 +89,29 @@
     transition: transform 0.3s ease;
   }
   
-  .open .toggle-btn span:first-child {
+  .open .btnToggle span:first-child {
     transform: rotate(45deg) translate(5px, 5px);
   }
   
-  .open .toggle-btn span:nth-child(2) {
+  .open .btnToggle span:nth-child(2) {
     opacity: 0;
   }
   
-  .open .toggle-btn span:last-child {
+  .open .btnToggle span:last-child {
     transform: rotate(-45deg) translate(5px, -5px);
   }
   
-  .nav {
+  .navi {
     padding-top: 2rem;
   }
   
-  .ul {
+  .desorList {
     list-style: none;
     padding: 0;
     margin: 0;
   }
   
-  .li {
+  .orderList {
     padding: 0.5rem;
     text-decoration: none;
   }

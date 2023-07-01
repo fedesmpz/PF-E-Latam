@@ -2,11 +2,12 @@ import StylesAdmin from "./DashboardAdmin.module.css";
 import SalesCard from "../ComponentsAdmin/Statistics/SalesCard";
 import SalesStats from "../ComponentsAdmin/Statistics/SalesStats";
 import LastOrders from "../ComponentsAdmin/Orders/LastOrders";
-import Sidebar from "../ComponentsAdmin/SideBar/SideBar"
+import Sidebar from "../ComponentsAdmin/SideBar/SideBar";
 import { useState } from "react";
 import TopCards from "../ComponentsAdmin/Statistics/TopCards";
-import LastAddedProducts from '../ComponentsAdmin/Products/LastAddedProducts'
-import NavbarAdmin from '../NavBarAdmin/NavbarAdmin'
+import LastAddedProducts from "../ComponentsAdmin/Products/LastAddedProducts";
+import NavbarAdmin from "../NavBarAdmin/NavbarAdmin";
+import LineChartPrincipal from '../ComponentsAdmin/Statistics/LineChartPrincipal'
 
 const DashboardAdmin = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -38,23 +39,27 @@ const DashboardAdmin = () => {
         className={StylesAdmin.containerHomeAdmin}
         style={{ marginLeft: isOpen ? "120px" : !isOpen && "60px" }}
       >
-      <NavbarAdmin />
+        <NavbarAdmin />
         <div className={StylesAdmin.containerSuperior}>
-          <TopCards 
-          totalUsers={totalUsers}
-          totalAdmins={totalAdmins}
-          totalProducts={totalProducts}
-          totalSales={totalSales}
+          <TopCards
+            totalUsers={totalUsers}
+            totalAdmins={totalAdmins}
+            totalProducts={totalProducts}
           />
         </div>
-        <LastAddedProducts />
-        <SalesCard
-          totalSales={totalSales}
-          todaySales={todaySales}
-          monthSales={monthSales}
-        />
-        <SalesStats />
+        <div className={StylesAdmin.statSales}>
+          <SalesCard
+            totalSales={totalSales}
+            todaySales={todaySales}
+            monthSales={monthSales}
+          />
+          <SalesStats />
+        </div >
         <LastOrders />
+        <div className={StylesAdmin.line}>
+        <LineChartPrincipal />
+        </div>
+        <LastAddedProducts />
       </div>
     </div>
   );
