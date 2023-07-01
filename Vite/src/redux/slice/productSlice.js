@@ -130,7 +130,21 @@ export const productSlice = createSlice({
       state.products = sortedProducts; // Asignar la lista ordenada al estado
     },
     
-    setFilterByCategory: (state, action) => {
+    setFilterByShipping:(state, action) => {
+      
+      const filteredProducts = action.payload?.filter((product) => {
+        return product.shipping === true
+      });
+      console.log(filteredProducts);
+      if (action.payload === '---') {
+        state.products = state.allProducts;
+      } else {
+        state.products = filteredProducts;
+      }
+
+    },
+
+    setFilterByDiscount: (state, action) => {
       const filterByCategory = state.allProducts;
       const filteredCat = filterByCategory.filter((product) => {
         return product.categories === action.payload;
@@ -189,7 +203,8 @@ export const {
   filterByCategory,
   cleanDetail,
   cleanEditDetail,
-  setFilterByCategory,
+  setFilterByShipping,
+  setFilterByDiscount,
   setNewProductMessage,
   setEditProductMessage,
   setHideProduct,
@@ -334,3 +349,13 @@ export const axiosSearchProduct = (title, country) => (dispatch) => {
       console.log(error);
     }
   };
+
+  export const axiosAllProductByCountryShipping = (countryId, category) => (dispatch) => {
+    axios
+    .get(`https://pf-elatam.onrender.com/products/${countryId}/${category}`)
+    .then((response) => {
+      dispatch(setFilterByShipping(response.data));
+    })
+      .catch((error) => console.log(error));
+  };
+
