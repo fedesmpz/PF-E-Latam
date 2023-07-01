@@ -18,24 +18,24 @@ const Home = () => {
     const userData = useSelector((state) => state.user.userData);
 
     //SE DESPACHA EL ESTADO DEL LOCALSTORAGE Y SE VALIDA
-    useEffect(()=>{
+    useEffect(() => {
         dispatch(loginUserLocal())
-        
-    },[])
+
+    }, [])
 
     useEffect(() => {
         if (!userData.isAdmin && !userData.isSuperAdmin) {
             dispatch(axiosProductsByCatalogListing(productsCountry));
-        } else if (!userData.access){
+        } else if (!userData.access) {
             dispatch(axiosProductsByCatalogListing(productsCountry));
         } else {
             dispatch(axiosAllProductsByCountries(productsCountry));
         }
-      }, [dispatch, productsCountry, userData]);
+    }, [dispatch, productsCountry, userData]);
 
     useEffect(() => {
         setIsLoading(true);
-       
+
         dispatch(loginUserLocal())
         const timer = setTimeout(() => {
             setIsLoading(false);
@@ -49,52 +49,51 @@ const Home = () => {
 
 
     const array = useSelector((state) => state.products.products);
-    
+
 
     const concatenatedObjects = array.reduce((accumulator, currentArray) => {
         return accumulator.concat(currentArray);
     }, []);
 
-    let  currentProducts = null
+    let currentProducts = null
     if (!userData?.isAdmin || !userData?.isSuperAdmin) {
         currentProducts = concatenatedObjects.filter(
             (product) => product.catalog_listing === true
         );
-    } else if (userData?.isAdmin || userData?.isSuperAdmin){
+    } else if (userData?.isAdmin || userData?.isSuperAdmin) {
         currentProducts = concatenatedObjects
     }
 
     const [currentPage, setCurrentPage] = useState(1);
-    const [productsPerPage] = useState(50);
+    const [productsPerPage] = useState(16);
     const indexOfLastProduct = currentPage * productsPerPage;
     const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
     const paginatedProducts = currentProducts.slice(
         indexOfFirstProduct,
         indexOfLastProduct
     );
-    const [orden, setOrden] = useState('');
 
     const paginado = (pageNumber) => {
         setCurrentPage(pageNumber);
     };
 
     // SE DESPACHA EL ESTADO DEL LOCALSTORAGE Y SE VALIDA
-    useEffect(()=>{
+    useEffect(() => {
         dispatch(loginUserLocal())
-        
-    },[])
+
+    }, [])
 
     useEffect(() => {
         dispatch(axiosAllProductsByCountries(productsCountry));
     }, [dispatch, productsCountry]);
 
-        // if (userData?.isAdmin && userData?.isSuperAdmin && userData?.access) {
-            // } else {
-        //     dispatch(axiosProductsByCatalogListing(productsCountry));
+    // if (userData?.isAdmin && userData?.isSuperAdmin && userData?.access) {
+    // } else {
+    //     dispatch(axiosProductsByCatalogListing(productsCountry));
 
     useEffect(() => {
         setIsLoading(true);
-       
+
         dispatch(loginUserLocal())
         const timer = setTimeout(() => {
             setIsLoading(false);
@@ -113,24 +112,25 @@ const Home = () => {
     }
 
     return (
-        <div className={style.body}>
-            <Filter
-                setCurrentPage={setCurrentPage}
-                setOrden={setOrden}
-                orden={orden}
-                countryId={productsCountry}
-                
-                
-            />
-            <div className="paginado">
-                <Products currentProducts={paginatedProducts} />
-                <Paginado
-                    key="paginado"
-                    productsPerPage={productsPerPage}
-                    products={currentProducts.length}
-                    paginado={paginado}
-                    currentProducts={paginatedProducts}
+        <div>
+            <div className={style.filter}>
+                <Filter
+                    setCurrentPage={setCurrentPage}
+                    countryId={productsCountry}
                 />
+            </div>
+            <div className={style.body}>
+
+                <div className="paginado">
+                    <Products currentProducts={paginatedProducts} />
+                    <Paginado
+                        key="paginado"
+                        productsPerPage={productsPerPage}
+                        products={currentProducts.length}
+                        paginado={paginado}
+                        currentProducts={paginatedProducts}
+                    />
+                </div>
             </div>
         </div>
     );
