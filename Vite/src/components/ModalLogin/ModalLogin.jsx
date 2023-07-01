@@ -65,9 +65,7 @@ function Example() {
       const response = await axios.post('https://pf-elatam.onrender.com/users/login', form)
       
       if (response.data == 'Firebase: Error (auth/wrong-password).'){
-        console.log(textModal);
         setTextModal("La contraseña es incorrecta")
-        console.log(textModal);
         setShowModal(true)
       }else if (response.data == 'Firebase: Error (auth/user-not-found).'){
         setTextModal("El usuario no existe")
@@ -79,13 +77,12 @@ function Example() {
         handleClose()
         return 
       }
-      
       const token = await axios.post('https://pf-elatam.onrender.com/users/getToken', response.data)
       localStorage.setItem("user", JSON.stringify(response.data))
       localStorage.setItem("token", JSON.stringify(token.data))
 
       if(response.data.access && location.pathname === '/'){
-        navigate('./home')
+       navigate('./home')
       }else if (response.data.access && location.pathname === '/Cart'){
         navigate(`/Purchase?cartId=${userData.cartId}`)
       }else if (response.data.access){
@@ -106,21 +103,26 @@ function Example() {
     const result = await signInWithPopup(auth, provider);
     const dataUser = { email : result.user.email,
                         name : result.user.displayName,
-                        country: selectCountry
+                        country: selectCountry,
+                        firebaseId: result.user.uid
                         }
     const response = await axios.post('https://pf-elatam.onrender.com/users/googleExist', dataUser);
    
     const user = {
+      userId: response.data.userId,
       name: result.user.displayName,
+      surname: response.data.surname,
       email: result.user.email,
       access: response.data.access,
       isAdmin: response.data.isAdmin,
       isSuperAdmin: response.data.isSuperAdmin,
       verified: result.user.emailVerified,
+      postal_code: response.data.postal_code,
       address: response.data.address,
       city: response.data.city,
       country: response.data.country,
-      cartId: response.data.cartId
+      cartId: response.data.cartId,
+      firebaseId: response.data.firebaseId
     }
 
 
@@ -129,11 +131,11 @@ function Example() {
         localStorage.setItem("user", JSON.stringify(user))
         
         if(response.data.access && location.pathname === '/'){
-          navigate('./home')
+         navigate('./home')
         }else if (response.data.access && location.pathname === '/Cart'){
-          navigate(`/Purchase?cartId=${userData.cartId}`)
+         navigate(`/Purchase?cartId=${userData.cartId}`)
         }else if (response.data.access){
-          window.location.reload();
+         window.location.reload();
         }
         handleClose()
      

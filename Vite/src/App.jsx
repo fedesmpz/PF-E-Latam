@@ -18,6 +18,7 @@ import Users from './components/DashboardAdmin/Users';
 import NavBar from './components/NavBar/NavBar';
 import SubFooter from './components/SubFooter/SubFooter';
 import FooterLanding from './components/FooterLanding/FooterLanding';
+import Profile from './components/Profile/Profile'
 
 
 function App() {
@@ -58,7 +59,7 @@ function App() {
         <Route path="/" element={<Landing />} />
         <Route path="/About" element={<About />} />
         <Route path="/Home" element={<Home />} />
-
+        <Route path="/Profile" element={access ? <Profile/> : <Navigate to="/Home" />} />
         <Route path="/CreateProduct" element={access && admin ? <CreateProduct /> : <Navigate to="/Home" />} />
         <Route path="/DetailProduct" element={<DetailProduct />} />
         <Route path="/DashBoardAdmin" element={access && admin ? <DashBoardAdmin /> : <Navigate to="/Home" />} />
