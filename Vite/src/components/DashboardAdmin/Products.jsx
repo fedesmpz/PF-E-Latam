@@ -9,6 +9,8 @@ import StylesAdmin from "./DashboardAdmin.module.css"
 import TableSeller from '../ComponentsAdmin/ProductsSeller/TableSeller'
 import AllProductsSellers from '../ComponentsAdmin/ProductsSeller/AllProductsSellers'
 import NavbarAdmin from '../NavBarAdmin/NavbarAdmin'
+import Styles from "../NavBarAdmin/NavbarAdmin.module.css"
+import { Link } from 'react-router-dom';
 
 
 
@@ -47,6 +49,17 @@ const Products = () => {
       <Sidebar />
       <div className={StylesAdmin.containerHomeAdmin} style={{ marginLeft: isOpen ? '120px' : (!isOpen && '60px') }}>
       <NavbarAdmin/>
+      
+      <div className={StylesAdmin.statSales}>
+          <TableSeller
+            key="paginado"
+            productsPerPage={productsPerPage}
+            products={currentProducts.length}
+            paginado={paginado}
+            currentProducts={paginatedProducts}
+          />
+          <Link className={Styles.button} to="/CreateProduct">Añadir Producto</Link>
+      </div>
         
         {/* <div className={StylesAdmin.containerProducts}>
           <TableProducts
@@ -59,13 +72,6 @@ const Products = () => {
           <AllProductsAdmin currentProducts={paginatedProducts} />
         </div> */}
         <div className={StylesAdmin.containerProducts}>
-          <TableSeller
-            key="paginado"
-            productsPerPage={productsPerPage}
-            products={currentProducts.length}
-            paginado={paginado}
-            currentProducts={paginatedProducts}
-          />
           <AllProductsSellers currentProducts={paginatedProducts} />
         </div>
       </div>
