@@ -105,6 +105,10 @@ const NavBar = () => {
     setShowModal(false);
   };
 
+  const handlerProfile = () =>{
+    navigate('/Profile')
+  }
+
 
   return (
     <div className={Styles.navbar}>
@@ -189,7 +193,19 @@ const NavBar = () => {
         }
       
         {isLoggedIn ? 
-        (<button className={Styles.button} onClick={handlerLogout}>Logout</button>) : 
+        (
+        <div className={Styles.cartContainer}>
+          <div>
+            <button className={Styles.button} onClick={handlerProfile}>Perfil</button>
+
+          </div>
+          <div>
+            <button className={Styles.button} onClick={handlerLogout}>Logout</button>
+
+          </div>
+        </div>
+        
+        ) : 
         (
         <div className={Styles.cartContainer}>
           <div>

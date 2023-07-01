@@ -16,7 +16,6 @@ const Home = () => {
     const productsCountry = useSelector((state) => state.products.country);
     const [isLoading, setIsLoading] = useState(true);
     const userData = useSelector((state) => state.user.userData);
-    
     //SE DESPACHA EL ESTADO DEL LOCALSTORAGE Y SE VALIDA
     useEffect(()=>{
         dispatch(loginUserLocal())
@@ -35,7 +34,6 @@ const Home = () => {
 
     useEffect(() => {
         setIsLoading(true);
-        console.log(userData);
        
         dispatch(loginUserLocal())
         const timer = setTimeout(() => {
@@ -46,13 +44,6 @@ const Home = () => {
             clearTimeout(timer);
         };
     }, []);
-
-
-
-    const access = userData.access
-    const admin = userData.isAdmin
-    const superAdmin = userData.isSuperAdmin
-    const verified = userData.verified
 
 
     const array = useSelector((state) => state.products.products);

@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import classnames from "classnames";
@@ -16,11 +16,13 @@ const MENU_LIST = [
   { text: "Soluciones", href: "/contact" },
 ];
 const NavbarPage = () => {
+
   const [navActive, setNavActive] = useState(null);
   const [activeIdx, setActiveIdx] = useState(-1);
   const userData = useSelector((state) =>  state.user.userData);
   const [isLoggedIn, setIsLoggedIn] = useState(userData.access);
   const dispatch = useDispatch();
+  const navigate =useNavigate()
 
 
   useEffect(() => {
@@ -38,6 +40,13 @@ const NavbarPage = () => {
   const handlerLogout = async () => {
     await dispatch(logoutUser())
   }
+  
+  const handlerProfile = () =>{
+    navigate('/Profile')
+  }
+
+
+
 
   return (
     <header className={styles.header}>
@@ -91,7 +100,11 @@ const NavbarPage = () => {
             </div>
           ))}
         {isLoggedIn ? 
-        (<Button onClick={handlerLogout}>Logout</Button>) : 
+        (<div>
+          <Button onClick={handlerProfile}>Perfil</Button>
+          <Button onClick={handlerLogout}>Logout</Button>
+        </div>
+        ) : 
         (
           <div>
             <ModalSignIn/>
