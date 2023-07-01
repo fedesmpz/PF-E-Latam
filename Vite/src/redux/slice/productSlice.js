@@ -5,6 +5,7 @@ export const productSlice = createSlice({
   name: 'products',
   initialState: {
     products: [],
+    productsFiltered: [],
     categories: [],
     country: "ARG",
     detail: {},
@@ -130,7 +131,20 @@ export const productSlice = createSlice({
       state.products = sortedProducts; // Asignar la lista ordenada al estado
     },
     
-    setFilterByCategory: (state, action) => {
+    setFilterByShipping: (state, action) => {
+      const filterByCategory = state.allProducts;
+      const filteredCat = filterByCategory.filter((product) => {
+        return product.categories === action.payload;
+      });
+
+      if (action.payload === 'all') {
+        state.products = state.allProducts;
+      } else {
+        state.products = filteredCat;
+      }
+    },
+
+    setFilterByDiscount: (state, action) => {
       const filterByCategory = state.allProducts;
       const filteredCat = filterByCategory.filter((product) => {
         return product.categories === action.payload;
@@ -189,7 +203,8 @@ export const {
   filterByCategory,
   cleanDetail,
   cleanEditDetail,
-  setFilterByCategory,
+  setFilterByShipping,
+  setFilterByDiscount,
   setNewProductMessage,
   setEditProductMessage,
   setHideProduct,

@@ -8,6 +8,11 @@ const Filter = ({ countryId, setCurrentPage }) => {
   const [nameOrder, setNameOrder] = useState("");
   const [priceOrder, setPriceOrder] = useState("");
   const [category, setCategory] = useState("");
+  const [discount, setDiscount] = useState("");
+  const [shipping, setShipping] = useState("");
+  const [priceRange, setPriceRange] = useState(Infinity);
+
+
   console.log(countryId);
   function handleSort(event) {
     setCurrentPage(1);
@@ -33,10 +38,28 @@ const Filter = ({ countryId, setCurrentPage }) => {
     setPriceOrder("---");
   }
 
+  const handleDiscountChange = (event) => {
+    setCurrentPage(1);
+    setDiscount(event.target.value)
+    dispatch();
+    setNameOrder("---");
+    setPriceOrder("---");
+  }
+
+  const handleShippingChange = (event) => {
+    setCurrentPage(1);
+    setShipping(event.target.value)
+    dispatch();
+    setNameOrder("---");
+    setPriceOrder("---");
+  }
+
   useEffect(() => {
     setCategory("all")
     setNameOrder("---")
     setPriceOrder("---")
+    setShipping("---")
+    setDiscount("---")
   }, [countryId])
 
   return (
@@ -64,6 +87,20 @@ const Filter = ({ countryId, setCurrentPage }) => {
         <option value="celulares">Celulares</option>
         <option value="electronica">Electrónica</option>
         <option value="videojuegos">Videojuegos</option>
+      </select>
+
+      <label>Descuento</label>
+      <select className={Styles.select} value={discount} onChange={handleDiscountChange}>
+        <option value="---">---</option>
+        <option value="true">con descuento</option>
+        <option value="false">sin descuento</option>
+      </select>
+
+      <label>Envío</label>
+      <select className={Styles.select} value={shipping} onChange={handleShippingChange}>
+        <option value="---">---</option>
+        <option value="true">envío gratis</option>
+        <option value="false">envío pago</option>
       </select>
     </div>
   );

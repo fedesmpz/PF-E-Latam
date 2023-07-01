@@ -88,20 +88,25 @@ const Home = () => {
     }
 
     return (
-        <div className={style.body}>
-            <Filter
-                setCurrentPage={setCurrentPage}
-                countryId={productsCountry}
-            />
-            <div className="paginado">
-                <Products currentProducts={paginatedProducts} />
-                <Paginado
-                    key="paginado"
-                    productsPerPage={productsPerPage}
-                    products={currentProducts.length}
-                    paginado={paginado}
-                    currentProducts={paginatedProducts}
+        <div>
+            <div className={style.filter}>
+                <Filter
+                    setCurrentPage={setCurrentPage}
+                    countryId={productsCountry}
                 />
+            </div>
+            <div className={style.body}>
+
+                <div className="paginado">
+                    <Products currentProducts={paginatedProducts} />
+                    <Paginado
+                        key="paginado"
+                        productsPerPage={productsPerPage}
+                        products={currentProducts.length}
+                        paginado={paginado}
+                        currentProducts={paginatedProducts}
+                    />
+                </div>
             </div>
         </div>
     );
