@@ -149,7 +149,6 @@ const Cart = () => {
                                 </p>
                             )}
                             <div>
-                                <p>
                                     {product.shipping ? (
                                         <p>
                                             Envío: <strong>gratis</strong>
@@ -160,7 +159,6 @@ const Cart = () => {
                                             <strong>se sumará en el total de la compra</strong>
                                         </p>
                                     )}
-                                </p>
                             </div>
                         </div>
                         <div className={style.productActions}>

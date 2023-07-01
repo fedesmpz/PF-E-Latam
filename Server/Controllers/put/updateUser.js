@@ -4,7 +4,6 @@ const {Cart}=require("../../db");
 const { currencyIdValidator } = require("../../Utilities/currencyIdValidator.js")
 
 const updateUser = async(id,name,surname,email,birth_date,profile_picture,country,city,address,postal_code)=>{
-
 try {
     const user = await User.findByPk(id, {
         include: Cart
@@ -29,7 +28,11 @@ try {
           { where: { userId: id } }
         );
     }
-    return "Usuario actulizado correctamente"    
+    let responseUser = null;
+    if(updatedUser) {
+        responseUser = await User.findByPk(id)
+    }
+    return responseUser   
 } catch (error) {
     throw new Error('Error al actualizar el usuario');
 }

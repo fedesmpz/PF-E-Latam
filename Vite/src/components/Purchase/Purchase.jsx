@@ -4,7 +4,7 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { useNavigate } from 'react-router-dom';
 import 'react-tabs/style/react-tabs.css';
 import styles from './Purchase.module.css';
-import { getGeocoding, loginUserLocal } from '../../redux/slice/userSlice';
+import { loginUserLocal, updateUser, getUserById } from '../../redux/slice/userSlice';
 import Stripe from '../Stripe/Stripe';
 import { getProductsFromCart, loadProductsToCart, deleteProductsFromCart } from '../../redux/slice/cartSlice';
 
@@ -17,9 +17,12 @@ const PaymentComponent = () => {
   const paramsCartId = searchParams.get("cartId");
   const cartId = useSelector((state) => state.user.userData.cartId);
   const userData = useSelector((state) => state.user.userData);
-  const [ localUserData, setLocalUserData ] = useState(userData)
   const cartData = useSelector((state) => state.cart.products);
   const cartTotal =  useSelector((state) => state.cart.total_price);
+
+  useEffect(() => {
+    setDeliveryForm(userData);
+  }, [userData]);
 
   useEffect(() => {
     dispatch(loginUserLocal())
@@ -52,13 +55,9 @@ const PaymentComponent = () => {
     })
   }, [total, cartData])
 
-  const matchingAddress = useSelector(state => state.user.userAddress);
-
   const [deliveryForm, setDeliveryForm] = useState(userData);
 
-  useEffect(() => {
-    setDeliveryForm(userData);
-  }, [userData]);
+
 
   const totalPrice = () => {
     let totalAux = 0;
@@ -97,15 +96,11 @@ const PaymentComponent = () => {
     })
   }
 
-  const handleAddressSearch = (event) => {
-    event.preventDefault()
-    dispatch(getGeocoding(deliveryForm.address, deliveryForm.country, deliveryForm.city, deliveryForm.locality));
-    handleContinue();
-  }
-
   const handleDeliverySubmit = (event) => {
     event.preventDefault();
+    dispatch(updateUser(deliveryForm.userId, deliveryForm))
     handleContinue();
+
   }
 
   const handleCart = async (event) => {
@@ -134,9 +129,6 @@ const PaymentComponent = () => {
     setShowModal(false)
   }
 
-  useEffect(() => {
-
-  }, [matchingAddress])
 
   return (
     <div className={styles.componentContainer}>
@@ -155,11 +147,6 @@ const PaymentComponent = () => {
             <p className={styles.tabLine}></p>
             <span className={styles.tabSpan}>
               <Tab className={styles.tab} selectedClassName={styles.activeTab}>3</Tab>
-              <p className={styles.tabText}>Confirmar envio</p>
-            </span>
-            <p className={styles.tabLine}></p>
-            <span className={styles.tabSpan}>
-              <Tab className={styles.tab} selectedClassName={styles.activeTab}>4</Tab>
               <p className={styles.tabText}>Completar pago</p>
             </span>
           </TabList>
@@ -239,7 +226,6 @@ const PaymentComponent = () => {
               <h1 className={styles.tabTitle}>2. Datos de envio</h1>
               <div className={styles.container}>
                 <form onSubmit={handleDeliverySubmit}>
-
                   <div>
                     <label htmlFor="name" className={styles.label}>Nombre</label>
                     <input
@@ -330,90 +316,13 @@ const PaymentComponent = () => {
                     <button className={styles.back_Button} onClick={handleBack}>
                       Atras
                     </button>
-                    <button className={styles.continueButton} onClick={handleAddressSearch}>Buscar</button>
+                    <button className={styles.continueButton}>Guardar y continuar</button>
                   </div>
                 </form>
               </div>
             </div>
             <div className={styles.bannerContainer}>
               <img src="images/imagenes_hero/1.png"></img>
-            </div>
-          </TabPanel>
-
-          <TabPanel className={styles.tabPanel}>
-            <div className={styles.megaContainer}>
-            <div className={styles.doublePanelContainer}>
-              <h1 className={styles.tabTitle}>1. Carrito</h1>
-              {
-                cartData && cartData?.map((product) => {
-                  return (
-                    <div className={styles.resumeContainer} key={product.id}>
-                      <h1 className={styles.productTitle}>{`(${product.product_Cart.quantity}) ${product.title}`}</h1>
-                      <h1 className={styles.productPrice}>
-                        { product.sale_price ? <p> $ {product.product_Cart.quantity * product.price}</p> 
-                                             : <p> $ {product.original_price * product.product_Cart.quantity}</p>}
-                      </h1>
-                    </div>
-                  )
-                })
-              }
-              <div className={styles.totalContainer}>
-                <h1 className={styles.resumePrice}>$ {cartTotal}</h1>
-              </div>
-            </div>
-            <div className={styles.panelContainer}>
-              <h1 className={styles.tabTitle}>2. Datos de envio</h1>
-              {
-                userData &&
-                    <div className={styles.userDataContainer} key={userData.id}>
-                        <div>
-                          <h1 className={styles.userDataTag}>Nombre</h1>
-                          <h1 className={styles.userDataTag}>Apellido</h1>
-                          <h1 className={styles.userDataTag}>Email</h1>
-                          <h1 className={styles.userDataTag}>Domicilio</h1>
-                          <h1 className={styles.userDataTag}>Ciudad</h1>
-                          <h1 className={styles.userDataTag}>Pais</h1>
-                          <h1 className={styles.userDataTag}>Código postal</h1>
-                        </div>
-                        <div>
-                          <h1 className={styles.userDataInfo}>{userData.name}</h1>
-                          <h1 className={styles.userDataInfo}>{userData.surname}</h1>
-                          <h1 className={styles.userDataInfo}>{userData.email}</h1>
-                          <h1 className={styles.userDataInfo}>{userData.address}</h1>
-                          <h1 className={styles.userDataInfo}>{userData.city}</h1>
-                          <h1 className={styles.userDataInfo}>{userData.country}</h1>
-                          <h1 className={styles.userDataInfo}>{userData.postal_code}</h1>
-                        </div>
-                    </div>
-              }
-            </div>
-            </div>
-            <div className={styles.panelContainer}>
-              <h2 className={styles.tabTitle}>3. Confirmar domicilio de envio</h2>
-              <div className={styles.container}>
-                <form>
-                  <div>
-                    <label htmlFor="addressOptions" className={styles.label}>Seleccionar</label>
-                    <select
-                      name="address"
-                      value={deliveryForm.address}
-                      onChange={handleDeliveryChange}>
-                      {matchingAddress.length && matchingAddress.map((add) => {
-                        return (
-                          <option value={add.place_name}>{add.place_name}</option>
-                        )
-                      })
-                      }
-                    </select>
-                  </div>
-                  <div className={styles.buttonsContainer}>
-                    <button className={styles.back_Button} onClick={handleBack}>
-                      Atras
-                    </button>
-                    <button className={styles.continueButton} onClick={handleContinue}>Guardar y Continuar</button>
-                  </div>
-                </form>
-              </div>
             </div>
           </TabPanel>
 
@@ -453,20 +362,20 @@ const PaymentComponent = () => {
                           <h1 className={styles.userDataTag}>Código postal</h1>
                         </div>
                         <div>
-                          <h1 className={styles.userDataInfo}>{userData.name}</h1>
-                          <h1 className={styles.userDataInfo}>{userData.surname}</h1>
-                          <h1 className={styles.userDataInfo}>{userData.email}</h1>
-                          <h1 className={styles.userDataInfo}>{userData.address}</h1>
-                          <h1 className={styles.userDataInfo}>{userData.city}</h1>
-                          <h1 className={styles.userDataInfo}>{userData.country}</h1>
-                          <h1 className={styles.userDataInfo}>{userData.postal_code}</h1>
+                          <h1 className={styles.userDataInfo}>{deliveryForm.name}</h1>
+                          <h1 className={styles.userDataInfo}>{deliveryForm.surname}</h1>
+                          <h1 className={styles.userDataInfo}>{deliveryForm.email}</h1>
+                          <h1 className={styles.userDataInfo}>{deliveryForm.address}</h1>
+                          <h1 className={styles.userDataInfo}>{deliveryForm.city}</h1>
+                          <h1 className={styles.userDataInfo}>{deliveryForm.country}</h1>
+                          <h1 className={styles.userDataInfo}>{deliveryForm.postal_code}</h1>
                         </div>
                     </div>
               }
             </div>
             </div>
             <div className={styles.panelContainer}>
-              <h2 className={styles.tabTitle} >4. Completar pago</h2>
+              <h2 className={styles.tabTitle} >3. Completar pago</h2>
               <div>
                 <Stripe sale={purchaseConfirmation} total={total} />
               </div>

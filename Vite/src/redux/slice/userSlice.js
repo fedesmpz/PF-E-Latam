@@ -10,7 +10,6 @@ export const userSlice = createSlice({
     userData: {
       access: false
     },
-    userAddress: [],
     userById: {}
   },
   reducers: {
@@ -67,12 +66,11 @@ export const userSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
-    getUserAddress: (state, action) => {
-      state.userAddress = action.payload
-    },
-    cleanUserAddress:(state)=>{
-      state.userAddress = []
-    },
+    updateUserDetails: (state, action) => {
+      state.userData = {
+        ...action.payload
+      }
+    }
   },
 });
 
@@ -92,8 +90,7 @@ export const {
   updateUserStart,
   updateUserSuccess,
   updateUserFailure,
-  getUserAddress,
-  cleanUserAddress,
+  updateUserDetails
 } = userSlice.actions;
 
 export default userSlice.reducer;
@@ -165,24 +162,14 @@ export const deleteUser = (userId) => async (dispatch) => {
 
 export const updateUser = (userId, userData) => async (dispatch) => {
   try {
-    dispatch(updateUserStart());
-    await axios.put(`https://pf-elatam.onrender.com/update/${userId}`, userData);
-    dispatch(updateUserSuccess());
+    const response = await axios.put(`http://localhost:8000/users/update/${userId}`, userData);
+    dispatch(updateUserDetails(response.data))
+    // await axios.put(`https://pf-elatam.onrender.com/users/update/${userId}`, userData);
   } catch (error) {
     dispatch(updateUserFailure(error.message));
   }
 };
 
-export const getGeocoding = (addressId, countryName, city, locality) => (dispatch) => {
-  axios
-      .get(`https://pf-elatam.onrender.com/users/address/${countryName}/${city}/${locality}/${addressId}`)
-      .then((response) => {
-        dispatch(getUserAddress(response.data))
-      })
-      .catch((error) => {
-        throw error;
-      });
-};
 
 export const getUsers = () => (dispatch) => {
   axios.get('https://pf-elatam.onrender.com/users')
@@ -196,7 +183,6 @@ export const getUserById = (id) => (dispatch) => {
   axios
   .get(`https://pf-elatam.onrender.com/users/${id}`)
   .then((response) => {
-    console.log(response);
     dispatch(getUserByIdStart(response.data));
     })
     .catch((error) => {
