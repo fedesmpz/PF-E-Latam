@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import Styles from "../../components/Filter/Filter.module.css";
-import { setOrderByName, setOrderByPrice, axiosAllProductByCountryCategory } from '../../redux/slice/productSlice';
+import { setOrderByName, setOrderByPrice, axiosAllProductByCountryCategory, setFilterByShipping } from '../../redux/slice/productSlice';
 
 const Filter = ({ countryId, setCurrentPage }) => {
   const dispatch = useDispatch();
@@ -12,8 +12,6 @@ const Filter = ({ countryId, setCurrentPage }) => {
   const [shipping, setShipping] = useState("");
   const [priceRange, setPriceRange] = useState(Infinity);
 
-
-  console.log(countryId);
   function handleSort(event) {
     setCurrentPage(1);
     setNameOrder(event.target.value);
@@ -41,15 +39,16 @@ const Filter = ({ countryId, setCurrentPage }) => {
   const handleDiscountChange = (event) => {
     setCurrentPage(1);
     setDiscount(event.target.value)
-    dispatch();
+    /* dispatch(); */
     setNameOrder("---");
     setPriceOrder("---");
   }
 
   const handleShippingChange = (event) => {
+    const { value } = event.target.value
     setCurrentPage(1);
-    setShipping(event.target.value)
-    dispatch();
+    setShipping(value)
+    /* dispatch(setFilterByShipping({ value, countryId })); */
     setNameOrder("---");
     setPriceOrder("---");
   }
