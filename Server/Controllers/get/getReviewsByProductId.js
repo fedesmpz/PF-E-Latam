@@ -1,8 +1,8 @@
-const { ReviewRating } = require("../../db")
+const { Review_Rating } = require("../../db")
 
 const reviewsByProductId= async(productId)=>{
 try {
-    const reviews = await ReviewRating.findAll({
+    const reviews = await Review_Rating.findAll({
         where:{
             productId:productId
         }
