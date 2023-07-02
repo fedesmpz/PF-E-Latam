@@ -5,17 +5,17 @@ const SalesCard = ({ totalSales, todaySales, monthSales}) => {
 
     return (
         <div className={Styles.card}>
-            <h3>Sales Stats</h3>
+            <h3>Estadisticas de ventas</h3>
             <div>
-                <p>Total Sales:</p>
+                <p>Total Ventas:</p>
                 <span>{totalSales}</span>
             </div>
             <div>
-                <p>Today Sales:</p>
+                <p>Ventas de hoy:</p>
                 <span>{todaySales}</span>
             </div>
             <div>
-                <p>Month Sales:</p>
+                <p>Ventas del mes:</p>
                 <span>{monthSales}</span>
             </div>
         </div>

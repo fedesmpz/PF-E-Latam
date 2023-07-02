@@ -37,10 +37,6 @@ export const options = {
     legend: {
       position: 'top',
     },
-    title: {
-      display: true,
-      text: 'Chart.js Line Chart',
-    },
   },
 };
 
