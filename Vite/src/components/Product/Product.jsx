@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import Styles from "./Product.module.css"
 
-const Product = ({ id, title, thumbnail, original_price, currency_id, price, sale_price, categories, catalog_listing }) => {
+const Product = ({ id, title, thumbnail, original_price, currency_id, price, sale_price, categories, catalog_listing, shipping }) => {
 
     let countryId;
 
@@ -39,6 +39,9 @@ const Product = ({ id, title, thumbnail, original_price, currency_id, price, sal
                         <span className={Styles.category}>{categories}</span>
                         <p className={`${!catalog_listing ? Styles.hiddenProductTag : Styles.hideTag}`}>
                             {!catalog_listing ? 'Producto oculto' : ''}
+                        </p>
+                        <p>
+                            {`Envío: ${shipping}`}
                         </p>
                     </div>
                 </div>

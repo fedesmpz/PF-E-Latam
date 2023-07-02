@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import Styles from "../../components/Filter/Filter.module.css";
-import { setOrderByName, setOrderByPrice, axiosAllProductByCountryCategory, setFilterByShipping } from '../../redux/slice/productSlice';
+import { setOrderByName, setOrderByPrice, axiosAllProductByCountryCategory, setFilterByShipping, setFilterByDiscount } from '../../redux/slice/productSlice';
 
 const Filter = ({ countryId, setCurrentPage }) => {
   const dispatch = useDispatch();
@@ -39,16 +39,15 @@ const Filter = ({ countryId, setCurrentPage }) => {
   const handleDiscountChange = (event) => {
     setCurrentPage(1);
     setDiscount(event.target.value)
-    /* dispatch(); */
+    dispatch(setFilterByDiscount(event.target.value));
     setNameOrder("---");
     setPriceOrder("---");
   }
 
   const handleShippingChange = (event) => {
-    const { value } = event.target.value
     setCurrentPage(1);
-    setShipping(value)
-    /* dispatch(setFilterByShipping({ value, countryId })); */
+    setShipping(event.target.value)
+    dispatch(setFilterByShipping(event.target.value));
     setNameOrder("---");
     setPriceOrder("---");
   }
@@ -77,17 +76,17 @@ const Filter = ({ countryId, setCurrentPage }) => {
       <label className={Styles.LabelDes}>Descuento</label>
       <select className={Styles.select2} value={discount} onChange={handleDiscountChange}>
         <option value="---">---</option>
-        <option value="true">con descuento</option>
-        <option value="false">sin descuento</option>
+        <option value={true}>con descuento</option>
+        <option value={false}>sin descuento</option>
       </select>
 
       <label className={Styles.LabelEnv}>Envío</label>
       <select className={Styles.select3} value={shipping} onChange={handleShippingChange}>
         <option value="---">---</option>
-        <option value="true">envío gratis</option>
-        <option value="false">envío pago</option>
+        <option value={true}>envío gratis</option>
+        <option value={false}>envío pago</option>
       </select>
-      
+
       <label className={Styles.LabelPre}>Precio</label>
       <select className={Styles.select4} onChange={handlePriceChange}>
         <option value="---">---</option>
