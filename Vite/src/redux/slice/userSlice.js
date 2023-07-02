@@ -109,6 +109,8 @@ export const loginUserLocal = () => async (dispatch) => {
     const resp = response.data.validate
     if(resp){
       await dispatch(getUsersStart(user));
+    }else{
+      dispatch(getUsersStart({access: false}))
     }
 
   } catch (error) {
