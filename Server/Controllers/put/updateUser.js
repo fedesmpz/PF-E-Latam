@@ -3,9 +3,11 @@ const {Cart}=require("../../db");
 
 const { currencyIdValidator } = require("../../Utilities/currencyIdValidator.js")
 
+
 const updateUser = async(userData)=>{
 
 const {id,name,surname,email,birth_date,profile_picture,country,city,address,postal_code, admin, superAdmin} = userData
+
 try {
     const user = await User.findByPk(id, {
         include: Cart
@@ -30,10 +32,13 @@ try {
           { where: { userId: id } }
         );
     }
+
+  let userReturned = {}
+   if(updatedUser) {
     const userUpdated = await User.findOne({ where: { id: id }});
     const cartUpdated = await Cart.findOne({ where: { userId: id } });
 
-    const userReturned = {
+    userReturned = {
         userId: userUpdated.id,
         name: userUpdated.name,
         surname: userUpdated.surname,
@@ -49,9 +54,13 @@ try {
         cartId: cartUpdated.id,
         firebaseId: userUpdated.firebaseId
     };
+    } else {
+      userReturned = userData
+    }
 
 
     return userReturned
+
 } catch (error) {
     throw new Error('Error al actualizar el usuario');
 }

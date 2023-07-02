@@ -1,9 +1,9 @@
 const { postReview } = require('../../Controllers/post/postReview');
 
 const postReviewHandler = async (req, res) => {
-  const { rating, review_description, productId } = req.body;
+  const { rating, review_description, productId, userId } = req.body;
   try {
-    const createdReview = await postReview( rating, review_description, productId );
+    const createdReview = await postReview( rating, review_description, productId, userId );
    
     res.status(201).json(createdReview);
   } catch (error) {

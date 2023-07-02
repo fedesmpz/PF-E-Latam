@@ -12,6 +12,7 @@ export const productSlice = createSlice({
     newProductMessage: null,
     editProductMessage: null,
     allProducts: [],
+    filteredProducts: [],
     orderByName: 'asc',
     orderByPrice: 'mayormenor',
     hideProductMessage: null,
@@ -30,12 +31,9 @@ export const productSlice = createSlice({
       state.allProducts = action.payload;
     },
 
-    // getProductsByCatalogListing: (state, action) => {
-    //   const filteredProducts = state.products.filter(product => product.catalog_listing === true);
-    //   state.products = filteredProducts;
-    // },
-    getProductsByCatalogListing: (state, action) => {
-      state.products = action.payload;
+    filterProductsByCatalogListing: (state) => {
+      state.filteredProducts = state.allProducts.filter(
+        (product) => product.catalog_listing === true)
     },
 
     setProductsCountry: (state, action) => {
@@ -130,7 +128,21 @@ export const productSlice = createSlice({
       state.products = sortedProducts; // Asignar la lista ordenada al estado
     },
     
-    setFilterByCategory: (state, action) => {
+    setFilterByShipping:(state, action) => {
+      
+      const filteredProducts = action.payload?.filter((product) => {
+        return product.shipping === true
+      });
+      console.log(filteredProducts);
+      if (action.payload === '---') {
+        state.products = state.allProducts;
+      } else {
+        state.products = filteredProducts;
+      }
+
+    },
+
+    setFilterByDiscount: (state, action) => {
       const filterByCategory = state.allProducts;
       const filteredCat = filterByCategory.filter((product) => {
         return product.categories === action.payload;
@@ -156,11 +168,6 @@ export const productSlice = createSlice({
     setEditedProduct:(state, action) => {
       state.editDetail = action.payload
       state.detail = action.payload
-      
-      // const index = state.products.findIndex(product => product.id === action.payload.id);
-      // if (index !== -1) {
-      //   state[index] = editedProduct;
-      // }
     },
 
     setpayProduct:(state, action) => {
@@ -189,14 +196,15 @@ export const {
   filterByCategory,
   cleanDetail,
   cleanEditDetail,
-  setFilterByCategory,
+  setFilterByShipping,
+  setFilterByDiscount,
   setNewProductMessage,
   setEditProductMessage,
   setHideProduct,
   setDeleteProduct,
   setpayProduct,
   setNewSaleMessage,
-  getProductsByCatalogListing,
+  filterProductsByCatalogListing,
 } = productSlice.actions;
 
 export default productSlice.reducer;
@@ -324,13 +332,22 @@ export const axiosSearchProduct = (title, country) => (dispatch) => {
       dispatch(setNewSaleMessage(error.response.data.error)))
   };
 
-  export const axiosProductsByCatalogListing = (id) => async (dispatch) => {
-    try {
-      const response = await axios.get(`https://pf-elatam.onrender.com/products/${id}`);
-      const allProducts = response.data;
-      const filteredProducts = allProducts?.filter((product) => product.catalog_listing === true);
-      dispatch(getProductsByCatalogListing(filteredProducts));
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  export const axiosFilterProductsByCatalogListing = () => (dispatch) => {
+    const urls = [
+        'https://pf-elatam.onrender.com/products/ARG',
+        'https://pf-elatam.onrender.com/products/COL',
+        'https://pf-elatam.onrender.com/products/MEX'
+    ];
+    const requests = urls.map(url => axios.get(url));
+    Promise.all(requests)
+        .then((responses) => {
+            const allProducts = responses.map(response => response.data);
+
+            // Filtrar productos por Catalog_Listing en true
+            const filteredProducts = allProducts.map(products => products.filter(product => product.catalog_listing === true));
+
+            dispatch(setAllProducts(filteredProducts));
+
+        })
+        .catch((error) => console.log(error));
+};

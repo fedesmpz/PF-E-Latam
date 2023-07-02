@@ -279,7 +279,7 @@
       align-items: center;
       position: absolute;
       font-size: 12px;
-      z-index: 9999;
+      z-index: 1;
       background-color: #4BBF68;
       border-radius: 100%;
       animation: moveNotification 0.2s infinite alternate;

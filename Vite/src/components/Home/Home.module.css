@@ -9,7 +9,13 @@
     color: #000;
     margin-right: 10px;
 }
-  
+
+.filter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .paginado {
     display: flex;
     flex-direction: column;
@@ -22,4 +28,6 @@
     text-align: center;
     margin-top: 100px;
 }
-  
+.product-column {
+    margin-left: 0px; /* Ajusta el margen izquierdo según sea necesario */
+  }

@@ -1,7 +1,7 @@
 const { DataTypes, UUID } = require("sequelize");
 
 module.exports = (sequelize) => {
-  sequelize.define('ReviewRating',
+  sequelize.define('Review_Rating',
     {
       id: {
         type: DataTypes.UUID,
@@ -26,9 +26,19 @@ module.exports = (sequelize) => {
       },
 
       productId: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         references: {
           model: 'products',
+          key: 'id',
+        },
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
+      },
+
+      userId: {
+        type: DataTypes.UUID,
+        references: {
+          model: 'users',
           key: 'id',
         },
         onDelete: 'CASCADE',
