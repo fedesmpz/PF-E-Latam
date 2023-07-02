@@ -70,27 +70,23 @@ const Home = () => {
 
     return (
         <div className={style.body}>
-            <div className="row">
-                <div className="col-md-3 filter-column">
-                    <Filter
+             <Filter
                         setCurrentPage={setCurrentPage}
                         countryId={productsCountry}
-                    />
-                </div>
-                <div className="col-md-9 product-column">
-                    <div className="paginado">
-                        <Products currentProducts={paginatedProducts} />
-                        <Paginado
+            />
+            <div className={style.main}>
+                    <Products currentProducts={paginatedProducts} />
+                    <Paginado
                             key="paginado"
                             productsPerPage={productsPerPage}
                             products={currentProducts.length}
                             paginado={paginado}
                             currentProducts={paginatedProducts}
                         />
-                    </div>
-                </div>
             </div>
         </div>
+
+
     );
 };
 
