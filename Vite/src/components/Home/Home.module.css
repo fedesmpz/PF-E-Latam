@@ -1,4 +1,13 @@
- 
+.body {
+    display: flex;
+    flex-direction: row;
+}
+
+.main {
+   
+    padding: none;
+    margin: none;
+}
 .h1 {
     font-size: 24px;
     margin-bottom: 20px;
@@ -14,13 +23,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-.paginado {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 20px;
 }
   
 .h5 {
