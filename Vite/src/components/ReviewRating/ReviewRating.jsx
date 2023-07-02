@@ -4,6 +4,7 @@ import { useLocation } from 'react-router-dom';
 import { cleanDetailReviews, postReview, getAllReviewsForProduct, deleteReview } from '../../redux/slice/ratingReviewSlice';
 import styles from "./ReviewAndRating.module.css"
 import 'starability/starability-css/starability-slot.css';
+import { loginUserLocal } from "../../redux/slice/userSlice";
 
 const ReviewRating = () => {
   const dispatch = useDispatch();
@@ -16,7 +17,9 @@ const ReviewRating = () => {
   const [showModalDeleted, setShowModalDeleted] = useState(false)
   const [deleteReviewId, setDeleteReviewId] = useState(null);
   const deletedMessage = useSelector((state) => state.reviews.deletedMessage)
+  const userData = useSelector((state) =>  state.user.userData);
   const [opinion, setOpinion] = useState({
+    userId: userData.userId,
     rating: "",
     review_description: "",
     productId: productId
@@ -24,9 +27,16 @@ const ReviewRating = () => {
   const [error, setError] = useState({
     rating: "",
     review_description: "",
-    productId: productId
+    productId: productId,
+    userId: ""
   });
 
+  useEffect(() => {
+    dispatch(loginUserLocal())
+  }, [])
+
+  useEffect(() => {
+  }, [userData])
 
   useEffect(() => {
     dispatch(getAllReviewsForProduct(productId));
@@ -110,7 +120,11 @@ const ReviewRating = () => {
             <div key={review.id}>
               <h3 className={styles.puntaje}>Puntaje: {review.rating}</h3>
               <p className={styles.parrafo}>{review.review_description}</p>
-              <button onClick={() => handlerDelete(review.id)} className={styles.buttonDelete}>Eliminar</button>
+              <p>ID del usuario: {review.userId}</p>
+              {
+                userData.access && (userData.userId === review.userId) && <button onClick={() => handlerDelete(review.id)} className={styles.buttonDelete}>Eliminar</button>
+              }
+              
             </div>
           ))}
 
@@ -141,7 +155,8 @@ const ReviewRating = () => {
 
         </div>
       </div>
-      <form onSubmit={handlerSubmit}>
+      {
+        userData.access && !userData.isAdmin && <form onSubmit={handlerSubmit}>
         <div className={styles.container}>
           <div className={styles.secondContainerCalificaicon}>
             <fieldset className="starability-slot">
@@ -166,6 +181,8 @@ const ReviewRating = () => {
 
         </div>
       </form>
+      }
+      
 
     </div>
 
