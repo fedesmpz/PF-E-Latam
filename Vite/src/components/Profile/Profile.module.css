@@ -303,3 +303,23 @@
   .previewValue::first-letter {
     text-transform: uppercase;
   }
+
+
+
+
+
+
+
+  /*----  Estilos para View Profile  ----*/
+  .aviso{
+    font-size: medium;
+    font-style: normal;
+    text-align: justify;
+    background-color: #effff3;
+    padding: 0.5rem;
+    border-radius: 0.2rem;
+  }
+
+.uppercase {
+  font-weight: bold;
+}

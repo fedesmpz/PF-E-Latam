@@ -8,6 +8,7 @@ import { CartContext } from "../../utils/CartContext";
 import ModalLogin from "../ModalLogin/ModalLogin"
 import ModalSignIn from "../ModalSignIn/ModalSingIn"
 import { loginUserLocal, logoutUser } from '../../redux/slice/userSlice';
+import ViewProfile from "../Profile/ViewProfile"
 
 
 
@@ -106,10 +107,6 @@ const NavBar = () => {
     setShowModal(false);
   };
 
-  const handlerProfile = () =>{
-    navigate('/Profile')
-  }
-
 
   return (
     <div className={Styles.navbar}>
@@ -197,8 +194,7 @@ const NavBar = () => {
         (
         <div className={Styles.cartContainer}>
           <div>
-            <button className={Styles.button} onClick={handlerProfile}>Perfil</button>
-
+            <ViewProfile/>
           </div>
           <div>
             <button className={Styles.button} onClick={handlerLogout}>Logout</button>

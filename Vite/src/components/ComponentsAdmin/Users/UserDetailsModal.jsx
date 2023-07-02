@@ -1,16 +1,13 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "react-bootstrap/Image";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import Styles from "./StylesUsers/User.module.css"
+import Styles from "./StylesUsers/User.module.css";
 import { BiArchive } from "react-icons/bi";
-import { useState } from 'react';
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
-import { useDispatch } from 'react-redux';
-import { updateUser } from '../../../redux/slice/userSlice';
-
-
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
+import { useDispatch, useSelector } from "react-redux";
+import { getUserById } from "../../../redux/slice/userSlice";
 
 const UserDetailsModal = ({
   props,
@@ -26,35 +23,29 @@ const UserDetailsModal = ({
   postal_code,
   createdAt,
 }) => {
-
   const dispatch = useDispatch();
-  
-  const toggleAdminStatus = (userId, userData, currentAdminStatus) => {
-    
-    const newAdminStatus = !currentAdminStatus;
-    
-    const updatedUserData = {
-      ...userData,
-      admin: newAdminStatus,
-    };
+  const [show, setShow] = useState(false); 
+  const handleClose = () => setShow(false);
+  const handleShow = () => {
+    setShow(true);
+  }
+  const userId = id
+  useEffect(() => {
+    dispatch(getUserById(userId)); // Consultar el usuario por su ID al cargar el componente
+  }, [dispatch, userId]);
 
-    const confirmAction = window.confirm('¿Estás seguro de convertir a este usuario en administrador?');
-    
-    if (confirmAction) {
-      dispatch(updateUser(userId, updatedUserData))
-      .then(() => {
-        alert('Estado de admin actualizado en la base de datos');
-        console.log(updatedUserData);
-      })
-      .catch(error => {
-        console.error('Error al actualizar el estado de admin en la base de datos:', error);
-      });
-    } else {
-      alert('Acción cancelada');
-    }
-  };
-    
+  const user = useSelector((state) => state.user.userById);
+  console.log(user);
+  
+  
+  const handleClick = () => {
+    handleShow();
+  
+  }
+
+
   let isAdmin;
+  
   if (admin === false) {
     isAdmin = "No";
   } else if (admin === true) {
@@ -63,17 +54,9 @@ const UserDetailsModal = ({
     isAdmin = "No Definido";
   }
 
-    const [show, setShow] = useState(false);
-
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
-
-    
-
-
     return (
     <div>
-    <a className={Styles["a"]} onClick={handleShow}>
+    <a className={Styles["a"]} onClick={handleClick}>
             <p className={Styles["text"]}>
             <br></br>
             <BiArchive className={Styles["icon"]} />

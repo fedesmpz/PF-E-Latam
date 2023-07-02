@@ -23,7 +23,7 @@ const User = ({
     isAdmin = "No Definido";
   }
 
-  const maxLength = 60;
+  const maxLength = 30;
 
   const shortenname = (name) => {
     if (name.length > maxLength) {
@@ -46,7 +46,7 @@ const User = ({
         />
       </div>
       <div className={Styles.textContainer}>
-        <p className="text-gray-800 font-bold">{shortenname(name)}</p>
+        <p className="text-gray-800 font-bold">{shortenname(name)} {shortenname(surname)}</p>
         <p className="text-gray-400 text-sm">Pais: {country}</p>
         <p className="text-gray-400 text-sm">Email: {email}</p>
       </div>

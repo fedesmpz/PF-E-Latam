@@ -10,7 +10,7 @@ export const userSlice = createSlice({
     userData: {
       access: false
     },
-    userById: {}
+    userById: []
   },
   reducers: {
     getUserByIdStart(state, action) {
