@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import NavbarPage from "../NavBarPage/NavbarPage"
+import NavBar from "../NavBar/NavBar";
 import CarouselProducts from "../CarouselProducts/CarouselProducts"
 import CarouselHero from "../CarouselImg/CarouselImg"
 import FooterLanding from "../FooterLanding/FooterLanding"
@@ -29,7 +30,7 @@ const Landing = () => {
   }
   return (
     <div>
-      <NavbarPage />
+      <NavBar></NavBar>
       <CarouselHero />
       <section className={styles.container}>
         <div className={styles['text-container']}>

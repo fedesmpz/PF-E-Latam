@@ -114,7 +114,9 @@ const NavBar = () => {
   return (
     <div className={Styles.navbar}>
       <div className={Styles.leftContainer}>
-        <Link className={Styles.logo} to="/">
+        {
+          location.pathname === "/Home" && 
+          <Link className={Styles.logo} to="/">
           <div className={Styles.logoContainer}>
             <img
               className={Styles.logoE}
@@ -132,8 +134,30 @@ const NavBar = () => {
             />
           </div>
         </Link>
+        }
+        {
+          location.pathname !== "/Home" &&
+          <Link className={Styles.logo} to="/Home">
+          <div className={Styles.logoContainer}>
+            <img
+              className={Styles.logoE}
+              src="/assets/e-world.png"
+              width={100}
+              height={100}
+              alt="Animación1"
+            />
+            <img
+              className={Styles.logoLam}
+              src="/assets/latam-store.png"
+              width={100}
+              height={100}
+              alt="Animación2"
+            />
+          </div>
+        </Link>
+        }
 
-        <div className={Styles.flags}>
+        {location.pathname === "/Home" && <div className={Styles.flags}>
           <Select
             options={options}
             value={options.find(option => option.value === country)}
@@ -148,6 +172,8 @@ const NavBar = () => {
             getOptionValue={option => option.value}
           />
         </div>
+        }
+
 
         {showModal && (
           <div className={Styles.modal}>
@@ -162,7 +188,7 @@ const NavBar = () => {
         {location.pathname === "/Home" &&
           <div className={Styles.searchBar}>
             <input type="search" placeholder="¿Qué buscas hoy?" value={title} onChange={handleSearch} />
-            <button onClick={handlerClick} className={Styles.buttonBusqueda}>Buscar</button>
+            <button onClick={handlerClick} className={Styles.button}>Buscar</button>
           </div>
         }
       </div>
@@ -170,11 +196,11 @@ const NavBar = () => {
       <div className={Styles.rightContainer}>
         {!userData.isAdmin && (
                   <div className={Styles.cartContainer}>
-                  {notifications &&
+                    {notifications &&
                     <div className={Styles.productsNumber}>
                       <span>{productsInCart}</span>
                     </div>
-                  }
+                    }
                   <Link className={Styles.cartButton} to="/Cart" >
                     <img
                       className={Styles.iconCarrito}
@@ -188,33 +214,23 @@ const NavBar = () => {
         )}
         {userData.access === true && userData.isAdmin &&
            <>
-              <Link className={Styles.button} to="/CreateProduct">New</Link>
+              <Link className={Styles.button} to="/CreateProduct">Crear</Link>
               <Link className={Styles.button} to="/DashboardAdmin">Admin</Link>
            </>
         }
       
         {isLoggedIn ? 
         (
-        <div className={Styles.cartContainer}>
-          <div>
+        <div>
             <button className={Styles.button} onClick={handlerProfile}>Perfil</button>
-
-          </div>
-          <div>
-            <button className={Styles.button} onClick={handlerLogout}>Logout</button>
-
-          </div>
+            <button className={Styles.button} onClick={handlerLogout}>Cerrar sesión</button>
         </div>
         
         ) : 
         (
-        <div className={Styles.cartContainer}>
-          <div>
+        <div>
             <ModalSignIn/>
-          </div>
-          <div>
             <ModalLogin/>
-          </div>
         </div>
         )}
       </div>
