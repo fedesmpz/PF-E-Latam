@@ -24,13 +24,13 @@ const Sidebar = () => {
         <li className={styles.orderList}>
                     <Link  className={styles.menuItem} to="/Home">
                       <FaHome className={styles.icon} />
-                      <span className={`${styles.text} ${isOpen ? '' : styles.hidden}`}>Home</span>
+                      <span className={`${styles.text} ${isOpen ? '' : styles.hidden}`}>Inicio</span>
                     </Link>
         </li>
         <li className={styles.orderList}>
                     <Link className={styles.menuItem} to="/DashboardAdmin">
                       <FaLaptopCode className={styles.icon} />
-                      <span className={`${styles.text} ${isOpen ? '' : styles.hidden}`}>Dashboard</span>
+                      <span className={`${styles.text} ${isOpen ? '' : styles.hidden}`}>Panel</span>
                     </Link>
         </li>
         <li className={styles.orderList}>
