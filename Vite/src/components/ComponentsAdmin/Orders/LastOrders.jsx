@@ -6,7 +6,7 @@ import Styles from './LastOrders.module.css'
 const LastOrders = () => {
   return (
     <div className={Styles.container}>
-      <h1>Recent Orders</h1>
+      <h1>Ordenes recientes</h1>
       <ul>
         {data.map((order, id) => (
           <li

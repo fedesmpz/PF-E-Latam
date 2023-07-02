@@ -8,7 +8,7 @@ const ProcessOrders = () => {
 
   return (
     <div className={Styles.container}>
-      <h1>Processing Orders</h1>
+      <h1>Procesamiento de pedidos</h1>
       <ul>
         {filteredOrders.map((order) => (
           <li key={order.id} className={Styles.order}>
