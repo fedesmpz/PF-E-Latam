@@ -28,20 +28,25 @@ const Product = ({ id, title, thumbnail, original_price, currency_id, price, sal
                     <img src={thumbnail} alt={title} />
                     <div className={Styles.cardDetails}>
                         <h2 className={`${Styles.title} ${Styles.thinTitle}`}>{shortenTitle(title)}</h2>
-                        {sale_price ? (
-                            <>
-                                <p className={Styles.original_price}>$ {currency_id} {original_price}</p>
-                                <p className={Styles.sale_price}>$ {currency_id} {price}</p>
-                            </>
-                        ) : (
-                            <p className={Styles.price}>$ {currency_id} {original_price}</p>
-                        )}
+                        <div className={Styles.priceTag}>
+                        {sale_price ? ( <>
+                            <span className={Styles.sale_price}> ${price}</span> 
+                        </> )
+                        : (<span className={Styles.price}>${original_price}</span>)
+                        }
+                            {/* {sale_price ? ( <>
+                                    <p className={Styles.sale_price}>$ {currency_id} {price}</p>
+                                    <p className={Styles.original_price}>$ {currency_id} {original_price}</p>
+                                </> ) : (
+                                <p className={Styles.price}>$ {currency_id} {original_price}</p>
+                            )} */}
+                        { shipping && <span className={Styles.shipping}>Envío gratis</span> }
+                        </div>
+                        
+                        
                         <span className={Styles.category}>{categories}</span>
                         <p className={`${!catalog_listing ? Styles.hiddenProductTag : Styles.hideTag}`}>
                             {!catalog_listing ? 'Producto oculto' : ''}
-                        </p>
-                        <p>
-                            {`Envío: ${shipping}`}
                         </p>
                     </div>
                 </div>
