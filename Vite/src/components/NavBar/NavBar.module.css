@@ -132,10 +132,31 @@
     border: none;
     border-top: 2px solid transparent;
   }
+
+  .buttonProfile{
+    display: inline;
+    margin-left: 15px;
+    margin-right: 10px;
+    margin-top: 5px;
+    align-items: center;
+    cursor: pointer;
+    color:  #4E55D9;
+  }
+
+  .buttonProfile:hover{
+    color:  #2d33a1;
+  font-weight: 400;
+  }
   
 .button:hover{
   color:  #2d33a1;
   font-weight: 400;
+}
+
+.buttonCenter{
+  display: flex;
+  justify-content: center;
+  /* margin-top: 20px; */
 }
 
 .modal {
@@ -232,8 +253,11 @@
 
 .profileButtonContainer{
   display: flex;
-  
+}
 
+.profileName{
+  display: flex;
+  align-items: center
 }
 
     .roundButton {
