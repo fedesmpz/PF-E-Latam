@@ -35,7 +35,7 @@ const loginController= async( email, password )=>{
                 address: existingUser.address,
                 city: existingUser.city,
                 country: existingUser.country,
-                profile_picture: existingUser.profile_picture,
+                profile_picture: existingUser.profile_picture || userCredentials.user.photoURL,
                 cartId: cartFind,
                 firebaseId: existingUser.firebaseId
             };
