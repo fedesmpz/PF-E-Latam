@@ -31,18 +31,19 @@ try {
     }
     let userUpdated;
     if(updatedUser) {
-        userUpdated = await User.findByPk(id, {
-            include: Cart
-        })
+        userUpdated = await User.findByPk(id);
+        cartUpdated = await Cart.findOne({where: {
+            userId: id
+        }})
     }
     const userReturned = {
         ...userUpdated.dataValues,
+        cartId: cartUpdated.id,
         userId: id,
         access: access,
         verified: verified,
         firebaseId: firebaseId
     }
-    console.log(userReturned)
     return userReturned
 } catch (error) {
     throw error;
