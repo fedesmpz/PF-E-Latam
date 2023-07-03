@@ -24,6 +24,10 @@
     transform: translateX(0);
 }
 
+.filterIcon {
+  width: 30px;
+  height: 30px;
+}
 .btnToggle {
     display: flex;
     flex-direction: column;

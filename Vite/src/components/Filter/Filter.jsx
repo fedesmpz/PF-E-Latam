@@ -70,9 +70,18 @@ const Filter = ({ countryId, setCurrentPage }) => {
   return (
     <div className={`${Styles.sidebar} ${isOpen ? Styles.open : Styles.close}`}>
     <button className={Styles.btnToggle} onClick={toggleSidebar}>
-      <span></span>
-      <span></span>
-      <span></span>
+      {
+        isOpen ? (
+        <>
+          <span></span>
+          <span></span>
+          <span></span>
+        </>
+        ) :
+        (
+          <img src="/assets/filter.png" className={Styles.filterIcon}></img>
+        )
+      }
     </button>
     <div className={`${Styles.containerSelect} ${isOpen ? '' : Styles.notShow}`} >
       <label className={Styles.Label}>Categoría</label>
