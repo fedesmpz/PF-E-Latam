@@ -7,10 +7,10 @@ const { stripePost }= require("../../Controllers/post/stripePost.js")
 const stripe = new Stripe("sk_test_51NMEmIAqi82qB8rdhFdmHI7JLwSpPqgGBToNlbB1X57NkDLn0uvbYlsN8LXR3wSoYSl8DHg0nxsTuxABBxxcaa3U00nNPYUfHw");
 
 const stripeHandler = async (req, res) => {
-  let { amount, currency, description,  payment_method, products_id, email } = req.body;
+  let { amount, currency, description,  payment_method, products_id, receipt_email } = req.body;
   
   try {
-   if( !amount || !currency || !description || !payment_method|| !products_id || !email){
+   if( !amount || !currency || !description || !payment_method|| !products_id || !receipt_email){
    throw new Error("faltan datos")
    }
     amount = amount * 100;
@@ -18,12 +18,13 @@ const stripeHandler = async (req, res) => {
      amount,
      currency,
      description,
-     payment_method
+     payment_method,
+     receipt_email
      
    });
 
   const confirmedPaymentIntent = await stripe.paymentIntents.confirm(paymentIntent.id);
-   const savedBDD= await stripePost(amount,products_id,email)
+   const savedBDD= await stripePost(amount,products_id,receipt_email)
 
     return res.status(200).json("Muchas gracias por tu compra")
   } catch (error) {
