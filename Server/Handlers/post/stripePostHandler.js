@@ -13,12 +13,12 @@ const stripeHandler = async (req, res) => {
   const paymentNotification = async () => {
 
     const config = {
-      host: "smtp.gmail.net",
+      host: "smtp.gmail.com",
       port: 465,
       secure: true,
       auth: {
         user: 'E.latam.henry@gmail.com',
-        pass: 'henry2023',
+        pass: 'hjkblozrmqiltmim',
       }
     };
 
@@ -26,13 +26,18 @@ const stripeHandler = async (req, res) => {
       from: "E.latam.henry@gmail.com",
       to: `${email}`,
       subject: 'Compra exitosa',
-      text: `compra exitosa del siguiente producto: ${description}${currency}${amount}`
+      html:`
+      <h1>¡Compra exitosa!</h1>
+      <p>Has realizado una compra exitosa del siguiente producto:</p>
+      <p>${description}</p>
+      <p>Precio: ${currency} ${amount}</p>
+      <p>Gracias por tu compra.</p>
+      <h2>E-Latam</h2>
+    `
     };
 
     const transport = nodemailer.createTransport(config)
     const info = await transport.sendMail(message)
-
-    console.log(info);
   }
   
   try {
