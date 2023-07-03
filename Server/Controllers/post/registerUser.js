@@ -30,7 +30,8 @@ const registerUser= async(name, surname, email, password, country, city, address
             country, 
             city, 
             address,
-            firebaseId: userCredentials.user.uid
+            firebaseId: userCredentials.user.uid,
+            profile_picture: userCredentials.user.photoURL
             },
             { transaction }
         )
