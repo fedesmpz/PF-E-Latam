@@ -19,6 +19,7 @@ const Profile = () => {
 
     useEffect(()=>{
         dispatch(loginUserLocal())
+        console.log(userData);
         
     },[])
 
@@ -26,11 +27,12 @@ const Profile = () => {
         name: userData.name,
         surname: userData.surname,
         email: userData.email,
+        profilePicture: userData.profile_picture,
         //surname: userData.name,
         birth_date: userData.name,
-        sale_price: null,
-        sold_quantity: 0,
-        birth_date: 0,
+        address: userData.address,
+        city: userData.city,
+        postal_code: userData.postal_code,
         shipping: null,
         attributes: "",
         promotions: [],
@@ -105,7 +107,6 @@ const Profile = () => {
         //     ...newProduct,
         //     uri: profilePicture
         // }))
-        console.log(profilePicture);
         // if (isFormValid) {
             setNewDataUser({
         //         name: "",
@@ -220,31 +221,39 @@ const Profile = () => {
                     <h2 className={style.PreviewofProduct}>Datos de tu perfil</h2>
                     <div className={style.firstRow}>
                         <div className={style.thumbnailContainer}>
-                            {!profilePicture &&
+                            {!newDataUser.profilePicture &&
                                 <p className={style.previewTitleThumbnail}>La vista previa de la imagen aparecera aqui</p>}
-                            {profilePicture && <img className={style.thumbnail} src={profilePicture} alt="product_thumbnail"></img>}
+                            {newDataUser.profilePicture && <img className={style.thumbnail} src={newDataUser.profilePicture} alt="product_thumbnail"></img>}
                         </div>
                         <div>
-                            <h2 className={style.previewValue}>{newDataUser.name ? newDataUser.name : `Tu nombre`}</h2>
-                            <h2 className={style.previewValue}>{newDataUser.surname ? newDataUser.surname : `Tu apellido`}</h2>
-                            <span className={style.previewLines}><h3 className={style.previewLabel}>Pais</h3><h3 className={style.previewValue}>{newDataUser.country}</h3></span>
-                            <span className={style.previewLines}><h3 className={style.previewLabel}>E-Mail </h3>
-                                <h3 className={style.previewValue}>{`: ${newDataUser.email}`}</h3></span>
-                            <span className={style.previewLines}><h3 className={style.previewLabel}>Fecha de nacimiento</h3><h3 className={style.previewValue}> {newDataUser.birth_date}</h3></span>
+                            <h2 className={style.previewTitle}>{newDataUser.name ? newDataUser.name : `Tu nombre`}</h2>
+                            <h2 className={style.previewTitle}>{newDataUser.surname ? newDataUser.surname : `Tu apellido`}</h2>
+
+                            <span className={style.previewLines}><h4 className={style.previewLabel}>Pais</h4>
+                            <p className={style.previewValue}>{newDataUser.country}</p></span>
+
+                            <span className={style.previewLines}><h4 className={style.previewLabel}>E-Mail</h4>
+                            <p className={style.previewValue}>{`${newDataUser.email}`}</p></span>
+
+                            <span className={style.previewLines}><h4 className={style.previewLabel}>Fecha de nacimiento</h4>
+                            <p className={style.previewValue}> {newDataUser.birth_date}</p></span>
                         </div>
                     </div>
 
                     <div className={style.previewData}>
-                        <span className={style.previewLines}><h3 className={style.previewLabel}>Producto en oferta?</h3>
-                            <p className={style.previewValue}>{newDataUser.sale_price ? newDataUser.sale_price : `-`}</p></span>
-                        <span className={style.previewLines}> <h3 className={style.previewLabel}>Precio de oferta</h3>
-                            <p className={style.previewValue}>{newDataUser.birth_date}</p></span>
-                        <span className={style.previewLines}><h3 className={style.previewLabel}>Envio gratis</h3>
-                            <p className={style.previewValue}>{newDataUser.shipping ? newDataUser.shipping : `-`}</p></span>
-                        <span className={style.previewLines}><h3 className={style.previewLabel}>Categoria</h3>
-                            <h3 className={style.previewValue}>{newDataUser.categories ? newDataUser.categories : `-`}</h3></span>
-                        <h3 className={style.previewLabel}>Descripcion</h3>
-                        <p className={style.previewValue}>{newDataUser.attributes ? newDataUser.attributes : `Describe el producto brindando información clara y detallada sobre el artículo para ayudar a los clientes a comprender sus características, beneficios y especificaciones; tambien intenta incluir su propósito, función y uso. Enumera las características específicas del producto, como tamaño, dimensiones, materiales, color, capacidad, peso, etc. Si el producto tiene características técnicas, como velocidad, capacidad de almacenamiento o conectividad, asegúrate de incluirlas aquí.`}</p>
+                        <span className={style.previewTitle}><h4 className={style.previewLabel}>Dirección</h4>
+                            </span>
+                            <p className={style.previewTitle}>{newDataUser.address ? newDataUser.address : `Tu dirección`}</p>
+
+                        <span className={style.previewTitle}> <h4 className={style.previewLabel}>Ciudad</h4>
+                            </span>
+                            <p className={style.previewTitle}>{newDataUser.address ? newDataUser.city : `Tu ciudad`}</p>
+
+                        <span className={style.previewTitle}><h4 className={style.previewLabel}>Código Postal</h4>
+                            </span>
+                            <p className={style.previewTitle}>{newDataUser.address ? newDataUser.postal_code : `Tu código postal`}</p>
+
+ 
                     </div>
                 </div>
 

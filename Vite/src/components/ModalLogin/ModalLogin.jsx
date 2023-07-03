@@ -104,7 +104,8 @@ function Example() {
     const dataUser = { email : result.user.email,
                         name : result.user.displayName,
                         country: selectCountry,
-                        firebaseId: result.user.uid
+                        firebaseId: result.user.uid,
+                        profile_picture: result.user.photoURL
                         }
     const response = await axios.post('https://pf-elatam.onrender.com/users/googleExist', dataUser);
    
@@ -122,7 +123,8 @@ function Example() {
       city: response.data.city,
       country: response.data.country,
       cartId: response.data.cartId,
-      firebaseId: response.data.firebaseId
+      firebaseId: response.data.firebaseId,
+      profile_picture: response.data.profile_picture,
     }
 
 
