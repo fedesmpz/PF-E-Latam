@@ -68,6 +68,10 @@
   height: auto;
 }
 
+.indexInZ{
+  z-index: -200;
+}
+
 .carouselHero{
   margin: auto;
 }

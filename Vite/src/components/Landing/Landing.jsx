@@ -29,9 +29,9 @@ const Landing = () => {
     );
   }
   return (
-    <div>
+    <div className={styles.indexInZ} >
       <NavBar></NavBar>
-      <CarouselHero />
+      <CarouselHero/>
       <section className={styles.container}>
         <div className={styles['text-container']}>
           <h1 className="display-1">Llegó la hora de comprar online</h1>
