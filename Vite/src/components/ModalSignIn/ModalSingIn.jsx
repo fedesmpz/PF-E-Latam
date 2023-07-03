@@ -169,7 +169,7 @@ function Example() {
 
 
 
-      <fieldset>
+      <fieldset className={Styles.indexInZ}>
         <Form.Group as={Row} className="mb-3">
           <Form.Label as="legend" column sm={3}>
             <h5>País</h5>

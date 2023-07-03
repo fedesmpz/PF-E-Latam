@@ -35,7 +35,7 @@ const ControlledCarousel = () => {
             const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
             const currentProducts = allProducts.slice(indexOfFirstProduct, indexOfLastProduct);
             return (
-              <Carousel.Item className={Styles.carouselItem} key={idx}>
+              <Carousel.Item className={Styles.carouselItem } key={idx}>
                 <Products currentProducts={currentProducts} />
               </Carousel.Item>
             );

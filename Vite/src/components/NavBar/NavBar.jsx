@@ -223,9 +223,19 @@ const NavBar = () => {
         (
         <div className={Styles.profileButtonContainer}>
           <div className={Styles.button}>
-            <button className={Styles.roundButton}>
-               <img className={Styles.roundButton} src={userData.profile_picture} onClick={handlerProfile} alt="Perfil"></img>
-            </button>
+              {
+                !userData.profile_picture ?
+                (
+                  <button className={Styles.button} onClick={handlerLogout}>Cerrar sesión</button>
+                )
+                :
+                (
+                  <button className={Styles.roundButton}>
+                    <img className={Styles.roundButton} src={userData.profile_picture} onClick={handlerProfile} alt="Perfil"></img>
+                  </button>
+                )
+                
+              }
 
           </div>
           <div>
