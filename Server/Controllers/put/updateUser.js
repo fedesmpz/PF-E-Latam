@@ -37,6 +37,7 @@ try {
     }
     const userReturned = {
         ...userUpdated.dataValues,
+        userId: id,
         access: access,
         verified: verified,
         firebaseId: firebaseId
