@@ -4,7 +4,7 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { useNavigate } from 'react-router-dom';
 import 'react-tabs/style/react-tabs.css';
 import styles from './Purchase.module.css';
-import { loginUserLocal, updateUser, getUserById } from '../../redux/slice/userSlice';
+import userSlice, { loginUserLocal, updateUser, getUserById } from '../../redux/slice/userSlice';
 import Stripe from '../Stripe/Stripe';
 import { getProductsFromCart, loadProductsToCart, deleteProductsFromCart } from '../../redux/slice/cartSlice';
 
@@ -19,6 +19,8 @@ const PaymentComponent = () => {
   const userData = useSelector((state) => state.user.userData);
   const cartData = useSelector((state) => state.cart.products);
   const cartTotal =  useSelector((state) => state.cart.total_price);
+
+  console.log("Este es el global userData", userData)
 
   useEffect(() => {
     setDeliveryForm(userData);
