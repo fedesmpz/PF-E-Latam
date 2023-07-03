@@ -41,7 +41,7 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
-const { Order, Cart, Product, PromotionCode, ReviewRating, Sales, User, ProductCart } = sequelize.models;
+const { Order, Cart, Product, PromotionCode, Review_Rating, Sales, User, ProductCart } = sequelize.models;
 
 //muchos a muchos
 Product.belongsToMany(User, {through: 'product_user'})
@@ -53,8 +53,11 @@ Cart.belongsToMany(Product, { through: 'product_Cart', foreignKey: 'cartId' });
 Product.belongsToMany(Cart, { through: 'product_Cart', foreignKey: 'productId' });
 
 //uno a muchos
-Product.hasMany(ReviewRating, { foreignKey: 'productId' });
-ReviewRating.belongsTo(Product, { foreignKey: 'productId' });
+Product.hasMany(Review_Rating, { foreignKey: 'productId' });
+Review_Rating.belongsTo(Product, { foreignKey: 'productId' });
+
+User.hasMany(Review_Rating, { foreignKey: 'userId' });
+Review_Rating.belongsTo(User, { foreignKey: 'userId' })
 
 //uno a uno
 User.hasOne(Cart, { foreignKey: 'userId' });
@@ -82,5 +85,3 @@ module.exports = {
 //    foreignKey: 'cartId',
 //  });
 // Product.belongsToMany(Cart, { through: 'product_cart' });
-
-
