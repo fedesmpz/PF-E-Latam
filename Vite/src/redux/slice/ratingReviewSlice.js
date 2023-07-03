@@ -71,9 +71,9 @@ export const ratingReviewSlice = createSlice({
     'reviews/postReview',
     async (opinion) => {
       try {
-        // const response = await axios.post('https://pf-elatam.onrender.com/reviews', opinion);
         console.log(opinion)
-        const response = await axios.post('http://localhost:8000/reviews', opinion);
+        // const response = await axios.post('http://localhost:8000/reviews', opinion);
+        const response = await axios.post('https://pf-elatam.onrender.com/reviews', opinion);
         return response.data;
       } catch (error) {
         console.log(error);
@@ -86,8 +86,8 @@ export const ratingReviewSlice = createSlice({
     'reviews/deleteReview',
     async (reviewId) => {
       try {
-        const response = await axios.delete(`http://localhost:8000/reviews/delete/${reviewId}`);
-        // const response = await axios.delete(`https://pf-elatam.onrender.com/reviews/delete/${reviewId}`);
+        // const response = await axios.delete(`http://localhost:8000/reviews/delete/${reviewId}`);
+        const response = await axios.delete(`https://pf-elatam.onrender.com/reviews/delete/${reviewId}`);
         return response.data;
 
       } catch (error) {
