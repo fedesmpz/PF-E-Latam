@@ -45,20 +45,21 @@
     display: flex;
     position: absolute;
     right: 1.5rem;
-    font-size: 0.875rem;
+    font-size: 0.75rem;
     border: 1px solid #eff0f6;
-    border-radius: 0.5rem;
+    border-radius: 0.25rem;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    padding-top: .5rem;
-    padding-bottom: .5rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.25rem;
   }
 
   .ahi {
     display: flex;
     align-items: center;
-    border-radius: 0.5rem;
+    border-radius: 0.25rem;
     text-decoration: none;
     color: #151414;
+    font-size: 0.75rem;
   }
   
   .ahi:hover {
@@ -70,19 +71,19 @@
   }
   
   .vemos {
-    margin: 0.5rem;
-    font-size: 14px;
+    margin: 0.25rem;
+    font-size: 12px;
     font-weight: bold;
     width: 100%;
     max-width: 100%;
     white-space: nowrap;
-    padding: 0.55rem 20px;
+    padding: 0.35rem 10px;
     padding-bottom: 0.5rem;
     box-sizing: border-box;
     font-weight: 500;
     color: #384b6e;
     text-transform: capitalize;
-    font-size: .875rem;
+    font-size: 0.75rem;
   }
   
   ul {

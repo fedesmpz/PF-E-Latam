@@ -24,45 +24,9 @@
   /* background-color: aqua; */
 }
 
-/* .containerProducts {
-    border-radius: 0.5rem;
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    max-width: auto;
-    margin-left: 1rem;
-    background-color:rgb(255, 255, 255);
-    margin-top: 1rem;
-    height: 90vh;
-    margin-right: 4rem;
-  }
-
-  .cards {
-    display: flex;
-    width: 50vw;
-    height: 50vh;
-  }
-
-  .dona{
-    display: flex;
-    width: 50vw;
-    height: 50vh;
-  }
-
-  .lineal {
-    border-radius: 0.5rem;
-    display: flex;
-    flex-direction: column;
-    width: 95%;
-    max-width: auto;
-    margin-left: 3rem;
-    background-color:rgb(255, 255, 255);
-    margin-top: 1rem;
-    /* height: 90vh;
-  } */
-
 .containerProducts {
   display: flex;
+  margin-top: 1rem;
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
@@ -85,11 +49,12 @@
 }
 
 .lineal {
-  flex-basis: 50%;
+  flex-basis: 70%;
   margin-left: 1rem;
-  height: 50vh;
+  height: 45vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-left: 5rem;
+  margin-left: 7rem;
+  width: 21vw;
 }
