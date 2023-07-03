@@ -78,11 +78,11 @@ const FooterLanding = () => {
                     <h4 className={styles["cta-title"]}>Equipo de Desarrollo <br /><br /></h4>
 
                     <div className={styles["container-names"]}>
-                        <a className={styles.link} href="https://www.linkedin.com/feed/in/violetasolariashours/" target="_blank" rel="noopener noreferrer">
+                        <a className={styles.link} href="https://www.linkedin.com/in/violetasolariashours/" target="_blank" rel="noopener noreferrer">
                             <span className={styles["cta-description"]}> <span className={styles['icon-sm']}>
                                 <i className="bi bi-linkedin"></i> </span>Arias Hours, Violeta Sol.<br /></span>
                         </a>
-                        <a className={styles.link} href="https://www.linkedin.com/feed/in/demian-cortés-a8362525b/" target="_blank" rel="noopener noreferrer">
+                        <a className={styles.link} href="https://www.linkedin.com/in/demian-cortés-a8362525b/" target="_blank" rel="noopener noreferrer">
                             <span className={styles["cta-description"]}> <span className={styles['icon-sm']}>
                                 <i className="bi bi-linkedin"></i> </span>Demian Cortes.<br /></span>
                         </a>
@@ -90,15 +90,15 @@ const FooterLanding = () => {
                             <span className={styles["cta-description"]}> <span className={styles['icon-sm']}>
                                 <i className="bi bi-linkedin"></i> </span>Victoria Barrientos.<br /></span>
                         </a>
-                        <a className={styles.link} href="https://www.linkedin.com/feed/in/juan-pablo-osudar-00661821b/" target="_blank" rel="noopener noreferrer">
+                        <a className={styles.link} href="https://www.linkedin.com/in/juan-pablo-osudar-00661821b/" target="_blank" rel="noopener noreferrer">
                             <span className={styles["cta-description"]}> <span className={styles['icon-sm']}>
                                 <i className="bi bi-linkedin"></i> </span>Juan Pablo Osudar.<br /></span>
                         </a>
-                        <a className={styles.link} href="https://www.linkedin.com/feed/in/fedesmpz/" target="_blank" rel="noopener noreferrer">
+                        <a className={styles.link} href="https://www.linkedin.com/in/fedesmpz/" target="_blank" rel="noopener noreferrer">
                             <span className={styles["cta-description"]}> <span className={styles['icon-sm']}>
                                 <i className="bi bi-linkedin"></i> </span>Federico Pezzutti.<br /></span>
                         </a>
-                        <a className={styles.link} href="https://www.linkedin.com/feed/in/camilo-acevedo/" target="_blank" rel="noopener noreferrer">
+                        <a className={styles.link} href="https://www.linkedin.com/in/camilo-acevedo/" target="_blank" rel="noopener noreferrer">
                             <span className={styles.ctaDescription}>
                                 <span className={styles.iconSm}><i className="bi bi-linkedin"></i> </span> Camilo Acevedo.<br /></span>
                         </a>
