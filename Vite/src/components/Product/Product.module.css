@@ -90,6 +90,7 @@
 }
 
 .priceTag {
+    display: flex;
     justify-content: center;
     align-items: center
 }
@@ -102,6 +103,13 @@
     font-size: large;
     display: flex;
     justify-content: center;
+}
+
+.original_price {
+    color: rgb(0, 0, 0);
+    font-weight: bold;
+    text-decoration: line-through;
+    padding-right: 10px;
 }
 
 .sale_price {
