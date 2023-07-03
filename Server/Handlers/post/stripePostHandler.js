@@ -13,7 +13,7 @@ const stripeHandler = async (req, res) => {
   const paymentNotification = async () => {
 
     const config = {
-      host: "smtp.gmail.net",
+      host: "smtp.gmail.com",
       port: 465,
       secure: true,
       auth: {
