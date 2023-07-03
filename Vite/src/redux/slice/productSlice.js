@@ -20,7 +20,7 @@ export const productSlice = createSlice({
     deleteProductMessage: null,
     sale: null,
     newSaleMessage: null,
-    category: "all"
+    category: null,
   },
   
   reducers: {
@@ -137,10 +137,16 @@ export const productSlice = createSlice({
     setFilterByShipping: (state, action) => {
       const { payload } = action;
       if (payload === '---') {
-        state.productsSoD = state.allProducts;
+        state.productsSoD = state.products;
       } else {
-        state.productsSoD = state.productsSoD.filter((product) => product.shipping === (payload === 'true'));
-      } 
+        state.productsSoD = state.products.filter((product) => {
+          if (payload === 'true') {
+            return product.shipping === true; 
+          } else {
+            return product.shipping === false; 
+          }
+        });
+      }
     },
     
 
@@ -148,12 +154,17 @@ export const productSlice = createSlice({
     setFilterByDiscount: (state, action) => {
       const { payload } = action;
       if (payload === '---') {
-        state.productsSoD = state.allProducts;
+        state.productsSoD = state.products;
       } else {
-        state.productsSoD = state.allProducts.filter((product) => product.sale_price === (payload === 'true'));
-      } 
+        state.productsSoD = state.products.filter((product) => {
+          if (payload === 'true') {
+            return product.sale_price === true; 
+          } else {
+            return product.sale_price === false; 
+          }
+        });
+      }
     },
-    
 
     setHideProduct:(state,action)=>{
       state.hideProductMessage = action.payload;
