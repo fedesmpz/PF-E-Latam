@@ -1,10 +1,3 @@
-// const { getAuth,
-//     createUserWithEmailAndPassword,
-//     signInWithEmailAndPassword,
-//     GoogleAuthProvider,
-//     signInWithPopup, } = require ("firebase/auth");
-// const { auth } = require('../../Utilities/firebase')
-// const provider = new GoogleAuthProvider()
 const { User } = require("../../db.js");
 const { conn } = require("../../db.js");
 const { currencyIdValidator } = require("../../Utilities/currencyIdValidator.js")
@@ -77,7 +70,8 @@ const googleExistController= async(user)=>{
               postal_code: '',
               admin: false,
               superAdmin: false,
-              firebaseId: user.firebaseId
+              firebaseId: user.firebaseId,
+              profile_picture: user.profile_picture,
             },)
             const currency_id = currencyIdValidator(user.country);
             const newCart = await Cart.create(
@@ -86,7 +80,7 @@ const googleExistController= async(user)=>{
               userId: newUser.id
             },)
             //const cart = await Cart.findOne({ where: { userId: existingUser.id } });
-             return {
+            return {
               userId: newUser.id,
               name: newUser.name,
               surname: newUser.surname,
@@ -99,7 +93,8 @@ const googleExistController= async(user)=>{
               postal_code:newUser.postal_code,
               city: newUser.city,
               country: newUser.country,
-              firebaseId: newUser.firebaseId
+              firebaseId: newUser.firebaseId,
+              profile_picture: newUser.profile_picture,
               };
 
           //return {exist: false};
@@ -118,7 +113,8 @@ const googleExistController= async(user)=>{
                     address: existingUser.address,
                     city: existingUser.city,
                     country: existingUser.country,
-                    firebaseId: existingUser.firebaseId                  
+                    firebaseId: existingUser.firebaseId,
+                    profile_picture: existingUser.profile_picture,
                     };
         }
 
