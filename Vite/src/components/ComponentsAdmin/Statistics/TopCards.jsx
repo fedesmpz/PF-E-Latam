@@ -1,19 +1,23 @@
 import React from "react";
 import Styles from "./styles/topCards.module.css";
 import { getUsers } from "../../../redux/slice/userSlice";
+import { axiosAllProducts } from "../../../redux/slice/productSlice"
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 
-const TopCards = ({ totalProducts }) => {
+const TopCards = () => {
   const dispatch = useDispatch();
   
   useEffect(() => {
     dispatch(getUsers());
+    dispatch(axiosAllProducts())
   },[])
 
   const allUsers = useSelector((state) => state.user.users);
   const totalAdmins = allUsers.filter((user) => user.admin).length;
+  const allProducts = useSelector((state) => state.products.products);
+  const totalProductsCount = allProducts.length;
 
   return (
     <div className={Styles.cardtop}>
@@ -28,7 +32,7 @@ const TopCards = ({ totalProducts }) => {
       </div>
       <div className={Styles.division}>
         <p>Total Productos:</p>
-        <span>{totalProducts}</span>
+        <span>{totalProductsCount}</span>
       </div>
     </div>
   );
