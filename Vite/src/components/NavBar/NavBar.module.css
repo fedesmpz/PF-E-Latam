@@ -52,6 +52,10 @@
   height: 46px;
 }
 
+.flags {
+  z-index: 2;
+}
+
 .flags select {
   padding: 5px;
   cursor: pointer;
@@ -70,6 +74,10 @@
   font-size: 15px;
   background-color: #fff;
   border: none; /* Change '1px solid transparent' to 'none' */
+}
+
+.flagIcon {
+ z-index: 10;
 }
 
 .searchBar {
