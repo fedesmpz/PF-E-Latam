@@ -53,7 +53,7 @@ const Stripe = ({ sale, total }) => {
         return () => dispatch(cleanDetail())
     }, [])
 
-    const receipt_email = userInfo?.email;
+    const email = userInfo?.email;
     const handleSubmit = async (e) => {
         e.preventDefault();
         setShowModal(true);
@@ -74,7 +74,7 @@ const Stripe = ({ sale, total }) => {
         })
         if (!error) {
             const payment_method = paymentMethod.id
-            dispatch(payProduct({ ...info, payment_method, products_id, receipt_email }));
+            dispatch(payProduct({ ...info, payment_method, products_id, email }));
         }
         setShowModalConfirm(true)
 
