@@ -1,8 +1,8 @@
-const {ReviewRating}= require("../../db")
+const {Review_Rating}= require("../../db")
 
 const getReviewById = async (reviewID) => {
     try {
-      const review = await ReviewRating.findByPk(reviewID);
+      const review = await Review_Rating.findByPk(reviewID);
       if (!review) {
         throw new Error('No se pudo encontrar la reseña por ID');
       }
