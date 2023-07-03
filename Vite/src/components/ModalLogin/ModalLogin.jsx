@@ -82,7 +82,7 @@ function Example() {
       localStorage.setItem("token", JSON.stringify(token.data))
 
       if(response.data.access && location.pathname === '/'){
-       navigate('./home')
+       navigate('/Home')
       }else if (response.data.access && location.pathname === '/Cart'){
         navigate(`/Purchase?cartId=${userData.cartId}`)
       }else if (response.data.access){
@@ -133,7 +133,7 @@ function Example() {
         localStorage.setItem("user", JSON.stringify(user))
         
         if(response.data.access && location.pathname === '/'){
-         navigate('./home')
+         navigate('/Home')
         }else if (response.data.access && location.pathname === '/Cart'){
          navigate(`/Purchase?cartId=${userData.cartId}`)
         }else if (response.data.access){
