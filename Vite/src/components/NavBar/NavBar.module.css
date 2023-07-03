@@ -230,6 +230,12 @@
   animation: moveNotification 0.2s infinite alternate;
 }
 
+.profileButtonContainer{
+  display: flex;
+  
+
+}
+
     .roundButton {
       display: flex;
       justify-content: center;

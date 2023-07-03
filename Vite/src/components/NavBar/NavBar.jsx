@@ -221,7 +221,7 @@ const NavBar = () => {
       
         {isLoggedIn ? 
         (
-        <div className={Styles.cartContainer}>
+        <div className={Styles.profileButtonContainer}>
           <div className={Styles.button}>
             <button className={Styles.roundButton}>
                <img className={Styles.roundButton} src={userData.profile_picture} onClick={handlerProfile} alt="Perfil"></img>
