@@ -222,25 +222,30 @@ const NavBar = () => {
         {isLoggedIn ? 
         (
         <div className={Styles.profileButtonContainer}>
-          <div className={Styles.button}>
+          <div className={Styles.buttonProfile} onClick={handlerProfile} >
+              <div className={Styles.buttonCenter}>
               {
-                !userData.profile_picture ?
+                userData.profile_picture ?
                 (
-                  <button className={Styles.button} onClick={handlerLogout}>Cerrar sesión</button>
+                  <button className={Styles.roundButton}>
+                    <img className={Styles.roundButton} src={userData.profile_picture}alt="Perfil"></img>
+
+                  </button>
+               
                 )
                 :
                 (
-                  <button className={Styles.roundButton}>
-                    <img className={Styles.roundButton} src={userData.profile_picture} onClick={handlerProfile} alt="Perfil"></img>
-                  </button>
+                  <button className={Styles.button}>Perfil</button>
                 )
-                
-              }
+                }
+              </div>
+              <div className={Styles.buttonCenter}>
+                {userData.name ? <p>{userData.name}</p> : <p>Tu perfil</p>}
+              </div>
 
           </div>
-          <div>
+          <div className={Styles.buttonCenter}>
             <button className={Styles.button} onClick={handlerLogout}>Cerrar sesión</button>
-
           </div>
 
         </div>
