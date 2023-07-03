@@ -20,6 +20,7 @@ export const productSlice = createSlice({
     deleteProductMessage: null,
     sale: null,
     newSaleMessage: null,
+    category: "all"
   },
   
   reducers: {
@@ -44,9 +45,9 @@ export const productSlice = createSlice({
     },
 
     setAllProducts: (state, action) => {
-      state.allProducts = action.payload;
-      state.products =action.payload;
-      state.productsSoD = action.payload;
+      state.allProducts = [...action.payload];
+      state.products = [...action.payload];
+      state.productsSoD = [...action.payload];
     },
 
     setAllProductsByCountriesCategoryId: (state, action) => {
@@ -87,7 +88,7 @@ export const productSlice = createSlice({
     
     setOrderByName: (state, action) => {
       state.orderByName = action.payload;
-      const sortedProductsByName = state.products.sort((a, b) => {
+      const sortedProductsByName = state.productsSoD.sort((a, b) => {
         const titleA = a.title.trim();
         const titleB = b.title.trim();
         if (state.orderByName === 'asc') {
@@ -95,16 +96,16 @@ export const productSlice = createSlice({
         } else if (state.orderByName === 'des') {
           return titleB.localeCompare(titleA);
         } else if (state.orderByName === "---") {
-          return state.products
+          return state.productsSoD
         }
         return 0;
       });
-      state.products = sortedProductsByName;
+      state.productsSoD = sortedProductsByName;
     },
 
     setOrderByPrice: (state, action) => {
       state.orderByPrice = action.payload;
-      const sortedProducts = [...state.products]; // Realizar una copia del array de productos
+      const sortedProducts = [...state.productsSoD]; // Realizar una copia del array de productos
       sortedProducts.sort((a, b) => {
         const priceA = parseFloat(a.original_price);
         const priceB = parseFloat(b.original_price);
@@ -126,39 +127,33 @@ export const productSlice = createSlice({
           return 0;
         }
         if (state.orderByPrice === "---") {
-          return state.products
+          return state.productsSoD
         }
         return 0;
       });
-      state.products = sortedProducts; // Asignar la lista ordenada al estado
+      state.productsSoD = sortedProducts; // Asignar la lista ordenada al estado
     },
     
-    setFilterByShipping:(state, action) => {
-      const products = JSON.parse(JSON.stringify(state.allProducts));
-      const filteredProducts = products.filter((product) => {
-        return product.shipping == !!action.payload
-      });
-      console.log(filteredProducts);
-      if (action.payload === '---') {
+    setFilterByShipping: (state, action) => {
+      const { payload } = action;
+      if (payload === '---') {
         state.productsSoD = state.allProducts;
       } else {
-        state.productsSoD = filteredProducts;
-      }
-
+        state.productsSoD = state.productsSoD.filter((product) => product.shipping === (payload === 'true'));
+      } 
     },
+    
+
 
     setFilterByDiscount: (state, action) => {
-      const products = JSON.parse(JSON.stringify(state.allProducts));
-      const filteredProducts = products.filter((product) => {
-        return product.sale_price == !!action.payload;
-      });
-
-      if (action.payload === 'all') {
+      const { payload } = action;
+      if (payload === '---') {
         state.productsSoD = state.allProducts;
       } else {
-        state.productsSoD = filteredProducts;
-      }
+        state.productsSoD = state.allProducts.filter((product) => product.sale_price === (payload === 'true'));
+      } 
     },
+    
 
     setHideProduct:(state,action)=>{
       state.hideProductMessage = action.payload;
@@ -182,6 +177,9 @@ export const productSlice = createSlice({
     setNewSaleMessage:(state, action) => {
       state.newSaleMessage = action.payload
     },
+    setCategoryFN: (state, action) => {
+      state.category = action.payload;
+    },
   },
 });
 
@@ -197,7 +195,7 @@ export const {
   setEditedProduct,
   setOrderByName,
   setOrderByPrice,
-  setCategory,
+  setCategoryFN,
   filterByCategory,
   cleanDetail,
   cleanEditDetail,

@@ -18,8 +18,6 @@ const Home = () => {
     const concatenatedObjects = array.reduce((accumulator, currentArray) => {
         return accumulator.concat(currentArray);
     }, []);
-
-    console.log(array);
     let currentProducts = null
     if (!userData?.isAdmin || !userData?.isSuperAdmin) {
         currentProducts = concatenatedObjects.filter(
@@ -28,7 +26,6 @@ const Home = () => {
     } else if (userData?.isAdmin || userData?.isSuperAdmin) {
         currentProducts = concatenatedObjects
     }
-
     const [currentPage, setCurrentPage] = useState(1);
     const [productsPerPage] = useState(15);
     const indexOfLastProduct = currentPage * productsPerPage;

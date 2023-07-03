@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import Styles from "../../components/Filter/Filter.module.css";
-import { setOrderByName, setOrderByPrice, axiosAllProductByCountryCategory, setFilterByShipping, setFilterByDiscount } from '../../redux/slice/productSlice';
+import { setCategoryFN, setOrderByName, setOrderByPrice, axiosAllProductByCountryCategory, setFilterByShipping, setFilterByDiscount } from '../../redux/slice/productSlice';
 
 const Filter = ({ countryId, setCurrentPage }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -33,13 +33,15 @@ const Filter = ({ countryId, setCurrentPage }) => {
 
   function handleCategoryChange(event) {
     setCurrentPage(1);
-    setCategory(event.target.value)
+    setCategory(event.target.value);
+    dispatch(setCategoryFN(category));
     dispatch(axiosAllProductByCountryCategory(countryId, event.target.value));
-    dispatch(setOrderByPrice("---"))
-    dispatch(setOrderByName("---"))
-    setNameOrder("---");
-    setPriceOrder("---");
+    dispatch(setOrderByPrice('---'));
+    dispatch(setOrderByName('---'));
+    setNameOrder('---');
+    setPriceOrder('---');
   }
+  
 
   const handleDiscountChange = (event) => {
     setCurrentPage(1);
