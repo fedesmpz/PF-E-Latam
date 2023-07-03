@@ -223,14 +223,17 @@ export const {
 
 export default productSlice.reducer;
 
-export const axiosAllProductByCountryCategory = (countryId, category) => (dispatch) => {
-  // const countryId = getState().products.country;
-  // const category = getState().products.categories;
+export const axiosAllProductByCountryCategory = (countryId, category, shipping, discount) => (dispatch) => {
   axios
-  .get(`https://pf-elatam.onrender.com/products/${countryId}/${category}`)
-  .then((response) => {
-    dispatch(setProductByCountryCategory(response.data));
-  })
+    .get(`https://localhost/8000/products/${countryId}/${category}`, {
+      params: {
+        shipping,
+        discount,
+      },
+    })
+    .then((response) => {
+      dispatch(setProductByCountryCategory(response.data));
+    })
     .catch((error) => console.log(error));
 };
 
