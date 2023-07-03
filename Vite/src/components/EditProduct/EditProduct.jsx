@@ -186,16 +186,16 @@ const EditProduct = () => {
                             <option value={true}>Sí</option>
                             <option value={false}>No</option>
                         </select>
-                        {errors.sale_price && <p>{errors.sale_price}</p>}
-                        {
-                            (editDetail.sale_price === "true") &&
+                        {errors.sale_price && <p>{errors.sale_price}</p>}  
+                    </div>
+                    {
+                            (localEditDetail.sale_price === "true") &&
                             <div>
-                                <input type="number" name="price" value={editDetail.price} onChange={handleChange} />
                                 <label htmlFor="price" className={style.label}>Indique el precio de oferta</label>
+                                <input type="number" name="price" value={localEditDetail.price} onChange={handleChange} />
                                 {errors.price && <p>{errors.price}</p>}
                             </div>
-                        }
-                    </div>
+                    }
 
                     <div>
                         <label htmlFor="shipping" className={style.label}>Este producto posee envío gratis?</label>
@@ -263,13 +263,13 @@ const EditProduct = () => {
 
                     <div className={style.previewData}>
                         <span className={style.previewLines}><h3 className={style.previewLabel}>Producto en oferta?</h3>
-                            <p className={style.previewValue}>{localEditDetail.sale_price ? localEditDetail.sale_price : `-`}</p></span>
+                            <p className={style.previewValue}>{localEditDetail.sale_price ? `Si` : `No`}</p></span>
                         <span className={style.previewLines}> <h3 className={style.previewLabel}>Precio de oferta</h3>
                             <p className={style.previewValue}>{localEditDetail.price}</p></span>
                         <span className={style.previewLines}><h3 className={style.previewLabel}>Envio gratis</h3>
-                            <p className={style.previewValue}>{localEditDetail.shipping ? localEditDetail.shipping : `-`}</p></span>
+                            <p className={style.previewValue}>{localEditDetail.shipping ? `Si` : `No`}</p></span>
                         <span className={style.previewLines}><h3 className={style.previewLabel}>Categoria</h3>
-                            <h3 className={style.previewValue}>{localEditDetail.categories ? localEditDetail.categories : `-`}</h3></span>
+                            <h3 className={style.previewValue}>{localEditDetail.categories ? localEditDetail.categories : `Seleccione categoria`}</h3></span>
                         <h3 className={style.previewLabel}>Descripcion</h3>
                         <p className={style.previewValue}>{localEditDetail.attributes ? localEditDetail.attributes : `Describe el producto brindando información clara y detallada sobre el artículo para ayudar a los clientes a comprender sus características, beneficios y especificaciones; tambien intenta incluir su propósito, función y uso. Enumera las características específicas del producto, como tamaño, dimensiones, materiales, color, capacidad, peso, etc. Si el producto tiene características técnicas, como velocidad, capacidad de almacenamiento o conectividad, asegúrate de incluirlas aquí.`}</p>
                     </div>

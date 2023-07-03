@@ -4,7 +4,7 @@
     align-items: flex-end;
     width: fit-content;
     height: 100%;
-    z-index: 100;
+    z-index: 1;
     transition: width 0.3s ease;
 }
 
@@ -24,6 +24,10 @@
     transform: translateX(0);
 }
 
+.filterIcon {
+  width: 30px;
+  height: 30px;
+}
 .btnToggle {
     display: flex;
     flex-direction: column;

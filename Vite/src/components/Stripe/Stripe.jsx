@@ -2,7 +2,7 @@ import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { payProduct, cleanDetail } from '../../redux/slice/productSlice';
-import {deleteProductsFromCart} from '../../redux/slice/cartSlice'
+import { deleteProductsFromCart } from '../../redux/slice/cartSlice'
 import { useEffect } from 'react';
 import styles from "./Stripe.module.css";
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -110,9 +110,10 @@ const Stripe = ({ sale, total }) => {
             }
         }
     };
-    if(saleMessage == "Your card was declined."){
-        saleMessage= "Pago rechazado, verifique sus datos e intente de nuevo"}
-     
+    if (saleMessage == "Your card was declined.") {
+        saleMessage = "Pago rechazado, verifique sus datos e intente de nuevo"
+    }
+
 
     return (
         <div className={styles.container}>
@@ -123,39 +124,39 @@ const Stripe = ({ sale, total }) => {
                             <span className={styles.cardLabel}><p>Numero de tarjeta</p><p>Vencimiento | CVC | Codigo Postal </p></span>
                             <CardElement className={styles.cardElement} options={options} />
                         </div>
-                        
+
                     </div>
                     <button className={styles.continueButton}>Confirmar pago</button>
                 </form>
             </div >
-                <>
-                    {showModal && (
-                        <div className={styles.modal}>
-                            <div className={styles.modalContent}>
-                                <h2>¿Desea confirmar la compra?</h2>
-                                <div className={styles.modalButtons}>
-                                    <button onClick={handlerConfirm}>Aceptar</button>
-                                    <button onClick={handlerCancel}>Cancelar</button>
-                                </div>
+            <>
+                {showModal && (
+                    <div className={styles.modal}>
+                        <div className={styles.modalContent}>
+                            <h2>¿Desea confirmar la compra?</h2>
+                            <div className={styles.modalButtons}>
+                                <button onClick={handlerConfirm}>Aceptar</button>
+                                <button onClick={handlerCancel}>Cancelar</button>
                             </div>
                         </div>
-                    )}
-                </>
-                <>
-                    {showModalConfirm && saleMessage && (
-                        <div className={styles.modal}>
-                            <div className={styles.modalContent}>
-                                <h2>{saleMessage}</h2>
-                                <div className={styles.modalButtons}>
-                                    <button onClick={handlerReconfirm}>x</button>
-                                </div>
+                    </div>
+                )}
+            </>
+            <>
+                {showModalConfirm && saleMessage && (
+                    <div className={styles.modal}>
+                        <div className={styles.modalContent}>
+                            <h2>{saleMessage}</h2>
+                            <div className={styles.modalButtons}>
+                                <button onClick={handlerReconfirm}>x</button>
                             </div>
                         </div>
-                    )
+                    </div>
+                )
 
-                    }
-                </>
-           
+                }
+            </>
+
         </div>
     )
 }
