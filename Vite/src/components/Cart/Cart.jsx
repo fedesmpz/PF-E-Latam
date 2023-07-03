@@ -214,9 +214,10 @@ const Cart = () => {
             </div>
             <div className={style.resumeActions}>
                 <button
-                    className={style.continueButton}
+                    
                     onClick={handlerPurchase}
-                >
+                    className={`${style.continueButton} ${total === 0 ? style.disabledButton : ""}`}
+                disabled={total === 0}>
                     Continuar compra
                 </button>
             </div>

@@ -2,9 +2,12 @@ import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { payProduct, cleanDetail } from '../../redux/slice/productSlice';
+import {deleteProductsFromCart} from '../../redux/slice/cartSlice'
 import { useEffect } from 'react';
 import styles from "./Stripe.module.css";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { CartContext } from "../../utils/CartContext";
+import React, { useContext } from "react";
 
 const Stripe = ({ sale, total }) => {
     const navigate = useNavigate()
@@ -20,7 +23,10 @@ const Stripe = ({ sale, total }) => {
     })
     const [showModal, setShowModal] = useState(false);
     const [showModalConfirm, setShowModalConfirm] = useState(false)
-    const saleMessage = useSelector((state) => state.products.newSaleMessage)
+    let saleMessage = useSelector((state) => state.products.newSaleMessage)
+    const location = useLocation();
+    const searchParams = new URLSearchParams(location.search);
+    const cardId = searchParams.get('cardId');
     const filterInfo = () => {
         const newDescription = [];
         const newProductsId = [];
@@ -38,6 +44,7 @@ const Stripe = ({ sale, total }) => {
         }));
         setProducts_id(newProductsId);
     };
+    const { removeAllItems } = useContext(CartContext);
 
     useEffect(() => {
         const userInfo = JSON.parse(localStorage.getItem("user"));
@@ -77,6 +84,9 @@ const Stripe = ({ sale, total }) => {
         setShowModal(false);
         setShowModalConfirm(false)
         if (saleMessage === "Muchas gracias por tu compra") {
+            await dispatch(deleteProductsFromCart(cardId))
+            localStorage.setItem("cart", JSON.stringify([]))
+            removeAllItems()
             navigate("/Home")
         }
 
@@ -100,6 +110,9 @@ const Stripe = ({ sale, total }) => {
             }
         }
     };
+    if(saleMessage == "Your card was declined."){
+        saleMessage= "Pago rechazado, verifique sus datos e intente de nuevo"}
+     
 
     return (
         <div className={styles.container}>
