@@ -35,18 +35,19 @@ const Filter = ({ countryId, setCurrentPage }) => {
     setCurrentPage(1);
     setCategory(event.target.value);
     dispatch(setCategoryFN(category));
-    dispatch(axiosAllProductByCountryCategory(countryId, event.target.value));
+    dispatch(axiosAllProductByCountryCategory(countryId, event.target.value, shipping, discount));
     dispatch(setOrderByPrice('---'));
     dispatch(setOrderByName('---'));
     setNameOrder('---');
     setPriceOrder('---');
   }
-  
+
 
   const handleDiscountChange = (event) => {
     setCurrentPage(1);
     setDiscount(event.target.value)
-    dispatch(setFilterByDiscount(event.target.value));
+    dispatch(axiosAllProductByCountryCategory(countryId, category, shipping, event.target.value));
+    /* dispatch(axiosAllProductByCountryCategory(countryId, event.target.value)); */
     setNameOrder("---");
     setPriceOrder("---");
   }
@@ -54,7 +55,8 @@ const Filter = ({ countryId, setCurrentPage }) => {
   const handleShippingChange = (event) => {
     setCurrentPage(1);
     setShipping(event.target.value)
-    dispatch(setFilterByShipping(event.target.value));
+    dispatch(axiosAllProductByCountryCategory(countryId, category, event.target.value, discount));
+    /* dispatch(setFilterByShipping(event.target.value)); */
     setNameOrder("---");
     setPriceOrder("---");
   }
@@ -69,22 +71,22 @@ const Filter = ({ countryId, setCurrentPage }) => {
 
   return (
     <div className={`${Styles.sidebar} ${isOpen ? Styles.open : Styles.close}`}>
-    <button className={Styles.btnToggle} onClick={toggleSidebar}>
-      {
-        isOpen ? (
-        <>
-          <span></span>
-          <span></span>
-          <span></span>
-        </>
-        ) :
-        (
-          <img src="/assets/filter.png" className={Styles.filterIcon}></img>
-        )
-      }
-    </button>
-    <div className={`${Styles.containerSelect} ${isOpen ? '' : Styles.notShow}`} >
-      <label className={Styles.Label}>Categoría</label>
+      <button className={Styles.btnToggle} onClick={toggleSidebar}>
+        {
+          isOpen ? (
+            <>
+              <span></span>
+              <span></span>
+              <span></span>
+            </>
+          ) :
+            (
+              <img src="/assets/filter.png" className={Styles.filterIcon}></img>
+            )
+        }
+      </button>
+      <div className={`${Styles.containerSelect} ${isOpen ? '' : Styles.notShow}`} >
+        <label className={Styles.Label}>Categoría</label>
         <select className={Styles.select} onChange={handleCategoryChange}>
           <option value="all">Todas las categorías</option>
           {countryId !== "COL"
@@ -122,8 +124,8 @@ const Filter = ({ countryId, setCurrentPage }) => {
           <option value="asc">A-Z</option>
           <option value="des">Z-A</option>
         </select>
-    </div>
-    
+      </div>
+
     </div>
   );
 };

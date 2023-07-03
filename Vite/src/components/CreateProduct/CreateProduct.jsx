@@ -88,8 +88,6 @@ const CreateProduct = () => {
         validation(prop, value, errors, setErrors)
 
     }
-    console.log(Object.keys(errors).length);
-    console.log(Object.keys(newProduct).length);
 
     const handleSubmit = (event) => {
         event.preventDefault()
