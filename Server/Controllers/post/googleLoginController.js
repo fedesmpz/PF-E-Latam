@@ -77,7 +77,8 @@ const googleExistController= async(user)=>{
               postal_code: '',
               admin: false,
               superAdmin: false,
-              firebaseId: user.firebaseId
+              firebaseId: user.firebaseId,
+              profile_picture: user.profile_picture,
             },)
             const currency_id = currencyIdValidator(user.country);
             const newCart = await Cart.create(
@@ -99,7 +100,8 @@ const googleExistController= async(user)=>{
               postal_code:newUser.postal_code,
               city: newUser.city,
               country: newUser.country,
-              firebaseId: newUser.firebaseId
+              firebaseId: newUser.firebaseId,
+              profile_picture: newUser.profile_picture,
               };
 
           //return {exist: false};
@@ -118,7 +120,8 @@ const googleExistController= async(user)=>{
                     address: existingUser.address,
                     city: existingUser.city,
                     country: existingUser.country,
-                    firebaseId: existingUser.firebaseId
+                    firebaseId: existingUser.firebaseId,
+                    profile_picture: existingUser.profile_picture,
                     };
         }
 

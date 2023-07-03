@@ -164,9 +164,13 @@ export const deleteUser = (userId) => async (dispatch) => {
 
 export const updateUser = (userId, userData) => async (dispatch) => {
   try {
-    const response = await axios.put(`http://localhost:8000/users/update/${userId}`, userData);
+    const response = await axios.put(`https://pf-elatam.onrender.com/users/update/${userId}`, userData);
+    //await axios.put(`http://localhost:8000/users/update/${userId}`, userData);
+    const token = await axios.post('https://pf-elatam.onrender.com/users/getToken', response.data)
+    localStorage.setItem("user", JSON.stringify(response.data))
+    localStorage.setItem("token", JSON.stringify(token.data))
     dispatch(updateUserDetails(response.data))
-    // await axios.put(`https://pf-elatam.onrender.com/users/update/${userId}`, userData);
+    // 
   } catch (error) {
     dispatch(updateUserFailure(error.message));
   }

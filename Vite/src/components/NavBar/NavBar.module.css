@@ -230,6 +230,19 @@
   animation: moveNotification 0.2s infinite alternate;
 }
 
+    .roundButton {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: #ccc;
+      border: none;
+      outline: none;
+      cursor: pointer;
+    }
+
     @keyframes moveNotification {
       0% {
         transform: translatey(0);

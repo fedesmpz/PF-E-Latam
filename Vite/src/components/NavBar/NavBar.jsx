@@ -221,9 +221,18 @@ const NavBar = () => {
       
         {isLoggedIn ? 
         (
-        <div>
-            <button className={Styles.button} onClick={handlerProfile}>Perfil</button>
+        <div className={Styles.cartContainer}>
+          <div className={Styles.button}>
+            <button className={Styles.roundButton}>
+               <img className={Styles.roundButton} src={userData.profile_picture} onClick={handlerProfile} alt="Perfil"></img>
+            </button>
+
+          </div>
+          <div>
             <button className={Styles.button} onClick={handlerLogout}>Cerrar sesión</button>
+
+          </div>
+
         </div>
         
         ) : 
