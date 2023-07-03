@@ -18,7 +18,7 @@ const stripeHandler = async (req, res) => {
       secure: true,
       auth: {
         user: 'E.latam.henry@gmail.com',
-        pass: 'henry2023',
+        pass: 'hjkblozrmqiltmim',
       }
     };
 
