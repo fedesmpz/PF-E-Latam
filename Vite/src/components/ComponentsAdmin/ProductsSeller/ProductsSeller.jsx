@@ -1,11 +1,12 @@
 import Styles from "./ProductsSeller.module.css";
-import Style from "./ProductsSeller.module.css"
+import Style from "./ProductsSeller.module.css";
 import { BiArchive } from "react-icons/bi";
 import { TbShoppingCartPlus, TbTruckDelivery } from "react-icons/tb";
 
 const ProductsSeller = ({
   id,
   title,
+  thumbnail,
   original_price,
   currency_id,
   price,
@@ -35,6 +36,14 @@ const ProductsSeller = ({
   return (
     <li key={id} className={Style.order}>
       <div className={Style.faShop}>
+        <img
+          src={thumbnail}
+          alt="Producto"
+          style={{
+            width: "auto",
+            height: "3rem",
+          }}
+        />
       </div>
       <div className={Style.textContainer}>
         <p className="text-gray-800 font-bold">{shortenTitle(title)}</p>

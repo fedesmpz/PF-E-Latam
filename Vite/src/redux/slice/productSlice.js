@@ -12,6 +12,7 @@ export const productSlice = createSlice({
     newProductMessage: null,
     editProductMessage: null,
     allProducts: [],
+    productsSoD: [],
     filteredProducts: [],
     orderByName: 'asc',
     orderByPrice: 'mayormenor',
@@ -24,11 +25,13 @@ export const productSlice = createSlice({
   reducers: {
     setProductByCountryCategory: (state, action) => {
       state.products = action.payload;
+      state.productsSoD = action.payload;
     },
 
     setAllProductsByCountries: (state, action) => {
       state.products = action.payload;
       state.allProducts = action.payload;
+      state.productsSoD = action.payload;
     },
 
     filterProductsByCatalogListing: (state) => {
@@ -43,6 +46,7 @@ export const productSlice = createSlice({
     setAllProducts: (state, action) => {
       state.allProducts = action.payload;
       state.products =action.payload;
+      state.productsSoD = action.payload;
     },
 
     setAllProductsByCountriesCategoryId: (state, action) => {
@@ -60,6 +64,7 @@ export const productSlice = createSlice({
     
     setSearchProduct: (state, action) => {
         state.products = action.payload;
+        state.productsSoD = action.payload;
     },
 
     setNewProduct: (state, action) => {
@@ -129,29 +134,29 @@ export const productSlice = createSlice({
     },
     
     setFilterByShipping:(state, action) => {
-      
-      const filteredProducts = action.payload?.filter((product) => {
-        return product.shipping === true
+      const products = JSON.parse(JSON.stringify(state.allProducts));
+      const filteredProducts = products.filter((product) => {
+        return product.shipping == !!action.payload
       });
       console.log(filteredProducts);
       if (action.payload === '---') {
-        state.products = state.allProducts;
+        state.productsSoD = state.allProducts;
       } else {
-        state.products = filteredProducts;
+        state.productsSoD = filteredProducts;
       }
 
     },
 
     setFilterByDiscount: (state, action) => {
-      const filterByCategory = state.allProducts;
-      const filteredCat = filterByCategory.filter((product) => {
-        return product.categories === action.payload;
+      const products = JSON.parse(JSON.stringify(state.allProducts));
+      const filteredProducts = products.filter((product) => {
+        return product.sale_price == !!action.payload;
       });
 
       if (action.payload === 'all') {
-        state.products = state.allProducts;
+        state.productsSoD = state.allProducts;
       } else {
-        state.products = filteredCat;
+        state.productsSoD = filteredProducts;
       }
     },
 

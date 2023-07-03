@@ -1,95 +1,80 @@
-.filtercontainer {
+.sidebar {
     display: flex;
     flex-direction: column;
+    align-items: flex-end;
+    width: fit-content;
+    height: 100%;
+    z-index: 100;
+    transition: width 0.3s ease;
+}
+
+.containerSelect {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: fit-content;
+  padding: 0px 20px;
+}
+
+.notShow {
+  display: none;
+}
+
+.open {
+    transform: translateX(0);
+}
+
+.btnToggle {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    margin-top: 20px;
+    background-color: transparent;
+    color: #4BBF68;
+    border: none;
+    padding: 0;
+    width: 80px;
+    height: 80px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+.btnToggle span {
+  display: block;
+  width: 30px;
+  height: 2px;
+  background-color: #4BBF68;
+  margin-bottom: 5px;
+  transition: transform 0.3s ease;
 }
 
-.select1 {
-    margin-left: 15%;
-    padding: 5px;
-    margin-bottom: 30px;
+.open .btnToggle span:first-child {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.open .btnToggle span:nth-child(2) {
+  opacity: 0;
+}
+
+.open .btnToggle span:last-child {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
+
+.select {
     font-size: 16px;
     border: 1px solid #ccc;
+    background-color: #ccc;
+    color: black;
     border-radius: 4px;
-    width: 300px;    
+    width: 200px;
+    padding: 5px;    
 }
 
-.select2 {
-    margin-left: 15%;
+.Label {
     padding: 5px;
     margin-bottom: 5px;
     font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    width: 300px;
-}
-
-.select3 {
-    margin-left: 15%;
-    padding: 5px;
-    margin-bottom: 5px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    width: 300px;
-}
-
-.select4 {
-    margin-left: 15%;
-    padding: 5px;
-    margin-bottom: 5px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    width: 300px;
-}
-
-.select5 {
-    margin-left: 15%;
-    padding: 5px;
-    margin-bottom: 5px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    width: 300px;
-}
-
-.LabelCat {
-    margin-right: 35%;
-    padding: 5px;
-    margin-bottom: 5px;
-    font-size: 16px;
-    margin-top: 5%;
-}
-
-.LabelDes {
-    margin-right: 33%;
-    padding: 5px;
-    margin-bottom: 5px;
-    font-size: 16px;
-}
-
-.LabelEnv {
-    margin-right: 41%;
-    padding: 5px;
-    margin-bottom: 5px;
-    font-size: 16px;
-    margin-top: 5%;
-}
-
-.LabelPre {
-    margin-right: 40%;
-    padding: 5px;
-    margin-bottom: 5px;
-    font-size: 16px;
-    margin-top: 5%;
-}
-
-.LabelOrd {
-    margin-right: 40%;
-    padding: 5px;
-    margin-bottom: 5px;
-    font-size: 16px;
-    margin-top: 5%;
+    font-weight: 500;
+    color:  #4BBF68
 }
