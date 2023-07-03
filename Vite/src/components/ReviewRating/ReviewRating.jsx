@@ -112,19 +112,70 @@ const ReviewRating = () => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.container}>
-        <div className={styles.secondContainer}>
-          <h1>Valoración: {promedio}</h1>
+      <div className={styles.averageRating}>
+        <p>Rating promedio {promedio}</p>
+        <div className={styles.averageStar}>
+        <fieldset className="starability-slot">
+            <label title="Terrible">1 star</label>
+        </fieldset>
+        </div>
+      </div>
+      <div className={styles.reviewsContainer}>
 
           {reviews.map((review) => (
-            <div key={review.id}>
-              <h3 className={styles.puntaje}>Puntaje: {review.rating}</h3>
-              <p className={styles.parrafo}>{review.review_description}</p>
-              <p>ID del usuario: {review.userId}</p>
+            <div key={review.id} className={styles.reviewBody}>
+              <div className={styles.topCont}>
+              <p className={styles.userName}>{review.userId}</p>
               {
                 userData.access && (userData.userId === review.userId) && <button onClick={() => handlerDelete(review.id)} className={styles.buttonDelete}>Eliminar</button>
               }
-              
+              </div>
+              { review.rating === 5 && 
+                            <div className={styles.stars}> 
+                            <fieldset className="starability-slot">
+                              <label title="Terrible">1 star</label>
+                              <label title="Not good">2 stars</label>
+                              <label title="Average">3 stars</label>
+                              <label title="Very good">4 stars</label>
+                              <label title="Amazing">5 stars</label>
+                            </fieldset>
+                            </div>
+              }
+              { review.rating === 4 && 
+                            <div className={styles.stars}> 
+                            <fieldset className="starability-slot">
+                              <label title="Terrible">1 star</label>
+                              <label title="Not good">2 stars</label>
+                              <label title="Average">3 stars</label>
+                              <label title="Very good">4 stars</label>
+                            </fieldset>
+                            </div>
+              }
+              { review.rating === 3 && 
+                            <div className={styles.stars}> 
+                            <fieldset className="starability-slot">
+                              <label title="Terrible">1 star</label>
+                              <label title="Not good">2 stars</label>
+                              <label title="Average">3 stars</label>
+                            </fieldset>
+                            </div>
+              }
+              { review.rating === 2 && 
+                            <div className={styles.stars}> 
+                            <fieldset className="starability-slot">
+                              <label title="Terrible">1 star</label>
+                              <label title="Not good">2 stars</label>
+                            </fieldset>
+                            </div>
+              }
+              { review.rating === 1 && 
+                            <div className={styles.stars}> 
+                            <fieldset className="starability-slot">
+                              <label title="Terrible">1 star</label>
+                            </fieldset>
+                            </div>
+              }
+              <p className={styles.reviewText}>{review.review_description}</p>
             </div>
           ))}
 
@@ -153,14 +204,14 @@ const ReviewRating = () => {
 
           }
 
-        </div>
       </div>
       {
         userData.access && !userData.isAdmin && <form onSubmit={handlerSubmit}>
-        <div className={styles.container}>
-          <div className={styles.secondContainerCalificaicon}>
+        <div className={styles.reviewsContainer} >
+          <div className={styles.newReview}>
+            <p className={styles.reviewTitle}>Califica este producto</p>
+            <div className={styles.stars}> 
             <fieldset className="starability-slot">
-              <legend>Califica este producto:</legend>
               <input type="radio" id="first-rate1" name="rating" value="1" checked={opinion.rating === "1"} onChange={handlerChangeRating} />
               <label htmlFor="first-rate1" title="Terrible">1 star</label>
               <input type="radio" id="first-rate2" name="rating" value="2" checked={opinion.rating === "2"} onChange={handlerChangeRating} />
@@ -172,12 +223,13 @@ const ReviewRating = () => {
               <input type="radio" id="first-rate5" name="rating" value="5" checked={opinion.rating === "5"} onChange={handlerChangeRating} />
               <label htmlFor="first-rate5" title="Amazing">5 stars</label>
             </fieldset>
+            </div>
             {error.rating && <p>{error.rating}</p>}
             <label htmlFor="review_description"> </label>
             <textarea name="review_description" value={opinion.review_description} onChange={handlerChange} className={styles.textarea} />
             {error.review_description && <p>{error.review_description}</p>}
+            <button type="submit" disabled={!opinion.rating || !opinion.review_description} className={styles.submitButton}> Agregar </button>
           </div>
-          <button type="submit" disabled={!opinion.rating || !opinion.review_description} className={styles.buttonAgregar}> Agregar </button>
 
         </div>
       </form>
