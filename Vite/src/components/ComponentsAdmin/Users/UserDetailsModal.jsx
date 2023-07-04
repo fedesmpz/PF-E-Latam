@@ -27,30 +27,16 @@ const UserDetailsModal = ({
   postal_code,
   createdAt,
 }) => {
+  const dispatch = useDispatch();
   const handleShow = () => {
+    dispatch(getUserById(id));
+    console.log(id);
     setShow(true);
   }
-  const dispatch = useDispatch(id);
+  const user = useSelector((state) => state.user.userById); 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
-  const user = useSelector((state) => state.user.userById); 
-  useEffect(() => {
-    dispatch(getUserById(id)); // Consultar el usuario por su ID al cargar el componente
-    console.log(id);
-  }, [dispatch, id]);
-  console.log(id);
-
-
   
-  useEffect(() => {
-    dispatch(getUserById(id)); // Consultar el usuario por su ID al cargar el componente
-    console.log(id);
-  }, [dispatch, id]);
-  
-  console.log(user);
-
-
-
 
   function toggleAdminStatus(userId, userData, currentAdminStatus) {
 
