@@ -344,7 +344,23 @@ button.backButton:hover svg {
   padding: 10px;
 }
 
+.submitDisabledButton {
+  border-radius: 5px;
+  font-size: 18px;
+  background-color:  #7ED994;
+  padding: 10px 20px;
+  color: #fff;
+  border: none;
+  cursor:not-allowed;
+  transition: background-color 0.3s ease;
+}
 
+.errors {
+  margin-top: 5px;
+  color: red;
+  font-size: 14px;
+  margin-bottom: 0;
+  height: 16px;
+  overflow: hidden;
+}
 
-
-/*                    */

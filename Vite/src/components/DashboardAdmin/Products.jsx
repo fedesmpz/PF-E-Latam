@@ -7,6 +7,8 @@ import StylesAdmin from "./Products.module.css"
 import TableSeller from '../ComponentsAdmin/ProductsSeller/TableSeller'
 import AllProductsSellers from '../ComponentsAdmin/ProductsSeller/AllProductsSellers'
 import NavbarAdmin from '../NavBarAdmin/NavbarAdmin'
+import { Link } from 'react-router-dom';
+import StylesButton from '../NavBarAdmin/NavbarAdmin.module.css'
 
 
 
@@ -30,6 +32,7 @@ const Products = () => {
     indexOfFirstProduct,
     indexOfLastProduct
   );
+  console.log(currentProducts);
   const [orden, setOrden] = useState('');
   const paginado = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -46,6 +49,7 @@ const Products = () => {
       <div className={StylesAdmin.containerHomeAdmin} style={{ marginLeft: isOpen ? '120px' : (!isOpen && '60px') }}>
       <NavbarAdmin/>
         <div className={StylesAdmin.containerProducts}>
+        <div className={StylesAdmin.containerSuperior}>
           <TableSeller
             key="paginado"
             productsPerPage={productsPerPage}
@@ -53,6 +57,8 @@ const Products = () => {
             paginado={paginado}
             currentProducts={paginatedProducts}
           />
+        <Link className={StylesButton.button} to="/CreateProduct">Nuevo</Link>
+        </div>
           <AllProductsSellers currentProducts={paginatedProducts} />
         </div>
       </div>

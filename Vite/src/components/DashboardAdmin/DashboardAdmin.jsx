@@ -54,7 +54,8 @@ const DashboardAdmin = () => {
             monthSales={monthSales}
           />
           <SalesStats />
-        </div >
+        
+        </div>
         <LastOrders />
         <div className={StylesAdmin.line}>
         <LineChartPrincipal />

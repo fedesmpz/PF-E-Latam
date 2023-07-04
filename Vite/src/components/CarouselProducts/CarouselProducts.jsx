@@ -1,9 +1,10 @@
-import Carousel from 'react-bootstrap/Carousel';
+import { Carousel } from 'react-bootstrap';
 import Products from '../Products/Products';
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { axiosAllProducts, axiosFilterProductsByCatalogListing   } from "../../redux/slice/productSlice"
 import Styles from "./CarouselProducts.module.css"
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const ControlledCarousel = () => {
   const [index, setIndex] = useState(0);
@@ -29,7 +30,7 @@ const ControlledCarousel = () => {
   return (
     <section className="sec-more-selled">
       <div className={Styles.centerContainer}>
-        <Carousel className={Styles.carousel} activeIndex={index} onSelect={handleSelect} data-bs-theme="dark" indicators={false} controls={false}>
+        <Carousel className={Styles.carousel} activeIndex={index} onSelect={handleSelect} indicators={false} controls={false}>
           {[...Array(totalItems)].map((_, idx) => {
             const indexOfLastProduct = (idx + 1) * productsPerPage;
             const indexOfFirstProduct = indexOfLastProduct - productsPerPage;

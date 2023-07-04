@@ -13,6 +13,7 @@ const User = ({
   admin,
   postal_code,
   createdAt,
+  superAdmin
 }) => {
     let isAdmin;
   if (admin === false) {
@@ -63,6 +64,7 @@ const User = ({
 <UserDetailsModal
   key={id}
             id={id}
+            userId={id}
             name={name}
             profile_picture={profile_picture}
             surname={surname}
@@ -73,19 +75,8 @@ const User = ({
             admin={admin}
             postal_code={postal_code}
             createdAt={createdAt}
+            superAdmin={superAdmin}
 />
-        {/* <a
-          className={Styles["a"]}
-          href={``}
-        >
-          <p className={Styles["text"]}>
-            <br></br>
-            <BiArchive className={Styles["icon"]} />
-            <span className={Styles["text"]}>
-              <br></br>Detalles
-            </span>
-          </p>
-        </a> */}
       </p>
     </li>
     </div>

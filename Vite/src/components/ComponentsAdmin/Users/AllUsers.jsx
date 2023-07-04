@@ -1,11 +1,11 @@
 import User from "./User";
 import Styles from "../Products/StylesProducts/AllProductsAdmin.module.css";
 
-const AllUsers = ({ currentProducts }) => {
+const AllUsers = ({ currentUsers }) => {
    return (
     <div className={Styles.container}>
     <ul>
-        {currentProducts.map(
+        {currentUsers.map(
         ({
             id,
             name,
@@ -18,6 +18,7 @@ const AllUsers = ({ currentProducts }) => {
             admin,
             postal_code,
             createdAt,
+            superAdmin
         }) => (
             <User
             key={id}
@@ -32,6 +33,7 @@ const AllUsers = ({ currentProducts }) => {
             admin={admin}
             postal_code={postal_code}
             createdAt={createdAt}
+            superAdmin={superAdmin}
             />
         )
         )}
