@@ -39,6 +39,8 @@ const Home = () => {
         setCurrentPage(pageNumber);
     };
 
+    console.log(userData);
+
     useEffect(() => {
         dispatch(loginUserLocal())
 

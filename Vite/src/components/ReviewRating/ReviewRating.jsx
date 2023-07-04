@@ -31,12 +31,14 @@ const ReviewRating = () => {
     userId: ""
   });
 
-  useEffect(() => {
-    dispatch(loginUserLocal())
-  }, [])
+  console.log(userData);
 
-  useEffect(() => {
-  }, [userData])
+  // useEffect(() => {
+  //   dispatch(loginUserLocal())
+  // }, [])
+
+  // useEffect(() => {
+  // }, [userData])
 
   useEffect(() => {
     dispatch(getAllReviewsForProduct(productId));
