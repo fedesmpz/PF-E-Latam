@@ -120,7 +120,7 @@ function Example() {
    
     const user = {
       userId: response.data.userId,
-      name: result.user.displayName,
+      name: response.data.name,
       surname: response.data.surname,
       email: result.user.email,
       access: response.data.access,
