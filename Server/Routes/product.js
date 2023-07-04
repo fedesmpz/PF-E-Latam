@@ -17,6 +17,7 @@ router.post("/new", postProductHandler)
 // router.post("/payment", postProductPayment)
 router.get("/:countryId", getByCountryHandler);
 router.get("/:countryId/:category", getByCategoryHandler);
+router.get("/search/sales/:id",getProductByIdHandler)
 router.get("/:countryId/:category/:id", getProductByIdHandler)
 router.delete("/delete/:id", deleteProductHandler)
 router.put("/hide/:id", logicDeleteHandler)

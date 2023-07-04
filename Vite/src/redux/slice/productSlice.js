@@ -21,8 +21,10 @@ export const productSlice = createSlice({
     sale: null,
     newSaleMessage: null,
     category: null,
+    sales: [],
+    productById:[]
   },
-  
+
   reducers: {
     setProductByCountryCategory: (state, action) => {
       state.products = action.payload;
@@ -58,19 +60,19 @@ export const productSlice = createSlice({
       state.editDetail = action.payload
     },
 
-    cleanEditDetail:(state)=>{
-      state.editDetail= {},
-      state.newSaleMessage= null
+    cleanEditDetail: (state) => {
+      state.editDetail = {},
+        state.newSaleMessage = null
     },
-    
+
     setSearchProduct: (state, action) => {
-        state.products = action.payload;
-        state.productsSoD = action.payload;
+      state.products = action.payload;
+      state.productsSoD = action.payload;
     },
 
     setNewProduct: (state, action) => {
       state.products = [...state.products, action.payload];
-      state.allProducts= [...state.products, action.payload];
+      state.allProducts = [...state.products, action.payload];
     },
 
     setNewProductMessage: (state, action) => {
@@ -81,11 +83,11 @@ export const productSlice = createSlice({
       state.editProductMessage = action.payload;
     },
 
-    cleanDetail:(state)=>{
-      state.detail= {},
-      state.newSaleMessage= null 
+    cleanDetail: (state) => {
+      state.detail = {},
+        state.newSaleMessage = null
     },
-    
+
     setOrderByName: (state, action) => {
       state.orderByName = action.payload;
       const sortedProductsByName = state.productsSoD.sort((a, b) => {
@@ -133,7 +135,7 @@ export const productSlice = createSlice({
       });
       state.productsSoD = sortedProducts; // Asignar la lista ordenada al estado
     },
-    
+
     setFilterByShipping: (state, action) => {
       const { payload } = action;
       if (payload === '---') {
@@ -141,14 +143,14 @@ export const productSlice = createSlice({
       } else {
         state.productsSoD = state.products.filter((product) => {
           if (payload === 'true') {
-            return product.shipping === true; 
+            return product.shipping === true;
           } else {
-            return product.shipping === false; 
+            return product.shipping === false;
           }
         });
       }
     },
-    
+
 
 
     setFilterByDiscount: (state, action) => {
@@ -158,39 +160,45 @@ export const productSlice = createSlice({
       } else {
         state.productsSoD = state.products.filter((product) => {
           if (payload === 'true') {
-            return product.sale_price === true; 
+            return product.sale_price === true;
           } else {
-            return product.sale_price === false; 
+            return product.sale_price === false;
           }
         });
       }
     },
 
-    setHideProduct:(state,action)=>{
+    setHideProduct: (state, action) => {
       state.hideProductMessage = action.payload;
-    
-   
+
+
     },
-    setDeleteProduct:(state,action)=>{
+    setDeleteProduct: (state, action) => {
       state.deleteProductMessage = action.payload
-  
+
     },
 
-    setEditedProduct:(state, action) => {
+    setEditedProduct: (state, action) => {
       state.editDetail = action.payload
       state.detail = action.payload
     },
 
-    setpayProduct:(state, action) => {
+    setpayProduct: (state, action) => {
       state.sale = action.payload
     },
 
-    setNewSaleMessage:(state, action) => {
+    setNewSaleMessage: (state, action) => {
       state.newSaleMessage = action.payload
     },
     setCategoryFN: (state, action) => {
       state.category = action.payload;
     },
+    setSalesByUser: (state, action) => {
+      state.sales = action.payload
+    },
+    setFindProduct:(state,action)=>{
+      state.productById=action.payload
+    }
   },
 });
 
@@ -219,18 +227,18 @@ export const {
   setpayProduct,
   setNewSaleMessage,
   filterProductsByCatalogListing,
+  setSalesByUser,
+  setFindProduct
 } = productSlice.actions;
 
 export default productSlice.reducer;
 
-export const axiosAllProductByCountryCategory = (countryId, category, shipping, discount) => (dispatch) => {
+
+export const axiosAllProductByCountryCategory = (countryId, category) => (dispatch) => {
+  // const countryId = getState().products.country;
+  // const category = getState().products.categories;
   axios
-    .get(`https://localhost/8000/products/${countryId}/${category}`, {
-      params: {
-        shipping,
-        discount,
-      },
-    })
+    .get(`https://pf-elatam.onrender.com/products/${countryId}/${category}`)
     .then((response) => {
       dispatch(setProductByCountryCategory(response.data));
     })
@@ -238,133 +246,154 @@ export const axiosAllProductByCountryCategory = (countryId, category, shipping, 
 };
 
 export const axiosAllProductsByCountries = (countryId) => (dispatch) => {
-    axios
-        .get(`https://pf-elatam.onrender.com/products/${countryId}`)
-        .then((response) => {
-          dispatch(setProductsCountry(countryId))
-          dispatch(setAllProductsByCountries(response.data))
-        })
-        .catch((error) => console.log(error));
+  axios
+    .get(`https://pf-elatam.onrender.com/products/${countryId}`)
+    .then((response) => {
+      dispatch(setProductsCountry(countryId))
+      dispatch(setAllProductsByCountries(response.data))
+    })
+    .catch((error) => console.log(error));
 };
 
 export const axiosAllProducts = () => (dispatch) => {
-    const urls = [
-        'https://pf-elatam.onrender.com/products/ARG',
-        'https://pf-elatam.onrender.com/products/COL',
-        'https://pf-elatam.onrender.com/products/MEX'
-    ];
-    const requests = urls.map(url => axios.get(url));
-    Promise.all(requests)
-        .then((responses) => {
-            const allProducts = responses.map(response => response.data);
-            dispatch(setAllProducts(allProducts));
+  const urls = [
+    'https://pf-elatam.onrender.com/products/ARG',
+    'https://pf-elatam.onrender.com/products/COL',
+    'https://pf-elatam.onrender.com/products/MEX'
+  ];
+  const requests = urls.map(url => axios.get(url));
+  Promise.all(requests)
+    .then((responses) => {
+      const allProducts = responses.map(response => response.data);
+      dispatch(setAllProducts(allProducts));
 
-        })
-        .catch((error) => console.log(error));
+    })
+    .catch((error) => console.log(error));
 };
 
 
 
 export const axiosAllProductByCountryCategoryId = (id, countryId, categories) => (dispatch) => {
-    axios
-        .get(`https://pf-elatam.onrender.com/products/${countryId}/${categories}/${id}`)
-        .then((response) => {
-            dispatch(setAllProductsByCountriesCategoryId(response.data));
-        })
-        .catch((error) => console.log(error));
+  axios
+    .get(`https://pf-elatam.onrender.com/products/${countryId}/${categories}/${id}`)
+    .then((response) => {
+      dispatch(setAllProductsByCountriesCategoryId(response.data));
+    })
+    .catch((error) => console.log(error));
 };
 
 export const ProductByIdForEditForm = (id, countryId, categories) => (dispatch) => {
   axios
-      .get(`https://pf-elatam.onrender.com/products/${countryId}/${categories}/${id}`)
-      .then((response) => {
-          dispatch(setEditDetail(response.data))
-      })
-      .catch((error) => console.log(error));
+    .get(`https://pf-elatam.onrender.com/products/${countryId}/${categories}/${id}`)
+    .then((response) => {
+      dispatch(setEditDetail(response.data))
+    })
+    .catch((error) => console.log(error));
 };
 
 export const axiosSearchProduct = (title, country) => (dispatch) => {
-    return axios
-      .get(`https://pf-elatam.onrender.com/products/search/?title=${title}&country=${country}`)
-      .then((response) => {
-        dispatch(setSearchProduct(response.data));
-      })
-      .catch((error) => {
-        throw error
-      });
-  };
+  return axios
+    .get(`https://pf-elatam.onrender.com/products/search/?title=${title}&country=${country}`)
+    .then((response) => {
+      dispatch(setSearchProduct(response.data));
+    })
+    .catch((error) => {
+      throw error
+    });
+};
 
 
-  export const postProduct = (payload) => (dispatch) => {
-    axios
-      .post("https://pf-elatam.onrender.com/products/new", payload)
-      .then((response) => {
-            dispatch(setNewProductMessage(response.data));
-            dispatch(setNewProduct(response.data));
-      })
-      .catch((error) => {
-        dispatch(setNewProductMessage(error.response?.data?.error));
-      });
-  };
+export const postProduct = (payload) => (dispatch) => {
+  axios
+    .post("https://pf-elatam.onrender.com/products/new", payload)
+    .then((response) => {
+      dispatch(setNewProductMessage(response.data));
+      dispatch(setNewProduct(response.data));
+    })
+    .catch((error) => {
+      dispatch(setNewProductMessage(error.response?.data?.error));
+    });
+};
 
-  export const editProduct = (id, payload) => (dispatch) => {
-    axios
-      .put(`https://pf-elatam.onrender.com/products/edit/${id}`, payload)
-      .then((response) => {
-            dispatch(setEditProductMessage(response.data));
-            // dispatch(setEditedProduct(payload));
-      })
-      .catch((error) => {
-        dispatch(setEditProductMessage(error.response?.data?.error));
-      });
-  };
+export const editProduct = (id, payload) => (dispatch) => {
+  axios
+    .put(`https://pf-elatam.onrender.com/products/edit/${id}`, payload)
+    .then((response) => {
+      dispatch(setEditProductMessage(response.data));
+      // dispatch(setEditedProduct(payload));
+    })
+    .catch((error) => {
+      dispatch(setEditProductMessage(error.response?.data?.error));
+    });
+};
 
-  export const hideProduct = (id) => (dispatch) => {
-    axios
-      .put(`https://pf-elatam.onrender.com/products/hide/${id}`)
-      .then((response) => {
-            dispatch(setHideProduct(response.data));
-      })
-      .catch((error) => console.log(error));
-  };
+export const hideProduct = (id) => (dispatch) => {
+  axios
+    .put(`https://pf-elatam.onrender.com/products/hide/${id}`)
+    .then((response) => {
+      dispatch(setHideProduct(response.data));
+    })
+    .catch((error) => console.log(error));
+};
 
-  export const deleteProduct=(id)=>(dispatch)=>{
-    axios
+export const deleteProduct = (id) => (dispatch) => {
+  axios
     .delete(`https://pf-elatam.onrender.com/products/delete/${id}`)
-    .then((response)=>{
+    .then((response) => {
       dispatch(setDeleteProduct(response.data))
     })
-    .catch((error)=>console.log(error))
-  };
+    .catch((error) => console.log(error))
+};
 
-  export const payProduct = (payload) => (dispatch) => {
-    axios
-      .post(`https://pf-elatam.onrender.com/checkout`, payload)
-      .then((response) => {
-        console.log(response.data)
-        dispatch(setNewSaleMessage(response.data))
-        dispatch(setpayProduct(response.data));
-      }) 
-      .catch((error) => 
+export const payProduct = (payload) => (dispatch) => {
+  axios
+    .post(`https://pf-elatam.onrender.com/checkout`, payload)
+    .then((response) => {
+      console.log(response.data)
+      dispatch(setNewSaleMessage(response.data))
+      dispatch(setpayProduct(response.data));
+    })
+    .catch((error) =>
       dispatch(setNewSaleMessage(error.response.data.error)))
-  };
+};
 
-  export const axiosFilterProductsByCatalogListing = () => (dispatch) => {
-    const urls = [
-        'https://pf-elatam.onrender.com/products/ARG',
-        'https://pf-elatam.onrender.com/products/COL',
-        'https://pf-elatam.onrender.com/products/MEX'
-    ];
-    const requests = urls.map(url => axios.get(url));
-    Promise.all(requests)
-        .then((responses) => {
-            const allProducts = responses.map(response => response.data);
+export const axiosFilterProductsByCatalogListing = () => (dispatch) => {
+  const urls = [
+    'https://pf-elatam.onrender.com/products/ARG',
+    'https://pf-elatam.onrender.com/products/COL',
+    'https://pf-elatam.onrender.com/products/MEX'
+  ];
+  const requests = urls.map(url => axios.get(url));
+  Promise.all(requests)
+    .then((responses) => {
+      const allProducts = responses.map(response => response.data);
 
-            // Filtrar productos por Catalog_Listing en true
-            const filteredProducts = allProducts.map(products => products.filter(product => product.catalog_listing === true));
+      // Filtrar productos por Catalog_Listing en true
+      const filteredProducts = allProducts.map(products => products.filter(product => product.catalog_listing === true));
 
-            dispatch(setAllProducts(filteredProducts));
+      dispatch(setAllProducts(filteredProducts));
 
-        })
-        .catch((error) => console.log(error));
+    })
+    .catch((error) => console.log(error));
+};
+
+export const findProduct = (productId) => (dispatch) => {
+  axios
+    .get(`https://pf-elatam.onrender.com/products/search/sales/${productId}`)
+    .then((response) => {
+      dispatch(setFindProduct(response.data))
+    
+    })
+    .catch((error) => console.log(error))
+};
+
+
+export const salesByUser = (email) => (dispatch) => {
+  axios
+    .get(`hhttps://pf-elatam.onrender.com/sales/search/?email=${email}`)
+    .then((response) => {
+      dispatch(setSalesByUser(response.data))
+
+    })
+    .catch((error) => console.log(error))
 };
