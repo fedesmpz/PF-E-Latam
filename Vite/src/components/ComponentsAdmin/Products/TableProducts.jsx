@@ -127,7 +127,7 @@ const TablePrducts = ({ productsPerPage, products, paginado, currentPage }) => {
         </div>
       }
 
-      <ul className={Styles.pagination}>
+      <ul className={styles.pagination}>
         <li>
           <button
             className={
