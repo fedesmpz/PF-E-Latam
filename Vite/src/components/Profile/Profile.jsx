@@ -121,15 +121,6 @@ const Profile = () => {
                         </svg>
                     </button>
                 </Link>
-                {/* <div>
-                    {message && (
-                        <div className={style.successMessageContainer}>
-                            <p className={style.successMessage}>{message}<button onClick={handleCloseMessage} className={style.closeButton}>
-                                Cerrar
-                            </button></p>
-                        </div>
-                    )}
-                </div> */}
             </div>
 
             <div className={style.containerForm}>
