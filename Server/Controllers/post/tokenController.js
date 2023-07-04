@@ -4,10 +4,12 @@ const { SECRET_KEY } = process.env;
 
 
 const getTokenController= async(user)=>{
+    const {email, admin, superAdmin} = user
+    const userToken = {email, admin, superAdmin}
 
     try {
 
-        const token = jwt.sign(user, SECRET_KEY, { expiresIn: '100h' })
+        const token = jwt.sign(userToken, SECRET_KEY, { expiresIn: '100h' })
         return token
     } catch (error) {
         return error.message;
