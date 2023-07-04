@@ -8,7 +8,7 @@ import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { useDispatch } from 'react-redux';
-import { updateDataUser, getUserById } from '../../../redux/slice/userSlice';
+import { updateDataUser, getUserById, getUsers } from '../../../redux/slice/userSlice';
 import { useSelector } from "react-redux";
 
 
@@ -36,8 +36,10 @@ const UserDetailsModal = ({
   }
   const user = useSelector((state) => state.user.userById); 
   const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  
+  const handleClose = () => {
+    dispatch(getUsers())
+    setShow(false);
+  }
 
   function toggleAdminStatus(currentAdminStatus) {
     const newAdminStatus = !currentAdminStatus;
@@ -163,7 +165,7 @@ const UserDetailsModal = ({
                 Close
             </Button>
             <Button variant="primary" onClick={() => toggleAdminStatus(admin)}>
-  Convertir en Admin
+  Actualizar Permisos
 </Button>
         </Modal.Footer>
     </Modal>
