@@ -36,3 +36,9 @@
     height: 90vh;
     /* margin-right: 4rem; */
   }
+  .containerSuperior{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: max-content;
+  }

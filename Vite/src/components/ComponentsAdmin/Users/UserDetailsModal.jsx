@@ -8,7 +8,8 @@ import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { useDispatch } from 'react-redux';
-import { updateUser } from '../../../redux/slice/userSlice';
+import { updateUser, getUserById } from '../../../redux/slice/userSlice';
+import { useSelector } from "react-redux";
 
 
 
@@ -28,7 +29,26 @@ const UserDetailsModal = ({
 }) => {
 
   const dispatch = useDispatch();
+
+
+  const userById = (id) => {
+    useEffect(() => {
+    dispatch(getUserById(id)); // Consultar el usuario por su ID al cargar el componente
+  }, [dispatch, id]);
+  }
+
+  const user = useSelector((state) => state.user.userById); 
+
   
+  
+  
+  
+  console.log(user);
+
+
+
+
+
   const toggleAdminStatus = (userId, userData, currentAdminStatus) => {
     
     const newAdminStatus = !currentAdminStatus;

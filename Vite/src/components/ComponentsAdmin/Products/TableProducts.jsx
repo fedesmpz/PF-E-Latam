@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import styles from "./StylesProducts/TableProducts.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import Select from 'react-select'
-import Styles from "../../NavBarPage/NavbarPage.module.css"
+import Styles from '../../NavBar/NavBar.module.css'
 import { axiosAllProductsByCountries, axiosSearchProduct } from "../../../redux/slice/productSlice";
 
 const TablePrducts = ({ productsPerPage, products, paginado, currentPage }) => {
@@ -103,7 +103,7 @@ const TablePrducts = ({ productsPerPage, products, paginado, currentPage }) => {
         isSearchable={false}
         getOptionLabel={option => (
           <div>
-            <img src={option.img} alt={option.label} className={styles.flagIcon} />
+            <img src={option.img} alt={option.label} className={Styles.flagIcon} />
             {option.label}
           </div>
         )}
@@ -127,7 +127,7 @@ const TablePrducts = ({ productsPerPage, products, paginado, currentPage }) => {
         </div>
       }
 
-      <ul className={styles.pagination}>
+      <ul className={Styles.pagination}>
         <li>
           <button
             className={
