@@ -9,7 +9,7 @@ const {name,surname,email,birth_date,profile_picture,country,city,address,postal
 try {
 
     const uploadResponse = await cloudinary.uploader.upload(profile_picture, {
-        upload_preset: "profileUser-thumbnails"
+        upload_preset: "products-thumbnails"
     })
 
     const thumbnail = uploadResponse.url
