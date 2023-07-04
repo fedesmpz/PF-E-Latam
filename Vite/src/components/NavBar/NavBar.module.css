@@ -5,13 +5,21 @@
   align-items: center;
   justify-content: space-between;
   background-color: white;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .rightContainer {
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: center;
+}
+
+.dropdownNav {
+  height: 50px;
+}
+
+.dropdownNav:hover {
+  background-color: whitesmoke;
 }
 
 .leftContainer {
@@ -140,21 +148,6 @@
     border: none;
     border-top: 2px solid transparent;
   }
-
-  .buttonProfile{
-    display: inline;
-    margin-left: 15px;
-    margin-right: 10px;
-    margin-top: 5px;
-    align-items: center;
-    cursor: pointer;
-    color:  #4E55D9;
-  }
-
-  .buttonProfile:hover{
-    color:  #2d33a1;
-  font-weight: 400;
-  }
   
 .button:hover{
   color:  #2d33a1;
@@ -163,8 +156,41 @@
 
 .buttonCenter{
   display: flex;
+  flex-direction: row;
+  align-items:flex-start;
+  height: 50px;
+}
+
+.roundButton {
+  display: flex;
+  border: none;
+  outline: none;
   justify-content: center;
-  /* margin-top: 20px; */
+  align-items: center;  
+  cursor: pointer;
+  height: 50px;
+  background-color: transparent;
+}
+
+.roundButton img {
+  display: flex;
+  border-radius: 50%;
+  width: 50px;
+}
+
+.profileButton {
+  background-color: transparent;
+  text-decoration: none;
+  color:  #4E55D9;
+  align-items: center;
+  justify-content: center;
+  min-width: 80px;
+  font-size: 18px;
+  font-weight: 400;
+  padding: 10px;
+  margin-left: 0px;
+  cursor: pointer;
+  border: none;
 }
 
 .modal {
@@ -228,6 +254,7 @@
   flex-direction: row-reverse;
   height: 50px;
   width: 60px;
+  margin-right: 10px;
 }   
 
 .cartButton{
@@ -268,18 +295,7 @@
   align-items: center
 }
 
-    .roundButton {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      background-color: #ccc;
-      border: none;
-      outline: none;
-      cursor: pointer;
-    }
+
 
     @keyframes moveNotification {
       0% {
