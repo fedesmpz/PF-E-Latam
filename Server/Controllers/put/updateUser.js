@@ -9,11 +9,11 @@ const {name,surname,email,birth_date,profile_picture,country,city,address,postal
 try {
 
     const uploadResponse = await cloudinary.uploader.upload(profile_picture, {
-        upload_preset: "products-thumbnails"
+        upload_preset: "profileUser-thumbnails"
     })
 
     const thumbnail = uploadResponse.url
-
+console.log(thumbnail)
     const user = await User.findByPk(id, {
         include: Cart
     })
@@ -56,6 +56,7 @@ try {
     }
     return userReturned
 } catch (error) {
+    console.log(error)
     throw error;
 }
  
