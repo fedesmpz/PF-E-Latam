@@ -13,6 +13,7 @@ const User = ({
   admin,
   postal_code,
   createdAt,
+  superAdmin
 }) => {
     let isAdmin;
   if (admin === false) {
@@ -63,6 +64,7 @@ const User = ({
 <UserDetailsModal
   key={id}
             id={id}
+            userId={id}
             name={name}
             profile_picture={profile_picture}
             surname={surname}
@@ -73,6 +75,7 @@ const User = ({
             admin={admin}
             postal_code={postal_code}
             createdAt={createdAt}
+            superAdmin={superAdmin}
 />
       </p>
     </li>

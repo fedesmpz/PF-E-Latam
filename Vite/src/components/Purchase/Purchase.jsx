@@ -132,7 +132,7 @@ const PaymentComponent = () => {
   }
 
   useEffect(() => {
-    const isValid = ((Object.keys(errors).length === Object.keys(deliveryForm).length - 11) || (Object.keys(errors).length === Object.keys(deliveryForm).length - 11)) && Object.values(errors).every((error) => error === "");
+    const isValid = (Object.keys(errors).length && Object.values(errors).every((error) => error === ""));
     setIsFormValid(isValid);
     console.log(Object.keys(errors).length);
     console.log(Object.keys(deliveryForm).length);
@@ -317,10 +317,10 @@ const PaymentComponent = () => {
                   </div>
 
                   <div>
-                    <label htmlFor="postalCode" className={styles.label}>Codigo Postal</label>
+                    <label htmlFor="postal_code" className={styles.label}>Codigo Postal</label>
                     <input
                       type="text"
-                      name="postalCode"
+                      name="postal_code"
                       value={deliveryForm.postal_code}
                       onChange={handleDeliveryChange}
                       placeholder="Ingrese el código postal"
