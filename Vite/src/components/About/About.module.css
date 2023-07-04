@@ -1,15 +1,15 @@
 .container1 {
-    background-color: aliceblue;
-    text-align: center;
-    height: 105%;
-    border: 6px solid rgb(221, 227, 245);
-    border-bottom: 0px;
-    position:absolute;
+  background-color: aliceblue;
+  text-align: center;
+  height: 105vh;
+  border: 6px solid rgb(221, 227, 245);
+  border-bottom: 0;
+  position: relative;
+  min-width: 40%;
 }
 
 .titulo {
   color: rgb(117, 136, 59);
-  /* border-bottom: 1px solid black; */
   padding-bottom: 10px;
 }
 
@@ -18,106 +18,98 @@
   margin: 10px;
   font-family: serif;
   border: 5px solid rgb(220, 219, 219);
-  border-top: 0px;
+  border-top: 0;
   padding: 10px;
 }
 
-.info{
+.info {
   margin-top: 16rem;
-  
+}
+
+.vicky,
+.juampi,
+.fede,
+.cristian,
+.camilo,
+.demian,
+.viole,
+.gabo {
+  background-size: cover;
+  width: 14%;
+  height: 25%;
+  position: absolute;
+  border-radius: 50%;
+  margin: 3%;
 }
 
 .vicky {
   background-image: url("https://media.licdn.com/dms/image/D4D03AQHfDjt0KhQ__A/profile-displayphoto-shrink_200_200/0/1680468110532?e=1694044800&v=beta&t=yCVCjZVC1DsrKrOLK9KwCAGditGL3UmO4KwiLqLSaLA");
-  background-size: 100% 100%;
-  width: 14%;
-  height: 25%;
-  position: absolute;
-  border-radius: 50%;
-  margin: 3%;
 }
 
-.juampi{
+.juampi {
   background-image: url("https://cdn.discordapp.com/attachments/1090040069567553606/1125409652625117224/WhatsApp_Image_2023-05-25_at_17.35.54.jpeg");
-  background-size: 100% 100%;
-  width: 14%;
-  height: 25%;
-  position: absolute;
-  border-radius: 50%;
-  margin: 3%;
-  margin-left: 30%;
+  margin-left: 58%;
 }
 
-.fede{
+.fede {
   background-image: url("https://media.licdn.com/dms/image/D4D03AQE6ObD1Tbc85A/profile-displayphoto-shrink_200_200/0/1676233507141?e=1694044800&v=beta&t=m0c2bU0p5SaDBLZrIMvmv3WbEryWLcVdLt9htgjBhnw");
-  background-size: 100% 100%;
-  width: 14%;
-  height: 25%;
-  position: absolute;
-  border-radius: 50%;
-  margin: 3%;
-  margin-left: 58%;
+  margin-left: 30%;
 }
 
-.cristian{
+.cristian {
   background-image: url("https://ca.slack-edge.com/TPRS7H4PN-U04KXTALD35-c5e40c3d7560-512");
-  background-size: 100% 100%;
-  width: 14%;
-  height: 25%;
-  position: absolute;
-  border-radius: 50%;
-  margin: 3%;
   margin-left: 81%;
 }
 
-.camilo{
+.camilo {
   background-image: url("https://ca.slack-edge.com/TPRS7H4PN-U045V9VB72S-587e19e1c173-512");
-  background-size: 100% 100%;
-  width: 14%;
-  height: 25%;
-  position: absolute;
-  border-radius: 50%;
-  margin: 3%;
+  margin-top: 23%;
+}
+
+.demian {
+  background-image: url("https://avatars.githubusercontent.com/u/117117705?v=4");
   margin-left: 30%;
   margin-top: 23%;
 }
 
-.demian{
-  background-image: url("https://avatars.githubusercontent.com/u/117117705?v=4");
-  background-size: 100% 100%;
-  width: 14%;
-  height: 25%;
-  position: absolute;
-  border-radius: 50%;
-  margin: 3%;
-  margin-top: 23%;
-}
-
-.viole{
+.viole {
   background-image: url("https://ca.slack-edge.com/TPRS7H4PN-U044PQNU3A8-1c7230d22674-512");
-  background-size: 100% 100%;
-  width: 14%;
-  height: 25%;
-  position: absolute;
-  border-radius: 50%;
-  margin: 3%;
-  margin-top: 23%;
   margin-left: 58%;
-}
-
-.gabo{
-  background-image: url("https://ca.slack-edge.com/TPRS7H4PN-U04P82Q4S2H-86ee505d5ae5-512");
-  background-size: 100% 100%;
-  width: 14%;
-  height: 25%;
-  position: absolute;
-  border-radius: 50%;
-  margin: 3%;
   margin-top: 23%;
-  margin-left: 81%;
 }
 
-.logos{
+.gabo {
+  background-image: url("https://ca.slack-edge.com/TPRS7H4PN-U04P82Q4S2H-86ee505d5ae5-512");
+  margin-left: 81%;
+  margin-top: 23%;
+}
+
+.logos {
   cursor: pointer;
   margin: 3%;
 }
+
+@media (max-width: 768px) {
+  .vicky,
+  .juampi,
+  .fede,
+  .cristian,
+  .camilo,
+  .demian,
+  .viole,
+  .gabo {
+    width: 40%;
+    height: auto;
+    margin: 3%;
+  }
+  
+  .juampi,
+  .fede,
+  .cristian,
+  .demian,
+  .viole,
+  .gabo {
+    margin-left: 0;
+  }
+}
+
