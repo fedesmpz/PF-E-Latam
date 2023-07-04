@@ -30,6 +30,7 @@ const Product = ({ id, title, thumbnail, original_price, currency_id, price, sal
                         <h2 className={`${Styles.title} ${Styles.thinTitle}`}>{shortenTitle(title)}</h2>
                         <div className={Styles.priceTag}>
                         {sale_price ? ( <>
+                            <span className={Styles.original_price}> ${original_price}</span> 
                             <span className={Styles.sale_price}> ${price}</span> 
                         </> )
                         : (<span className={Styles.price}>${original_price}</span>)
@@ -40,8 +41,8 @@ const Product = ({ id, title, thumbnail, original_price, currency_id, price, sal
                                 </> ) : (
                                 <p className={Styles.price}>$ {currency_id} {original_price}</p>
                             )} */}
-                        { shipping && <span className={Styles.shipping}>Envío gratis</span> }
                         </div>
+                        { shipping && <span className={Styles.shipping}>Envío gratis</span> }
                         
                         
                         <span className={Styles.category}>{categories}</span>
