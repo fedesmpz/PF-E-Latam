@@ -41,9 +41,6 @@ const ReviewRating = () => {
     username: userData.name,
   });
 
-  useEffect(() => {
-    dispatch(loginUserLocal())
-  }, [])
 
   useEffect(() => {
     dispatch(getAllReviewsForProduct(productId));
