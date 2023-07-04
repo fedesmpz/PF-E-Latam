@@ -45,8 +45,10 @@ export const ratingReviewSlice = createSlice({
     'reviews/getAllReviewsForProduct',
     async (productId) => {
       try {
-        // const response = await axios.get(`http://localhost:8000/reviews/product/${productId}`);    
+        //const response = await axios.get(`http://localhost:8000/reviews/product/${productId}`);    
+ 
         const response = await axios.get(`https://pf-elatam.onrender.com/reviews/product/${productId}`);
+
         return response.data;
       } catch (error) {
         throw error;
@@ -71,7 +73,7 @@ export const ratingReviewSlice = createSlice({
     async (opinion) => {
       try {
         const response = await axios.post('https://pf-elatam.onrender.com/reviews', opinion);
-        // const response = await axios.post('http://localhost:8000/reviews', opinion);
+
         return response.data;
       } catch (error) {
         throw error;

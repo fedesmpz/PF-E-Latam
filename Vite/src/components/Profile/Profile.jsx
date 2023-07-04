@@ -1,53 +1,49 @@
 import { useState, useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { postProduct } from "../../redux/slice/productSlice"
-import { loginUserLocal } from "../../redux/slice/userSlice"
-import { setNewProductMessage } from "../../redux/slice/productSlice"
 import { Link } from "react-router-dom"
-import validation from "../../utils/formValidation"
 import style from "./Profile.module.css"
+import { sendPasswordResetEmail } from 'firebase/auth'
+import { auth } from '../../utils/firebase'
+import { loginUserLocal, updateUser } from '../../redux/slice/userSlice';
+
 
 
 const Profile = () => {
 
     const dispatch = useDispatch();
-    const [isFormValid, setIsFormValid] = useState(false)
-    let [errors, setErrors] = useState({})
     const message = useSelector(state => state.products.newProductMessage)
     const [profilePicture, setProfilePicture] = useState("")
     const userData = useSelector(state => state.user.userData)
+    const noPofileFoto = '../../../public/images/no_profile.jpg'
+    const [formDisabled, setFormDisabled] = useState(false)
+    const [newDataUser, setNewDataUser] = useState(userData)
+    const [showModalPassword, setShowModalPassword] = useState(false)
+    const [showModalSend, setShowModalSend] = useState(false)
+
+
+
 
     useEffect(()=>{
         dispatch(loginUserLocal())
-        console.log(userData);
+
         
     },[])
 
-    const [newDataUser, setNewDataUser] = useState({
-        name: userData.name,
-        surname: userData.surname,
-        email: userData.email,
-        profilePicture: userData.profile_picture,
-        //surname: userData.name,
-        birth_date: userData.name,
-        address: userData.address,
-        city: userData.city,
-        postal_code: userData.postal_code,
-        shipping: null,
-        attributes: "",
-        promotions: [],
-        categories: "",
-        country: "Argentina",
-    })
+    const sendChangePassword = () =>{
+        
+        setShowModalPassword(true)
+        sendPasswordResetEmail(auth, newDataUser.email)
 
-    // useEffect(() => {
-    //     const isValid = ((Object.keys(errors).length === Object.keys(newProduct).length - 4) || (Object.keys(errors).length === Object.keys(newProduct).length - 3) || (Object.keys(errors).length === Object.keys(newProduct).length - 2)) && Object.values(errors).every((error) => error === "");
-    //     setIsFormValid(isValid);
-    // }, [errors, newProduct]);
+    }
 
-    const handleCloseMessage = () => {
-        dispatch(setNewProductMessage(""))
-    };
+    const closeChangePassword = () => {
+        setShowModalPassword(false)
+    }
+
+    const closeChangeSend = () => {
+        setShowModalSend(false)
+    }
+
 
     const handleCountryChange = (event) => {
         let value = event.target.value
@@ -70,7 +66,6 @@ const Profile = () => {
     const handleProductThumbnailUpload = (event) => {
         const prop = event.target.name
         const file = event.target.files[0];
-        //validation(prop, file, errors, setErrors)
         transformFile(file)
     }
 
@@ -86,6 +81,10 @@ const Profile = () => {
         }
     }
 
+    const handleFormDisabled = () => {
+        setFormDisabled(true)
+    }
+
     const handleChange = (event) => {
 
         const prop = event.target.name
@@ -96,35 +95,19 @@ const Profile = () => {
             [prop]: value
         })
 
-      //  validation(prop, value, errors, setErrors)
-
     }
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault()
-
-        // dispatch(postProduct({
-        //     ...newProduct,
-        //     uri: profilePicture
-        // }))
-        // if (isFormValid) {
+        if (profilePicture){
             setNewDataUser({
-        //         name: "",
-        //         surname: 0,
-        //         email: "",
-        //         birth_date: 0,
-        //         sale_price: false,
-        //         available_quantity: 0,
-        //         official_store_name: "",
-        //         shipping: true,
-        //         attributes: "",
-        //         catalog_listing: true,
-        //         promotions: [],
-        //         categories: "",
-        //         country: ""
+                ...newDataUser,
+                profile_picture: profilePicture
             })
-        //     setErrors({})
-        // }
+        }
+        setFormDisabled(false)
+        dispatch(updateUser(userData.userId, newDataUser))
+        setShowModalSend(true)
     }
 
     return (
@@ -138,35 +121,26 @@ const Profile = () => {
                         </svg>
                     </button>
                 </Link>
-                <div>
-                    {message && (
-                        <div className={style.successMessageContainer}>
-                            <p className={style.successMessage}>{message}<button onClick={handleCloseMessage} className={style.closeButton}>
-                                X
-                            </button></p>
-                        </div>
-                    )}
-                </div>
             </div>
 
             <div className={style.containerForm}>
-                <form encType="multipart/form-data" onSubmit={handleSubmit}>
+                <div>
+
+                <form encType="multipart/form-data">
 
                     <div>
                         <label htmlFor="title" className={style.label}>Tu nombre</label>
-                        <input placeholder="Ingrese un titulo" type="text" name="title" value={newDataUser.name} onChange={handleChange} />
-                        {errors.title && <p>{errors.title}</p>}
+                        <input disabled={!formDisabled} className={!formDisabled && style.formDisabled} placeholder="Ingresa tu nombre" type="text" name="name"  value={newDataUser.name} onChange={handleChange}/>
                     </div>
 
                     <div>
                         <label htmlFor="title" className={style.label}>Tu apellido</label>
-                        <input placeholder="Ingrese un titulo" type="text" name="title" value={newDataUser.name} onChange={handleChange} />
-                        {errors.title && <p>{errors.title}</p>}
+                        <input disabled={!formDisabled} className={!formDisabled && style.formDisabled} placeholder="Ingresa tu apellido" type="text" name="surname"  value={newDataUser.surname} onChange={handleChange}/>
                     </div>
 
                     <div>
                         <label htmlFor="country" className={style.label}>País</label>
-                        <select onChange={handleCountryChange} name="country" id="country" className={style.selectField}>
+                        <select onChange={handleCountryChange} name="country" id="country" className={style.selectField} value={newDataUser.country} disabled={!formDisabled}>
                             <option value="Argentina"> Argentina </option>
                             <option value="Colombia"> Colombia </option>
                             <option value="Mexico"> México </option>
@@ -175,55 +149,65 @@ const Profile = () => {
 
                     <div>
                         <label htmlFor="title" className={style.label}>Tu E-Mail</label>
-                        <input placeholder="Ingrese un titulo" type="text" name="title" value={newDataUser.name} onChange={handleChange} />
-                        {errors.title && <p>{errors.title}</p>}
+                        <input disabled={true} placeholder="Ingresa tu E-Mail" type="text" name="email" value={newDataUser.email}/>
+                        {formDisabled && <p>Tu E-Mail no se puede cambiar</p>}
                     </div>
 
                     <div>
                         <label htmlFor="birth_date" className={style.label}>Tu fecha de nacimiento</label>
-                        <input placeholder="Ingrese un titulo" type="date" pattern="\d{2} \d{2} \d{4}"  name="birth_date" value={newDataUser.name} onChange={handleChange} />
-                        {/* {errors.title && <p>{errors.title}</p>} */}
+                        <input disabled={!formDisabled} className={!formDisabled && style.formDisabled} type="date" name="birth_date"  value={newDataUser.birth_date} onChange={handleChange}/>
                     </div>
 
                     <div>
                         <label htmlFor="title" className={style.label}>Tu dirección</label>
-                        <input placeholder="Ingrese un titulo" type="text" name="title" value={newDataUser.name} onChange={handleChange} />
-                        {errors.title && <p>{errors.title}</p>}
+                        <input disabled={!formDisabled} className={!formDisabled && style.formDisabled} placeholder="Ingresa tu dirección" type="text" name="address" value={newDataUser.address} onChange={handleChange} />
                     </div>
 
                     <div>
                         <label htmlFor="title" className={style.label}>Tu ciudad</label>
-                        <input placeholder="Ingrese un titulo" type="text" name="title" value={newDataUser.name} onChange={handleChange} />
-                        {errors.title && <p>{errors.title}</p>}
+                        <input disabled={!formDisabled} className={!formDisabled && style.formDisabled}  placeholder="Ingresa tu ciudad" type="text" name="city" value={newDataUser.city} onChange={handleChange} />
                     </div>
 
                     <div>
                         <label htmlFor="title" className={style.label}>Tu código postal</label>
-                        <input placeholder="Ingrese un titulo" type="text" name="title" value={newDataUser.name} onChange={handleChange} />
-                        {errors.title && <p>{errors.title}</p>}
+                        <input disabled={!formDisabled} className={!formDisabled && style.formDisabled} placeholder="Ingresa tu código postal" type="text" name="postal_code" value={newDataUser.postal_code} onChange={handleChange} />
                     </div>                    
 
                     <div>
                         <label htmlFor="thumbnail" className={style.label}>Foto de tu perfil</label>
-                        <input type="file" name="thumbnail" multiple={false} accept="image/*" onChange={handleProductThumbnailUpload} />
-                        {errors.thumbnail && <p>{errors.thumbnail}</p>}
+                        <input disabled={!formDisabled} className={!formDisabled && style.formDisabled}  type="file" name="thumbnail" multiple={false} accept="image/*" onChange={handleProductThumbnailUpload}/>
                     </div>
 
-
-
-                    <div className={style.container_submit}>
-                        {/* <button className={` ${isFormValid ? style.submitButton : style.submitDisabledButton}`} type="submit" disabled={!isFormValid}>Crear</button> */}
-                        <button className={style.submitButton} type="submit">Crear</button>
-
-                    </div>
+                    
                 </form>
+                <div className={style.container_submit}>
+                        {
+                            formDisabled ? 
+                            <button className={style.submitButton}  onClick={handleSubmit}>Actualizar Perfil</button>
+                            :
+                            <button className={style.submitButton}  onClick={handleFormDisabled}>Editar Perfil</button>
+                        }
+                        
+                        <button className={style.submitButton}>Mis reseñas</button>
+                        <button className={style.submitButton}>Mis compras</button>
+                        <button className={style.submitButton} onClick={sendChangePassword}>Cambiar Contraseña</button>
+                    </div>
+                </div>
+
+
+
                 <div className={style.secondColumn}>
                     <h2 className={style.PreviewofProduct}>Datos de tu perfil</h2>
                     <div className={style.firstRow}>
+
                         <div className={style.thumbnailContainer}>
-                            {!newDataUser.profilePicture &&
-                                <p className={style.previewTitleThumbnail}>La vista previa de la imagen aparecera aqui</p>}
-                            {newDataUser.profilePicture && <img className={style.thumbnail} src={newDataUser.profilePicture} alt="product_thumbnail"></img>}
+                            {profilePicture ? (
+                              <img className={style.thumbnail} src={profilePicture} alt="product_thumbnail" />
+                            ) : newDataUser.profile_picture ? (
+                              <img className={style.thumbnail} src={newDataUser.profile_picture} alt="product_thumbnail" />
+                            ) : (
+                              <img className={style.thumbnail} src={noPofileFoto} alt="product_thumbnail" />
+                            )}
                         </div>
                         <div>
                             <h2 className={style.previewTitle}>{newDataUser.name ? newDataUser.name : `Tu nombre`}</h2>
@@ -256,6 +240,32 @@ const Profile = () => {
  
                     </div>
                 </div>
+                <>
+                  {showModalPassword && (
+                    <div className={style.modal}>
+                      <div className={style.modalContent}>
+                        <h2>Se envió un correo a {userData.email}</h2> 
+                        <h2>para reestablecer la contraseña</h2>
+                        <div className={style.modalButtons}>
+                          <button onClick={closeChangePassword}>Aceptar</button>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </>
+                <>
+                  {showModalSend && (
+                    <div className={style.modal}>
+                      <div className={style.modalContent}>
+                        <h2>Se hicieron modificaciones </h2> 
+                        <h2>en el usuario {userData.email}</h2>
+                        <div className={style.modalButtons}>
+                          <button onClick={closeChangeSend}>Aceptar</button>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </>
 
             </div>
         </div>
