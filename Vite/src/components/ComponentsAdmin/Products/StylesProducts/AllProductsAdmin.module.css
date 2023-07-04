@@ -13,6 +13,7 @@
 
 .order {
   display: flex;
+  flex-direction: column;
   border-radius: 0.3rem;
   background-color: #fefffe;
   border: 1px solid #eff0f6;
@@ -87,4 +88,39 @@
 
 ul {
   list-style: none;
+}
+
+@media (max-width: 768px) {
+  .container {
+    width: 100%;
+    margin: 0;
+    border-radius: 0;
+  }
+
+  .order {
+    padding: 0.5rem;
+  }
+
+  .faShop {
+    width: 30px;
+  }
+
+  .textContainer {
+    padding-left: 0.5rem;
+  }
+
+  .date {
+    right: 0.5rem;
+    font-size: 0.625rem;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+  }
+
+  .ahi {
+    font-size: 0.625rem;
+  }
+
+  .vemos {
+    font-size: 10px;
+  }
 }
