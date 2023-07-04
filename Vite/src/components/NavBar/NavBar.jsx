@@ -8,8 +8,9 @@ import { CartContext } from "../../utils/CartContext";
 import ModalLogin from "../ModalLogin/ModalLogin"
 import ModalSignIn from "../ModalSignIn/ModalSingIn"
 import { loginUserLocal, logoutUser } from '../../redux/slice/userSlice';
-
-
+import Button from 'react-bootstrap/Button';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
+import Dropdown from 'react-bootstrap/Dropdown';
 
 const NavBar = () => {
   const { cart } = useContext(
@@ -192,7 +193,6 @@ const NavBar = () => {
           </div>
         }
       </div>
-
       <div className={Styles.rightContainer}>
         {!userData.isAdmin && (
                   <div className={Styles.cartContainer}>
@@ -212,49 +212,44 @@ const NavBar = () => {
                   </Link>
                 </div>
         )}
-        {userData.access === true && userData.isAdmin &&
-           <>
-              <Link className={Styles.button} to="/CreateProduct">Crear</Link>
-              <Link className={Styles.button} to="/DashboardAdmin">Admin</Link>
-           </>
-        }
-      
-        {isLoggedIn ? 
+      {
+        !isLoggedIn &&
+        <div>
+          <ModalSignIn/>
+          <ModalLogin/>
+        </div>
+      }
+            {isLoggedIn &&
         (
         <div className={Styles.profileButtonContainer}>
-          <div className={Styles.buttonProfile} onClick={handlerProfile} >
-              <div className={Styles.buttonCenter}>
+          <div className={Styles.buttonCenter}>         
               {
-                userData.profile_picture ?
-                (
-                  <button className={Styles.roundButton}>
-                    <img className={Styles.roundButton} src={userData.profile_picture}alt="Perfil"></img>
+                userData.access && userData.profile_picture &&
+                <>
+                    <button className={Styles.roundButton}>
+                    <img src={userData.profile_picture}alt="Perfil"></img>
+                    </button>                  
+                </>     
+              }
+              {  userData.access && userData.name && <>
 
-                  </button>
-               
-                )
-                :
-                (
-                  <button className={Styles.button}>Perfil</button>
-                )
-                }
-              </div>
-              <div className={Styles.buttonCenter}>
-                {userData.name ? <p>{userData.name}</p> : <p>Tu perfil</p>}
-              </div>
-
+                <Dropdown className={Styles.dropdownNav} as={ButtonGroup}>
+                    <p className={Styles.profileButton}>{userData.name}</p>
+                    <Dropdown.Toggle className={Styles.dropdownNav} split />
+                    <Dropdown.Menu>
+                    {userData.access === true && userData.isAdmin &&
+                      <>
+                          <Dropdown.Item><Link className={Styles.button} to="/DashboardAdmin">Panel de administrador</Link></Dropdown.Item>
+                      </>
+                    }
+                    <Dropdown.Item><button className={Styles.button} onClick={handlerProfile}>Perfil de usuario</button></Dropdown.Item>
+                    <Dropdown.Item><button className={Styles.button} onClick={handlerLogout}>Cerrar sesión</button></Dropdown.Item>
+                    </Dropdown.Menu>
+                </Dropdown>
+              </>
+              }
+            
           </div>
-          <div className={Styles.buttonCenter}>
-            <button className={Styles.button} onClick={handlerLogout}>Cerrar sesión</button>
-          </div>
-
-        </div>
-        
-        ) : 
-        (
-        <div>
-            <ModalSignIn/>
-            <ModalLogin/>
         </div>
         )}
       </div>
