@@ -19,19 +19,20 @@ const ReviewRating = () => {
   const deletedMessage = useSelector((state) => state.reviews.deletedMessage)
   const userData = useSelector((state) =>  state.user.userData);
 
-  useEffect(() => {
-  }, [userData])
-
-
   const [opinion, setOpinion] = useState({
-    userId: userData.userId,
-    username: userData.name,
     rating: "",
     review_description: "",
     productId: productId
   });
-  console.log(userData)
-  console.log(opinion)
+
+  useEffect(() => {
+    userData.access && setOpinion({
+      ...opinion,
+      userId: userData.userId,
+      username: userData.name,
+    }) 
+  }, [userData])
+
   const [error, setError] = useState({
     rating: "",
     review_description: "",
@@ -86,11 +87,15 @@ const ReviewRating = () => {
     dispatch(postReview(opinion));
 
     setError({
+      userId: userData.userId,
+      username: userData.name,
       rating: "",
       review_description: "",
       productId: productId
     });
     setOpinion({
+      userId: userData.userId,
+      username: userData.name,
       rating: "",
       review_description: "",
       productId: productId
