@@ -6,6 +6,13 @@ const updateUser = async(id, userData)=>{
 const {name,surname,email,birth_date,profile_picture,country,city,address,postal_code, admin, superAdmin, access, firebaseId, verified} = userData
 
 try {
+
+    const uploadResponse = await cloudinary.uploader.upload(profile_picture, {
+        upload_preset: "products-thumbnails"
+    })
+
+    const thumbnail = uploadResponse.url
+
     const user = await User.findByPk(id, {
         include: Cart
     })
@@ -17,7 +24,9 @@ try {
         currency_id = currencyIdValidator(country)
     };
     const updatedUser = await User.update({
-            name,surname,email,birth_date,profile_picture,country,city,address,postal_code, admin, superAdmin
+            name,surname,email,birth_date,
+            profile_picture: thumbnail,
+            country,city,address,postal_code, admin, superAdmin
         },
         {where:{id:id}}
     );
@@ -54,3 +63,4 @@ try {
 module.exports={
     updateUser
 }
+
