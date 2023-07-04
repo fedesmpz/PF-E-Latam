@@ -7,12 +7,15 @@ const updateUser = async(id, userData)=>{
 const {name,surname,email,birth_date,profile_picture,country,city,address,postal_code, admin, superAdmin, access, firebaseId, verified} = userData
 
 try {
-
+    let image;
     if(profile_picture){
     const uploadResponse = await cloudinary.uploader.upload(profile_picture, {
         upload_preset: "products-thumbnails"
     })
-    const thumbnail = uploadResponse.url}
+    const image = uploadResponse.url}else{
+        image = profile_picture;
+    }
+    
 
     const user = await User.findByPk(id, {
         include: Cart
@@ -26,7 +29,7 @@ try {
     };
     const updatedUser = await User.update({
             name,surname,email,birth_date,
-            profile_picture: thumbnail || profile_picture,
+            profile_picture: image,
             country,city,address,postal_code, admin, superAdmin
         },
         {where:{id:id}}
