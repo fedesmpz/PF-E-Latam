@@ -11,6 +11,11 @@ module.exports = (sequelize) => {
         unique: true,
       },
 
+      username: {
+        type: DataTypes.TEXT,
+        allowNull: false,
+      },
+
       rating: {
         type: DataTypes.INTEGER,
         validate:{
