@@ -177,6 +177,14 @@ export const updateUser = (userId, userData) => async (dispatch) => {
     dispatch(updateUserFailure(error.message));
   }
 };
+export const updateDataUser = (userId, userInfo) => async (dispatch) => {
+  try {
+    const response = await axios.put(`https://pf-elatam.onrender.com/users/update/${userId}`, userInfo);
+  } catch (error) {
+    console.log(error)
+    dispatch(updateUserFailure(error.message));
+  }
+}
 
 
 export const getUsers = () => (dispatch) => {

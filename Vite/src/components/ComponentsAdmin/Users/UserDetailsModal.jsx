@@ -8,13 +8,14 @@ import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { useDispatch } from 'react-redux';
-import { updateUser, getUserById } from '../../../redux/slice/userSlice';
+import { updateDataUser, getUserById } from '../../../redux/slice/userSlice';
 import { useSelector } from "react-redux";
 
 
 
 const UserDetailsModal = ({
   props,
+  userId,
   id,
   name,
   profile_picture,
@@ -26,11 +27,11 @@ const UserDetailsModal = ({
   admin,
   postal_code,
   createdAt,
+  superAdmin
 }) => {
   const dispatch = useDispatch();
   const handleShow = () => {
     dispatch(getUserById(id));
-    console.log(id);
     setShow(true);
   }
   const user = useSelector((state) => state.user.userById); 
@@ -38,22 +39,26 @@ const UserDetailsModal = ({
   const handleClose = () => setShow(false);
   
 
-  function toggleAdminStatus(userId, userData, currentAdminStatus) {
-
+  function toggleAdminStatus(currentAdminStatus) {
     const newAdminStatus = !currentAdminStatus;
+    const newSuperAdminStatus = !currentAdminStatus;
 
-    const updatedUserData = {
-      ...userData,
+  
+    const userData = {
+      ...user,
+      superAdmin: newSuperAdminStatus,
       admin: newAdminStatus,
+      access: true
     };
 
     const confirmAction = window.confirm('¿Estás seguro de convertir a este usuario en administrador?');
 
     if (confirmAction) {
-      dispatch(updateUser(userId, updatedUserData))
+      dispatch(updateDataUser(userId, userData))
         .then(() => {
           alert('Estado de admin actualizado en la base de datos');
-          console.log(updatedUserData);
+          console.log(userData);
+          console.log(userId);
         })
         .catch(error => {
           console.error('Error al actualizar el estado de admin en la base de datos:', error);
@@ -71,11 +76,14 @@ const UserDetailsModal = ({
   } else if (admin === undefined) {
     isAdmin = "No Definido";
   }
-
-
-    
-
-
+  let isSuperAdmin;
+  if ( superAdmin === false) {
+    isSuperAdmin = "No";
+  } else if (superAdmin === true) {
+    isSuperAdmin = "Si";
+  } else if (superAdmin === undefined) {
+    isSuperAdmin = "No Definido";
+  }
     return (
     <div>
     <a className={Styles["a"]} onClick={handleShow}>
@@ -130,7 +138,7 @@ const UserDetailsModal = ({
                   Admin: <span className={Styles.userDetailsValue}>{isAdmin}</span>
                 </h5>
                 <h5 className={Styles.userDetailsLabel}>
-                  Created At: <span className={Styles.userDetailsValue}>{createdAt}</span>
+                  SuperAdmin: <span className={Styles.userDetailsValue}>{isSuperAdmin}</span>
                 </h5>
               </Col>
               <Col>
@@ -154,9 +162,9 @@ const UserDetailsModal = ({
             <Button variant="secondary" onClick={handleClose}>
                 Close
             </Button>
-            <Button variant="primary" onClick={() => toggleAdminStatus(id, admin)}>
-        Convertir en Admin
-      </Button>
+            <Button variant="primary" onClick={() => toggleAdminStatus(admin)}>
+  Convertir en Admin
+</Button>
         </Modal.Footer>
     </Modal>
     </div>
