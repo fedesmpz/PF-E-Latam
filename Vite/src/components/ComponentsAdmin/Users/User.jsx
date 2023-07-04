@@ -74,18 +74,6 @@ const User = ({
             postal_code={postal_code}
             createdAt={createdAt}
 />
-        {/* <a
-          className={Styles["a"]}
-          href={``}
-        >
-          <p className={Styles["text"]}>
-            <br></br>
-            <BiArchive className={Styles["icon"]} />
-            <span className={Styles["text"]}>
-              <br></br>Detalles
-            </span>
-          </p>
-        </a> */}
       </p>
     </li>
     </div>

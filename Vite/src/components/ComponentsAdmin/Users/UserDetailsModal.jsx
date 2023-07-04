@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Image from "react-bootstrap/Image";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -27,52 +27,55 @@ const UserDetailsModal = ({
   postal_code,
   createdAt,
 }) => {
-
-  const dispatch = useDispatch();
-
-
-  const userById = (id) => {
-    useEffect(() => {
-    dispatch(getUserById(id)); // Consultar el usuario por su ID al cargar el componente
-  }, [dispatch, id]);
+  const handleShow = () => {
+    setShow(true);
   }
-
+  const dispatch = useDispatch(id);
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
   const user = useSelector((state) => state.user.userById); 
+  useEffect(() => {
+    dispatch(getUserById(id)); // Consultar el usuario por su ID al cargar el componente
+    console.log(id);
+  }, [dispatch, id]);
+  console.log(id);
+
 
   
-  
-  
+  useEffect(() => {
+    dispatch(getUserById(id)); // Consultar el usuario por su ID al cargar el componente
+    console.log(id);
+  }, [dispatch, id]);
   
   console.log(user);
 
 
 
 
+  function toggleAdminStatus(userId, userData, currentAdminStatus) {
 
-  const toggleAdminStatus = (userId, userData, currentAdminStatus) => {
-    
     const newAdminStatus = !currentAdminStatus;
-    
+
     const updatedUserData = {
       ...userData,
       admin: newAdminStatus,
     };
 
     const confirmAction = window.confirm('¿Estás seguro de convertir a este usuario en administrador?');
-    
+
     if (confirmAction) {
       dispatch(updateUser(userId, updatedUserData))
-      .then(() => {
-        alert('Estado de admin actualizado en la base de datos');
-        console.log(updatedUserData);
-      })
-      .catch(error => {
-        console.error('Error al actualizar el estado de admin en la base de datos:', error);
-      });
+        .then(() => {
+          alert('Estado de admin actualizado en la base de datos');
+          console.log(updatedUserData);
+        })
+        .catch(error => {
+          console.error('Error al actualizar el estado de admin en la base de datos:', error);
+        });
     } else {
       alert('Acción cancelada');
     }
-  };
+  }
     
   let isAdmin;
   if (admin === false) {
@@ -83,10 +86,6 @@ const UserDetailsModal = ({
     isAdmin = "No Definido";
   }
 
-    const [show, setShow] = useState(false);
-
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
 
     
 
@@ -119,7 +118,17 @@ const UserDetailsModal = ({
           </Col>
           <Col className={Styles.userDetailsHeaderCol}>
 
-          <Image src={profile_picture} alt="Profile Picture" roundedCircle />
+          <Image
+        src={profile_picture}
+        alt="Profile Picture"
+        roundedCircle
+        style={{
+          maxWidth: '120px',
+          border: '1px solid #ccc',
+          borderRadius: '100%',
+          boxShadow: '2px 2px 4px rgba(0, 0, 0, 0.2)',
+        }}
+      />
           </Col>
           
           </Row>

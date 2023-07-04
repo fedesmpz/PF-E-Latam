@@ -41,7 +41,7 @@ const Users = () => {
             paginado={paginado}
             currentProducts={paginatedUsers}
           />
-          <AllUsers currentProducts={paginatedUsers} />
+          <AllUsers currentUsers={paginatedUsers} />
         </div>
       </div>
     </div>
