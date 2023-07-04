@@ -18,25 +18,31 @@ const ReviewRating = () => {
   const [deleteReviewId, setDeleteReviewId] = useState(null);
   const deletedMessage = useSelector((state) => state.reviews.deletedMessage)
   const userData = useSelector((state) =>  state.user.userData);
+
+  useEffect(() => {
+  }, [userData])
+
+
   const [opinion, setOpinion] = useState({
     userId: userData.userId,
+    username: userData.name,
     rating: "",
     review_description: "",
     productId: productId
   });
+  console.log(userData)
+  console.log(opinion)
   const [error, setError] = useState({
     rating: "",
     review_description: "",
     productId: productId,
-    userId: ""
+    userId: userData.userId,
+    username: userData.name,
   });
 
   useEffect(() => {
     dispatch(loginUserLocal())
   }, [])
-
-  useEffect(() => {
-  }, [userData])
 
   useEffect(() => {
     dispatch(getAllReviewsForProduct(productId));
@@ -125,9 +131,9 @@ const ReviewRating = () => {
           {reviews.map((review) => (
             <div key={review.id} className={styles.reviewBody}>
               <div className={styles.topCont}>
-              <p className={styles.userName}>{review.userId}</p>
+              <p className={styles.userName}>{review.username}</p>
               {
-                userData.access && (userData.userId === review.userId) && <button onClick={() => handlerDelete(review.id)} className={styles.buttonDelete}>Eliminar</button>
+                userData.access &&( (userData.userId === review.userId) || userData.isAdmin )&& <button onClick={() => handlerDelete(review.id)} className={styles.buttonDelete}>Eliminar</button>
               }
               </div>
               { review.rating === 5 && 
