@@ -53,9 +53,6 @@ function App() {
         }
  
       <Routes>
-        {/* RUTA DE MUESTRA */}
-        <Route path="/About" element={access && admin ? <About /> : <Navigate to="/Home" />} />
-
         <Route path="/" element={<Landing />} />
         <Route path="/About" element={<About />} />
         <Route path="/Home" element={<Home />} />

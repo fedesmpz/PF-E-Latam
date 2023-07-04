@@ -1,26 +1,39 @@
-import React from 'react'
-import { data } from './Data';
-import { FaShoppingBag } from 'react-icons/fa'
-import Styles from './LastOrders.module.css'
+import React, { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { FaShoppingBag } from 'react-icons/fa';
+import moment from 'moment'; // Importa la biblioteca moment
+import Styles from './LastOrders.module.css';
+import { axiosAllSales } from '../../../redux/slice/saleSlice';
 
 const LastOrders = () => {
+  const dispatch = useDispatch();
+  const sales = useSelector((state) => state.sale.sales);
+
+  const [limitedSales, setLimitedSales] = useState([]);
+
+  useEffect(() => {
+    dispatch(axiosAllSales());
+  }, [dispatch]);
+
+  useEffect(() => {
+    const limitedSales = sales.slice(0, 5);
+    setLimitedSales(limitedSales);
+  }, [sales]);
+
   return (
     <div className={Styles.container}>
       <h1>Ordenes recientes</h1>
       <ul>
-        {data.map((order, id) => (
-          <li
-            key={id}
-            className={Styles.order}
-          >
+        {limitedSales.map((sale, id) => (
+          <li key={id} className={Styles.order}>
             <div className={Styles.faShop}>
-              <FaShoppingBag className='text-blue-800' />
+              <FaShoppingBag className="text-blue-800" />
             </div>
             <div className={Styles.textContainer}>
-              <p className='text-gray-800 font-bold'>${order.total}</p>
-              <p className='text-gray-400 text-sm'>{order.name.first}</p>
+              <p className="text-gray-800 font-bold">${sale.total_price / 100}</p>
+              <p className="text-gray-400 text-sm">{sale.user_id}</p>
             </div>
-            <p className={Styles.date}>{order.date}</p>
+            <p className={Styles.date}>{moment(sale.updatedAt).format('YYYY-MM-DD HH:mm')}</p>
           </li>
         ))}
       </ul>
@@ -28,4 +41,5 @@ const LastOrders = () => {
   );
 };
 
-export default LastOrders
+export default LastOrders;
+
