@@ -8,12 +8,12 @@ const {name,surname,email,birth_date,profile_picture,country,city,address,postal
 
 try {
 
+    if(profile_picture){
     const uploadResponse = await cloudinary.uploader.upload(profile_picture, {
         upload_preset: "products-thumbnails"
     })
+    const thumbnail = uploadResponse.url}
 
-    const thumbnail = uploadResponse.url
-console.log(thumbnail)
     const user = await User.findByPk(id, {
         include: Cart
     })
@@ -26,7 +26,7 @@ console.log(thumbnail)
     };
     const updatedUser = await User.update({
             name,surname,email,birth_date,
-            profile_picture: thumbnail,
+            profile_picture: thumbnail || profile_picture,
             country,city,address,postal_code, admin, superAdmin
         },
         {where:{id:id}}
