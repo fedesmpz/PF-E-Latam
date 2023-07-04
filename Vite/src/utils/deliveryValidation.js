@@ -13,13 +13,13 @@ const validation = (prop, value, errors, setErrors) => {
         else if (!regex.test(value)) {
             setErrors({
                 ...errors,
-                [prop]: "No puede contener caracteres númericos o especiales"
+                [prop]: "No puede contener caracteres numéricos o especiales"
             })
         }
-        else if (value.length < 2 || value.length > 30) {
+        else if (value.length < 1 || value.length > 25) {
             setErrors({
                 ...errors,
-                [prop]: "Debe tener entre 2 y 30 caracteres"
+                [prop]: "Debe tener entre 1 y 25 caracteres"
             })
         }
         else {
@@ -41,13 +41,13 @@ if (prop === "surname") {
     else if (!regex.test(value)) {
         setErrors({
             ...errors,
-            [prop]: "No puede contener caracteres númericos"
+            [prop]: "No puede contener caracteres numéricos"
         })
     }
-    else if (value.length < 2 || value.length > 30) {
+    else if (value.length < 1 || value.length > 25) {
         setErrors({
             ...errors,
-            [prop]: "Debe tener entre 2 y 30 caracteres"
+            [prop]: "Debe tener entre 1 y 25 caracteres"
         })
     }
     else {
@@ -57,24 +57,6 @@ if (prop === "surname") {
         });
     }
 }
-    
-    
-//-------------------------------------------------------------------
-    if (prop === "email") {
-        if(!emailRegex.test(value)) {
-            setErrors({
-                ...errors,
-                [prop]: "El email ingresado no es válido",
-            });
-        }
-        else {
-            setErrors({
-              ...errors,
-              [prop]: "",
-            });
-        }
-    }
-    
 
 //-------------------------------------------------------------------
     
@@ -85,10 +67,10 @@ if (prop === "surname") {
                 [prop]: "Debe ingresar una dirección"
             })
         }
-        else if (value.length < 3 || value.length > 60) {
+        else if (value.length < 3 || value.length > 50) {
             setErrors({
                 ...errors,
-                [prop]: "Debe tener entre 3 y 60 caracteres"
+                [prop]: "Debe tener entre 3 y 50 caracteres"
             })
         }
         else {
@@ -99,28 +81,6 @@ if (prop === "surname") {
         }
     }
     
-
-//--------------------------------------------------------------------------------
-    if (prop === "locality") {
-        if(!value.length) {
-            setErrors({
-                ...errors,
-                [prop]: "Debe ingresar una Localidad",
-            })
-        }
-        else if (value.length < 3 || value.length > 30) {
-            setErrors({
-                ...errors,
-                [prop]: "Debe tener entre 3 y 30 caracteres"
-            })
-        }
-         else {
-            setErrors({
-              ...errors,
-              [prop]: "",
-            });
-        }
-    }
 //------------------------------------------------------------------------
 
 if (prop === "city") {
@@ -130,10 +90,10 @@ if (prop === "city") {
             [prop]: "Debe ingresar una ciudad o distrito",
         })
     }
-    else if (value.length < 3 || value.length > 40) {
+    else if (value.length < 3 || value.length > 50) {
         setErrors({
             ...errors,
-            [prop]: "Debe tener entre 3 y 40 caracteres"
+            [prop]: "Debe tener entre 3 y 50 caracteres"
         })
     }
      else {
