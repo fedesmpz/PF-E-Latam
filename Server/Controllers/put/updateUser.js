@@ -54,7 +54,3 @@ try {
 module.exports={
     updateUser
 }
-
-module.exports={
-    updateUser
-}
