@@ -1,5 +1,6 @@
 const {User, Cart}=require("../../db");
 const { currencyIdValidator } = require("../../Utilities/currencyIdValidator.js")
+const { cloudinary } = require("../../cloudinaryConfig");
 
 const updateUser = async(id, userData)=>{
 
