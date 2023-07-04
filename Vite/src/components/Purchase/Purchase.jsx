@@ -134,9 +134,6 @@ const PaymentComponent = () => {
   useEffect(() => {
     const isValid = (Object.keys(errors).length && Object.values(errors).every((error) => error === ""));
     setIsFormValid(isValid);
-    console.log(Object.keys(errors).length);
-    console.log(Object.keys(deliveryForm).length);
-    console.log(isValid);
   }, [errors, deliveryForm]);
 
   return (
@@ -260,18 +257,6 @@ const PaymentComponent = () => {
                   </div>
 
                   <div>
-                    <label htmlFor="email" className={styles.label}>Email</label>
-                    <input
-                      type="text"
-                      name="email"
-                      value={deliveryForm.email}
-                      onChange={handleDeliveryChange}
-                      placeholder="Ingrese su email"
-                    />
-                    {errors.email && <p className={styles.errors}>{errors.email}</p>}
-                  </div>
-
-                  <div>
                     <label htmlFor="address" className={styles.label}>Domicilio</label>
                     <input
                       type="text"
@@ -281,18 +266,6 @@ const PaymentComponent = () => {
                       placeholder="Ingrese el domicilio"
                     />
                     {errors.address && <p className={styles.errors}>{errors.address}</p>}
-                  </div>
-
-                  <div>
-                    <label htmlFor="locality" className={styles.label}>Localidad</label>
-                    <input
-                      type="text"
-                      name="locality"
-                      value={deliveryForm.locality}
-                      onChange={handleDeliveryChange}
-                      placeholder="Ingrese la localidad"
-                    />
-                    {errors.locality && <p className={styles.errors}>{errors.locality}</p>}
                   </div>
 
                   <div>
@@ -373,16 +346,14 @@ const PaymentComponent = () => {
                     <div>
                       <h1 className={styles.userDataTag}>Nombre</h1>
                       <h1 className={styles.userDataTag}>Apellido</h1>
-                      <h1 className={styles.userDataTag}>Email</h1>
-                      <h1 className={styles.userDataTag}>Domicilio</h1>
+                      <h1 className={styles.userDataTag}>Domicilio y localidad</h1>
                       <h1 className={styles.userDataTag}>Ciudad</h1>
-                      <h1 className={styles.userDataTag}>Pais</h1>
+                      <h1 className={styles.userDataTag}>País</h1>
                       <h1 className={styles.userDataTag}>Código postal</h1>
                     </div>
                     <div>
                       <h1 className={styles.userDataInfo}>{deliveryForm.name}</h1>
                       <h1 className={styles.userDataInfo}>{deliveryForm.surname}</h1>
-                      <h1 className={styles.userDataInfo}>{deliveryForm.email}</h1>
                       <h1 className={styles.userDataInfo}>{deliveryForm.address}</h1>
                       <h1 className={styles.userDataInfo}>{deliveryForm.city}</h1>
                       <h1 className={styles.userDataInfo}>{deliveryForm.country}</h1>
