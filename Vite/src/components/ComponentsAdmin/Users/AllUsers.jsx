@@ -18,6 +18,7 @@ const AllUsers = ({ currentUsers }) => {
             admin,
             postal_code,
             createdAt,
+            superAdmin
         }) => (
             <User
             key={id}
@@ -32,6 +33,7 @@ const AllUsers = ({ currentUsers }) => {
             admin={admin}
             postal_code={postal_code}
             createdAt={createdAt}
+            superAdmin={superAdmin}
             />
         )
         )}
