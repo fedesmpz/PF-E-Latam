@@ -27,11 +27,20 @@ const UserDetailsModal = ({
   postal_code,
   createdAt,
 }) => {
+  const handleShow = () => {
+    setShow(true);
+  }
+  const dispatch = useDispatch(id);
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const user = useSelector((state) => state.user.userById); 
+  useEffect(() => {
+    dispatch(getUserById(id)); // Consultar el usuario por su ID al cargar el componente
+    console.log(id);
+  }, [dispatch, id]);
   console.log(id);
 
-  const dispatch = useDispatch();
 
-  const user = useSelector((state) => state.user.userById); 
   
   useEffect(() => {
     dispatch(getUserById(id)); // Consultar el usuario por su ID al cargar el componente
@@ -77,10 +86,6 @@ const UserDetailsModal = ({
     isAdmin = "No Definido";
   }
 
-    const [show, setShow] = useState(false);
-
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
 
     
 
