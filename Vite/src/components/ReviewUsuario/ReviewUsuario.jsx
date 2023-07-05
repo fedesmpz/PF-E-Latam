@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import React, { useEffect, useState } from "react";
 import { allReviewById, findProduct } from "../../redux/slice/productSlice";
 import Styles from './ReviewUsuario.module.css'
-
+import 'starability/starability-css/starability-slot.css';
 
 const ReviewUsuario = () => {
     const { userId } = useSelector((state) => state.user.userData)
@@ -49,20 +49,67 @@ const ReviewUsuario = () => {
    
     return (
         <div className={Styles.container}>
-            <h1 className={Styles.titleSales}>Tus reviews</h1>
+            <h1 className={Styles.title}>Mis reseñas</h1>
             <div>
                 {reviewWithProduct?.map((item, index) => {
                     const date = new Date(item.createdAt);
                     const localDate = date.toLocaleString();
                     return (
-                        <div className={Styles.productContainer} key={index}>
-                            <p>Nombre del producto: {item.product?.title}</p>
-                            <img className={Styles.image} src={item.product?.thumbnail} alt={item.product?.title} />
-                            <div className={Styles.dataContainer}>
-
-                            <p>Tu puntaje: {item.rating}</p>
-                            <p>Tu comentario: {item.review_description}</p>
-                            <p>Fecha: {localDate}</p>
+                        <div className={Styles.reviewContainer} key={index}>
+                            <p className={Styles.localDate}>{localDate}</p>
+                            <div className={Styles.leftContainer}>
+                                <div className={Styles.imgContainer}>
+                                <img src={item.product?.thumbnail} alt={item.product?.title} />
+                                </div>
+                                <div className={Styles.dataContainer}>
+                                <p className={Styles.productTitle}>{item.product?.title}</p>
+                                {item.rating === 5 &&
+                                    <div className={Styles.stars}>
+                                        <fieldset className="starability-slot">
+                                        <label title="Terrible">1 star</label>
+                                        <label title="Not good">2 stars</label>
+                                        <label title="Average">3 stars</label>
+                                        <label title="Very good">4 stars</label>
+                                        <label title="Amazing">5 stars</label>
+                                        </fieldset>
+                                    </div>
+                                }
+                                {item.rating === 4 &&
+                                    <div className={Styles.stars}>
+                                        <fieldset className="starability-slot">
+                                        <label title="Terrible">1 star</label>
+                                        <label title="Not good">2 stars</label>
+                                        <label title="Average">3 stars</label>
+                                        <label title="Very good">4 stars</label>
+                                        </fieldset>
+                                    </div>
+                                }
+                                {item.rating === 3 &&
+                                    <div className={Styles.stars}>
+                                        <fieldset className="starability-slot">
+                                        <label title="Terrible">1 star</label>
+                                        <label title="Not good">2 stars</label>
+                                        <label title="Average">3 stars</label>
+                                        </fieldset>
+                                    </div>
+                                }
+                                {item.rating === 2 &&
+                                    <div className={Styles.stars}>
+                                        <fieldset className="starability-slot">
+                                        <label title="Terrible">1 star</label>
+                                        <label title="Not good">2 stars</label>
+                                        </fieldset>
+                                    </div>
+                                }
+                                {item.rating === 1 &&
+                                    <div className={Styles.stars}>
+                                        <fieldset className="starability-slot">
+                                        <label title="Terrible">1 star</label>
+                                        </fieldset>
+                                    </div>
+                                }
+                                <p className={Styles.review}>"{item.review_description}"</p>
+                                </div>
                             </div>
                         </div>
                     );

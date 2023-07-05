@@ -2,29 +2,68 @@
     font-family: "Montserrat", sans-serif;
     padding: none;
     margin: none;
-    background-color:#8491D9;
+    background-color:#ffffff;
     border-radius: 5px;
     margin: 10px 50px 5px 50px;
     padding: 20px;
-    display: grid;
-    grid-gap: 70px;
-  }
-  .image{
-    max-height: 100px;
-    margin-right: 20px;
-  }
-
-  .titleSales{
-    color: white;
-    font-size: 25px;
-  }
-
-  .productContainer{
     display: flex;
-    align-items: center;
-
+    flex-direction: column;
+    width: 90vw;
+    height: 100vh;
   }
 
-  .dataContainer{
-    display: flex;
-  }
+  
+.title{
+  color: rgb(0, 0, 0);
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.imgContainer {
+  width: 150px;
+  margin-right: 20px;
+}
+
+.imgContainer img{
+  width: 150px;
+  height: 150px;
+  object-fit: contain;
+}
+
+.leftContainer {
+  display: flex;
+  flex-direction: row;
+}
+
+.reviewContainer{
+  display: flex;
+  flex-direction: column;
+  margin: 5px 20px 5px 50px;
+  padding: 20px;
+  background-color: #ccc;
+  border-radius: 5px;
+}
+
+.dataContainer{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+}
+
+.productTitle {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.localDate {
+  font-size: 16px;
+  display: flex;
+  justify-content: flex-end;
+  font-weight: bold;
+}
+
+.review {
+  font-size: 18px;
+  font-style: italic;
+}
