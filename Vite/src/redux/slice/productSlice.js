@@ -441,7 +441,7 @@ export const updateQuantityProduct=(cartData)=> (dispatch)=>{
 
 export const allReviewById= (id)=>(dispatch)=>{
   axios
-  .get(`http://localhost:8000/reviews/reviewId/?id=${id}`)
+  .get(`https://pf-elatam.onrender.com/reviews/reviewId/?id=${id}`)
   .then((response)=>{
     dispatch(setAllReviewById(response.data))
   })
