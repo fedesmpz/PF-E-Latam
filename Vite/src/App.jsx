@@ -20,7 +20,7 @@ import SubFooter from './components/SubFooter/SubFooter';
 import FooterLanding from './components/FooterLanding/FooterLanding';
 import Profile from './components/Profile/Profile'
 import SalesUser from './components/SalesUsuario/SalesUsuario';
-
+import ReviewUser from './components/ReviewUsuario/ReviewUsuario';
 
 function App() {
   const location = useLocation();
@@ -63,7 +63,7 @@ function App() {
         <Route path="/DashBoardAdmin" element={access && admin ? <DashBoardAdmin /> : <Navigate to="/Home" />} />
         <Route path="/Cart" element={<Cart />} />
         <Route path="/mysales" element={access ? <SalesUser/> : <Navigate to="/Home" />} />
-        <Route path="/myreviews" element={access ? <SalesUser/> : <Navigate to="/Home" />} />
+        <Route path="/myreviews" element={access ? <ReviewUser/> : <Navigate to="/Home" />} />
         <Route path="/EditProduct" element={access && admin ? <EditProduct /> : <Navigate to="/Home" />} />
         <Route path="/purchase" element={<PaymentComponent />} />
         <Route path="/DashBoardAdmin/Products" element={<Products />} />

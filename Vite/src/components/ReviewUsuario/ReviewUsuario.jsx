@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import React, { useEffect, useState } from "react";
 import { allReviewById, findProduct } from "../../redux/slice/productSlice";
+import Styles from './ReviewUsuario.module.css'
 
 
 const ReviewUsuario = () => {
@@ -47,19 +48,22 @@ const ReviewUsuario = () => {
     }, [allProducts, review])
    
     return (
-        <div>
-            <h1>Tus reviews</h1>
+        <div className={Styles.container}>
+            <h1 className={Styles.titleSales}>Tus reviews</h1>
             <div>
                 {reviewWithProduct?.map((item, index) => {
                     const date = new Date(item.createdAt);
                     const localDate = date.toLocaleString();
                     return (
-                        <div key={index}>
+                        <div className={Styles.productContainer} key={index}>
                             <p>Nombre del producto: {item.product?.title}</p>
-                            <img style={{ width: "100px", height: "auto" }} src={item.product?.thumbnail} alt={item.product?.title} />
+                            <img className={Styles.image} src={item.product?.thumbnail} alt={item.product?.title} />
+                            <div className={Styles.dataContainer}>
+
                             <p>Tu puntaje: {item.rating}</p>
                             <p>Tu comentario: {item.review_description}</p>
                             <p>Fecha: {localDate}</p>
+                            </div>
                         </div>
                     );
                 })}
