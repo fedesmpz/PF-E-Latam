@@ -89,6 +89,21 @@ button.backButton:hover svg {
   margin-bottom: 20px;
 }
 
+.original_price {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20px;
+  text-decoration: line-through;
+}
+
+.sale_price {
+  font-weight: bolder;
+  color: #4BBF68;
+  font-size: larger;
+  font-size:20px;
+}
+
 .link {
   text-decoration: none;
   color: #333;

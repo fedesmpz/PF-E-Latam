@@ -32,7 +32,7 @@ module.exports = (sequelize) => {
             allowNull: true
         },
         profile_picture: {
-            type: DataTypes.STRING,
+            type: DataTypes.TEXT,
             allowNull: true
         },
         country: {

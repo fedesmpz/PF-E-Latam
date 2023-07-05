@@ -85,5 +85,3 @@ module.exports = {
 //    foreignKey: 'cartId',
 //  });
 // Product.belongsToMany(Cart, { through: 'product_cart' });
-
-

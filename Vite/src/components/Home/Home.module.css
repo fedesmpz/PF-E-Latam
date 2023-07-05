@@ -31,5 +31,32 @@
     margin-top: 100px;
 }
 .product-column {
-    margin-left: 0px; /* Ajusta el margen izquierdo según sea necesario */
+    margin-left: 0px; 
   }
+
+  .error {
+    display: flex;
+    position: fixed;
+    top: 30%;
+    left: 50%; 
+    transform: translate(-50%, -50%); 
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 150px;
+    background-color:  #4E55D9;
+    border-radius: 15px;
+    color: #fcfcfc;
+    padding: 20px;
+    z-index: 1000;
+}
+
+.error h2 {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.error p {
+    font-size: 1.2em;
+}
