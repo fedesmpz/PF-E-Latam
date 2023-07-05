@@ -85,6 +85,24 @@ button.backButton:hover svg {
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 5px;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.doublePanelContainer {
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  margin-right: 20px;
+  width: 100%;
+}
+
+.megaContainer {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
 }
 
 .bannerContainer {
@@ -268,6 +286,28 @@ button.backButton:hover svg {
   border-bottom: 1px solid #ccc;
 }
 
+.userDataContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  width: 70%;
+  margin: 20px 0px 0px 0px;
+  padding: 10px 20px 10px 20px;
+}
+
+.userDataTag {
+  font-size: 18px;
+  font-weight: bolder;
+  margin-bottom: 5px;
+}
+
+.userDataInfo {
+  font-size: 18px;
+  font-weight: lighter;
+  margin-bottom: 5px;
+}
+
 .productTitle {
   font-size: 18px;
   font-weight: bold;
@@ -283,6 +323,15 @@ button.backButton:hover svg {
   margin-bottom: none;
 }
 
+/* .productOldPrice {
+  display: flex;
+  justify-content: flex-end;
+  font-size: 16px;
+  font-weight: bolder;
+  color: #4BBF68;
+  margin-bottom: none;
+} */
+
 .totalContainer {
   display: flex;
   justify-content: flex-end;
@@ -295,7 +344,23 @@ button.backButton:hover svg {
   padding: 10px;
 }
 
+.submitDisabledButton {
+  border-radius: 5px;
+  font-size: 18px;
+  background-color:  #7ED994;
+  padding: 10px 20px;
+  color: #fff;
+  border: none;
+  cursor:not-allowed;
+  transition: background-color 0.3s ease;
+}
 
+.errors {
+  margin-top: 5px;
+  color: red;
+  font-size: 14px;
+  margin-bottom: 0;
+  height: 16px;
+  overflow: hidden;
+}
 
-
-/*                    */

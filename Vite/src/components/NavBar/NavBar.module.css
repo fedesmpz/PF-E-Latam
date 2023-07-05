@@ -5,11 +5,21 @@
   align-items: center;
   justify-content: space-between;
   background-color: white;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .rightContainer {
   display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.dropdownNav {
+  height: 50px;
+}
+
+.dropdownNav:hover {
+  background-color: whitesmoke;
 }
 
 .leftContainer {
@@ -50,6 +60,10 @@
   height: 46px;
 }
 
+.flags {
+  z-index: 2;
+}
+
 .flags select {
   padding: 5px;
   cursor: pointer;
@@ -68,6 +82,10 @@
   font-size: 15px;
   background-color: #fff;
   border: none; /* Change '1px solid transparent' to 'none' */
+}
+
+.flagIcon {
+ z-index: 10;
 }
 
 .searchBar {
@@ -114,75 +132,11 @@
   font-size: 14px;
   color: red;
 }
-  
-  
-.button{
-  background-color: transparent;
-  text-decoration: none;
-  color: #8491D9;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 80px;
-  font-size: 23px;
-  font-weight: 200;
-  padding: 10px;
-  margin-left: 4px;
-  cursor: pointer;
-  border: none;
-  border-top: 2px solid transparent;
-}
-
-.cartButton{
-  background-color: transparent;
-  text-decoration: none;
-  color: #8491D9;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 80px;
-  padding: 5px;
-  margin-left: 0px;
-  cursor: pointer;
-  border: none;
-  border-top: 2px solid transparent;
-}
-.cartButton:hover{
-  background-color: transparent;
-  text-decoration: none;
-  color: #4E55D9;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 80px;
-  width: 1%;
-  padding: 5px;
-  margin-left: 0px;
-  border: none;
-  border-top: 2px solid #4E55D9;
-}
-
-  .button:hover{
+    
+  .button{
     background-color: transparent;
     text-decoration: none;
-    color: #4E55D9;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 80px;
-    width: 1%;
-    font-size: 23px;
-    font-weight: 400;
-    padding: 10px;
-    margin-left: 4px;
-    border: none;
-    border-top: 2px solid #4E55D9;
-  }
-  
-  .buttonBusqueda{
-    background-color: transparent;
-    text-decoration: none;
-    color: #8491D9;
+    color:  #4E55D9;
     align-items: center;
     justify-content: center;
     min-width: 80px;
@@ -195,22 +149,51 @@
     border-top: 2px solid transparent;
   }
   
-    .buttonBusqueda:hover{
-      background-color: transparent;
-      text-decoration: none;
-      color: #4E55D9;
-      align-items: center;
-      justify-content: center;
-      min-width: 80px;
-      width: 1%;
-      font-size: 18px;
-      font-weight: 400;
-      padding: 10px;
-      margin-left: 0px;
-      border: none;
-      border-top: 2px solid #4E55D9;
-    }
-    .modal {
+.button:hover{
+  color:  #2d33a1;
+  font-weight: 400;
+}
+
+.buttonCenter{
+  display: flex;
+  flex-direction: row;
+  align-items:flex-start;
+  height: 50px;
+}
+
+.roundButton {
+  display: flex;
+  border: none;
+  outline: none;
+  justify-content: center;
+  align-items: center;  
+  cursor: pointer;
+  height: 50px;
+  background-color: transparent;
+}
+
+.roundButton img {
+  display: flex;
+  border-radius: 50%;
+  width: 50px;
+}
+
+.profileButton {
+  background-color: transparent;
+  text-decoration: none;
+  color:  #4E55D9;
+  align-items: center;
+  justify-content: center;
+  min-width: 80px;
+  font-size: 18px;
+  font-weight: 400;
+  padding: 10px;
+  margin-left: 0px;
+  cursor: pointer;
+  border: none;
+}
+
+.modal {
       position: fixed;
       top: 0;
       left: 0;
@@ -264,33 +247,67 @@
       background-color: #ccc;
       color: #333;
     }
-    .cartContainer{
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
 
-    .productsNumber {
-      cursor: pointer;
-      width: 15px;
-      height: 15px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      position: absolute;
-      font-size: 12px;
-      z-index: 9999;
-      background-color: #4BBF68;
-      border-radius: 100%;
-      animation: moveNotification 0.2s infinite alternate;
-    }
+  
+.cartContainer{
+  display: flex;
+  flex-direction: row-reverse;
+  height: 50px;
+  width: 60px;
+  margin-right: 10px;
+}   
+
+.cartButton{
+  background-color: transparent;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 50px;
+  margin-left: 0px;
+  cursor: pointer;
+  border: none;
+} 
+
+.productsNumber {
+  cursor: pointer;
+  width: 16px;
+  height: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 13px;
+  font-weight: lighter;
+  color: white;
+  z-index: 1;
+  background-color: #4E55D9;
+  border-radius: 50%;
+  padding: 8px;
+  animation: moveNotification 0.2s infinite alternate;
+}
+
+.profileButtonContainer{
+  display: flex;
+}
+
+.profileName{
+  display: flex;
+  align-items: center
+}
+
+.profileImg{
+  height: 40px;
+  max-width: 40px;
+}
+
+
 
     @keyframes moveNotification {
       0% {
         transform: translatey(0);
       }
       100% {
-        transform: translatey(4px);
+        transform: translatey(2px);
       }
     }
 

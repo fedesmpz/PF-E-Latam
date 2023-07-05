@@ -10,7 +10,6 @@ export const userSlice = createSlice({
     userData: {
       access: false
     },
-    userAddress: [],
     userById: {}
   },
   reducers: {
@@ -67,12 +66,12 @@ export const userSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
-    getUserAddress: (state, action) => {
-      state.userAddress = action.payload
-    },
-    cleanUserAddress:(state)=>{
-      state.userAddress = []
-    },
+    updateUserDetails: (state, action) => {
+      state.userData = {
+        ...state.userData,
+        ...action.payload
+      }
+    }
   },
 });
 
@@ -92,8 +91,7 @@ export const {
   updateUserStart,
   updateUserSuccess,
   updateUserFailure,
-  getUserAddress,
-  cleanUserAddress,
+  updateUserDetails
 } = userSlice.actions;
 
 export default userSlice.reducer;
@@ -112,6 +110,8 @@ export const loginUserLocal = () => async (dispatch) => {
     const resp = response.data.validate
     if(resp){
       await dispatch(getUsersStart(user));
+    }else{
+      dispatch(getUsersStart({access: false}))
     }
 
   } catch (error) {
@@ -165,24 +165,27 @@ export const deleteUser = (userId) => async (dispatch) => {
 
 export const updateUser = (userId, userData) => async (dispatch) => {
   try {
-    dispatch(updateUserStart());
-    await axios.put(`https://pf-elatam.onrender.com/update/${userId}`, userData);
-    dispatch(updateUserSuccess());
+    const response = await axios.put(`https://pf-elatam.onrender.com/users/update/${userId}`, userData);
+
+    const token = await axios.post('https://pf-elatam.onrender.com/users/getToken', response.data)
+    localStorage.setItem("user", JSON.stringify(response.data))
+    localStorage.setItem("token", JSON.stringify(token.data))
+    dispatch(updateUserDetails(response.data))
+    console.log("Este es el usuario actualizado", response.data)
   } catch (error) {
+    console.log(error)
     dispatch(updateUserFailure(error.message));
   }
 };
+export const updateDataUser = (userId, userInfo) => async (dispatch) => {
+  try {
+    const response = await axios.put(`https://pf-elatam.onrender.com/users/update/${userId}`, userInfo);
+  } catch (error) {
+    console.log(error)
+    dispatch(updateUserFailure(error.message));
+  }
+}
 
-export const getGeocoding = (addressId, countryName) => (dispatch) => {
-  axios
-      .get(`https://pf-elatam.onrender.com/users/address/${countryName}/${addressId}`)
-      .then((response) => {
-        dispatch(getUserAddress(response.data))
-      })
-      .catch((error) => {
-        throw error;
-      });
-};
 
 export const getUsers = () => (dispatch) => {
   axios.get('https://pf-elatam.onrender.com/users')
@@ -196,7 +199,6 @@ export const getUserById = (id) => (dispatch) => {
   axios
   .get(`https://pf-elatam.onrender.com/users/${id}`)
   .then((response) => {
-    console.log(response);
     dispatch(getUserByIdStart(response.data));
     })
     .catch((error) => {

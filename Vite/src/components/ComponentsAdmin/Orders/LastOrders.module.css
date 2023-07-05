@@ -1,18 +1,25 @@
 .container {
-  width: 100%;
-  grid-column: span 1;
-  position: relative;
-  height: 70vh;
-  margin: auto;
+  /* grid-column: span 1; */
+  /* position: relative; */
+  /* margin: auto; */
   padding: 1rem;
   border: 1px solid;
   border-radius: 0.5rem;
-  background-color: #ffffff;
-  overflow: scroll;
+  background-color: ;
+  overflow: scroll; 
+  display: flex;
+  flex-direction: column;
+  min-width: 50%;
+  width: 45%;
+  margin-left: 1.5rem;
+  margin-top: 1rem;
+  min-height: 70vh;
+  overflow-x: hidden;
+  height: 90vh;
 }
 
 .order {
-  background-color: #f9fafb;
+  background-color: #8491D9;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -23,11 +30,12 @@
 }
 
 .order:hover {
-  background-color: #f3f4f6;
+  background-color: #4E55D9;
 }
 
 .faShop {
-  background-color: #1e1427;
+  background-color: #ffffff;
+  color:#8491D9 ;
   border-radius: 0.5rem;
   padding: 0.75rem;
 }
@@ -38,8 +46,6 @@
 
 .date {
   display: flex;
-  /* display: none; Segun esto se oculta en pantallas medianas y más chicas */
-  position: absolute;
-  right: 1.5rem;
+  justify-content: flex-start;
   font-size: 0.875rem;
 }

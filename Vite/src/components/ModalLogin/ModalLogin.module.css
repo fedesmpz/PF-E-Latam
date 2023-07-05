@@ -10,7 +10,9 @@
     background-color: rgba(0, 0, 0, 0.5);
 }
 
-
+.indexInZ{
+  z-index: 6;
+}
 
 .modalContent {
     background-color: #fff;

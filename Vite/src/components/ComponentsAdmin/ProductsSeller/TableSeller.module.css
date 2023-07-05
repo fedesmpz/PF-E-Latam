@@ -1,0 +1,104 @@
+.navContainer{
+width: 50%;
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+}
+  
+.flagsIcon{
+max-width: max-content;
+width: auto;
+margin: 0.5rem;
+}
+
+.pagination {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+  gap: 0.3rem;
+  font-size: 16px;
+}
+
+.pageButton {
+  background-color: #8491D9;
+  color: #ffffff;
+  font-weight: bolder;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem;
+  margin: 0;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: max-content;
+}
+
+.activePageButton {
+  background-color: #4E55D9;
+  color: #fff;
+}
+
+.searchBar {
+  position: relative;
+}
+
+.searchBar input {
+  color: #838384;
+  padding: 5px 70px 5px 10px;
+  margin-right: 0px;
+  margin-left: 45px;
+  font-size: 16px;
+  border: 1px solid #838384;
+  border-radius: 3px;
+  background-color: rgb(238, 238, 238);
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  background-image: none;
+}
+
+.searchBar input[type="search"]::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+
+.searchBar input[type="search"]::-ms-clear {
+  display: none;
+}
+
+.searchBar input::placeholder {
+  color: #838384;
+  font-size: 16px;
+}
+
+.button{
+  background-color: transparent;
+  text-decoration: none;
+  color:  #4E55D9;
+  align-items: center;
+  justify-content: center;
+  min-width: 80px;
+  font-size: 18px;
+  font-weight: 200;
+  padding: 10px;
+  margin-left: 0px;
+  cursor: pointer;
+  border: none;
+  border-top: 2px solid transparent;
+}
+
+.button:hover{
+color:  #2d33a1;
+font-weight: 400;
+}
+
+.buttonCenter{
+display: flex;
+flex-direction: row;
+align-items:flex-start;
+height: 50px;
+}

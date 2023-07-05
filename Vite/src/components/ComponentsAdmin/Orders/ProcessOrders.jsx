@@ -1,28 +1,51 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { FaShoppingBag } from 'react-icons/fa';
 import Styles from './LastOrders.module.css';
-import { dataTotal } from './Data';
+import moment from 'moment';
+import AllOrders from './AllOrders';
 
 const ProcessOrders = () => {
-  const filteredOrders = dataTotal.filter((order) => order.status === 'Processing');
+  const sales = useSelector((state) => state.sale.sales);
+
+  const [limitedSales, setLimitedSales] = useState([]);
+  const [deletedSales, setDeletedSales] = useState([]);
+
+  useEffect(() => {
+    const sortedSales = [...sales].sort((a, b) => moment(b.updatedAt).diff(moment(a.updatedAt)));
+    setLimitedSales(sortedSales);
+  }, [sales]);
+
+  const handleDelete = (id) => {
+    const deletedSale = limitedSales.find((_, index) => index === id);
+    const updatedSales = limitedSales.filter((_, index) => index !== id);
+
+    setLimitedSales(updatedSales);
+    setDeletedSales((prevDeletedSales) => [...prevDeletedSales, deletedSale]);
+  };
 
   return (
     <div className={Styles.container}>
-      <h1>Processing Orders</h1>
+      <h1>Procesamiento de pedidos</h1>
       <ul>
-        {filteredOrders.map((order) => (
-          <li key={order.id} className={Styles.order}>
+        {limitedSales.map((sale, id) => (
+          <li key={id} className={Styles.order}>
             <div className={Styles.faShop}>
               <FaShoppingBag className='text-blue-800' />
             </div>
             <div className={Styles.textContainer}>
-              <p className='text-gray-800 font-bold'>${order.total}</p>
-              <p className='text-gray-400 text-sm'>{order.name.first}</p>
+              <p className='text-gray-800 font-bold'>${sale.total_price / 100}</p>
+              <p className='text-gray-400 text-sm'>{sale.user_id}</p>
+              <p className={Styles.date}>{moment(sale.updatedAt).format('YYYY-MM-DD HH:mm')}</p>
             </div>
-            <p className={Styles.date}>{order.date}</p>
+            <button onClick={() => handleDelete(id)} className={Styles.deleteButton}>
+              Eliminar
+            </button>
           </li>
         ))}
       </ul>
+
+      {/* {deletedSales.length > 0 && <AllOrders deletedSales={deletedSales} />} */}
     </div>
   );
 };

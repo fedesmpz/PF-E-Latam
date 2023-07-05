@@ -1,13 +1,16 @@
 .centerContainer {
     display: flex;
-    justify-content: center;   
+    justify-content: center;
+    z-index: -2;   
 }
 
 .carousel {
     min-height: fit-content;
+    z-index: -1;
 }
   
 .carouselItem {
     margin: 20px;
     min-height: fit-content;
+    z-index: 0;
 }

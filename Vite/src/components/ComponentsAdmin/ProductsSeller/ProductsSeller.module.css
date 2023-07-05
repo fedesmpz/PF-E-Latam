@@ -1,0 +1,110 @@
+.container {
+    width: 100%;
+    position: relative;
+    height: 90vh;
+    overflow: scroll;
+    margin: 20px;
+  }
+  
+  .order {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: max-content;
+    background-color: whitesmoke;
+    margin: 10px;
+    padding: 10px;
+    border-radius: 5px;
+  }
+
+  .details {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: max-content;
+    background-color: transparent;
+    border-radius: 5px;
+    margin: 10px;
+    padding: 10px;
+  }
+  
+  .order:hover {
+    background-color: #ccc;
+  }
+  
+  .faShop {
+    /* background-color: #1e1427; */
+    border-radius: 0.5rem;
+    padding: 0.25rem;
+    width: 50px;
+  }
+  
+  .textContainer {
+    padding-left: 1rem;
+  }
+
+  .textTitle {
+    font-weight: bold;
+    font-size: 18px;
+  }
+
+  .textCategory {
+    font-weight: 600;
+    text-transform: capitalize;
+    background-color: blue;
+    width: min-content;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+  }
+
+  .textPrice {
+    font-weight: bold;
+    font-size: 16px;
+  }
+  
+  .date {
+    display: flex;
+    position: absolute;
+    right: 1.5rem;
+    font-size: 0.75rem;
+    border: 1px solid #eff0f6;
+    border-radius: 0.25rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    padding-top: 0.5rem;
+    padding-bottom: 0.25rem;
+    cursor: pointer;
+  }
+
+  .ahi {
+    display: flex;
+    align-items: center;
+    border-radius: 0.25rem;
+    text-decoration: none;
+    color: #151414;
+    font-size: 0.75rem;
+  }
+  
+  .iconos {
+    font-size: x-large;
+  }
+  
+  .vemos {
+    margin: 0.25rem;
+    font-size: 12px;
+    font-weight: bold;
+    width: 100%;
+    max-width: 100%;
+    white-space: nowrap;
+    padding: 0.35rem 10px;
+    padding-bottom: 0.5rem;
+    box-sizing: border-box;
+    font-weight: 500;
+    color: #384b6e;
+    text-transform: capitalize;
+    font-size: 0.75rem;
+  }
+  
+  ul {
+    list-style: none;
+  }

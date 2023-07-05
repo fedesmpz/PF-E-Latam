@@ -1,14 +1,12 @@
 import React from 'react'
 import Sidebar from '../ComponentsAdmin/SideBar/SideBar'
-import AllProductsAdmin from '../ComponentsAdmin/Products/AllProductsAdmin'
-import TableProducts from '../ComponentsAdmin/Products/TableProducts'
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { axiosAllProductsByCountries } from "../../redux/slice/productSlice"
-import StylesAdmin from "./DashboardAdmin.module.css"
+import StylesAdmin from "./Products.module.css"
 import TableSeller from '../ComponentsAdmin/ProductsSeller/TableSeller'
 import AllProductsSellers from '../ComponentsAdmin/ProductsSeller/AllProductsSellers'
-import NavbarAdmin from '../NavBarAdmin/NavbarAdmin'
+import { Link } from 'react-router-dom';
 
 
 
@@ -32,6 +30,7 @@ const Products = () => {
     indexOfFirstProduct,
     indexOfLastProduct
   );
+  console.log(currentProducts);
   const [orden, setOrden] = useState('');
   const paginado = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -45,20 +44,9 @@ const Products = () => {
   return (
     <div className={StylesAdmin.containerAdmin} >
       <Sidebar />
-      <div className={StylesAdmin.containerHomeAdmin} style={{ marginLeft: isOpen ? '120px' : (!isOpen && '60px') }}>
-      <NavbarAdmin/>
-        
-        {/* <div className={StylesAdmin.containerProducts}>
-          <TableProducts
-            key="paginado"
-            productsPerPage={productsPerPage}
-            products={currentProducts.length}
-            paginado={paginado}
-            currentProducts={paginatedProducts}
-          />
-          <AllProductsAdmin currentProducts={paginatedProducts} />
-        </div> */}
+      <div className={StylesAdmin.containerHomeAdmin}>
         <div className={StylesAdmin.containerProducts}>
+        <div className={StylesAdmin.containerSuperior}>
           <TableSeller
             key="paginado"
             productsPerPage={productsPerPage}
@@ -66,6 +54,8 @@ const Products = () => {
             paginado={paginado}
             currentProducts={paginatedProducts}
           />
+        <Link className={StylesAdmin.button} to="/CreateProduct">Nuevo</Link>
+        </div>
           <AllProductsSellers currentProducts={paginatedProducts} />
         </div>
       </div>

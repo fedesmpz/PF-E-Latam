@@ -4,6 +4,7 @@ const { cloudinary } = require("../../cloudinaryConfig");
 
 const updateUser = async(id, userData)=>{
 
+
 const {name,surname,email,birth_date,profile_picture,country,city,address,postal_code, admin, superAdmin, access, firebaseId, verified} = userData
 
 try {
@@ -28,6 +29,7 @@ try {
         currency_id = currencyIdValidator(country)
     };
     const updatedUser = await User.update({
+
             name,surname,email,birth_date,
             profile_picture: image,
             country,city,address,postal_code, admin, superAdmin
@@ -44,6 +46,7 @@ try {
     }
     let userUpdated;
     if(updatedUser) {
+
         userUpdated = await User.findByPk(id);
         cartUpdated = await Cart.findOne({where: {
             userId: id
@@ -53,10 +56,12 @@ try {
         ...userUpdated.dataValues,
         cartId: cartUpdated.id,
         userId: id,
+
         access: access,
         verified: verified,
         firebaseId: firebaseId
     }
+
     return userReturned
 } catch (error) {
     console.log(error)

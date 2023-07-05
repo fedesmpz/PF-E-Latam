@@ -10,13 +10,10 @@ const Sales = () => {
   return (
     <div className={StylesAdmin.containerAdmin} >
         <Sidebar />
-    <div className={StylesAdmin.containerHomeAdmin}style={{ marginLeft: isOpen ? '120px' : (!isOpen && '60px') }}>
-        <div className={StylesAdmin.containerSuperior}>
-        <h1></h1>
-        </div>
+        <div className={StylesAdmin.processingOrders} >
         <ProcessOrders />
         <AllOrders />
-    </div>
+        </div>
     </div>
   )
 }

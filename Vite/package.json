@@ -25,6 +25,7 @@
     "firestore": "^1.1.6",
     "flag-icon-css": "^4.1.7",
     "mapbox-gl": "^2.15.0",
+    "moment": "^2.29.4",
     "postcss": "^8.4.24",
     "react": "^18.2.0",
     "react-bootstrap": "^2.8.0",

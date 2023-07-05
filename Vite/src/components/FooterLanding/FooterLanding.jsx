@@ -5,6 +5,10 @@ import ModalInfoSends from "../ModalInfoSends/ModalInfoSends"
 import ModalPolitics from "../ModalPolitics/ModalPolitics";
 import ModalLogin from "../ModalLogin/ModalLogin.jsx"
 import styles2 from "../NavBar/NavBar.module.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap-icons/font/bootstrap-icons.css';
+
+
 
 const FooterLanding = () => {
     return (
@@ -37,16 +41,16 @@ const FooterLanding = () => {
                     <h6 className={styles["cta-title"]}>Conoce más de nosotros en:</h6>
                     <p className={styles["cta-description"]}>
                         <a className={styles.icon} href="https://github.com/fedesmpz/PF-E-Latam" target="_blank" rel="noopener noreferrer">
-                            <span className="">
-                                <i className="bi bi-github"></i></span>
+                            <span >
+                                <i class="bi bi-github"></i></span>
                         </a>
                         <a className={styles.icon} href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer">
-                            <span className="">
-                                <i className="bi bi-facebook"></i></span>
+                            <span>
+                                <i class="bi bi-facebook"></i></span>
                         </a>
                         <a className={styles.icon} href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">
-                            <span className="">
-                                <i className="bi bi-instagram"></i></span>
+                            <span>
+                                <i class="bi bi-instagram"></i></span>
                         </a>
                     </p>
                 </div>
@@ -56,16 +60,16 @@ const FooterLanding = () => {
             <div className={styles["footer-cta"]}>
                 <div className={styles["footer-text d-flex flex-column"]}>
                     <h6 className={styles["cta-title"]}>Enlaces Rápidos<br /><br /></h6>
-                    <div className="d-flex flex-column align-items-start">
+                    <div className={`d-flex flex-column align-items-start`}>
                         <Link className={styles.link} to="/Home">
                             <span>Home</span>
                         </Link>
-                        <ModalInfoSends />
+                        {/* <ModalInfoSends />
                         <ModalComoComprar />
                         <ModalPolitics />
                         <Link className={styles.link} to="/Home">
                             <span>Contáctenos</span>
-                        </Link>
+                        </Link> */}
                         <Link className={styles.link} to="/About">
                             <span>About</span>
                         </Link>
@@ -78,31 +82,31 @@ const FooterLanding = () => {
                     <h4 className={styles["cta-title"]}>Equipo de Desarrollo <br /><br /></h4>
 
                     <div className={styles["container-names"]}>
-                        <a className={styles.link} href="https://www.linkedin.com/feed/" target="_blank" rel="noopener noreferrer">
+                        <a className={styles.link} href="https://www.linkedin.com/in/violetasolariashours/" target="_blank" rel="noopener noreferrer">
                             <span className={styles["cta-description"]}> <span className={styles['icon-sm']}>
                                 <i className="bi bi-linkedin"></i> </span>Arias Hours, Violeta Sol.<br /></span>
                         </a>
-                        <a className={styles.link} href="https://www.linkedin.com/feed/" target="_blank" rel="noopener noreferrer">
+                        <a className={styles.link} href="https://www.linkedin.com/in/demian-cortés-a8362525b/" target="_blank" rel="noopener noreferrer">
                             <span className={styles["cta-description"]}> <span className={styles['icon-sm']}>
                                 <i className="bi bi-linkedin"></i> </span>Demian Cortes.<br /></span>
                         </a>
-                        <a className={styles.link} href="https://www.linkedin.com/feed/" target="_blank" rel="noopener noreferrer">
+                        <a className={styles.link} href="https://www.linkedin.com/in/victoria-barrientos/" target="_blank" rel="noopener noreferrer">
                             <span className={styles["cta-description"]}> <span className={styles['icon-sm']}>
                                 <i className="bi bi-linkedin"></i> </span>Victoria Barrientos.<br /></span>
                         </a>
-                        <a className={styles.link} href="https://www.linkedin.com/feed/" target="_blank" rel="noopener noreferrer">
+                        <a className={styles.link} href="https://www.linkedin.com/in/juan-pablo-osudar-00661821b/" target="_blank" rel="noopener noreferrer">
                             <span className={styles["cta-description"]}> <span className={styles['icon-sm']}>
                                 <i className="bi bi-linkedin"></i> </span>Juan Pablo Osudar.<br /></span>
                         </a>
-                        <a className={styles.link} href="https://www.linkedin.com/feed/" target="_blank" rel="noopener noreferrer">
+                        <a className={styles.link} href="https://www.linkedin.com/in/fedesmpz/" target="_blank" rel="noopener noreferrer">
                             <span className={styles["cta-description"]}> <span className={styles['icon-sm']}>
                                 <i className="bi bi-linkedin"></i> </span>Federico Pezzutti.<br /></span>
                         </a>
-                        <a className={styles.link} href="https://www.linkedin.com/feed/" target="_blank" rel="noopener noreferrer">
+                        <a className={styles.link} href="https://www.linkedin.com/in/camilo-acevedo/" target="_blank" rel="noopener noreferrer">
                             <span className={styles.ctaDescription}>
                                 <span className={styles.iconSm}><i className="bi bi-linkedin"></i> </span> Camilo Acevedo.<br /></span>
                         </a>
-                        <a className={styles.link} href="https://www.linkedin.com/in/camilo-acevedo/" target="_blank" rel="noopener noreferrer">
+                        <a className={styles.link} href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer">
                             <span className={styles["cta-description"]}> <span className={styles['icon-sm']}>
                                 <i className="bi bi-linkedin"></i> </span>Cristian Rodriguez.<br /></span>
                         </a>

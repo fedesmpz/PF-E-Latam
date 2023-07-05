@@ -17,4 +17,6 @@ const updateStockHandler = async(req, res) => {
 
 module.exports = {
     updateStockHandler
+
 }
+

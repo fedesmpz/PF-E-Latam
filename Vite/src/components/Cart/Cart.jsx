@@ -117,39 +117,38 @@ const Cart = () => {
             <Link to="/Home">
                 <button className={style.backButton}>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-                    <path fill="none" d="M0 0h24v24H0z" />
-                    <path d="M20.59 12H5.41l4.29-4.29a1 1 0 1 0-1.42-1.42l-6 6a1 1 0 0 0 0 1.42l6 6a1 1 0 0 0 1.42-1.42L5.41 12h15.18z" />
+                        <path fill="none" d="M0 0h24v24H0z" />
+                        <path d="M20.59 12H5.41l4.29-4.29a1 1 0 1 0-1.42-1.42l-6 6a1 1 0 0 0 0 1.42l6 6a1 1 0 0 0 1.42-1.42L5.41 12h15.18z" />
                     </svg>
                 </button>
             </Link>
             <div className={style.cartProducts}>
-            <div className={style.resumeHeader}>
+                <div className={style.resumeHeader}>
                     <h1 className={style.resumeTitle}>Resumen de compra</h1>
-            </div>
-            <div className={style.resumeContainer}>
-                {cart.map((product) => (
-                    <div className={style.productContainer} key={product.id}>
-                        <div className={style.productImage}>
-                            <img src={product.thumbnail} alt="product_image" />
-                        </div>
-                        <div className={style.productInfo}>
-                            <h1 className={style.productTitle}>{product.title}</h1>
-                            {product.sale_price ? (
-                                <span className={style.productPricesContainer}>
-                                    <p className={style.productPriceDiscount}>
+                </div>
+                <div className={style.resumeContainer}>
+                    {cart.map((product) => (
+                        <div className={style.productContainer} key={product.id}>
+                            <div className={style.productImage}>
+                                <img src={product.thumbnail} alt="product_image" />
+                            </div>
+                            <div className={style.productInfo}>
+                                <h1 className={style.productTitle}>{product.title}</h1>
+                                {product.sale_price ? (
+                                    <span className={style.productPricesContainer}>
+                                        <p className={style.productPriceDiscount}>
+                                            $ {product.quantity * product.original_price}
+                                        </p>
+                                        <p className={style.productPrice}>
+                                            $ {product.quantity * product.price}
+                                        </p>
+                                    </span>
+                                ) : (
+                                    <p className={style.productPrice}>
                                         $ {product.quantity * product.original_price}
                                     </p>
-                                    <p className={style.productPrice}>
-                                        $ {product.quantity * product.price}
-                                    </p>
-                                </span>
-                            ) : (
-                                <p className={style.productPrice}>
-                                    $ {product.quantity * product.original_price}
-                                </p>
-                            )}
-                            <div>
-                                <p>
+                                )}
+                                <div>
                                     {product.shipping ? (
                                         <p>
                                             Envío: <strong>gratis</strong>
@@ -160,73 +159,73 @@ const Cart = () => {
                                             <strong>se sumará en el total de la compra</strong>
                                         </p>
                                     )}
-                                </p>
+                                </div>
+                            </div>
+                            <div className={style.productActions}>
+                                <div className={style.quantityContainer}>
+                                    <button
+                                        className={style.quantityButton}
+                                        onClick={() => handleDecrement(product.id)}
+                                    >
+                                        -
+                                    </button>
+
+                                    <span className={style.quantity}>
+                                        {productCounts[product.id] || 1}
+                                    </span>
+
+                                    <button
+                                        className={style.quantityButton}
+                                        onClick={() => handleIncrement(product.id)}
+                                    >
+                                        +
+                                    </button>
+                                </div>
+                                <button
+                                    className={style.deleteButton}
+                                    onClick={() => handleRemove(product.id)}
+                                >
+                                    <img src="/assets/trashcanRed.png"></img>
+                                </button>
+                                {/* <button className={style.buyButton}>Comprar ahora</button> */}
                             </div>
                         </div>
-                        <div className={style.productActions}>
-                            <div className={style.quantityContainer}>
-                                <button
-                                    className={style.quantityButton}
-                                    onClick={() => handleDecrement(product.id)}
-                                >
-                                    -
-                                </button>
-
-                                <span className={style.quantity}>
-                                    {productCounts[product.id] || 1}
-                                </span>
-
-                                <button
-                                    className={style.quantityButton}
-                                    onClick={() => handleIncrement(product.id)}
-                                >
-                                    +
-                                </button>
+                    ))}
+                    <>
+                        {showModal && (
+                            <div className={style.modal}>
+                                <div className={style.modalContent}>
+                                    <div className={style.closeModal} onClick={handleModal}>X</div>
+                                    <h2>Hola!</h2>
+                                    <p>Para comprar, ingresá a tu cuenta</p>
+                                    <div>
+                                        <ModalLogin />
+                                    </div>
+                                </div>
                             </div>
-                            <button
-                                className={style.deleteButton}
-                                onClick={() => handleRemove(product.id)}
-                            >
-                               <img src="/assets/trashcanRed.png"></img>
-                            </button>
-                            {/* <button className={style.buyButton}>Comprar ahora</button> */}
+                        )}
+                    </>
+                    <div className={style.resumeContent}>
+                        <div className={style.resumeDetails}>
+                            <p className={style.resumeText}>{`(${count}) Productos`}</p>
+                            <p className={style.resumePrice}>Total $ {total}</p>
                         </div>
                     </div>
-                ))}
-                <>
-              {showModal && (
-                <div className={style.modal}>
-                  <div className={style.modalContent}>
-                    <div className={style.closeModal} onClick={handleModal}>X</div>
-                    <h2>Hola!</h2>
-                    <p>Para comprar, ingresá a tu cuenta</p>
-                    <div>
-                        <ModalLogin/>
-                    </div>
-                  </div>
                 </div>
-              )}
-            </>
-                <div className={style.resumeContent}>
-                    <div className={style.resumeDetails}>
-                        <p className={style.resumeText}>{`(${count}) Productos`}</p>
-                        <p className={style.resumePrice}>Total $ {total}</p>
-                    </div>
+                <div className={style.resumeActions}>
+                    <button
+
+                        onClick={handlerPurchase}
+                        className={`${style.continueButton} ${total === 0 ? style.disabledButton : ""}`}
+                        disabled={total === 0}>
+                        Continuar compra
+                    </button>
                 </div>
             </div>
-            <div className={style.resumeActions}>
-                <button
-                    className={style.continueButton}
-                    onClick={handlerPurchase}
-                >
-                    Continuar compra
-                </button>
+            <h2 className={style.titleProducts}>Productos relacionados</h2>
+            <div className={style.productContainer}>
+                <CarouselProducts />
             </div>
-        </div>
-        <h2 className={style.titleProducts}>Productos relacionados</h2>
-        <div className={style.productsContainer}>
-            <CarouselProducts />
-        </div>
         </div>
     );
 };

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Image from "react-bootstrap/Image";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -8,12 +8,14 @@ import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { useDispatch } from 'react-redux';
-import { updateUser } from '../../../redux/slice/userSlice';
+import { updateDataUser, getUserById, getUsers } from '../../../redux/slice/userSlice';
+import { useSelector } from "react-redux";
 
 
 
 const UserDetailsModal = ({
   props,
+  userId,
   id,
   name,
   profile_picture,
@@ -25,34 +27,48 @@ const UserDetailsModal = ({
   admin,
   postal_code,
   createdAt,
+  superAdmin
 }) => {
-
   const dispatch = useDispatch();
-  
-  const toggleAdminStatus = (userId, userData, currentAdminStatus) => {
-    
+  const handleShow = () => {
+    dispatch(getUserById(id));
+    setShow(true);
+  }
+  const user = useSelector((state) => state.user.userById); 
+  const [show, setShow] = useState(false);
+  const handleClose = () => {
+    dispatch(getUsers())
+    setShow(false);
+  }
+
+  function toggleAdminStatus(currentAdminStatus) {
     const newAdminStatus = !currentAdminStatus;
-    
-    const updatedUserData = {
-      ...userData,
+    const newSuperAdminStatus = !currentAdminStatus;
+
+  
+    const userData = {
+      ...user,
+      superAdmin: newSuperAdminStatus,
       admin: newAdminStatus,
+      access: true
     };
 
     const confirmAction = window.confirm('¿Estás seguro de convertir a este usuario en administrador?');
-    
+
     if (confirmAction) {
-      dispatch(updateUser(userId, updatedUserData))
-      .then(() => {
-        alert('Estado de admin actualizado en la base de datos');
-        console.log(updatedUserData);
-      })
-      .catch(error => {
-        console.error('Error al actualizar el estado de admin en la base de datos:', error);
-      });
+      dispatch(updateDataUser(userId, userData))
+        .then(() => {
+          alert('Estado de admin actualizado en la base de datos');
+          console.log(userData);
+          console.log(userId);
+        })
+        .catch(error => {
+          console.error('Error al actualizar el estado de admin en la base de datos:', error);
+        });
     } else {
       alert('Acción cancelada');
     }
-  };
+  }
     
   let isAdmin;
   if (admin === false) {
@@ -62,15 +78,14 @@ const UserDetailsModal = ({
   } else if (admin === undefined) {
     isAdmin = "No Definido";
   }
-
-    const [show, setShow] = useState(false);
-
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
-
-    
-
-
+  let isSuperAdmin;
+  if ( superAdmin === false) {
+    isSuperAdmin = "No";
+  } else if (superAdmin === true) {
+    isSuperAdmin = "Si";
+  } else if (superAdmin === undefined) {
+    isSuperAdmin = "No Definido";
+  }
     return (
     <div>
     <a className={Styles["a"]} onClick={handleShow}>
@@ -99,7 +114,17 @@ const UserDetailsModal = ({
           </Col>
           <Col className={Styles.userDetailsHeaderCol}>
 
-          <Image src={profile_picture} alt="Profile Picture" roundedCircle />
+          <Image
+        src={profile_picture}
+        alt="Profile Picture"
+        roundedCircle
+        style={{
+          maxWidth: '120px',
+          border: '1px solid #ccc',
+          borderRadius: '100%',
+          boxShadow: '2px 2px 4px rgba(0, 0, 0, 0.2)',
+        }}
+      />
           </Col>
           
           </Row>
@@ -115,7 +140,7 @@ const UserDetailsModal = ({
                   Admin: <span className={Styles.userDetailsValue}>{isAdmin}</span>
                 </h5>
                 <h5 className={Styles.userDetailsLabel}>
-                  Created At: <span className={Styles.userDetailsValue}>{createdAt}</span>
+                  SuperAdmin: <span className={Styles.userDetailsValue}>{isSuperAdmin}</span>
                 </h5>
               </Col>
               <Col>
@@ -139,9 +164,9 @@ const UserDetailsModal = ({
             <Button variant="secondary" onClick={handleClose}>
                 Close
             </Button>
-            <Button variant="primary" onClick={() => toggleAdminStatus(id, admin)}>
-        Convertir en Admin
-      </Button>
+            <Button variant="primary" onClick={() => toggleAdminStatus(admin)}>
+  Actualizar Permisos
+</Button>
         </Modal.Footer>
     </Modal>
     </div>

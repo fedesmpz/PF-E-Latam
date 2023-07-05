@@ -1,5 +1,5 @@
 import ProductsSeller from "./ProductsSeller";
-import Styles from './StylesSeller/AllProductsSellers.modules.css'
+import Styles from './ProductsSeller.module.css'
 
 
 const AllProductsSellers = ({ currentProducts }) => {

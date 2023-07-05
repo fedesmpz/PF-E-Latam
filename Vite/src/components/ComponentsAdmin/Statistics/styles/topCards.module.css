@@ -1,0 +1,53 @@
+.cardtop {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  position: relative;
+  margin-bottom: 1.5rem;
+  width: 100%;
+  border: 0;
+  /* box-shadow: 0 10px 10px 20px #b0b8d617, 10px 10px 15px -5px #b0b8d6; */
+  border-radius: 8px;
+}
+
+.cardTop:first-child {
+  border-radius: 2px 2px 0 0;
+}
+
+.division {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: space-between;
+  align-content: center;
+  align-items: center;
+  border-radius: 4px;
+  width: 10%;
+  margin-bottom: .5rem;
+  background-color: #4BBF68;
+  margin-right: 5rem;
+  margin-left: 2rem;
+  margin-top: 0.5rem;
+  padding: 0.75rem 30px;
+  border: 1px solid #eff0f6;
+}
+
+.title {
+  line-height: 1.2;
+  text-transform: capitalize;
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+}
+
+.cardtop h3.coment {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-content: center;
+  margin-top: 2rem;
+  margin-left: 2rem;
+}

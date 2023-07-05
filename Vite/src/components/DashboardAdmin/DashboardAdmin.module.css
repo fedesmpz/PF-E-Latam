@@ -1,67 +1,125 @@
 .container {
-    position: relative;
-    display: inline-block;
-    margin-left: 5rem;
+  position: relative;
+  display: inline-block;
 }
 
+.mainTitle {
+  font-size: 50px;
+  font-weight: 400;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
 .container button {
-    background: none;
-    border: none;
-    cursor: pointer;
+  background: none;
+  border: none;
+  cursor: pointer;
 }
 
 .dropdown {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    background-color: #fff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  position: absolute;
+  top: 100%;
+  left: 0;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .dropdown li {
-    padding: 8px 16px;
-    cursor: pointer;
+  padding: 8px 16px;
+  cursor: pointer;
 }
 
 .dropdown li:hover {
-    background-color: #f1f1f1;
+  background-color: #f1f1f1;
 }
-/*-- estilos para el contenerdos de los productos----*/
-.containerAdmin {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    background-color: rgb(237, 235, 235);
-    overflow-x: hidden; /* Evitar scroll lateral */
-  }
-  
-  .containerHomeAdmin {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    /* background-color: aqua; */
-  }
 
-  .containerSuperior{
-    margin-top: 1rem;
-    background-color: blanchedalmond;
-    width: 90%;
-    height: 8rem;
-  }
-  
-  .containerProducts {
-    border-radius: 0.5rem;
-    display: flex;
-    flex-direction: column;
-    width: 95%;
-    max-width: auto;
-    margin-left: 1rem;
-    background-color:rgb(255, 255, 255);
-    margin-top: 1rem;
-    height: 90vh;
-  }
+.containerAdmin {
+  display: flex;
+  flex-direction: row;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  width: 100%;
+  min-height: 100vh;
+  height: 140vh;
+  max-height: 400vh;
+  border: 0;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+.containerHomeAdmin {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.containerSuperior {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.containerProducts {
+  border-radius: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: auto;
+  margin-left: 1rem;
+  background-color: rgb(255, 255, 255);
+  margin-top: 1rem;
+  height: 90vh;
+  margin-right: 4rem;
+}
+
+.mainContainer {
+  display: flex;
+  width: 90vw;
+  flex-direction: row-reverse;
+}
+
+.statSales {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  height: 900px;
+  padding-top: 2rem;
+}
+
+.line {
+  display: flex;
+  flex-direction: row;
+  border-radius: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  max-width: 55%;
+  height: 40%;
+  margin-left: 1rem;
+  background-color: rgb(255, 255, 255);
+  margin-top: 1rem;
+}
+
+.processingOrders {
+  display: flex;
+  flex-direction: row;
+  width: 90vw;
+}
+
+.containerUsers {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  margin-top: 30px;
+}
+
+.title {
+  margin-bottom: 20px;
+}

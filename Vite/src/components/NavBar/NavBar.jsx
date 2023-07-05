@@ -8,8 +8,9 @@ import { CartContext } from "../../utils/CartContext";
 import ModalLogin from "../ModalLogin/ModalLogin"
 import ModalSignIn from "../ModalSignIn/ModalSingIn"
 import { loginUserLocal, logoutUser } from '../../redux/slice/userSlice';
-
-
+import Button from 'react-bootstrap/Button';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
+import Dropdown from 'react-bootstrap/Dropdown';
 
 const NavBar = () => {
   const { cart } = useContext(
@@ -86,11 +87,12 @@ const NavBar = () => {
       }
 
       try {
-        dispatch(axiosSearchProduct(title, selectedCountry));
-        setTitle('');
+        await dispatch(axiosSearchProduct(title, selectedCountry));
+        setTitle('')
 
       } catch (error) {
-        setShowModal(true);
+        setShowModal(true)
+        setTitle('');
       }
     }
   };
@@ -105,11 +107,25 @@ const NavBar = () => {
     setShowModal(false);
   };
 
+  const handlerProfile = () =>{
+    navigate('/Profile')
+  }
+
+  const handlerSales = () =>{
+    navigate('/mysales')
+  }
+
+  const handlerReview = () =>{
+    navigate('/myreviews')
+  }
+
 
   return (
     <div className={Styles.navbar}>
       <div className={Styles.leftContainer}>
-        <Link className={Styles.logo} to="/">
+        {
+          location.pathname === "/Home" && 
+          <Link className={Styles.logo} to="/">
           <div className={Styles.logoContainer}>
             <img
               className={Styles.logoE}
@@ -127,8 +143,30 @@ const NavBar = () => {
             />
           </div>
         </Link>
+        }
+        {
+          location.pathname !== "/Home" &&
+          <Link className={Styles.logo} to="/Home">
+          <div className={Styles.logoContainer}>
+            <img
+              className={Styles.logoE}
+              src="/assets/e-world.png"
+              width={100}
+              height={100}
+              alt="Animación1"
+            />
+            <img
+              className={Styles.logoLam}
+              src="/assets/latam-store.png"
+              width={100}
+              height={100}
+              alt="Animación2"
+            />
+          </div>
+        </Link>
+        }
 
-        <div className={Styles.flags}>
+        {location.pathname === "/Home" && <div className={Styles.flags}>
           <Select
             options={options}
             value={options.find(option => option.value === country)}
@@ -143,12 +181,14 @@ const NavBar = () => {
             getOptionValue={option => option.value}
           />
         </div>
+        }
+
 
         {showModal && (
           <div className={Styles.modal}>
             <div className={Styles.modalContent}>
               <h2>Error de búsqueda</h2>
-              <p>Por favor, ingresa algún dato válido antes de realizar la búsqueda.</p>
+              <p>Por favor, ingresa algún dato válido para realizar la búsqueda.</p>
               <button className={Styles.closeButton} onClick={handleCloseModal}>Cerrar</button>
             </div>
           </div>
@@ -157,19 +197,18 @@ const NavBar = () => {
         {location.pathname === "/Home" &&
           <div className={Styles.searchBar}>
             <input type="search" placeholder="¿Qué buscas hoy?" value={title} onChange={handleSearch} />
-            <button onClick={handlerClick} className={Styles.buttonBusqueda}>Buscar</button>
+            <button onClick={handlerClick} className={Styles.button}>Buscar</button>
           </div>
         }
       </div>
-
       <div className={Styles.rightContainer}>
         {!userData.isAdmin && (
                   <div className={Styles.cartContainer}>
-                  {notifications &&
+                    {notifications &&
                     <div className={Styles.productsNumber}>
                       <span>{productsInCart}</span>
                     </div>
-                  }
+                    }
                   <Link className={Styles.cartButton} to="/Cart" >
                     <img
                       className={Styles.iconCarrito}
@@ -181,22 +220,45 @@ const NavBar = () => {
                   </Link>
                 </div>
         )}
-        {userData.access === true && userData.isAdmin &&
-           <>
-              <Link className={Styles.button} to="/CreateProduct">New</Link>
-              <Link className={Styles.button} to="/DashboardAdmin">Admin</Link>
-           </>
-        }
-      
-        {isLoggedIn ? 
-        (<button className={Styles.button} onClick={handlerLogout}>Logout</button>) : 
+      {
+        !isLoggedIn &&
+        <div>
+          <ModalSignIn/>
+          <ModalLogin/>
+        </div>
+      }
+            {isLoggedIn &&
         (
-        <div className={Styles.cartContainer}>
-          <div>
-            <ModalSignIn/>
-          </div>
-          <div>
-            <ModalLogin/>
+        <div className={Styles.profileButtonContainer}>
+          <div className={Styles.buttonCenter}>         
+              {
+                userData.access && userData.profile_picture &&
+                <>
+                    <button className={Styles.roundButton}>
+                    <img className={Styles.profileImg} src={userData.profile_picture}alt="Perfil"></img>
+                    </button>                  
+                </>     
+              }
+              {  userData.access && userData.name && <>
+
+                <Dropdown className={Styles.dropdownNav} as={ButtonGroup}>
+                    <p className={Styles.profileButton}>{userData.name}</p>
+                    <Dropdown.Toggle className={Styles.dropdownNav} split />
+                    <Dropdown.Menu>
+                    {userData.access === true && userData.isAdmin &&
+                      <>
+                          <Dropdown.Item><Link className={Styles.button} to="/DashboardAdmin">Panel de administrador</Link></Dropdown.Item>
+                      </>
+                    }
+                    <Dropdown.Item><button className={Styles.button} onClick={handlerProfile}>Perfil de usuario</button></Dropdown.Item>
+                    <Dropdown.Item><button className={Styles.button} onClick={handlerSales}>Mis Compras</button></Dropdown.Item>
+                    <Dropdown.Item><button className={Styles.button} onClick={handlerReview}>Mis Reseñas</button></Dropdown.Item>
+                    <Dropdown.Item><button className={Styles.button} onClick={handlerLogout}>Cerrar sesión</button></Dropdown.Item>
+                    </Dropdown.Menu>
+                </Dropdown>
+              </>
+              }
+            
           </div>
         </div>
         )}

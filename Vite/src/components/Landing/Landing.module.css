@@ -8,7 +8,21 @@
 
 .text-container {
   flex: 1;
+  display: flex;
+  flex-direction: column;
   margin-right: 20px;
+  width: 300px;
+  height: 300px;
+}
+
+.text_container_subtitle {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: 20px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
 }
 
 .image-container {
@@ -66,6 +80,10 @@
 .image-container img {
   width: 100%;
   height: auto;
+}
+
+.indexInZ{
+  z-index: -200;
 }
 
 .carouselHero{

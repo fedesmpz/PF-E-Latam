@@ -1,71 +1,126 @@
 .container {
-    width: 90%;
-    grid-column: span 1;
-    position: relative;
-    height: 70vh;
-    padding: 1rem;
-    border: 1px;
-    border-radius: 0.5rem;
-    background-color: #E6E7EB;
-    overflow: scroll;
-    margin: 0.5rem;
-  }
-  
-  .order {
-    background-color: #fefffe;
+  width: 90%;
+  grid-column: span 1;
+  position: relative;
+  height: 70vh;
+  padding: 1rem;
+  border: 3px;
+  border-radius: 0.5rem;
+  background-color: #e6e7eb;
+  overflow: scroll;
+}
+
+
+.order {
+  display: flex;
+  flex-direction: column;
+  border-radius: 0.3rem;
+  background-color: #fefffe;
+  border: 1px solid #eff0f6;
+  vertical-align: bottom;
+  border-bottom-width: 1px;
+  border-top: 0;
+  padding: 0.5rem 15px;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.order:hover {
+  background-color: #f9fafc;
+}
+
+.faShop {
+  /* background-color: #1e1427; */
+  border-radius: 0.5rem;
+  padding: 0.25rem;
+  width: 50px;
+}
+
+.textContainer {
+  padding-left: 1rem;
+}
+
+.date {
+  display: flex;
+  position: absolute;
+  right: 1.5rem;
+  font-size: 0.75rem;
+  border: 1px solid #eff0f6;
+  border-radius: 0.25rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  padding-top: 0.5rem;
+  padding-bottom: 0.25rem;
+}
+
+.ahi {
+  display: flex;
+  align-items: center;
+  border-radius: 0.25rem;
+  text-decoration: none;
+  color: #151414;
+  font-size: 0.75rem;
+}
+
+.ahi:hover {
+  background-color: rgb(96, 169, 246);
+}
+
+.iconos {
+  font-size: xx-large;
+}
+
+.vemos {
+  margin: 0.25rem;
+  font-size: 12px;
+  font-weight: bold;
+  width: 100%;
+  max-width: 100%;
+  white-space: nowrap;
+  padding: 0.35rem 10px;
+  padding-bottom: 0.5rem;
+  box-sizing: border-box;
+  font-weight: 500;
+  color: #384b6e;
+  text-transform: capitalize;
+  font-size: 0.75rem;
+}
+
+ul {
+  list-style: none;
+}
+
+@media (max-width: 768px) {
+  .container {
     width: 100%;
-    height: max-content;
-    display: flex;
-    align-items: center;
-    border-radius: 0.5rem;
-    margin-top: 0.75rem;
-    margin-bottom: 0.75rem;
+    margin: 0;
+    border-radius: 0;
+  }
+
+  .order {
     padding: 0.5rem;
   }
-  
-  .order:hover {
-    background-color: #F9FAFC;
-  }
-  
+
   .faShop {
-    background-color: #1e1427;
-    border-radius: 0.5rem;
-    padding: 0.75rem;
+    width: 30px;
   }
-  
+
   .textContainer {
-    padding-left: 1rem;
+    padding-left: 0.5rem;
   }
-  
+
   .date {
-    display: flex;
-    position: absolute;
-    right: 1.5rem;
-    font-size: 0.875rem;
+    right: 0.5rem;
+    font-size: 0.625rem;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
   }
-  .a {
-    display: flex;
-    align-items: center;
-    border-radius: 0.5rem;
-    text-decoration: none;
-    color: #151414;
-  }
-  
-  .a:hover {
-    background-color: rgb(96, 169, 246);
-  }
-  
-  .icon {
-    font-size: xx-large;
-  }
-  
-  .text {
-    text-align: center;
-    width: 100%;
-    margin: 0.5rem;
-    font-size: 14px;
-    font-weight: bold;
-  }
-  
 
+  .ahi {
+    font-size: 0.625rem;
+  }
 
+  .vemos {
+    font-size: 10px;
+  }
+}

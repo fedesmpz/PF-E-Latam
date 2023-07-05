@@ -1,25 +1,37 @@
 import React from "react";
-import Styles from "./SalesCard.module.css";
+import Styles from "./styles/topCards.module.css";
+import { getUsers } from "../../../redux/slice/userSlice";
+import { axiosAllProducts } from "../../../redux/slice/productSlice"
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-const TopCards = ({ totalUsers, totalAdmins, totalProducts, totalSales }) => {
+
+const TopCards = () => {
+  const dispatch = useDispatch();
+  
+  useEffect(() => {
+    dispatch(getUsers());
+    dispatch(axiosAllProducts())
+  },[])
+
+  const allUsers = useSelector((state) => state.user.users);
+  const totalAdmins = allUsers.filter((user) => user.admin).length;
+  const allProducts = useSelector((state) => state.products.products);
+  const totalProductsCount = allProducts[0].length + allProducts[1].length + allProducts[2].length;
+
   return (
     <div className={Styles.cardtop}>
-      <h3>Stats</h3>
-      <div>
-        <p>Total Users:</p>
-        <span>{totalUsers}</span>
+      <div className={Styles.division}>
+        <p className={Styles.title}>Usuarios</p>
+        <span className={Styles.title}>{allUsers.length}</span>
       </div>
-      <div>
-        <p>Total Admins:</p>
-        <span>{totalAdmins}</span>
+      <div className={Styles.division}>
+        <p className={Styles.title}>Administradores</p>
+        <span className={Styles.title}>{totalAdmins}</span>
       </div>
-      <div>
-        <p>Total Products:</p>
-        <span>{totalProducts}</span>
-      </div>
-      <div>
-        <p>Total Sales:</p>
-        <span>{totalSales}</span>
+      <div className={Styles.division}>
+        <p className={Styles.title}>Productos</p>
+        <span className={Styles.title}>{totalProductsCount}</span>
       </div>
     </div>
   );

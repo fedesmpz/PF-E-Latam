@@ -14,25 +14,25 @@ export const cartSlice = createSlice({
       products: []
     },
     reducers: {
-      loadCart(state, action) {
-        state.products = [...state.products, ...action.payload];
+      loadCart: (state, action) => {
+        state.products = [...action.payload];
       },
-      setCurrentCartId(state, action) {
+      setCurrentCartId: (state, action) => {
         state.cartId = action.payload;
       },
-      setCurrency(state, action) {
+      setCurrency: (state, action) => {
         state.currency_id = action.payload;
       },
-      setState(state, action) {
+      setState: (state, action) => {
         state.current_state = action.payload;
       },
-      setTotal(state, action) {
+      setTotal: (state, action) => {
         state.total_price = action.payload;
       },
-      setSuccessMessage(state, action) {
+      setSuccessMessage: (state, action) => {
         state.successMessage = action.payload;
       },
-      setErrorMessage(state, action) {
+      setErrorMessage: (state, action) => {
         state.errorMessage = action.payload;
       },
     },
@@ -54,7 +54,6 @@ export const loadProductsToCart = (productsData, cartId) => async (dispatch) => 
     try {
       const response = await axios.post(`https://pf-elatam.onrender.com/carts/${cartId}/products`, productsData);
       // const response = await axios.post(`http://localhost:8000/carts/${cartId}/products`, productsData);
-      console.log("Aca se postea", response.data)
       dispatch(setSuccessMessage(response.data));
     } catch (error) {
       dispatch(setErrorMessage(error.message));
@@ -65,7 +64,6 @@ export const getProductsFromCart = (cartId) => async (dispatch) => {
     try {
       const response = await axios.get(`https://pf-elatam.onrender.com/carts/${cartId}`);
       // const response = await axios.get(`http://localhost:8000/carts/${cartId}`);
-      console.log("UN get",response.data)
       dispatch(loadCart(response.data.products));
       dispatch(setCurrentCartId(response.data.id))
       dispatch(setCurrency(response.data.currency_id));
@@ -80,8 +78,8 @@ export const deleteProductsFromCart = (cartId) => async (dispatch) => {
   try {
     // const response = await axios.delete(`http://localhost:8000/carts/${cartId}/products`);
     const response = await axios.delete(`https://pf-elatam.onrender.com/carts/${cartId}/products`);
-    console.log("Aca se borra", response.data)
     dispatch(setSuccessMessage(response.data));
+    console.log(response.data)
   } catch (error) {
     dispatch(setErrorMessage(error.message));
   }

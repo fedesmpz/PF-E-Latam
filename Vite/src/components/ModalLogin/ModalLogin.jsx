@@ -6,7 +6,7 @@ import Styles from "./ModalLogin.module.css"
 import axios from 'axios'
 import { GoogleAuthProvider,
   signInWithPopup,
-  sendEmailVerification,
+  sendPasswordResetEmail,
    } from 'firebase/auth'
 import { auth } from '../../utils/firebase'
 import { useSelector, useDispatch } from 'react-redux';
@@ -30,6 +30,13 @@ function Example() {
   const navigate = useNavigate()
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const [showPassword, setShowPassword] = useState(false)
+  const [passwordModal, setPasswordModal] = useState(false)
+  const [emailSend, setEmailSend] = useState('');
+
+  const handleEmailChange = (event) => {
+    setEmailSend(event.target.value);
+  };
 
 
   const countries = [
@@ -65,9 +72,7 @@ function Example() {
       const response = await axios.post('https://pf-elatam.onrender.com/users/login', form)
       
       if (response.data == 'Firebase: Error (auth/wrong-password).'){
-        console.log(textModal);
         setTextModal("La contraseña es incorrecta")
-        console.log(textModal);
         setShowModal(true)
       }else if (response.data == 'Firebase: Error (auth/user-not-found).'){
         setTextModal("El usuario no existe")
@@ -79,13 +84,14 @@ function Example() {
         handleClose()
         return 
       }
-      
+
+
       const token = await axios.post('https://pf-elatam.onrender.com/users/getToken', response.data)
       localStorage.setItem("user", JSON.stringify(response.data))
       localStorage.setItem("token", JSON.stringify(token.data))
 
       if(response.data.access && location.pathname === '/'){
-        navigate('./home')
+       navigate('/Home')
       }else if (response.data.access && location.pathname === '/Cart'){
         navigate(`/Purchase?cartId=${userData.cartId}`)
       }else if (response.data.access){
@@ -106,34 +112,42 @@ function Example() {
     const result = await signInWithPopup(auth, provider);
     const dataUser = { email : result.user.email,
                         name : result.user.displayName,
-                        country: selectCountry
+                        country: selectCountry,
+                        firebaseId: result.user.uid,
+                        profile_picture: result.user.photoURL
                         }
     const response = await axios.post('https://pf-elatam.onrender.com/users/googleExist', dataUser);
    
     const user = {
-      name: result.user.displayName,
+      userId: response.data.userId,
+      name: response.data.name,
+      surname: response.data.surname,
       email: result.user.email,
       access: response.data.access,
       isAdmin: response.data.isAdmin,
       isSuperAdmin: response.data.isSuperAdmin,
       verified: result.user.emailVerified,
+      postal_code: response.data.postal_code,
       address: response.data.address,
       city: response.data.city,
       country: response.data.country,
-      cartId: response.data.cartId
+      profile_picture: response.data.profile_picture,
+      cartId: response.data.cartId,
+      firebaseId: response.data.firebaseId,
     }
 
 
         const token = await axios.post('https://pf-elatam.onrender.com/users/getToken', user)
+  
         localStorage.setItem("token", JSON.stringify(token.data))
         localStorage.setItem("user", JSON.stringify(user))
         
         if(response.data.access && location.pathname === '/'){
-          navigate('./home')
+         navigate('/Home')
         }else if (response.data.access && location.pathname === '/Cart'){
-          navigate(`/Purchase?cartId=${userData.cartId}`)
+         navigate(`/Purchase?cartId=${userData.cartId}`)
         }else if (response.data.access){
-          window.location.reload();
+         window.location.reload();
         }
         handleClose()
      
@@ -145,9 +159,6 @@ function Example() {
     handleClose()
 
   }
-  
-  
-  
   
   const handleChange = (event) =>{
     setForm((prevForm) => ({
@@ -176,7 +187,25 @@ function Example() {
       }
   };
 
+  const openModalPassword = () =>{
+    setShowPassword(true);
+    handleClose()
+  }
+  const sendEmail = () => {
+    sendPasswordResetEmail(auth, emailSend)
+    setShowPassword(false)
+    setPasswordModal(true);
+  }
 
+  const closePassword = () => {
+    setShowPassword(false)
+    setPasswordModal(false);
+  }
+
+  const cancel = () => {
+    setShowPassword(false)
+    setPasswordModal(false);
+  }
 
 
 
@@ -222,9 +251,40 @@ function Example() {
             Inicia con Google
           </Button>
 
+
+
         </Modal.Footer>
+        <a  href="#" variant="primary" onClick={openModalPassword}>
+            Olvidaste tu contraseña?
+          </a>
       </Modal>
-      {/* <button onClick={openModal}>XXXX</button> */}
+      <>
+        {showPassword && (
+          <div className={Styles.modal}>
+            <div className={Styles.modalContent}>
+              <h2>Ingresa tu E-Mail</h2>
+              <input type="text" value={emailSend} onChange={handleEmailChange} />
+              <div className={Styles.modalButtons}>
+                <button onClick={sendEmail}>Enviar</button>
+                <button onClick={cancel}>Cancelar</button>
+              </div>
+            </div>
+          </div>
+        )}
+      </>
+      <>
+        {passwordModal && (
+          <div className={Styles.modal}>
+            <div className={Styles.modalContent}>
+              <h2>Se envió un correo a tu dirección</h2>
+              <h2>para reestablecer la contraseña</h2>
+              <div className={Styles.modalButtons}>
+                <button onClick={closePassword}>Aceptar</button>
+              </div>
+            </div>
+          </div>
+        )}
+      </>
       <>
         {showModal && (
           <div className={Styles.modal}>

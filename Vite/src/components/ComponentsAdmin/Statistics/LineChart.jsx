@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from "react";
 import {
   Chart,
   CategoryScale,
@@ -8,9 +8,10 @@ import {
   Title,
   Tooltip,
   Legend,
-} from 'chart.js';
-import { Line } from 'react-chartjs-2';
-import faker from 'faker';
+} from "chart.js";
+import { Line } from "react-chartjs-2";
+import { useSelector, useDispatch } from "react-redux";
+import { axiosAllSales } from "../../../redux/slice/saleSlice";
 
 Chart.register(
   CategoryScale,
@@ -23,56 +24,75 @@ Chart.register(
 );
 
 export const options = {
+  scales: {
+    y: {
+      min: 0,
+    },
+    x: {
+      ticks: { color: "rgba(75, 191, 104)" },
+    },
+  },
   responsive: true,
   plugins: {
     legend: {
-      position: 'top',
-    },
-    title: {
-      display: true,
-      text: 'Chart.js Line Chart',
+      position: "top",
     },
   },
 };
 
-const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-
-export const data = {
-  labels,
-  datasets: [
-    {
-      label: 'Celulares',
-      data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
-      borderColor: 'rgb(255, 99, 132)',
-      backgroundColor: 'rgba(255, 99, 132, 0.5)',
-    },
-    {
-      label: 'Computacion',
-      data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
-      borderColor: 'rgb(53, 162, 235)',
-      backgroundColor: 'rgba(53, 162, 235, 0.5)',
-    },
-    {
-      label: 'Electronica',
-      data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
-      borderColor: 'rgb(90, 235, 53)',
-      backgroundColor: 'rgba(90, 235, 53, 0.5)',
-    },
-    {
-      label: 'Videojuegos',
-      data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
-      borderColor: 'rgb(196, 53, 235)',
-      backgroundColor: 'rgba(196, 53, 235, 0.5)',
-    },
-  ],
-};
-
 const LineChart = () => {
-  return (
-    <div className='w-full h-20 flex items-center '>
-      <Line options={options} data={data} />
-    </div>
-  );
-}
+  const dispatch = useDispatch();
+  const sales = useSelector((state) => state.sale.sales);
+
+  useEffect(() => {
+    dispatch(axiosAllSales());
+  }, [dispatch]);
+
+  const groupSalesByMonth = () => {
+    const groupedSales = {};
+    sales.forEach((sale) => {
+      const saleDate = new Date(sale.updatedAt);
+      const saleMonth = saleDate.getMonth();
+      if (groupedSales[saleMonth]) {
+        groupedSales[saleMonth] += 1;
+      } else {
+        groupedSales[saleMonth] = 1;
+      }
+    });
+    return groupedSales;
+  };
+
+  const allMonths = [
+    "Enero",
+    "Febrero",
+    "Marzo",
+    "Abril",
+    "Mayo",
+    "Junio",
+    "Julio",
+    "Agosto",
+    "Septiembre",
+    "Octubre",
+    "Noviembre",
+    "Diciembre",
+  ];
+
+  const groupedSales = groupSalesByMonth();
+  const data = allMonths.map((month, index) => groupedSales[index] || 0);
+
+  const chartData = {
+    labels: allMonths,
+    datasets: [
+      {
+        label: "Ventas",
+        data,
+        borderColor: "rgb(75, 191, 104)",
+        backgroundColor: "rgba(75, 191, 104, 0.5)",
+      },
+    ],
+  };
+
+  return <Line options={options} data={chartData} />;
+};
 
 export default LineChart;

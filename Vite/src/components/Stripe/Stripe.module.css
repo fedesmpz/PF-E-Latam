@@ -1,20 +1,45 @@
 .container {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    width: 100%;
     align-items: center;
-    height: 100vh;
-    background-color: #f5f5f5;
   }
   
   .container_card {
-    background-color: #fff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     border-radius: 4px;
-    width: 600px;
-    height: 500px;
-    margin: 20px;
+    width: 100%;   
+  }
+
+  .card_element_container {
+    display: flex;
+    flex-direction: column;
+    height: 200px;
+    padding: 20px 0px;
+    margin: auto;
+    margin-bottom: 40px;
+    width: 800px;
+  }
+
+  .cardElement {
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #ccc;
+  }
+
+  .cardLabel {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 0px;
+  }
+  
+
+  .cardLabel p {
+    display: inline;
+    font-weight: bolder;
+    font-size: 18px;
   }
   
   .title {
@@ -28,15 +53,16 @@
     flex-direction: column;
   }
   
-  .button {
-    background-color: #3483fa;
-    color: #fff;
+  .continueButton {
+    width: fit-content;
+    margin-left: auto;
     padding: 10px 20px;
+    font-size: 16px;
+    background-color:  #4BBF68;
+    color: #fff;
     border: none;
     border-radius: 4px;
-    margin-top: 20px;
     cursor: pointer;
-    width: 100%;
   }
   
   .button:hover {
@@ -44,28 +70,42 @@
   }
   
   .resume_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     margin-top: 20px;
     background-color: #fff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow:  2px 2px 2px 2px rgba(0, 0, 0, 0.1);
     padding: 20px;
     border-radius: 4px;
-    width: 400px;
+    width: 900px;
     margin: 20px;
   }
-  
-  .container_resume h2 {
-    font-size: 20px;
-    margin-bottom: 10px;
-    color: #333;
+
+  .resumeContainer {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    margin: 20px 0px 0px 0px;
+    padding: 10px 20px 10px 20px;
+    border-bottom: 1px solid #ccc;
   }
   
   .resume_info {
-    font-size: 14px;
-    margin-bottom: 5px;
+    font-size: 20px;
+    margin: 8px;
     color: #555;
   }
   
-
+  .resume {
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: #333;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
   
 .modal {
   position: fixed;
@@ -128,4 +168,19 @@ margin-left: 30px;
   background-color: #f7f7f7;
   border-radius: 4px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+.productTitle {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.productPrice {
+  display: flex;
+  justify-content: flex-end;
+  font-size: 16px;
+  font-weight: bolder;
+  color: #4BBF68;
+  margin-bottom: none;
 }

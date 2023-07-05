@@ -88,8 +88,6 @@ const CreateProduct = () => {
         validation(prop, value, errors, setErrors)
 
     }
-    console.log(Object.keys(errors).length);
-    console.log(Object.keys(newProduct).length);
 
     const handleSubmit = (event) => {
         event.preventDefault()
@@ -259,13 +257,13 @@ const CreateProduct = () => {
 
                     <div className={style.previewData}>
                         <span className={style.previewLines}><h3 className={style.previewLabel}>Producto en oferta?</h3>
-                            <p className={style.previewValue}>{newProduct.sale_price ? newProduct.sale_price : `-`}</p></span>
+                            <p className={style.previewValue}>{newProduct.sale_price ? `Si` : `No`}</p></span>
                         <span className={style.previewLines}> <h3 className={style.previewLabel}>Precio de oferta</h3>
                             <p className={style.previewValue}>{newProduct.price}</p></span>
                         <span className={style.previewLines}><h3 className={style.previewLabel}>Envio gratis</h3>
-                            <p className={style.previewValue}>{newProduct.shipping ? newProduct.shipping : `-`}</p></span>
+                            <p className={style.previewValue}>{newProduct.shipping ? `Si` : `No`}</p></span>
                         <span className={style.previewLines}><h3 className={style.previewLabel}>Categoria</h3>
-                            <h3 className={style.previewValue}>{newProduct.categories ? newProduct.categories : `-`}</h3></span>
+                            <h3 className={style.previewValue}>{newProduct.categories ? newProduct.categories : `Seleccione categoria`}</h3></span>
                         <h3 className={style.previewLabel}>Descripcion</h3>
                         <p className={style.previewValue}>{newProduct.attributes ? newProduct.attributes : `Describe el producto brindando información clara y detallada sobre el artículo para ayudar a los clientes a comprender sus características, beneficios y especificaciones; tambien intenta incluir su propósito, función y uso. Enumera las características específicas del producto, como tamaño, dimensiones, materiales, color, capacidad, peso, etc. Si el producto tiene características técnicas, como velocidad, capacidad de almacenamiento o conectividad, asegúrate de incluirlas aquí.`}</p>
                     </div>

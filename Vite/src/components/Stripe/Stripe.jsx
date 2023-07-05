@@ -1,12 +1,15 @@
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { payProduct, cleanDetail } from '../../redux/slice/productSlice';
+import { payProduct, cleanDetail ,updateQuantityProduct} from '../../redux/slice/productSlice';
+import { deleteProductsFromCart } from '../../redux/slice/cartSlice'
 import { useEffect } from 'react';
 import styles from "./Stripe.module.css";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { CartContext } from "../../utils/CartContext";
+import React, { useContext } from "react";
 
-const Stripe = ({ sale, total, shipping }) => {
+const Stripe = ({ sale, total }) => {
     const navigate = useNavigate()
     const dispatch = useDispatch();
     const elements = useElements();
@@ -20,7 +23,10 @@ const Stripe = ({ sale, total, shipping }) => {
     })
     const [showModal, setShowModal] = useState(false);
     const [showModalConfirm, setShowModalConfirm] = useState(false)
-    const saleMessage = useSelector((state) => state.products.newSaleMessage)
+    let saleMessage = useSelector((state) => state.products.newSaleMessage)
+    const location = useLocation();
+    const searchParams = new URLSearchParams(location.search);
+    const cardId = searchParams.get('cardId');
     const filterInfo = () => {
         const newDescription = [];
         const newProductsId = [];
@@ -38,6 +44,15 @@ const Stripe = ({ sale, total, shipping }) => {
         }));
         setProducts_id(newProductsId);
     };
+    const { removeAllItems } = useContext(CartContext);
+    const {cart}= useContext(CartContext)
+
+    const cartData = cart.map((product) => {
+        return {
+          id: product.id,
+          quantity: product.quantity
+        };
+      });
 
     useEffect(() => {
         const userInfo = JSON.parse(localStorage.getItem("user"));
@@ -67,69 +82,94 @@ const Stripe = ({ sale, total, shipping }) => {
         })
         if (!error) {
             const payment_method = paymentMethod.id
-            dispatch(payProduct({ ...info, payment_method, products_id, email }));
+            dispatch(payProduct({ ...info, payment_method, products_id, email }))
+            
         }
         setShowModalConfirm(true)
 
     }
     const handlerReconfirm = async () => {
+        await dispatch(cleanDetail())
         setShowModal(false);
         setShowModalConfirm(false)
-        navigate("/Home")
+        if (saleMessage === "Muchas gracias por tu compra") {
+            await dispatch(deleteProductsFromCart(cardId))
+            await dispatch(updateQuantityProduct(cartData))
+            localStorage.setItem("cart", JSON.stringify([]))
+            removeAllItems()
+            navigate("/Home")
+        }
+
+
     }
+
+    const options = {
+        style: {
+            base: {
+                fontSize: '19px',
+                color: '#000000',
+                padding: '0px',
+                fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+                '::placeholder': {
+                    color: '#ccc'
+                }
+            },
+            invalid: {
+                color: '#fa755a',
+                iconColor: '#fa755a'
+            }
+        }
+    };
+    if (saleMessage == "Your card was declined.") {
+        saleMessage = "Pago rechazado, verifique sus datos e intente de nuevo"
+    }
+
+
+
+
 
     return (
         <div className={styles.container}>
-            <div className={styles.container_resume}>
-                <div>
-                    <h2>Resumen</h2>
-                    <div className={styles.resume_container} >
-                        <p className={styles.resume_info} >Email: {`${userInfo?.email}`}</p>
-                        <p className={styles.resume_info} >City: {`${shipping?.city}`}</p>
-                        <p className={styles.resume_info} >Country: {`${shipping?.country}`}</p>
-                        <p className={styles.resume_info} >Dirección: {`${shipping?.address}`}</p>
-                        <p className={styles.resume_info} >Dirección: {`${shipping?.postalCode}`}</p>
-                    </div>
-                </div>
-            </div>
             <div className={styles.container_card}>
-                <h1 className={styles.title}>Card</h1>
                 <form className={styles.form} onSubmit={handleSubmit}>
                     <div className={styles.card_element_container}>
                         <div /* className={styles.cardElement} */>
-                            <CardElement />
+                            <span className={styles.cardLabel}><p>Numero de tarjeta</p><p>Vencimiento | CVC | Codigo Postal </p></span>
+                            <CardElement className={styles.cardElement} options={options} />
                         </div>
-                        <button className={styles.button}>Pay</button>
-                    </div>
-                </form>
-                <>
-                    {showModal && (
-                        <div className={styles.modal}>
-                            <div className={styles.modalContent}>
-                                <h2>¿Desea confirmar la compra?</h2>
-                                <div className={styles.modalButtons}>
-                                    <button onClick={handlerConfirm}>Aceptar</button>
-                                    <button onClick={handlerCancel}>Cancelar</button>
-                                </div>
-                            </div>
-                        </div>
-                    )}
-                </>
-                <>
-                {showModalConfirm && saleMessage && (
-                        <div className={styles.modal}>
-                            <div className={styles.modalContent}>
-                                <h2>{saleMessage}</h2>
-                                <div className={styles.modalButtons}>
-                                    <button onClick={handlerReconfirm}>x</button>
-                                </div>
-                            </div>
-                        </div>
-                    )
 
-                    }
-                </>
+                    </div>
+                    <button className={styles.continueButton}>Confirmar pago</button>
+                </form>
             </div >
+            <>
+                {showModal && (
+                    <div className={styles.modal}>
+                        <div className={styles.modalContent}>
+                            <h2>¿Desea confirmar la compra?</h2>
+                            <div className={styles.modalButtons}>
+                                <button onClick={handlerConfirm}>Aceptar</button>
+                                <button onClick={handlerCancel}>Cancelar</button>
+                            </div>
+                        </div>
+                    </div>
+                )}
+            </>
+            <>
+                {showModalConfirm && saleMessage && (
+                    <div className={styles.modal}>
+                        <div className={styles.modalContent}>
+                            <h2>{saleMessage}</h2>
+                            <div className={styles.modalButtons}>
+                                <button onClick={handlerReconfirm}>x</button>
+                            </div>
+                        </div>
+                    </div>
+                )
+
+                }
+            </>
+
         </div>
     )
 }

@@ -11,11 +11,13 @@
 
 .rightContainer {
   display: flex;
+  margin-right: 4rem;
 }
 
 .leftContainer {
   display: flex;
   align-items: center;
+  margin-left: 1rem;
 }
 
 .logo {
@@ -294,3 +296,4 @@
         transform: translatey(4px);
       }
     }
+    

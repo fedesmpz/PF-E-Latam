@@ -4,7 +4,7 @@
 
 .card img {
     width: 100%;
-    height: 50%;
+    height: 40%;
     object-fit: contain;
 }
 
@@ -12,8 +12,9 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 40%;
-    margin: 15px 0px 20px 0px;
+    justify-content: center;
+    height: 60%;
+    margin: 5px 0px 5px 0px;
 }
 
 .card {
@@ -45,7 +46,7 @@
 
 .card:hover {
     transform: scale(1.1);
-    z-index: 1;
+    /* z-index: 1; */
     transition: 0.04s;
     position: relative;
     display: flex;
@@ -88,34 +89,49 @@
     overflow: visible;
 }
 
+.priceTag {
+    display: flex;
+    justify-content: center;
+    align-items: center
+}
+
 
 .price {
     margin-top: 15px;
     color: rgb(0, 0, 0);
     font-weight: bold;
     font-size: large;
+    display: flex;
+    justify-content: center;
 }
 
 .original_price {
-    display: inline;
-    color: black;
+    color: rgb(0, 0, 0);
     font-weight: bold;
-    text-decoration:line-through;
-    margin: none;
+    text-decoration: line-through;
+    padding-right: 10px;
 }
 
 .sale_price {
-    display: inline;
     font-weight: bolder;
     color: #4BBF68;
-    font-size: x-large;
-    margin: none;
+    font-size: larger;
+    font-size:large;
+    display: flex;
+    justify-content: center;
+}
+
+.shipping {
+    display: flex;;
+    font-weight: bolder;
+    padding-left: 10px;
 }
 
 .category {
     display: inline-block;
-    background-color: #4BBF68;
+    background-color: blue;
     color: white;
+    margin-top: 40px;
     padding: 6px 12px;
     font-weight: bold;
     border-radius: 4px;
