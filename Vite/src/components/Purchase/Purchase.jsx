@@ -184,6 +184,7 @@ const PaymentComponent = () => {
                   Continuar compra
                 </button>
               </div>
+
               <>
                 {showModal && (
                   <div className={styles.modal}>
@@ -203,7 +204,7 @@ const PaymentComponent = () => {
             <div>
             </div>
             <div className={styles.bannerContainer}>
-              <img src="images/imagenes_hero/1.png"></img>
+              <img src="images/imagenes_hero/1.png" alt="" />
             </div>
           </TabPanel>
 

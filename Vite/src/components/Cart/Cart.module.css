@@ -36,7 +36,7 @@ button.backButton:hover svg {
 .productContainer {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   padding: 10px;
   border-bottom: 1px solid #ccc;
 }
@@ -215,12 +215,6 @@ button.backButton:hover svg {
   display: flex;
   justify-content: center;
   font-weight: bolder;
-}
-
-.productsContainer {
-  background-color: white;
-  height: 600px;
-  padding: 20px;
 }
 
 /* Modal Para loguearse */
