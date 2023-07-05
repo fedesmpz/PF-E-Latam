@@ -131,6 +131,7 @@ function Example() {
       address: response.data.address,
       city: response.data.city,
       country: response.data.country,
+      profile_picture: response.data.profile_picture,
       cartId: response.data.cartId,
       firebaseId: response.data.firebaseId,
     }
