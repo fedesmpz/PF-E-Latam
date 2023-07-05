@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { salesByUser, findProduct } from "../../redux/slice/productSlice";
+import Styles from './SalesUsuario.module.css'
 
 const SalesUsuario = () => {
   const { email } = useSelector((state) => state.user.userData);
@@ -36,15 +37,25 @@ const SalesUsuario = () => {
 
 
   return (
-    <div>
-      <h2>Tu historial de compras:</h2>
+    <div className={Styles.container}>
+      <h2 className={Styles.titleSales}>Tu historial de compras:</h2>
+      <div>
+
       {productList?.map((product, index) => (
-        <div key={index}>
-          <p>{product?.title}</p>
-          <img src={product?.thumbnail} alt={product.title} />
-          <h3>Precio: ${product?.original_price}</h3>
+        <div className={Styles.productContainer}>
+
+            <div key={index}>
+              <img className={Styles.image} src={product?.thumbnail} alt={product.title} />
+              <div className={Styles.dataContainer}>
+                <p>{product?.title}</p>
+                <h3>Precio: ${product?.original_price}</h3>
+
+              </div>
+            </div>
+
         </div>
       ))}
+      </div>
     </div>
   );
 };
