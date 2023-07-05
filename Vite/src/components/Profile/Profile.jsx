@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import style from "./Profile.module.css"
 import { sendPasswordResetEmail } from 'firebase/auth'
 import { auth } from '../../utils/firebase'
@@ -8,9 +8,11 @@ import { loginUserLocal, updateUser } from '../../redux/slice/userSlice';
 
 
 
+
 const Profile = () => {
 
     const dispatch = useDispatch();
+    const navigate = useNavigate()
     const message = useSelector(state => state.products.newProductMessage)
     const [profilePicture, setProfilePicture] = useState("")
     const userData = useSelector(state => state.user.userData)
@@ -63,18 +65,18 @@ const Profile = () => {
 
     
 
-    const handleProductThumbnailUpload = (event) => {
+    const handleProductThumbnailUpload = async (event) => {
         const prop = event.target.name
         const file = event.target.files[0];
-        transformFile(file)
+        await transformFile(file)
     }
 
-    const transformFile = (file) => {
+    const transformFile = async (file) => {
         const reader = new FileReader()
         if (file) {
             reader.readAsDataURL(file)
             reader.onloadend = () => {
-                setProfilePicture(reader.result);
+            setProfilePicture(reader.result);
             }
         } else {
             setProfilePicture("")
@@ -108,6 +110,10 @@ const Profile = () => {
         setFormDisabled(false)
         dispatch(updateUser(userData.userId, newDataUser))
         setShowModalSend(true)
+    }
+
+    const handleMySales = () => {
+        navigate('/mysales')
     }
 
     return (
@@ -188,8 +194,8 @@ const Profile = () => {
                             <button className={style.submitButton}  onClick={handleFormDisabled}>Editar Perfil</button>
                         }
                         
-                        <button className={style.submitButton}>Mis reseñas</button>
-                        <button className={style.submitButton}>Mis compras</button>
+                        {/* <button className={style.submitButton}>Mis reseñas</button>
+                        <button className={style.submitButton} onClick={handleMySales}>Mis compras</button> */}
                         <button className={style.submitButton} onClick={sendChangePassword}>Cambiar Contraseña</button>
                     </div>
                 </div>

@@ -22,13 +22,36 @@ export const productSlice = createSlice({
     newSaleMessage: null,
     category: null,
     sales: [],
-    productById:[]
+    productById:[],
+    updateQuantity:null,
+    allReviewById:[]
   },
 
   reducers: {
     setProductByCountryCategory: (state, action) => {
-      state.products = action.payload;
-      state.productsSoD = action.payload;
+      let { response, discount, shipping } = action.payload;
+
+      discount = discount === "true" ? discount = true : discount === "false" ? discount = false : discount = "---"
+      shipping = shipping === "true" ? shipping = true : shipping === "false" ? shipping = false : shipping = "---"
+      
+      let filteredProducts = response;
+
+      if (discount !== "---" && shipping !== "---") {
+        filteredProducts = filteredProducts.filter((product) => {
+          return product.sale_price === discount && product.shipping === shipping;
+        });
+      } else if (discount !== "---") {
+        filteredProducts = filteredProducts.filter((product) => {
+          return product.sale_price === discount;
+        });
+      } else if (shipping !== "---") {
+        filteredProducts = filteredProducts.filter((product) => {
+          return product.shipping === shipping;
+        });
+      }
+
+      state.products = filteredProducts;
+      state.productsSoD = filteredProducts;
     },
 
     setAllProductsByCountries: (state, action) => {
@@ -44,12 +67,12 @@ export const productSlice = createSlice({
 
     setProductsCountry: (state, action) => {
       state.country = action.payload;
+
     },
 
     setAllProducts: (state, action) => {
       state.allProducts = [...action.payload];
       state.products = [...action.payload];
-      state.productsSoD = [...action.payload];
     },
 
     setAllProductsByCountriesCategoryId: (state, action) => {
@@ -136,12 +159,13 @@ export const productSlice = createSlice({
       state.productsSoD = sortedProducts; // Asignar la lista ordenada al estado
     },
 
-    setFilterByShipping: (state, action) => {
+    /* setFilterByShipping: (state, action) => {
+      const products = state.products
       const { payload } = action;
       if (payload === '---') {
-        state.productsSoD = state.products;
+        state.productsSoD = products
       } else {
-        state.productsSoD = state.products.filter((product) => {
+        state.productsSoD = products.filter((product) => {
           if (payload === 'true') {
             return product.shipping === true;
           } else {
@@ -149,16 +173,15 @@ export const productSlice = createSlice({
           }
         });
       }
-    },
+    }, */
 
-
-
-    setFilterByDiscount: (state, action) => {
+    /* setFilterByDiscount: (state, action) => {
+      const products = state.products
       const { payload } = action;
       if (payload === '---') {
-        state.productsSoD = state.products;
+        state.productsSoD = products
       } else {
-        state.productsSoD = state.products.filter((product) => {
+        state.productsSoD = products.filter((product) => {
           if (payload === 'true') {
             return product.sale_price === true;
           } else {
@@ -166,7 +189,7 @@ export const productSlice = createSlice({
           }
         });
       }
-    },
+    }, */
 
     setHideProduct: (state, action) => {
       state.hideProductMessage = action.payload;
@@ -198,6 +221,12 @@ export const productSlice = createSlice({
     },
     setFindProduct:(state,action)=>{
       state.productById=action.payload
+    },
+    setUpdateQuantityProduct:(state,action)=>{
+      state.updateQuantity = action.payload
+    },
+    setAllReviewById:(state,action)=>{
+      state.allReviewById= action.payload
     }
   },
 });
@@ -218,8 +247,8 @@ export const {
   filterByCategory,
   cleanDetail,
   cleanEditDetail,
-  setFilterByShipping,
-  setFilterByDiscount,
+  /* setFilterByShipping */
+  /* setFilterByDiscount */
   setNewProductMessage,
   setEditProductMessage,
   setHideProduct,
@@ -228,19 +257,21 @@ export const {
   setNewSaleMessage,
   filterProductsByCatalogListing,
   setSalesByUser,
-  setFindProduct
+  setFindProduct,
+  setUpdateQuantityProduct,
+  setAllReviewById
 } = productSlice.actions;
 
 export default productSlice.reducer;
 
 
-export const axiosAllProductByCountryCategory = (countryId, category) => (dispatch) => {
+export const axiosAllProductByCountryCategory = (countryId, category, shipping, discount) => (dispatch) => {
   // const countryId = getState().products.country;
   // const category = getState().products.categories;
   axios
     .get(`https://pf-elatam.onrender.com/products/${countryId}/${category}`)
     .then((response) => {
-      dispatch(setProductByCountryCategory(response.data));
+      dispatch(setProductByCountryCategory({response: response.data, discount: discount, shipping: shipping}));
     })
     .catch((error) => console.log(error));
 };
@@ -390,10 +421,29 @@ export const findProduct = (productId) => (dispatch) => {
 
 export const salesByUser = (email) => (dispatch) => {
   axios
-    .get(`hhttps://pf-elatam.onrender.com/sales/search/?email=${email}`)
+    .get(`https://pf-elatam.onrender.com/sales/search/?email=${email}`)
     .then((response) => {
       dispatch(setSalesByUser(response.data))
 
     })
     .catch((error) => console.log(error))
 };
+
+export const updateQuantityProduct=(cartData)=> (dispatch)=>{
+  axios
+  .put(`https://pf-elatam.onrender.com/products/update`, cartData)
+  .then((response)=>{
+    dispatch(setUpdateQuantityProduct(response.data))
+
+  })
+  .catch((error)=>console.log(error))
+}
+
+export const allReviewById= (id)=>(dispatch)=>{
+  axios
+  .get(`https://pf-elatam.onrender.com/reviews/reviewId/?id=${id}`)
+  .then((response)=>{
+    dispatch(setAllReviewById(response.data))
+  })
+  .catch((error)=>console.log(error))
+}

@@ -10,6 +10,7 @@ const { deleteProductHandler } = require("../Handlers/delete/deleteProduct")
 const { logicDeleteHandler } = require("../Handlers/put/logicDeleteProduct")
 const { editProductHandler } = require("../Handlers/put/updateProduct")
 const {searchProductHandler}= require ("../Handlers/get/searchProduct")
+const {updateStockHandler} = require ("../Handlers/put/updateStockHandler")
 
 router.get("/", getApiInfoHandler);
 router.get("/search",searchProductHandler)
@@ -22,5 +23,6 @@ router.get("/:countryId/:category/:id", getProductByIdHandler)
 router.delete("/delete/:id", deleteProductHandler)
 router.put("/hide/:id", logicDeleteHandler)
 router.put("/edit/:id", editProductHandler)
+router.put("/update", updateStockHandler)
 module.exports = router;
 

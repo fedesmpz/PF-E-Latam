@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import Styles from "../../components/Filter/Filter.module.css";
-import { setCategoryFN, setOrderByName, setOrderByPrice, axiosAllProductByCountryCategory, setFilterByShipping, setFilterByDiscount } from '../../redux/slice/productSlice';
+import { setCategoryFN, setOrderByName, setOrderByPrice, axiosAllProductByCountryCategory } from '../../redux/slice/productSlice';
 
 const Filter = ({ countryId, setCurrentPage }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -47,7 +47,6 @@ const Filter = ({ countryId, setCurrentPage }) => {
     setCurrentPage(1);
     setDiscount(event.target.value)
     dispatch(axiosAllProductByCountryCategory(countryId, category, shipping, event.target.value));
-    /* dispatch(axiosAllProductByCountryCategory(countryId, event.target.value)); */
     setNameOrder("---");
     setPriceOrder("---");
   }
@@ -56,7 +55,6 @@ const Filter = ({ countryId, setCurrentPage }) => {
     setCurrentPage(1);
     setShipping(event.target.value)
     dispatch(axiosAllProductByCountryCategory(countryId, category, event.target.value, discount));
-    /* dispatch(setFilterByShipping(event.target.value)); */
     setNameOrder("---");
     setPriceOrder("---");
   }
@@ -87,7 +85,7 @@ const Filter = ({ countryId, setCurrentPage }) => {
       </button>
       <div className={`${Styles.containerSelect} ${isOpen ? '' : Styles.notShow}`} >
         <label className={Styles.Label}>Categoría</label>
-        <select className={Styles.select} onChange={handleCategoryChange}>
+        <select className={Styles.select} value={category} onChange={handleCategoryChange}>
           <option value="all">Todas las categorías</option>
           {countryId !== "COL"
             && <option value="computacion">Computación</option>
@@ -112,14 +110,14 @@ const Filter = ({ countryId, setCurrentPage }) => {
         </select>
 
         <label className={Styles.Label}>Precio</label>
-        <select className={Styles.select} onChange={handlePriceChange}>
+        <select className={Styles.select} value={priceOrder} onChange={handlePriceChange}>
           <option value="---">---</option>
           <option value="mayormenor">De mayor a menor</option>
           <option value="menormayor">De menor a mayor</option>
         </select>
 
         <label className={Styles.Label}>Orden</label>
-        <select className={Styles.select} onChange={handleSort}>
+        <select className={Styles.select} value={nameOrder} onChange={handleSort}>
           <option value="---">---</option>
           <option value="asc">A-Z</option>
           <option value="des">Z-A</option>

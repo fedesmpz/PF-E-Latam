@@ -1,7 +1,6 @@
 .container {
   position: relative;
   display: inline-block;
-  margin-left: 5rem;
 }
 
 .container button {
@@ -32,31 +31,33 @@
 
 .containerAdmin {
   display: flex;
-  flex-direction: column;
-  min-width: 0;
+  flex-direction: row;
   word-wrap: break-word;
-  background-color: #fff;
+  background-color: whitesmoke;
   background-clip: border-box;
-  position: relative;
-  margin-bottom: 1.5rem;
   width: 100%;
+  min-height: 100vh;
+  height: 100vh;
+  max-height: 400vh;
   border: 0;
   box-shadow: 0 10px 10px 20px #b0b8d617, 10px 10px 15px -5px #b0b8d6;
-  border-radius: 8px;
   overflow-x: hidden;
+  overflow-y: hidden;
 }
 
 .containerHomeAdmin {
   display: flex;
   flex-direction: column;
+  width: 100vw;
   align-items: center;
-  justify-content: center;
-  width: 100%;
+  justify-content: flex-start;
+  margin: 0px 20px;
 }
 
 .containerSuperior {
   width: 100%;
   height: 7rem;
+  margin: 20px;
 }
 
 .containerProducts {
@@ -74,15 +75,21 @@
 
 .statSales {
   display: flex;
+  flex-direction: row;
+  height: 500px;
   padding-top: 2rem;
 }
 
+
 .line {
+  display: flex;
+  flex-direction: row;
   border-radius: 0.5rem;
   display: flex;
   flex-direction: column;
-  width: 95%;
-  max-width: auto;
+  width: 50%;
+  max-width: 55%;
+  height: 40%;
   margin-left: 1rem;
   background-color: rgb(255, 255, 255);
   margin-top: 1rem;
