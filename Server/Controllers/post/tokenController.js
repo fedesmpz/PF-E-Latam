@@ -5,6 +5,7 @@ const { SECRET_KEY } = process.env;
 
 const getTokenController= async(user)=>{
 
+
     try {
 
         const token = jwt.sign(user, SECRET_KEY, { expiresIn: '100h' })

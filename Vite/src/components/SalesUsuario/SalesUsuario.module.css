@@ -1,17 +1,24 @@
   .container{
     font-family: "Montserrat", sans-serif;
-    padding: none;
-    margin: none;
     background-color:#8491D9;
     border-radius: 5px;
     margin: 10px 50px 5px 50px;
     padding: 20px;
-    display: grid;
-    grid-gap: 70px;
   }
+
   .image{
     max-height: 100px;
+    max-width: 100px;
     margin-right: 20px;
+  }
+
+  .product_resume{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    margin: 10px;
+    padding: 10px;
+    border-bottom: 2px solid #797d7d;
   }
 
   .titleSales{
@@ -21,12 +28,14 @@
 
   .productContainer{
     display: flex;
-    align-items: center;
-
+    flex-direction: column;
+    align-items: flex-start;
+    justify-self: start;
   }
 
   .dataContainer{
     display: flex;
+    flex-direction: column;
   }
 
   

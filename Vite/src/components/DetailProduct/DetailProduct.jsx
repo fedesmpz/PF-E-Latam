@@ -118,9 +118,13 @@ const DetailProduct = () => {
           </div>
           <div className={styles.content}>
             <h1 className={styles.title}>{productDetail.title}</h1>
-            <h2 className={styles.price}>
-              {productDetail.currency_id} ${productDetail.original_price}
-            </h2>
+            { productDetail.sale_price ? (
+                <div>
+                <span className={styles.original_price}> ${productDetail.original_price}</span> 
+                <span className={styles.sale_price}> ${productDetail.price}</span> 
+                </div> ) : 
+                ( <h2 className={styles.price}> ${productDetail.original_price} </h2>)
+              }
             <ul className={styles.attributeList}>{renderedAttributes}</ul>
             <p className={`${styles.hiddenProductTag} ${isVisible ? styles.hideTag : ''}`}>
               {isVisible === true ? '' : `Producto oculto`}
