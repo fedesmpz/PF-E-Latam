@@ -194,8 +194,8 @@ const Profile = () => {
                             <button className={style.submitButton}  onClick={handleFormDisabled}>Editar Perfil</button>
                         }
                         
-                        <button className={style.submitButton}>Mis reseñas</button>
-                        <button className={style.submitButton} onClick={handleMySales}>Mis compras</button>
+                        {/* <button className={style.submitButton}>Mis reseñas</button>
+                        <button className={style.submitButton} onClick={handleMySales}>Mis compras</button> */}
                         <button className={style.submitButton} onClick={sendChangePassword}>Cambiar Contraseña</button>
                     </div>
                 </div>

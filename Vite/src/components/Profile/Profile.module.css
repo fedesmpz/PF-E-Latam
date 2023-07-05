@@ -352,8 +352,9 @@
   }
   
   .thumbnail {
-    min-height: 300px;
+    /* min-height: 300px; */
     max-height: 300px;
+    max-width: 300px;
     border-radius: 50%;
     object-fit: contain;
   }

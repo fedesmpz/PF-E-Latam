@@ -111,6 +111,14 @@ const NavBar = () => {
     navigate('/Profile')
   }
 
+  const handlerSales = () =>{
+    navigate('/mysales')
+  }
+
+  const handlerReview = () =>{
+    navigate('/myreviews')
+  }
+
 
   return (
     <div className={Styles.navbar}>
@@ -227,7 +235,7 @@ const NavBar = () => {
                 userData.access && userData.profile_picture &&
                 <>
                     <button className={Styles.roundButton}>
-                    <img src={userData.profile_picture}alt="Perfil"></img>
+                    <img className={Styles.profileImg} src={userData.profile_picture}alt="Perfil"></img>
                     </button>                  
                 </>     
               }
@@ -243,6 +251,8 @@ const NavBar = () => {
                       </>
                     }
                     <Dropdown.Item><button className={Styles.button} onClick={handlerProfile}>Perfil de usuario</button></Dropdown.Item>
+                    <Dropdown.Item><button className={Styles.button} onClick={handlerSales}>Mis Compras</button></Dropdown.Item>
+                    <Dropdown.Item><button className={Styles.button} onClick={handlerReview}>Mis Reseñas</button></Dropdown.Item>
                     <Dropdown.Item><button className={Styles.button} onClick={handlerLogout}>Cerrar sesión</button></Dropdown.Item>
                     </Dropdown.Menu>
                 </Dropdown>
