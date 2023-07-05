@@ -23,6 +23,7 @@ const Profile = () => {
     const [showModalPassword, setShowModalPassword] = useState(false)
     const [showModalSend, setShowModalSend] = useState(false)
     const [newProfilePicture, setNewProfilePicture] = useState("")
+    
 
 
 
@@ -175,6 +176,7 @@ const Profile = () => {
 
                     <div>
                         <label htmlFor="birth_date" className={style.label}>Tu fecha de nacimiento</label>
+                        
                         <input disabled={!formDisabled} className={!formDisabled && style.formDisabled} type="date" name="birth_date"  value={newDataUser.birth_date} onChange={handleChange}/>
                     </div>
 
