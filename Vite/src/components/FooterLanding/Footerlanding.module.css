@@ -66,6 +66,7 @@
   color: white;
   text-decoration: none;
   border-bottom: none;
+  margin-bottom: 15px;
 }
 
 .link:hover {
@@ -78,6 +79,13 @@
   font-size: 3rem; /* Ajusta el tamaño del icono según tus necesidades */
 }
 
+.icon:hover {
+  color: #4BBF68; /* Puedes ajustar el color a tu preferencia */
+}
+
+.marginBottom20 {
+  margin-bottom: 20px;
+}
 
 /* Media Query para pantallas muy pequeñas */
 @media (max-width: 480px) {

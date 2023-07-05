@@ -31,12 +31,15 @@ const Landing = () => {
   return (
     <div className={styles.indexInZ} >
       <NavBar></NavBar>
-      <CarouselHero/>
+      <CarouselHero />
       <section className={styles.container}>
         <div className={styles['text-container']}>
           <h1 className="display-1">Llegó la hora de comprar online</h1>
-          <span> e-Latam es una plataforma de comercio electrónico innovadora diseñada para el dinámico mercado de América Latina. Ofrecemos un mercado virtual donde los administradores supervisan las operaciones comerciales, y los usuarios pueden explorar una amplia gama de productos, reseñas y calificaciones. Nuestra plataforma permite a los usuarios agregar fácilmente los productos deseados al carrito de compras, brindando una experiencia de compra fluida y conveniente.</span>
-          <span> Además, ofrecemos códigos de descuento exclusivos para productos seleccionados, permitiendo a los usuarios ahorrar en sus compras. Nuestro sistema incluye filtros intuitivos por categoría, que facilitan la búsqueda de productos según las preferencias de los usuarios. </span>
+          <div className={styles.text_container_subtitle}>
+            <h2 className={styles.animatedText}>e-Latam es una plataforma de comercio electrónico innovadora diseñada para el dinámico mercado de América Latina.</h2>
+          </div>
+          {/* <span> e-Latam es una plataforma de comercio electrónico innovadora diseñada para el dinámico mercado de América Latina. Ofrecemos un mercado virtual donde los administradores supervisan las operaciones comerciales, y los usuarios pueden explorar una amplia gama de productos, reseñas y calificaciones. Nuestra plataforma permite a los usuarios agregar fácilmente los productos deseados al carrito de compras, brindando una experiencia de compra fluida y conveniente.</span>
+          <span> Además, ofrecemos códigos de descuento exclusivos para productos seleccionados, permitiendo a los usuarios ahorrar en sus compras. Nuestro sistema incluye filtros intuitivos por categoría, que facilitan la búsqueda de productos según las preferencias de los usuarios. </span> */}
           {/* <span>Regístrate de forma ágil y optimiza tu tiempo y dinero con la plataforma líder de Latinoamérica</span>
                 <div className={styles['input-container']}>
                   <input type="text" placeholder="Email address" />
@@ -128,7 +131,7 @@ const Landing = () => {
           <span className={`desc ${styles.desc}`}>En compras de nuestros clientes</span>
         </div>
         <div className={`kpi col-md ${styles.kpi}`}>
-          <span className={`number h3 ${styles.number}`}>+ 750</span>
+          <span className={`number h3 ${styles.number}`}>+ 500</span>
           <span className={`desc ${styles.desc}`}>Productos Ofrecidos</span>
         </div>
         <div className={`kpi col-md ${styles.kpi}`}>
