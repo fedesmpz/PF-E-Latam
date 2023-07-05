@@ -74,7 +74,7 @@ const updateUserImage = async (id, image) =>{
         const updatedUser = await User.update({profile_picture},
         {where:{id:id}}
         );
-
+          return updatedUser
     }catch (error){
         return {error};
     }
