@@ -1,12 +1,13 @@
 .sidebar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    height: 200vh;
+    max-height: 400vh;
     background-color: #0E5ABC;
     z-index: 100;
     transition: width 0.3s ease;
-    border: solid 0.5px;
   }
   
   @media (max-width: 768px) {

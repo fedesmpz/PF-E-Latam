@@ -1,7 +1,6 @@
 .container {
   grid-column: span 1;
   position: relative;
-  height: 70vh;
   margin: auto;
   padding: 1rem;
   border: 1px solid;
@@ -10,10 +9,12 @@
   overflow: scroll; 
   display: flex;
   flex-direction: column;
+  min-width: 90%;
   width: 90%;
   max-width: auto;
   margin-left: 1.5rem;
   margin-top: 1rem;
+  min-height: 70vh;
   /* height: 90vh; */
 }
 
