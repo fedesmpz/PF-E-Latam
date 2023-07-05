@@ -1,0 +1,30 @@
+.container{
+    font-family: "Montserrat", sans-serif;
+    padding: none;
+    margin: none;
+    background-color:#8491D9;
+    border-radius: 5px;
+    margin: 10px 50px 5px 50px;
+    padding: 20px;
+    display: grid;
+    grid-gap: 70px;
+  }
+  .image{
+    max-height: 100px;
+    margin-right: 20px;
+  }
+
+  .titleSales{
+    color: white;
+    font-size: 25px;
+  }
+
+  .productContainer{
+    display: flex;
+    align-items: center;
+
+  }
+
+  .dataContainer{
+    display: flex;
+  }

@@ -13,7 +13,7 @@ const PaymentComponent = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [isFormValid, setIsFormValid] = useState(false)
+  const [isFormValid, setIsFormValid] = useState(true)
   let [errors, setErrors] = useState({})
   const searchParams = new URLSearchParams(location.search);
   const paramsCartId = searchParams.get("cartId");
@@ -21,7 +21,9 @@ const PaymentComponent = () => {
   const userData = useSelector((state) => state.user.userData);
   const cartData = useSelector((state) => state.cart.products);
   const cartTotal = useSelector((state) => state.cart.total_price);
+  const [deliveryForm, setDeliveryForm] = useState(userData);
 
+  
   useEffect(() => {
     setDeliveryForm(userData);
   }, [userData]);
@@ -30,6 +32,13 @@ const PaymentComponent = () => {
     dispatch(loginUserLocal())
     totalPrice()
   }, [])
+  
+  const hasNullProperties = (obj, propertyNames) => {
+    return propertyNames.some((propertyName) => obj[propertyName] === null);
+  }
+  const propertiesToCheck = ['name', 'surname', 'address', 'city', 'postal_code'];
+  const hassNull = hasNullProperties(deliveryForm, propertiesToCheck)
+  
 
   if ((cartId != undefined) && (paramsCartId != cartId)) {
     navigate(`/Purchase?cartId=${cartId}`)
@@ -57,7 +66,6 @@ const PaymentComponent = () => {
     })
   }, [total, cartData])
 
-  const [deliveryForm, setDeliveryForm] = useState(userData);
 
   const totalPrice = () => {
     let totalAux = 0;
@@ -132,7 +140,13 @@ const PaymentComponent = () => {
   }
 
   useEffect(() => {
-    const isValid = (Object.keys(errors).length && Object.values(errors).every((error) => error === ""));
+    let isValid = (Object.keys(errors).length && Object.values(errors).every((error) => error === ""));
+    if (isValid === 0){
+      isValid = true
+    }
+    if (hassNull){
+      isValid = false
+    }
     setIsFormValid(isValid);
   }, [errors, deliveryForm]);
 
