@@ -5,6 +5,10 @@ import ModalInfoSends from "../ModalInfoSends/ModalInfoSends"
 import ModalPolitics from "../ModalPolitics/ModalPolitics";
 import ModalLogin from "../ModalLogin/ModalLogin.jsx"
 import styles2 from "../NavBar/NavBar.module.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap-icons/font/bootstrap-icons.css';
+
+
 
 const FooterLanding = () => {
     return (
@@ -37,16 +41,16 @@ const FooterLanding = () => {
                     <h6 className={styles["cta-title"]}>Conoce más de nosotros en:</h6>
                     <p className={styles["cta-description"]}>
                         <a className={styles.icon} href="https://github.com/fedesmpz/PF-E-Latam" target="_blank" rel="noopener noreferrer">
-                            <span className="">
-                                <i className="bi bi-github"></i></span>
+                            <span >
+                                <i class="bi bi-github"></i></span>
                         </a>
                         <a className={styles.icon} href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer">
-                            <span className="">
-                                <i className="bi bi-facebook"></i></span>
+                            <span>
+                                <i class="bi bi-facebook"></i></span>
                         </a>
                         <a className={styles.icon} href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">
-                            <span className="">
-                                <i className="bi bi-instagram"></i></span>
+                            <span>
+                                <i class="bi bi-instagram"></i></span>
                         </a>
                     </p>
                 </div>
@@ -56,16 +60,16 @@ const FooterLanding = () => {
             <div className={styles["footer-cta"]}>
                 <div className={styles["footer-text d-flex flex-column"]}>
                     <h6 className={styles["cta-title"]}>Enlaces Rápidos<br /><br /></h6>
-                    <div className="d-flex flex-column align-items-start">
+                    <div className={`d-flex flex-column align-items-start`}>
                         <Link className={styles.link} to="/Home">
                             <span>Home</span>
                         </Link>
-                        <ModalInfoSends />
+                        {/* <ModalInfoSends />
                         <ModalComoComprar />
                         <ModalPolitics />
                         <Link className={styles.link} to="/Home">
                             <span>Contáctenos</span>
-                        </Link>
+                        </Link> */}
                         <Link className={styles.link} to="/About">
                             <span>About</span>
                         </Link>
