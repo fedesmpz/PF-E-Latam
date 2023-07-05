@@ -10,7 +10,7 @@ const { getReviewsByProductIdHandler }  = require('../Handlers/get/getReviewsByP
 
 router.get('/', getAllReviewsHandler);
 router.get('/product/:productId',getReviewsByProductIdHandler)
-router.get('/:reviewID', getReviewByIdHandler);
+router.get('/reviewID', getReviewByIdHandler);
 router.post('/', postReviewHandler);
 router.delete('/delete/:reviewID', deleteReviewHandler);
 router.put('/update/:reviewID', putReviewHandler); 
