@@ -47,7 +47,7 @@ const Home = () => {
 
     useEffect(() => {
         dispatch(axiosAllProductsByCountries(productsCountry));
-    }, [dispatch, productsCountry]);
+    }, [dispatch, productsCountry,]);
 
     useEffect(() => {
         setIsLoading(true);
@@ -68,19 +68,19 @@ const Home = () => {
 
     return (
         <div className={style.body}>
-             <Filter
-                        setCurrentPage={setCurrentPage}
-                        countryId={productsCountry}
+            <Filter
+                setCurrentPage={setCurrentPage}
+                countryId={productsCountry}
             />
             <div className={style.main}>
-                    <Products currentProducts={paginatedProducts} />
-                    <Paginado
-                            key="paginado"
-                            productsPerPage={productsPerPage}
-                            products={currentProducts.length}
-                            paginado={paginado}
-                            currentProducts={paginatedProducts}
-                        />
+                <Products currentProducts={paginatedProducts} />
+                <Paginado
+                    key="paginado"
+                    productsPerPage={productsPerPage}
+                    products={currentProducts.length}
+                    paginado={paginado}
+                    currentProducts={paginatedProducts}
+                />
             </div>
         </div>
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { FaShoppingBag } from 'react-icons/fa';
-import moment from 'moment'; // Importa la biblioteca moment
+import moment from 'moment';
 import Styles from './LastOrders.module.css';
 import { axiosAllSales } from '../../../redux/slice/saleSlice';
 
@@ -16,7 +16,8 @@ const LastOrders = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    const limitedSales = sales.slice(0, 5);
+    const sortedSales = [...sales].sort((a, b) => moment(b.createdAt).diff(moment(a.createdAt)));
+    const limitedSales = sortedSales.slice(0, 5);
     setLimitedSales(limitedSales);
   }, [sales]);
 
@@ -33,7 +34,7 @@ const LastOrders = () => {
               <p className="text-gray-800 font-bold">${sale.total_price / 100}</p>
               <p className="text-gray-400 text-sm">{sale.user_id}</p>
             </div>
-            <p className={Styles.date}>{moment(sale.updatedAt).format('YYYY-MM-DD HH:mm')}</p>
+            <p className={Styles.date}>{moment(sale.createdAt).format('YYYY-MM-DD HH:mm')}</p>
           </li>
         ))}
       </ul>
@@ -42,4 +43,3 @@ const LastOrders = () => {
 };
 
 export default LastOrders;
-

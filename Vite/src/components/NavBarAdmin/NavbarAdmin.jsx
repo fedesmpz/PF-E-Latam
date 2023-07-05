@@ -64,7 +64,7 @@ const NavBar = () => {
   return (
     <div className={Styles.navbar}>
       <div className={Styles.leftContainer}>
-        <Link className={Styles.logo} to="/">
+        <Link className={Styles.logo} to="/Home">
           <div className={Styles.logoContainer}>
             <img
               className={Styles.logoE}
