@@ -419,11 +419,11 @@ export const findProduct = (productId) => (dispatch) => {
 };
 
 
-export const salesByUser = (email) => (dispatch) => {
-  axios
+export const salesByUser =  (email) => async (dispatch) => {
+  await axios
     .get(`https://pf-elatam.onrender.com/sales/search/?email=${email}`)
-    .then((response) => {
-      dispatch(setSalesByUser(response.data))
+    .then(async (response) => {
+       await dispatch(setSalesByUser(response.data))
 
     })
     .catch((error) => console.log(error))

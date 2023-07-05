@@ -6,8 +6,13 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import validate from '../../utils/registerValidation';
 import Styles from "./ModalSignIn.module.css"
+import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
-//import { fetchUsers } from "../../redux/slice/userSlice";
+import { GoogleAuthProvider,
+  signInWithPopup,
+  sendPasswordResetEmail,
+   } from 'firebase/auth'
+import { auth } from '../../utils/firebase'
 
 function Example() {
 
@@ -16,10 +21,12 @@ function Example() {
     { value: "Colombia", label: "Colombia" },
     { value: "Mexico", label: "México" },
   ];
+  const navigate = useNavigate()
   const [show, setShow] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [textModal, setTextModal] = useState("")
-
+  const [showModalCountry, setShowModalCountry] = useState(false);
+  const [selectCountry, setSelectCountry] = useState('');
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const [error, setError] = useState({});
@@ -33,6 +40,15 @@ function Example() {
     city: '',
     country: ''
   });
+
+  const handleCloseCountry = async () =>{
+    setShowModalCountry(true)
+
+    handleClose()
+
+  }
+
+
 
   const handleChange = (event) =>{
     setForm((prevForm) => ({
@@ -50,6 +66,61 @@ function Example() {
     setShowModal(false);
     setTextModal('')
   };
+
+  const closemodalCountry = () => {
+    setShowModalCountry(false);
+  }
+
+
+  const loginGoogle = async () => {
+
+    setShowModalCountry(false)
+
+    const provider = await new GoogleAuthProvider()
+    const result = await signInWithPopup(auth, provider);
+    const dataUser = { email : result.user.email,
+                        name : result.user.displayName,
+                        country: selectCountry,
+                        firebaseId: result.user.uid,
+                        profile_picture: result.user.photoURL
+                        }
+    const response = await axios.post('https://pf-elatam.onrender.com/users/googleExist', dataUser);
+   
+    const user = {
+      userId: response.data.userId,
+      name: response.data.name,
+      surname: response.data.surname,
+      email: result.user.email,
+      access: response.data.access,
+      isAdmin: response.data.isAdmin,
+      isSuperAdmin: response.data.isSuperAdmin,
+      verified: result.user.emailVerified,
+      postal_code: response.data.postal_code,
+      address: response.data.address,
+      city: response.data.city,
+      country: response.data.country,
+      profile_picture: response.data.profile_picture,
+      cartId: response.data.cartId,
+      firebaseId: response.data.firebaseId,
+    }
+
+
+        const token = await axios.post('https://pf-elatam.onrender.com/users/getToken', user)
+  
+        localStorage.setItem("token", JSON.stringify(token.data))
+        localStorage.setItem("user", JSON.stringify(user))
+        
+        if(response.data.access && location.pathname === '/'){
+         navigate('/Home')
+        }else if (response.data.access && location.pathname === '/Cart'){
+         navigate(`/Purchase?cartId=${userData.cartId}`)
+        }else if (response.data.access){
+         window.location.reload();
+        }
+        handleClose()
+     
+  }
+
 
 
   const register = async (user) => {
@@ -69,6 +140,11 @@ function Example() {
         console.log(error.message);
     }
 }
+
+
+const handleChangeCountry = async (event) =>{
+  setSelectCountry(event.target.value);
+};
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -192,9 +268,12 @@ function Example() {
       </fieldset>
 
       <Form.Group as={Row} className="mb-3">
-        <Col sm={{ span: 10, offset: 7 }}>
+        <Col sm={{ span: 10, offset: 3 }}>
           <Button disabled={!Object.values(error).every(value => value === null || value === undefined || value === '')} type="submit" className="m-4">
             Registrarse
+          </Button>
+          <Button variant="primary" onClick={handleCloseCountry}>
+            Inicia con Google
           </Button>
         </Col>
       </Form.Group>
@@ -213,6 +292,32 @@ function Example() {
           </div>
         )}
       </>
+
+      {showModalCountry && (
+          <div className={Styles.modal}>
+            <div className={Styles.modalContent}>
+                  <h2>Selecciona un país</h2>
+                  <p>Para continuar debes seleccionar un país</p>
+                <select name="country" value={selectCountry} onChange={handleChangeCountry}>
+                  <option value="">Selecciona un país</option>
+                  {countries.map((country) => (
+                    <option key={country.value} value={country.value} onChange={handleChangeCountry}>
+                      {country.label}
+                    </option>
+                  ))}
+                </select>
+
+              <div className={Styles.modalButtons}>
+                <div className={Styles.modalContent}>
+                <button className={Styles.modalContent} onClick={loginGoogle}><h2>Iniciar</h2></button>
+                <button className={Styles.modalContent} onClick={closemodalCountry}><h2>Cerrar</h2></button>
+
+                </div>
+              
+              </div>
+            </div>
+          </div>
+        )}
     </>
   );
 }

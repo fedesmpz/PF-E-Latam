@@ -5,6 +5,7 @@ import style from "./Profile.module.css"
 import { sendPasswordResetEmail } from 'firebase/auth'
 import { auth } from '../../utils/firebase'
 import { loginUserLocal, updateUser } from '../../redux/slice/userSlice';
+import axios from 'axios'
 
 
 
@@ -21,6 +22,7 @@ const Profile = () => {
     const [newDataUser, setNewDataUser] = useState(userData)
     const [showModalPassword, setShowModalPassword] = useState(false)
     const [showModalSend, setShowModalSend] = useState(false)
+    const [newProfilePicture, setNewProfilePicture] = useState("")
 
 
 
@@ -30,6 +32,16 @@ const Profile = () => {
 
         
     },[])
+
+    useEffect(()=>{
+        const fetchData = async () => {
+            const data = {image: profilePicture}
+            const image = await axios.put(`https://pf-elatam.onrender.com/users/update/image/${userData.userId}`, data)
+            setNewProfilePicture(image.data)
+       }
+        fetchData()
+        
+    },[profilePicture])
 
     const sendChangePassword = () =>{
         
@@ -65,23 +77,28 @@ const Profile = () => {
 
     
 
-    const handleProductThumbnailUpload = async (event) => {
+    const handleProductThumbnailUpload = (event) => {
+        // console.log(event.target.files);
         const prop = event.target.name
         const file = event.target.files[0];
-        await transformFile(file)
+        // console.log(file);
+        transformFile(file)
     }
 
-    const transformFile = async (file) => {
+
+    const transformFile = (file) => {
         const reader = new FileReader()
         if (file) {
             reader.readAsDataURL(file)
-            reader.onloadend = () => {
-            setProfilePicture(reader.result);
+            reader.onloadend =() => {
+                setProfilePicture(reader.result);
             }
         } else {
             setProfilePicture("")
         }
     }
+
+
 
     const handleFormDisabled = () => {
         setFormDisabled(true)
@@ -104,7 +121,7 @@ const Profile = () => {
         if (profilePicture){
             setNewDataUser({
                 ...newDataUser,
-                profile_picture: profilePicture
+               profile_picture: newProfilePicture
             })
         }
         setFormDisabled(false)
@@ -112,9 +129,6 @@ const Profile = () => {
         setShowModalSend(true)
     }
 
-    const handleMySales = () => {
-        navigate('/mysales')
-    }
 
     return (
         <div className={style.container}>
@@ -182,6 +196,7 @@ const Profile = () => {
                     <div>
                         <label htmlFor="thumbnail" className={style.label}>Foto de tu perfil</label>
                         <input disabled={!formDisabled} className={!formDisabled && style.formDisabled}  type="file" name="thumbnail" multiple={false} accept="image/*" onChange={handleProductThumbnailUpload}/>
+                        {/* <input type="file" name="thumbnail" multiple={false} accept="image/*" onChange={handleProductThumbnailUpload} /> */}
                     </div>
 
                     
