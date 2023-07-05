@@ -67,18 +67,21 @@ try {
 
 const updateUserImage = async (id, image) =>{
     try{
-        const uploadResponse = await cloudinary.uploader.upload(image, {
+        const uploadResponse = await cloudinary.uploader.upload(image.image, {
             upload_preset: "products-thumbnails"
         })
-        const profile_picture = uploadResponse.url
+
+            const profile_picture = uploadResponse.url
+
         const updatedUser = await User.update({profile_picture},
         {where:{id:id}}
         );
-          return profile_picture
+        return profile_picture
+
     }catch (error){
+        console.log(error.message);
         return {error};
     }
-
 
 }
 
