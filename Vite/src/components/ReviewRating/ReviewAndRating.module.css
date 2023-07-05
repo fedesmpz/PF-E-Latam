@@ -137,6 +137,9 @@ min-height: 15vh;
   height: 40px;
 }
 
+.error {
+  color: red;
+}
 .textarea {
   font-size: 18px;
   height: 100px;
