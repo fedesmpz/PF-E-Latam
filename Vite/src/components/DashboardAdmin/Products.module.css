@@ -1,11 +1,12 @@
 .containerAdmin {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
   min-width: 0;
   word-wrap: break-word;
   background-color: #fff;
   background-clip: border-box;
-  position: relative;
   margin-bottom: 1.5rem;
   width: 100%;
   border: 0;

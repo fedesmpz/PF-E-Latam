@@ -47,7 +47,6 @@ const Products = () => {
     <div className={StylesAdmin.containerAdmin} >
       <Sidebar />
       <div className={StylesAdmin.containerHomeAdmin} style={{ marginLeft: isOpen ? '120px' : (!isOpen && '60px') }}>
-      <NavbarAdmin/>
         <div className={StylesAdmin.containerProducts}>
         <div className={StylesAdmin.containerSuperior}>
           <TableSeller

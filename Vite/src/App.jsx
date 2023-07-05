@@ -50,7 +50,7 @@ function App() {
     <div>
         {/* RUTA DE MUESTRA */}
         {
-          location.pathname !== "/" && !location.pathname.includes("DashboardAdmin") && <NavBar />
+          location.pathname !== "/" && <NavBar />
         }
  
       <Routes>
@@ -63,6 +63,7 @@ function App() {
         <Route path="/DashBoardAdmin" element={access && admin ? <DashBoardAdmin /> : <Navigate to="/Home" />} />
         <Route path="/Cart" element={<Cart />} />
         <Route path="/mysales" element={access ? <SalesUser/> : <Navigate to="/Home" />} />
+        <Route path="/myreviews" element={access ? <SalesUser/> : <Navigate to="/Home" />} />
         <Route path="/EditProduct" element={access && admin ? <EditProduct /> : <Navigate to="/Home" />} />
         <Route path="/purchase" element={<PaymentComponent />} />
         <Route path="/DashBoardAdmin/Products" element={<Products />} />

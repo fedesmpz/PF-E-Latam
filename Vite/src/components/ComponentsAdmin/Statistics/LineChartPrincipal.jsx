@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   Chart,
   CategoryScale,
@@ -10,8 +10,9 @@ import {
   Legend,
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
-import faker from 'faker';
-import Styles from './styles/SalesStats.module.css'
+import { useSelector, useDispatch } from 'react-redux';
+import Styles from './styles/SalesStats.module.css';
+import { axiosAllSales } from '../../../redux/slice/saleSlice';
 
 Chart.register(
   CategoryScale,
@@ -26,11 +27,11 @@ Chart.register(
 export const options = {
   scales: {
     y: {
-      min: 0
+      min: 0,
     },
     x: {
-      ticks: { color: 'rgba(255, 99, 132)'}
-    }
+      ticks: { color: 'rgba(255, 99, 132)' },
+    },
   },
   responsive: true,
   plugins: {
@@ -40,44 +41,48 @@ export const options = {
   },
 };
 
-const labels = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo'];
-
-export const data = {
-  labels,
-  datasets: [
-    {
-      label: 'Celulares',
-      data: labels.map(() => faker.datatype.number({ min: 0, max: 10000 })),
-      borderColor: 'rgb(255, 99, 132)',
-      backgroundColor: 'rgba(255, 99, 132, 0.5)',
-    },
-    {
-      label: 'Computacion',
-      data: labels.map(() => faker.datatype.number({ min: 0, max: 10000 })),
-      borderColor: 'rgb(53, 162, 235)',
-      backgroundColor: 'rgba(53, 162, 235, 0.5)',
-    },
-    {
-      label: 'Electronica',
-      data: labels.map(() => faker.datatype.number({ min: 0, max: 10000 })),
-      borderColor: 'rgb(90, 235, 53)',
-      backgroundColor: 'rgba(90, 235, 53, 0.5)',
-    },
-    {
-      label: 'Videojuegos',
-      data: labels.map(() => faker.datatype.number({ min: 0, max: 10000 })),
-      borderColor: 'rgb(196, 53, 235)',
-      backgroundColor: 'rgba(196, 53, 235, 0.5)',
-    },
-  ],
-};
-
 const LineChart = () => {
+  const dispatch = useDispatch();
+  const sales = useSelector((state) => state.sale.sales);
+
+  useEffect(() => {
+    dispatch(axiosAllSales());
+  }, [dispatch]);
+
+  const groupSalesByDay = () => {
+    const groupedSales = {};
+    sales.forEach((sale) => {
+      const saleDay = new Date(sale.updatedAt).toLocaleDateString('es-419', { weekday: 'long' });
+      if (groupedSales[saleDay]) {
+        groupedSales[saleDay] += 1;
+      } else {
+        groupedSales[saleDay] = 1;
+      }
+    });
+    return groupedSales;
+  };
+
+  const groupedSales = groupSalesByDay();
+  const labels = Object.keys(groupedSales);
+  const data = Object.values(groupedSales);
+
+  const chartData = {
+    labels,
+    datasets: [
+      {
+        label: 'Ventas',
+        data,
+        borderColor: 'rgb(40, 4, 125)',
+        backgroundColor: 'rgba(40, 4, 125, 0.5)',
+      },
+    ],
+  };
+
   return (
     <div className={Styles.container}>
-      <Line options={options} data={data} />
+      <Line options={options} data={chartData} />
     </div>
   );
-}
+};
 
 export default LineChart;
