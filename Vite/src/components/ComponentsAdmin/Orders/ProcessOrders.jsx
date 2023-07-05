@@ -5,7 +5,7 @@ import Styles from './LastOrders.module.css';
 import moment from 'moment';
 import AllOrders from './AllOrders';
 
-const ProcessOrders = () => {
+const ProcessOrders = ({ onSaleDelete }) => {
   const sales = useSelector((state) => state.sale.sales);
 
   const [limitedSales, setLimitedSales] = useState([]);
@@ -16,12 +16,13 @@ const ProcessOrders = () => {
     setLimitedSales(sortedSales);
   }, [sales]);
 
+
   const handleDelete = (id) => {
     const deletedSale = limitedSales.find((_, index) => index === id);
     const updatedSales = limitedSales.filter((_, index) => index !== id);
-
+    
     setLimitedSales(updatedSales);
-    setDeletedSales((prevDeletedSales) => [...prevDeletedSales, deletedSale]);
+    onSaleDelete(deletedSale); 
   };
 
   return (
@@ -37,15 +38,15 @@ const ProcessOrders = () => {
               <p className='text-gray-800 font-bold'>${sale.total_price / 100}</p>
               <p className='text-gray-400 text-sm'>{sale.user_id}</p>
               <p className={Styles.date}>{moment(sale.updatedAt).format('YYYY-MM-DD HH:mm')}</p>
-            </div>
             <button onClick={() => handleDelete(id)} className={Styles.deleteButton}>
-              Eliminar
+              procesar
             </button>
+            </div>
           </li>
         ))}
       </ul>
-
-      {/* {deletedSales.length > 0 && <AllOrders deletedSales={deletedSales} />} */}
+        {console.log(deletedSales)};
+      {deletedSales.length > 0 && <AllOrders deletedSales={deletedSales} />}
     </div>
   );
 };

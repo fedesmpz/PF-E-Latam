@@ -17,7 +17,7 @@ const LastOrders = () => {
 
   useEffect(() => {
     const sortedSales = [...sales].sort((a, b) => moment(b.createdAt).diff(moment(a.createdAt)));
-    const limitedSales = sortedSales.slice(0, 5);
+    const limitedSales = sortedSales.slice(0, 6);
     setLimitedSales(limitedSales);
   }, [sales]);
 
