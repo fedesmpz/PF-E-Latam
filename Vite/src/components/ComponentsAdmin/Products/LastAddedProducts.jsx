@@ -42,7 +42,6 @@ const LastAddedProducts = () => {
 
   return (
     <div className={StylesAdmin.containerAdmin}>
-      <Sidebar />
       <div
         className={StylesAdmin.containerHomeAdmin}
         style={{ marginLeft: isOpen ? "120px" : !isOpen && "60px" }}

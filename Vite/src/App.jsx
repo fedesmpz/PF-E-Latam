@@ -50,7 +50,7 @@ function App() {
     <div>
         {/* RUTA DE MUESTRA */}
         {
-          location.pathname !== "/" && !location.pathname.includes("DashboardAdmin") && <NavBar />
+          location.pathname !== "/" && <NavBar />
         }
  
       <Routes>

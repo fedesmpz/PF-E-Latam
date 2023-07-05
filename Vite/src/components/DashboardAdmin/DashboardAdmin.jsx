@@ -6,7 +6,6 @@ import Sidebar from "../ComponentsAdmin/SideBar/SideBar";
 import { useState } from "react";
 import TopCards from "../ComponentsAdmin/Statistics/TopCards";
 import LastAddedProducts from "../ComponentsAdmin/Products/LastAddedProducts";
-import NavbarAdmin from "../NavBarAdmin/NavbarAdmin";
 import LineChartPrincipal from '../ComponentsAdmin/Statistics/LineChartPrincipal'
 
 const DashboardAdmin = () => {
@@ -35,32 +34,52 @@ const DashboardAdmin = () => {
   return (
     <div className={StylesAdmin.containerAdmin}>
       <Sidebar />
-      <div
-        className={StylesAdmin.containerHomeAdmin}
-        style={{ marginLeft: isOpen ? "120px" : !isOpen && "60px" }}
-      >
-        <NavbarAdmin />
-        <div className={StylesAdmin.containerSuperior}>
-          <TopCards
-            totalUsers={totalUsers}
-            totalAdmins={totalAdmins}
-            totalProducts={totalProducts}
-          />
-        </div>
-        <div className={StylesAdmin.statSales}>
-          <SalesCard
-            totalSales={totalSales}
-            todaySales={todaySales}
-            monthSales={monthSales}
-          />
-          <SalesStats />
-        
-        </div>
-        <LastOrders />
-        <div className={StylesAdmin.line}>
-        <LineChartPrincipal />
-        </div>
-        <LastAddedProducts />
+        {/* <Sidebar />
+        <div className={StylesAdmin.containerHomeAdmin}>
+          <div className={StylesAdmin.containerSuperior}>
+              <TopCards
+                totalUsers={totalUsers}
+                totalAdmins={totalAdmins}
+                totalProducts={totalProducts}
+              />
+          </div>
+          <div className={StylesAdmin.statSales}>
+              <SalesCard
+                totalSales={totalSales}
+                todaySales={todaySales}
+                monthSales={monthSales}
+              />
+              <SalesStats />
+          </div>
+          <LastOrders />
+          <div className={StylesAdmin.line}>
+          <LineChartPrincipal />
+          </div>
+          <LastAddedProducts></LastAddedProducts>
+        </div> */}
+       
+        <div className={StylesAdmin.containerHomeAdmin}>
+          
+          <div className={StylesAdmin.containerSuperior}>
+            <TopCards
+              totalUsers={totalUsers}
+              totalAdmins={totalAdmins}
+              totalProducts={totalProducts}
+            />
+          </div>
+          <LastOrders />
+          <div className={StylesAdmin.statSales}>
+            <SalesCard
+              totalSales={totalSales}
+              todaySales={todaySales}
+              monthSales={monthSales}
+            />
+            <SalesStats />
+          </div>
+          <div className={StylesAdmin.line}>
+          <LineChartPrincipal />
+          </div>
+          <LastAddedProducts />
       </div>
     </div>
   );
