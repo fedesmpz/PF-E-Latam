@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import Styles from "../../components/Filter/Filter.module.css";
-import { setCategoryFN, setOrderByName, setOrderByPrice, axiosAllProductByCountryCategory, setFilterByShipping, setFilterByDiscount } from '../../redux/slice/productSlice';
+import { setCategoryFN, setOrderByName, setOrderByPrice, axiosAllProductByCountryCategory } from '../../redux/slice/productSlice';
 
 const Filter = ({ countryId, setCurrentPage }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -47,7 +47,6 @@ const Filter = ({ countryId, setCurrentPage }) => {
     setCurrentPage(1);
     setDiscount(event.target.value)
     dispatch(axiosAllProductByCountryCategory(countryId, category, shipping, event.target.value));
-    /* dispatch(axiosAllProductByCountryCategory(countryId, event.target.value)); */
     setNameOrder("---");
     setPriceOrder("---");
   }
@@ -56,7 +55,6 @@ const Filter = ({ countryId, setCurrentPage }) => {
     setCurrentPage(1);
     setShipping(event.target.value)
     dispatch(axiosAllProductByCountryCategory(countryId, category, event.target.value, discount));
-    /* dispatch(setFilterByShipping(event.target.value)); */
     setNameOrder("---");
     setPriceOrder("---");
   }
