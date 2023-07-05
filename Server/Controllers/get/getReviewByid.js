@@ -1,7 +1,8 @@
 const {Review_Rating}= require("../../db")
 
 const getReviewById = async (id) => {
-  console.log(id)
+
+
     try {
       const review = await Review_Rating.findAll({
         where:{userId:id}

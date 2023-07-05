@@ -1,10 +1,3 @@
-// const { getAuth,
-//     createUserWithEmailAndPassword,
-//     signInWithEmailAndPassword,
-//     GoogleAuthProvider,
-//     signInWithPopup, } = require ("firebase/auth");
-// const { auth } = require('../../Utilities/firebase')
-// const provider = new GoogleAuthProvider()
 const { User } = require("../../db.js");
 const { conn } = require("../../db.js");
 const { currencyIdValidator } = require("../../Utilities/currencyIdValidator.js")
