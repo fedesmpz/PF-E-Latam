@@ -3,9 +3,9 @@ import Sidebar from "../ComponentsAdmin/SideBar/SideBar";
 import SalesCard from "../ComponentsAdmin/Statistics/SalesCard";
 import SalesStats from "../ComponentsAdmin/Statistics/SalesStats";
 import LineChart from "../ComponentsAdmin/Statistics/LineChart";
+import LineChartPrincipal from '../ComponentsAdmin/Statistics/LineChartPrincipal'
 import StylesAdmin from "./Statistics.module.css";
 import { useState } from "react";
-import NavbarAdmin from "../NavBarAdmin/NavbarAdmin";
 
 const Statistics = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -17,26 +17,30 @@ const Statistics = () => {
   return (
     <div className={StylesAdmin.containerAdmin}>
       <Sidebar />
-      <div
-        className={StylesAdmin.containerHomeAdmin}
-        style={{ marginLeft: isOpen ? "120px" : !isOpen && "60px" }}
-      >
-        <NavbarAdmin />
-        <div className={StylesAdmin.containerSuperior}></div>
-        <section className={StylesAdmin.containerProducts}>
+      <div className={StylesAdmin.containerStats}>
+        <section className={StylesAdmin.section}>
           <div className={StylesAdmin.cards}>
-            <SalesCard
-              totalSales={totalSales}
-              todaySales={todaySales}
-              monthSales={monthSales}
-            />
-          </div>
+                <h1 className={StylesAdmin.title}>Indicador comercial de ventas</h1>
+                <SalesCard
+                  totalSales={totalSales}
+                  todaySales={todaySales}
+                  monthSales={monthSales}
+                />
+          </div> 
           <div className={StylesAdmin.dona}>
-            <SalesStats />
+              <h1 className={StylesAdmin.title}>Ganancias totales</h1>
+              <SalesStats />
           </div>
-          <div className={StylesAdmin.lineal}>
-            <LineChart />
-          </div>
+        </section> 
+        <section className={StylesAdmin.section}>
+                <div className={StylesAdmin.linealDaily}>
+                  <h1 className={StylesAdmin.title}>Metrica diaria</h1>
+                  <LineChartPrincipal />
+                </div>
+                <div className={StylesAdmin.lineal}>
+                    <h1 className={StylesAdmin.title}>Metrica mensuales</h1>
+                    <LineChart />
+                </div>
         </section>
       </div>
     </div>

@@ -34,52 +34,29 @@ const DashboardAdmin = () => {
   return (
     <div className={StylesAdmin.containerAdmin}>
       <Sidebar />
-        {/* <Sidebar />
         <div className={StylesAdmin.containerHomeAdmin}>
+          <h1 className={StylesAdmin.mainTitle}>Panel del administrador</h1>   
           <div className={StylesAdmin.containerSuperior}>
-              <TopCards
-                totalUsers={totalUsers}
-                totalAdmins={totalAdmins}
-                totalProducts={totalProducts}
-              />
-          </div>
-          <div className={StylesAdmin.statSales}>
-              <SalesCard
-                totalSales={totalSales}
-                todaySales={todaySales}
-                monthSales={monthSales}
-              />
-              <SalesStats />
-          </div>
-          <LastOrders />
-          <div className={StylesAdmin.line}>
-          <LineChartPrincipal />
-          </div>
-          <LastAddedProducts></LastAddedProducts>
-        </div> */}
-       
-        <div className={StylesAdmin.containerHomeAdmin}>
-          
-          <div className={StylesAdmin.containerSuperior}>
+          <h1 className={StylesAdmin.title}>Metricas totales</h1>
             <TopCards
               totalUsers={totalUsers}
               totalAdmins={totalAdmins}
               totalProducts={totalProducts}
             />
           </div>
+          <div className={StylesAdmin.mainContainer}>
           <LastOrders />
           <div className={StylesAdmin.statSales}>
+          <h1 className={StylesAdmin.title}>Indicador comercial de ventas</h1>
             <SalesCard
               totalSales={totalSales}
               todaySales={todaySales}
               monthSales={monthSales}
             />
+            <h1 className={StylesAdmin.title}>Ganancias totales</h1>
             <SalesStats />
           </div>
-          <div className={StylesAdmin.line}>
-          <LineChartPrincipal />
           </div>
-          <LastAddedProducts />
       </div>
     </div>
   );

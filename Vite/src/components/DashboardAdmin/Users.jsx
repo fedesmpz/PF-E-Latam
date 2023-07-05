@@ -6,7 +6,6 @@ import StylesAdmin from "./DashboardAdmin.module.css"
 import { getUsers } from "../../redux/slice/userSlice";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import NavbarAdmin from '../NavBarAdmin/NavbarAdmin'
 
 const Users = () => {
   const dispatch = useDispatch();
@@ -29,11 +28,9 @@ const Users = () => {
   return (
     <div className={StylesAdmin.containerAdmin} >
       <Sidebar />
-      <div className={StylesAdmin.containerHomeAdmin} style={{ marginLeft: isOpen ? '120px' : (!isOpen && '60px') }}>
-      <NavbarAdmin/>
-        <div className={StylesAdmin.containerSuperior}>
-        </div>
-        <div className={StylesAdmin.containerProducts}>
+        <div className={StylesAdmin.containerUsers}>
+          <h1 className={StylesAdmin.title}>Usuarios</h1>  
+          <AllUsers currentUsers={paginatedUsers} />
           <TableUsers
             key="paginado"
             productsPerPage={usersPerPage}
@@ -41,9 +38,7 @@ const Users = () => {
             paginado={paginado}
             currentProducts={paginatedUsers}
           />
-          <AllUsers currentUsers={paginatedUsers} />
         </div>
-      </div>
     </div>
   )
 }

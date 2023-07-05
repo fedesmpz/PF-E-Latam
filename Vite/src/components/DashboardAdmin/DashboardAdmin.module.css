@@ -3,6 +3,11 @@
   display: inline-block;
 }
 
+.mainTitle {
+  font-size: 50px;
+  font-weight: 400;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
 .container button {
   background: none;
   border: none;
@@ -33,14 +38,13 @@
   display: flex;
   flex-direction: row;
   word-wrap: break-word;
-  background-color: whitesmoke;
+  background-color: #fff;
   background-clip: border-box;
   width: 100%;
   min-height: 100vh;
-  height: 100vh;
+  height: 140vh;
   max-height: 400vh;
   border: 0;
-  box-shadow: 0 10px 10px 20px #b0b8d617, 10px 10px 15px -5px #b0b8d6;
   overflow-x: hidden;
   overflow-y: hidden;
 }
@@ -51,13 +55,13 @@
   width: 100vw;
   align-items: center;
   justify-content: flex-start;
-  margin: 0px 20px;
 }
 
 .containerSuperior {
-  width: 100%;
-  height: 7rem;
-  margin: 20px;
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .containerProducts {
@@ -73,13 +77,20 @@
   margin-right: 4rem;
 }
 
-.statSales {
+.mainContainer {
   display: flex;
-  flex-direction: row;
-  height: 500px;
-  padding-top: 2rem;
+  width: 90vw;
+  flex-direction: row-reverse;
 }
 
+.statSales {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  height: 900px;
+  padding-top: 2rem;
+}
 
 .line {
   display: flex;
@@ -93,4 +104,22 @@
   margin-left: 1rem;
   background-color: rgb(255, 255, 255);
   margin-top: 1rem;
+}
+
+.processingOrders {
+  display: flex;
+  flex-direction: row;
+  width: 90vw;
+}
+
+.containerUsers {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  margin-top: 30px;
+}
+
+.title {
+  margin-bottom: 20px;
 }

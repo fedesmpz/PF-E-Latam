@@ -30,7 +30,7 @@ export const options = {
       min: 0,
     },
     x: {
-      ticks: { color: 'rgba(255, 99, 132)' },
+      ticks: { color: 'rgba(78, 85, 217)' },
     },
   },
   responsive: true,
@@ -72,8 +72,8 @@ const LineChart = () => {
       {
         label: 'Ventas',
         data,
-        borderColor: 'rgb(40, 4, 125)',
-        backgroundColor: 'rgba(40, 4, 125, 0.5)',
+        borderColor: 'rgb(78, 85, 217)',
+        backgroundColor: 'rgba(78, 85, 217, 0.5)',
       },
     ],
   };

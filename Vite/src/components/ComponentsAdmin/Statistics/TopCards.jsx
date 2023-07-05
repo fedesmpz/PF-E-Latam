@@ -17,22 +17,21 @@ const TopCards = () => {
   const allUsers = useSelector((state) => state.user.users);
   const totalAdmins = allUsers.filter((user) => user.admin).length;
   const allProducts = useSelector((state) => state.products.products);
-  const totalProductsCount = allProducts.length;
+  const totalProductsCount = allProducts[0].length + allProducts[1].length + allProducts[2].length;
 
   return (
     <div className={Styles.cardtop}>
-      <h3 className={Styles.coment}>Estadisticas</h3>
       <div className={Styles.division}>
-        <p>Total Usuarios:</p>
-        <span>{allUsers.length}</span>
+        <p className={Styles.title}>Usuarios</p>
+        <span className={Styles.title}>{allUsers.length}</span>
       </div>
       <div className={Styles.division}>
-        <p>Total Admins:</p>
-        <span>{totalAdmins}</span>
+        <p className={Styles.title}>Administradores</p>
+        <span className={Styles.title}>{totalAdmins}</span>
       </div>
       <div className={Styles.division}>
-        <p>Total Productos:</p>
-        <span>{totalProductsCount}</span>
+        <p className={Styles.title}>Productos</p>
+        <span className={Styles.title}>{totalProductsCount}</span>
       </div>
     </div>
   );

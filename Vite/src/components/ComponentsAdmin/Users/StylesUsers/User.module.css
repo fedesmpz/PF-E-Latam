@@ -1,4 +1,4 @@
-.container {
+/* .container {
   width: 90%;
   grid-column: span 1;
   position: relative;
@@ -6,65 +6,131 @@
   padding: 1rem;
   border: 1px;
   border-radius: 0.5rem;
-  background-color: #E6E7EB;
+  background-color: #3759e4;
   overflow: scroll;
   margin: 0.5rem;
+} */
+
+.allUsers {
+  /* justify-content: center;
+  align-items: center;
+  height: 80vh;
+  padding-right: 30px;
+  margin: 20px 30px 20px 0px;
+  border: 3px; */
+  display: flex;
+  width: 90vw;
+  margin: 10px 20px;
+  background-color: #4BBF68;
+  border-radius: 5px;
 }
 
+
 .order {
-  background-color: #fefffe;
-  width: 100%;
-  height: max-content;
   display: flex;
   align-items: center;
-  border-radius: 0.5rem;
-  margin-top: 0.75rem;
-  margin-bottom: 0.75rem;
-  padding: 0.5rem;
+  width: 100%;
+  height: max-content;
+  background-color: #fff;
+  border-radius: 5px;
+  margin: 10px;
+  padding: 10px;
+}
+
+.details {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: max-content;
+  background-color: transparent;
+  border-radius: 5px;
+  margin: 10px;
+  padding: 10px;
 }
 
 .order:hover {
-  background-color: #F9FAFC;
+  background-color: whitesmoke;
 }
 
 .faShop {
-  background-color: #1e1427;
-  border-radius: 0.5rem;
-  padding: 0.75rem;
+  border-radius: 50%;
+  width: 80px;
+  margin-left: 5px;
+}
+
+.faShop img {
+  height: 80px;
+  width: 80px;
+  object-fit: cover;
+  border: 2px solid #4BBF68;;
+  border-radius: 50%;
 }
 
 .textContainer {
   padding-left: 1rem;
 }
 
-.date {
+.textContainer .name {
+  padding-left: 1rem;
+  font-size: 18px;
+  text-transform: capitalize;
+  text-decoration: underline;
+}
+
+.textContainer .email {
+  padding-left: 1rem;
+  font-size: 18px;
+}
+
+.textContainer .country {
+  padding-left: 1rem;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.data {
   display: flex;
-  position: absolute;
-  right: 1.5rem;
-  font-size: 0.875rem;
+  justify-content: center;
 }
 
 .a {
-  display: flex;
-  align-items: center;
-  border-radius: 0.5rem;
   text-decoration: none;
-  color: #151414;
+  color: black;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #4BBF68;;
+  padding: 5px;
+  padding-bottom: 30px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 5px;
 }
 
-.a:hover {
-  background-color: rgb(96, 169, 246);
+.adminIcon {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #4BBF68;
+  padding: 20px;
+  font-size: 16px;
+  font-weight: bold;
+  margin-right: 5px;
+  border-radius: 5px;
 }
 
 .icon {
-  font-size: xx-large;
+  font-size: x-large;
 }
 
 .text {
   text-align: center;
   width: 100%;
   margin: 0.5rem;
-  font-size: 14px;
+ font-size: 16px;
   font-weight: bold;
 }
 

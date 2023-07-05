@@ -119,13 +119,11 @@ const TableSeller = ({ productsPerPage, products, paginado, currentPage }) => {
           </div>
         </div>
       )}
-
-      {
-        <div className={Styles.searchBar}>
+      
+        <div className={styles.searchBar}>
           <input type="search" placeholder="Busca tu producto" value={title} onChange={handleSearch} />
-          <button onClick={handlerClick} className={Styles.buttonBusqueda}>Buscar</button>
+          <button onClick={handlerClick} className={styles.button}>Buscar</button>
         </div>
-      }
 
       <ul className={styles.pagination}>
         <li>
