@@ -134,9 +134,6 @@ const PaymentComponent = () => {
   useEffect(() => {
     const isValid = (Object.keys(errors).length && Object.values(errors).every((error) => error === ""));
     setIsFormValid(isValid);
-    console.log(Object.keys(errors).length);
-    console.log(Object.keys(deliveryForm).length);
-    console.log(isValid);
   }, [errors, deliveryForm]);
 
   return (
