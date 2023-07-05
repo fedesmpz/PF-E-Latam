@@ -22,7 +22,8 @@ export const productSlice = createSlice({
     newSaleMessage: null,
     category: null,
     sales: [],
-    productById:[]
+    productById:[],
+    updateQuantity:null
   },
 
   reducers: {
@@ -219,6 +220,9 @@ export const productSlice = createSlice({
     },
     setFindProduct:(state,action)=>{
       state.productById=action.payload
+    },
+    setUpdateQuantityProduct:(state,action)=>{
+      state.updateQuantity = action.payload
     }
   },
 });
@@ -249,7 +253,8 @@ export const {
   setNewSaleMessage,
   filterProductsByCatalogListing,
   setSalesByUser,
-  setFindProduct
+  setFindProduct,
+  setUpdateQuantityProduct
 } = productSlice.actions;
 
 export default productSlice.reducer;
@@ -418,3 +423,13 @@ export const salesByUser = (email) => (dispatch) => {
     })
     .catch((error) => console.log(error))
 };
+
+export const updateQuantityProduct=(cartData)=> (dispatch)=>{
+  axios
+  .put(`https://pf-elatam.onrender.com/products/update`, cartData)
+  .then((response)=>{
+    dispatch(setUpdateQuantityProduct(response.data))
+
+  })
+  .catch((error)=>console.log(error))
+}

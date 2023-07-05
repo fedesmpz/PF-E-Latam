@@ -1,7 +1,7 @@
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { payProduct, cleanDetail } from '../../redux/slice/productSlice';
+import { payProduct, cleanDetail ,updateQuantityProduct} from '../../redux/slice/productSlice';
 import { deleteProductsFromCart } from '../../redux/slice/cartSlice'
 import { useEffect } from 'react';
 import styles from "./Stripe.module.css";
@@ -45,6 +45,14 @@ const Stripe = ({ sale, total }) => {
         setProducts_id(newProductsId);
     };
     const { removeAllItems } = useContext(CartContext);
+    const {cart}= useContext(CartContext)
+
+    const cartData = cart.map((product) => {
+        return {
+          id: product.id,
+          quantity: product.quantity
+        };
+      });
 
     useEffect(() => {
         const userInfo = JSON.parse(localStorage.getItem("user"));
@@ -74,7 +82,8 @@ const Stripe = ({ sale, total }) => {
         })
         if (!error) {
             const payment_method = paymentMethod.id
-            dispatch(payProduct({ ...info, payment_method, products_id, email }));
+            dispatch(payProduct({ ...info, payment_method, products_id, email }))
+            
         }
         setShowModalConfirm(true)
 
@@ -85,6 +94,7 @@ const Stripe = ({ sale, total }) => {
         setShowModalConfirm(false)
         if (saleMessage === "Muchas gracias por tu compra") {
             await dispatch(deleteProductsFromCart(cardId))
+            await dispatch(updateQuantityProduct(cartData))
             localStorage.setItem("cart", JSON.stringify([]))
             removeAllItems()
             navigate("/Home")
@@ -113,6 +123,9 @@ const Stripe = ({ sale, total }) => {
     if (saleMessage == "Your card was declined.") {
         saleMessage = "Pago rechazado, verifique sus datos e intente de nuevo"
     }
+
+
+
 
 
     return (
