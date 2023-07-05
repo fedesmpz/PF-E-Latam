@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect } from "react";
 import {
   Chart,
   CategoryScale,
@@ -8,10 +8,10 @@ import {
   Title,
   Tooltip,
   Legend,
-} from 'chart.js';
-import { Line } from 'react-chartjs-2';
-import { useSelector, useDispatch } from 'react-redux';
-import { axiosAllSales } from '../../../redux/slice/saleSlice';
+} from "chart.js";
+import { Line } from "react-chartjs-2";
+import { useSelector, useDispatch } from "react-redux";
+import { axiosAllSales } from "../../../redux/slice/saleSlice";
 
 Chart.register(
   CategoryScale,
@@ -29,13 +29,13 @@ export const options = {
       min: 0,
     },
     x: {
-      ticks: { color: 'rgba(255, 99, 132)' },
+      ticks: { color: "rgba(255, 99, 132)" },
     },
   },
   responsive: true,
   plugins: {
     legend: {
-      position: 'top',
+      position: "top",
     },
   },
 };
@@ -63,10 +63,20 @@ const LineChart = () => {
   };
 
   const allMonths = [
-    'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
-    'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
+    "Enero",
+    "Febrero",
+    "Marzo",
+    "Abril",
+    "Mayo",
+    "Junio",
+    "Julio",
+    "Agosto",
+    "Septiembre",
+    "Octubre",
+    "Noviembre",
+    "Diciembre",
   ];
-  
+
   const groupedSales = groupSalesByMonth();
   const data = allMonths.map((month, index) => groupedSales[index] || 0);
 
@@ -74,17 +84,15 @@ const LineChart = () => {
     labels: allMonths,
     datasets: [
       {
-        label: 'Ventas',
+        label: "Ventas",
         data,
-        borderColor: 'rgb(40, 4, 125)',
-        backgroundColor: 'rgba(40, 4, 125, 0.5)',
+        borderColor: "rgb(40, 4, 125)",
+        backgroundColor: "rgba(40, 4, 125, 0.5)",
       },
     ],
   };
 
-  return (
-      <Line options={options} data={chartData} />
-  );
+  return <Line options={options} data={chartData} />;
 };
 
 export default LineChart;
