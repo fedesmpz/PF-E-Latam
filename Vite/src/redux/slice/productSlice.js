@@ -23,7 +23,8 @@ export const productSlice = createSlice({
     category: null,
     sales: [],
     productById:[],
-    updateQuantity:null
+    updateQuantity:null,
+    allReviewById:[]
   },
 
   reducers: {
@@ -223,6 +224,9 @@ export const productSlice = createSlice({
     },
     setUpdateQuantityProduct:(state,action)=>{
       state.updateQuantity = action.payload
+    },
+    setAllReviewById:(state,action)=>{
+      state.allReviewById= action.payload
     }
   },
 });
@@ -254,7 +258,8 @@ export const {
   filterProductsByCatalogListing,
   setSalesByUser,
   setFindProduct,
-  setUpdateQuantityProduct
+  setUpdateQuantityProduct,
+  setAllReviewById
 } = productSlice.actions;
 
 export default productSlice.reducer;
@@ -430,6 +435,15 @@ export const updateQuantityProduct=(cartData)=> (dispatch)=>{
   .then((response)=>{
     dispatch(setUpdateQuantityProduct(response.data))
 
+  })
+  .catch((error)=>console.log(error))
+}
+
+export const allReviewById= (id)=>(dispatch)=>{
+  axios
+  .get(`https://pf-elatam.onrender.com/reviews/reviewId/?id=${id}`)
+  .then((response)=>{
+    dispatch(setAllReviewById(response.data))
   })
   .catch((error)=>console.log(error))
 }
