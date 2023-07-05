@@ -6,9 +6,7 @@ import { axiosAllProductsByCountries } from "../../redux/slice/productSlice"
 import StylesAdmin from "./Products.module.css"
 import TableSeller from '../ComponentsAdmin/ProductsSeller/TableSeller'
 import AllProductsSellers from '../ComponentsAdmin/ProductsSeller/AllProductsSellers'
-import NavbarAdmin from '../NavBarAdmin/NavbarAdmin'
 import { Link } from 'react-router-dom';
-import StylesButton from '../NavBarAdmin/NavbarAdmin.module.css'
 
 
 
@@ -46,7 +44,7 @@ const Products = () => {
   return (
     <div className={StylesAdmin.containerAdmin} >
       <Sidebar />
-      <div className={StylesAdmin.containerHomeAdmin} style={{ marginLeft: isOpen ? '120px' : (!isOpen && '60px') }}>
+      <div className={StylesAdmin.containerHomeAdmin}>
         <div className={StylesAdmin.containerProducts}>
         <div className={StylesAdmin.containerSuperior}>
           <TableSeller
@@ -56,7 +54,7 @@ const Products = () => {
             paginado={paginado}
             currentProducts={paginatedProducts}
           />
-        <Link className={StylesButton.button} to="/CreateProduct">Nuevo</Link>
+        <Link className={StylesAdmin.button} to="/CreateProduct">Nuevo</Link>
         </div>
           <AllProductsSellers currentProducts={paginatedProducts} />
         </div>

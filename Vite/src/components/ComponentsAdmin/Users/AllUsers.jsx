@@ -3,7 +3,6 @@ import Styles from "../Products/StylesProducts/AllProductsAdmin.module.css";
 
 const AllUsers = ({ currentUsers }) => {
    return (
-    <div className={Styles.container}>
     <ul>
         {currentUsers.map(
         ({
@@ -38,7 +37,6 @@ const AllUsers = ({ currentUsers }) => {
         )
         )}
     </ul>
-    </div>
 );
 };
 

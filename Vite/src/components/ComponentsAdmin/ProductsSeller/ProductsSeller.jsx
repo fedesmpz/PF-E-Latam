@@ -46,9 +46,9 @@ const ProductsSeller = ({
         />
       </div>
       <div className={Style.textContainer}>
-        <p className="text-gray-800 font-bold">{shortenTitle(title)}</p>
-        <p className="text-gray-400 text-sm">{categories}</p>
-        <p className="text-gray-400 text-sm">$ {price}</p>
+        <p className={Style.textTitle}>{shortenTitle(title)}</p>
+        <p className={Style.textCategory}>{categories}</p>
+        <p className={Style.textPrice}>$ {price}</p>
       </div>
       <p className={Styles.date}>
         <p className={Styles.vemos}>

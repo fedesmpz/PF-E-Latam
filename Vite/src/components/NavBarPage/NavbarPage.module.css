@@ -1,11 +1,10 @@
-
-
+/* 
   .header{
     position: sticky;
     z-index: 30;
     top: 0;
-  }
-  .navv{
+  } */
+  /* .navv{
     display: flex;
     padding: 5px;
     justify-content: space-around;
@@ -13,8 +12,10 @@
     width: 100%;
     height: 6rem;
     border-bottom: solid 1px #ddd;
-    background-color: whitesmoke;
-  }
+    background-color: rgb(46, 20, 150);
+  } */
+
+  
   .nav__menu-bar{
     display: flex;
     flex-direction: column;

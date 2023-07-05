@@ -34,7 +34,6 @@ const SalesCard = () => {
 
   return (
     <div className={Styles.card}>
-      <h3>Estadisticas de ventas</h3>
       <div>
         <p>Total Ventas:</p>
         <span>{totalSales}</span>
