@@ -120,7 +120,7 @@ function Example() {
    
     const user = {
       userId: response.data.userId,
-      name: result.user.displayName,
+      name: response.data.name,
       surname: response.data.surname,
       email: result.user.email,
       access: response.data.access,
@@ -137,12 +137,9 @@ function Example() {
 
 
         const token = await axios.post('https://pf-elatam.onrender.com/users/getToken', user)
-        const userStorage = {
-          ...user,
-          profile_picture: response.data.profile_picture,
-        }
+  
         localStorage.setItem("token", JSON.stringify(token.data))
-        localStorage.setItem("user", JSON.stringify(userStorage))
+        localStorage.setItem("user", JSON.stringify(user))
         
         if(response.data.access && location.pathname === '/'){
          navigate('/Home')

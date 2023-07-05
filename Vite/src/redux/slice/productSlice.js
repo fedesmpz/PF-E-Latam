@@ -390,7 +390,7 @@ export const findProduct = (productId) => (dispatch) => {
 
 export const salesByUser = (email) => (dispatch) => {
   axios
-    .get(`hhttps://pf-elatam.onrender.com/sales/search/?email=${email}`)
+    .get(`https://pf-elatam.onrender.com/sales/search/?email=${email}`)
     .then((response) => {
       dispatch(setSalesByUser(response.data))
 
