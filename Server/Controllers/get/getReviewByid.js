@@ -7,7 +7,7 @@ const getReviewById = async (id) => {
       const review = await Review_Rating.findAll({
         where:{userId:id}
       });
-      console.log("esta es la review:",review)
+
       if (!review) {
         throw new Error('No se pudo encontrar la reseña por ID');
       }

@@ -171,9 +171,9 @@ export const updateUser = (userId, userData) => async (dispatch) => {
     localStorage.setItem("user", JSON.stringify(response.data))
     localStorage.setItem("token", JSON.stringify(token.data))
     dispatch(updateUserDetails(response.data))
-    console.log("Este es el usuario actualizado", response.data)
+
   } catch (error) {
-    console.log(error)
+
     dispatch(updateUserFailure(error.message));
   }
 };
@@ -181,7 +181,7 @@ export const updateDataUser = (userId, userInfo) => async (dispatch) => {
   try {
     const response = await axios.put(`https://pf-elatam.onrender.com/users/update/${userId}`, userInfo);
   } catch (error) {
-    console.log(error)
+   
     dispatch(updateUserFailure(error.message));
   }
 }

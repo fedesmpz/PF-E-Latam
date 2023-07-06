@@ -380,7 +380,7 @@ export const payProduct = (payload) => (dispatch) => {
   axios
     .post(`https://pf-elatam.onrender.com/checkout`, payload)
     .then((response) => {
-      console.log(response.data)
+
       dispatch(setNewSaleMessage(response.data))
       dispatch(setpayProduct(response.data));
     })

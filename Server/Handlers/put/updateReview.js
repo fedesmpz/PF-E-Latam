@@ -5,7 +5,7 @@ const putReviewHandler = async (req, res) => {
     const {reviewID} = req.params
     const {rating,review_description} = req.body; 
  
-     console.log(reviewID,rating,review_description)
+
     const result = await updateReview(reviewID,rating,review_description);
    
     res.status(200).json(result);
