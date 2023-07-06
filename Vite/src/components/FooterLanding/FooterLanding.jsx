@@ -21,15 +21,13 @@ const FooterLanding = () => {
                                 <img
                                     className={styles2.logoE}
                                     src="assets/e-world.png"
-                                    width={100}
-                                    height={100}
+                                   
                                     alt="Animación1"
                                 />
                                 <img
                                     className={styles2.logoLam}
                                     src="assets/latam-store.png"
-                                    width={100}
-                                    height={100}
+                                
                                     alt="Animación2"
                                 />
                             </div>
@@ -64,14 +62,8 @@ const FooterLanding = () => {
                         <Link className={styles.link} to="/Home">
                             <span>Home</span>
                         </Link>
-                        {/* <ModalInfoSends />
-                        <ModalComoComprar />
-                        <ModalPolitics />
-                        <Link className={styles.link} to="/Home">
-                            <span>Contáctenos</span>
-                        </Link> */}
                         <Link className={styles.link} to="/About">
-                            <span>About</span>
+                            <span>Sobre Nosotros</span>
                         </Link>
                     </div>
                 </div>
