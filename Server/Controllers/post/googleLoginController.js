@@ -46,7 +46,7 @@ const googleLoginController= async(user)=>{
       //}
     } catch (error) {
         await transaction.rollback();
-        console.log(error.message);
+
         return error.message;
     }
 

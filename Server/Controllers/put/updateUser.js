@@ -64,7 +64,7 @@ try {
 
     return userReturned
 } catch (error) {
-    console.log(error)
+
     throw error;
 }
  
@@ -84,7 +84,7 @@ const updateUserImage = async (id, image) =>{
         return profile_picture
 
     }catch (error){
-        console.log(error.message);
+
         return {error};
     }
 

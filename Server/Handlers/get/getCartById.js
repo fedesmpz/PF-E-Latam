@@ -6,7 +6,7 @@ const getCartByIdHandler = async(req, res) => {
         const cart = await getCartById(cartId)
         res.status(200).json(cart)
     } catch(error) {
-        console.log(error);
+
         res.status(400).json({ error: error.message })
     }
 }

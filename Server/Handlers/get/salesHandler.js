@@ -27,4 +27,6 @@ const getAllSalesHandler= async(req, res)=>{
 module.exports={
     salesHandler,
     getAllSalesHandler
+
 }
+
