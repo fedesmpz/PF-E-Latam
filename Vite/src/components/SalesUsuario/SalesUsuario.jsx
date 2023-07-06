@@ -90,7 +90,7 @@ const SalesUsuario = () => {
             <h3 className={Styles.saleInfo}>
               Fecha de compra: {new Date(sale?.updatedAt).toLocaleString()}
             </h3>
-            <p className={Styles.saleInfo}>Precio total de la compra: ${sale?.total_price}</p>
+            <p className={Styles.saleInfo}>Precio total de la compra: ${sale?.total_price/100}</p>
             <div className={Styles.productList}>
               {sale.products?.map((product, index) => (
                 <div className={Styles.reviewContainer} key={index}>
