@@ -38,8 +38,8 @@ const ProcessOrders = ({ onSaleDelete }) => {
               <p className='text-gray-800 font-bold'>${sale.total_price / 100}</p>
               <p className='text-gray-400 text-sm'>{sale.user_id}</p>
               <p className={Styles.date}>{moment(sale.updatedAt).format('YYYY-MM-DD HH:mm')}</p>
-            <button onClick={() => handleDelete(id)} className={Styles.deleteButton}>
-              procesar
+            <button onClick={() => handleDelete(id)} className={Styles.button}>
+              Procesar
             </button>
             </div>
           </li>
