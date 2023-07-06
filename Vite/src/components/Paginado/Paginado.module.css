@@ -11,9 +11,9 @@
   }
   
   .pageButton {
-    background-color: #b1aeae;
-    color: #170202;
-    border: none;
+    background-color:  #ffffffc1;
+    color: #000000;
+    border:1px solid  #4E55D9;
     border-radius: 4px;
     padding: 12px 16px;
     margin: 2px;
@@ -23,6 +23,6 @@
   }
   
   .activePageButton {
-    background-color: #3c3b3b;
+    background-color:  #4E55D9;
     color: #fff;
   }

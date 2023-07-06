@@ -70,7 +70,7 @@
 }
 
 .link:hover {
-  color: #4BBF68; /* Puedes ajustar el color a tu preferencia */
+  color: #000000; /* Puedes ajustar el color a tu preferencia */
 }
 
 .icon {
@@ -80,7 +80,7 @@
 }
 
 .icon:hover {
-  color: #4BBF68; /* Puedes ajustar el color a tu preferencia */
+  color:#0c0c0cb9; /* Puedes ajustar el color a tu preferencia */
 }
 
 .marginBottom20 {

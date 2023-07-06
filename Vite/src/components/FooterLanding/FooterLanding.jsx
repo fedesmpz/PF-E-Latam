@@ -21,15 +21,13 @@ const FooterLanding = () => {
                                 <img
                                     className={styles2.logoE}
                                     src="assets/e-world.png"
-                                    width={100}
-                                    height={100}
+                                   
                                     alt="Animación1"
                                 />
                                 <img
                                     className={styles2.logoLam}
                                     src="assets/latam-store.png"
-                                    width={100}
-                                    height={100}
+                                
                                     alt="Animación2"
                                 />
                             </div>
