@@ -26,27 +26,27 @@ const CarouselHero = () => {
             alt="Second slide"
           />
         </Carousel.Item>
-        <Carousel.Item className={styles.indexInZ} >
+        {/* <Carousel.Item className={styles.indexInZ} >
           <img
             className="d-block w-100"
             src="images/imagenes_hero/3.png"
             alt="Third slide"
           />
-        </Carousel.Item>
-        <Carousel.Item className={styles.indexInZ} >
+        </Carousel.Item> */}
+        {/* <Carousel.Item className={styles.indexInZ} >
           <img
             className="d-block w-100"
             src="images/imagenes_hero/4.png"
             alt="Third slide"
           />
-        </Carousel.Item>
-        <Carousel.Item className={styles.indexInZ} >
+        </Carousel.Item> */}
+        {/* <Carousel.Item className={styles.indexInZ} >
           <img
             className="d-block w-100"
             src="images/imagenes_hero/5.png"
             alt="Third slide"
           />
-        </Carousel.Item>
+        </Carousel.Item> */}
       </Carousel>
     </div>
   );
