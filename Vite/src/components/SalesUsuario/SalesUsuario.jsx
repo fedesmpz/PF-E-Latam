@@ -48,18 +48,18 @@ const SalesUsuario = () => {
   console.log(productList);
   return (
     <div className={Styles.container}>
-      <h2 className={Styles.titleSales}>Tu historial de compras:</h2>
-      <div className={Styles.productContainer}>
-        {productList?.map((product, index) => (
+      <h2 className={Styles.title}>Mis compras</h2>
+      <div>
+        {productList && productList?.map((product, index) => (
           product.error !== 'No se pudo encontrar el producto'
             ?
-            <div className={Styles.product_resume} key={index}>
+            <div className={Styles.reviewContainer} key={index}>
               <img className={Styles.image} src={product?.thumbnail} alt={product?.title} />
               <div className={Styles.dataContainer}>
-                <p>{product?.title}</p>
+                <p className={Styles.productTitle}>{product?.title}</p>
                 {product?.original_price ?
                   (
-                    <h3> Precio: <strong>${product?.original_price}</strong></h3>
+                    <h3 className={Styles.price}>${product?.original_price}</h3>
                   ) : (
                     null
                   )
