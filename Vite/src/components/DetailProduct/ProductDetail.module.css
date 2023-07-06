@@ -72,6 +72,7 @@ button.backButton:hover svg {
   list-style-type: none;
   margin: 0;
   padding: 0;
+  max-width: 90%;
 }
 
 .attribute {

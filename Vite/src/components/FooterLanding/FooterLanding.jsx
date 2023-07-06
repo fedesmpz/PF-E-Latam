@@ -64,14 +64,8 @@ const FooterLanding = () => {
                         <Link className={styles.link} to="/Home">
                             <span>Home</span>
                         </Link>
-                        {/* <ModalInfoSends />
-                        <ModalComoComprar />
-                        <ModalPolitics />
-                        <Link className={styles.link} to="/Home">
-                            <span>Contáctenos</span>
-                        </Link> */}
                         <Link className={styles.link} to="/About">
-                            <span>About</span>
+                            <span>Sobre Nosotros</span>
                         </Link>
                     </div>
                 </div>
