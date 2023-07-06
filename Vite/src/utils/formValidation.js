@@ -130,13 +130,13 @@ const validation = (prop, value, errors, setErrors) => {
 
 //------------------------------------------------------------------------
     if (prop === "thumbnail") {
-        console.log(value)
+
         if (!allowedTypes.includes(value?.type)) {
             setErrors({
                 ...errors,
                 [prop]: "Tipo de archivo invalido",
               });
-            console.log(errors)
+
         } 
         if (!value) {
             setErrors({

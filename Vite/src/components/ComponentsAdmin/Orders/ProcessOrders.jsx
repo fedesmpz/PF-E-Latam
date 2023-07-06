@@ -45,7 +45,7 @@ const ProcessOrders = ({ onSaleDelete }) => {
           </li>
         ))}
       </ul>
-        {console.log(deletedSales)};
+     
       {deletedSales.length > 0 && <AllOrders deletedSales={deletedSales} />}
     </div>
   );

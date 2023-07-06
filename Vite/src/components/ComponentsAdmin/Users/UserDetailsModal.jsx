@@ -59,8 +59,7 @@ const UserDetailsModal = ({
       dispatch(updateDataUser(userId, userData))
         .then(() => {
           alert('Estado de admin actualizado en la base de datos');
-          console.log(userData);
-          console.log(userId);
+  
         })
         .catch(error => {
           console.error('Error al actualizar el estado de admin en la base de datos:', error);

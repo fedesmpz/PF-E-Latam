@@ -2,7 +2,7 @@ const { ReviewRating } = require("../../db");
 
 const updateReview = async (reviewID, rating,review_description) => {
   try {
-    console.log("esta es la  "+reviewID)
+
     const review = await ReviewRating.findByPk(reviewID);
 
     if (!review) {
