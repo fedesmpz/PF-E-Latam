@@ -34,7 +34,7 @@
     justify-content: center;
     align-items: center;
     background-color: transparent;
-    color: #4BBF68;
+    color: #4E55D9;
     border: none;
     padding: 0;
     width: 80px;
@@ -47,7 +47,7 @@
   display: block;
   width: 30px;
   height: 2px;
-  background-color: #4BBF68;
+  background-color: #4E55D9;
   margin-bottom: 5px;
   transition: transform 0.3s ease;
 }
@@ -68,7 +68,7 @@
 .select {
     font-size: 16px;
     border: 1px solid #ccc;
-    background-color: #ccc;
+    background-color: #ffffff;
     color: black;
     border-radius: 4px;
     width: 200px;
@@ -80,5 +80,5 @@
     margin-bottom: 5px;
     font-size: 16px;
     font-weight: 500;
-    color:  #4BBF68
+    color:  #4E55D9
 }
