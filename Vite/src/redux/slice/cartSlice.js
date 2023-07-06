@@ -79,7 +79,7 @@ export const deleteProductsFromCart = (cartId) => async (dispatch) => {
     // const response = await axios.delete(`http://localhost:8000/carts/${cartId}/products`);
     const response = await axios.delete(`https://pf-elatam.onrender.com/carts/${cartId}/products`);
     dispatch(setSuccessMessage(response.data));
-    console.log(response.data)
+
   } catch (error) {
     dispatch(setErrorMessage(error.message));
   }

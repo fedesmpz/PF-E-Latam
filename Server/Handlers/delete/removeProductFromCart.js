@@ -6,7 +6,7 @@ const removeProductFromCartHandler = async(req, res) => {
         const removedProduct = await removeProductFromCart(cartId, productId)
         res.status(200).json(removedProduct)
     } catch(error) {
-        console.log(error);
+
         res.status(400).json({ error: error.message })
     }
 }

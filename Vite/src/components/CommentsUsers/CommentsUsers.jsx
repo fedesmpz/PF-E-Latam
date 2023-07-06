@@ -17,7 +17,7 @@ const CommentsUsers = () => {
   useEffect(() => {
     dispatch(getAllReviewsForProduct(productId));
   }, [dispatch])
-  console.log(reviews);
+
   return (
     <div >
       <div className={Styles.centerContainer}>

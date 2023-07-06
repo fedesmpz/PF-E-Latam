@@ -10,7 +10,7 @@ const getByCountryHandler = async(req, res) => {
             return res.status(404).json({ error: "Page not found" })
         }
     } catch(error) {
-        console.log(error)
+
         return res.status(400).json({ error: error.message })
     }
 }

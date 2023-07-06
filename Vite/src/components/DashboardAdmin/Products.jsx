@@ -30,7 +30,7 @@ const Products = () => {
     indexOfFirstProduct,
     indexOfLastProduct
   );
-  console.log(currentProducts);
+
   const [orden, setOrden] = useState('');
   const paginado = (pageNumber) => {
     setCurrentPage(pageNumber);

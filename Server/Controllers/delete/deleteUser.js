@@ -16,7 +16,7 @@ const deleteUser = async (id) => {
 
     return id;
   } catch (error) {
-    console.log(error)
+
     throw new Error("Error al eliminar el usuario");
   }
 };

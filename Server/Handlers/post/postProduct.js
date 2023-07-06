@@ -10,7 +10,7 @@ const postProductHandler = async(req, res) => {
             const uploadResponse = await cloudinary.uploader.upload(uri, {
                 upload_preset: "products-thumbnails"
             })
-            console.log(uploadResponse)
+
             if(uploadResponse) {
                 const id = createId(country)
                 const thumbnail = uploadResponse.url

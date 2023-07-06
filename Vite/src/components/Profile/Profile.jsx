@@ -79,10 +79,10 @@ const Profile = () => {
     
 
     const handleProductThumbnailUpload = (event) => {
-        // console.log(event.target.files);
+
         const prop = event.target.name
         const file = event.target.files[0];
-        // console.log(file);
+ 
         transformFile(file)
     }
 
